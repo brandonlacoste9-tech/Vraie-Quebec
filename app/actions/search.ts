@@ -8,7 +8,7 @@ const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env
 
 export async function searchVenuesAction(query: string, language: "FR" | "EN" = "FR") {
   if (!query || query.trim().length === 0) {
-    return { venues: [], summary: "" }
+    return { venueIds: [], summary: "" }
   }
 
   const { data: venues } = await supabase
@@ -16,7 +16,7 @@ export async function searchVenuesAction(query: string, language: "FR" | "EN" = 
     .select("id, name, category, description, tags, location, price")
 
   if (!venues) {
-    return { venues: [], summary: "Erreur de base de données." }
+    return { venueIds: [], summary: "Erreur de base de données." }
   }
 
   // Use AI to filter and rank venues based on the slang/natural language query

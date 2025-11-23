@@ -7,15 +7,17 @@ const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: { q: string }
+  searchParams: Promise<{ q: string }> // searchParams is a Promise in Next.js 15+
 }) {
-  const query = searchParams.q || ""
+  const { q } = await searchParams // await searchParams
+  const query = q || ""
   // Default to FR for now, usually passed via cookie or context but server components are tricky with context
   // For Vrai Quebec, FR is the soul.
   const { venueIds, summary } = await searchVenuesAction(query, "FR")
 
   let venues: any[] = []
-  if (venueIds.length > 0) {
+  if (venueIds && venueIds.length > 0) {
+    // check if venueIds exists just in case
     try {
       const { data, error } = await supabase.from("venues").select("*").in("id", venueIds)
       if (data) {
