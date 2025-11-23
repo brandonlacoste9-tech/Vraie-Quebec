@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Oswald } from "next/font/google"
+
 import { Analytics } from "@vercel/analytics/react"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -9,6 +9,10 @@ import { RGBBorder } from "@/components/rgb-border" // importing the new compone
 import { RGBProvider } from "@/components/rgb-provider" // imported RGBProvider
 import { AmbientOrbs } from "@/components/ambient-orbs" // importing AmbientOrbs
 import "./globals.css"
+import { Inter, Oswald, Abel as V0_Font_Abel } from 'next/font/google'
+
+// Initialize fonts
+const _abel = V0_Font_Abel({ subsets: ['latin'], weight: ["400"] })
 
 const inter = Inter({
   subsets: ["latin"],

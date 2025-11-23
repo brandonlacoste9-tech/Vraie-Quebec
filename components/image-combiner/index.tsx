@@ -18,10 +18,12 @@ import { GlobalDropZone } from "./global-drop-zone"
 import { FullscreenViewer } from "./fullscreen-viewer"
 import { Skeleton } from "@/components/ui/skeleton"
 import { ApiKeyWarning } from "@/components/api-key-warning"
+import { useUserIdentity } from "@/hooks/use-user-identity" // Import hook
 
 const MemoizedDithering = memo(Dithering)
 
 export function ImageCombiner() {
+  const userId = useUserIdentity() // Get user ID
   const isMobile = useMobile()
   const [prompt, setPrompt] = useState("A beautiful landscape with mountains and a lake at sunset")
   const [useUrls, setUseUrls] = useState(false)
@@ -98,6 +100,7 @@ export function ImageCombiner() {
     onImageUpload: handleImageUpload,
     onOutOfCredits: () => {},
     onApiKeyMissing: () => setApiKeyMissing(true),
+    userId, // Pass userId to hook
   })
 
   const selectedGeneration = persistedGenerations.find((g) => g.id === selectedGenerationId) || persistedGenerations[0]

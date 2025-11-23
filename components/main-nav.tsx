@@ -213,6 +213,44 @@ export function MainNav() {
             <div className="flex justify-between items-center mb-4">
               <div className="flex gap-2">
                 <ThemeToggle />
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-white">
+                      <Settings2 className="h-[1.2rem] w-[1.2rem]" />
+                      <span className="sr-only">RGB Controls</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuLabel>RGB Effect (Border)</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => setMode("rainbow")} className="flex justify-between">
+                      Rainbow Spin {mode === "rainbow" && "✓"}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setMode("cycle")} className="flex justify-between">
+                      Color Cycle {mode === "cycle" && "✓"}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setMode("breathing")} className="flex justify-between">
+                      Breathing {mode === "breathing" && "✓"}
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => setMode("off")} className="text-red-500">
+                      Border Off
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel>Text Effect (Headings)</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => setTextMode("normal")} className="flex justify-between">
+                      Normal {textMode === "normal" && "✓"}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTextMode("rainbow")} className="flex justify-between">
+                      Rainbow Gradient {textMode === "rainbow" && "✓"}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTextMode("cycle")} className="flex justify-between">
+                      Color Cycle {textMode === "cycle" && "✓"}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
               <div className="flex items-center gap-2">
                 <Globe className="h-4 w-4 text-muted-foreground" />

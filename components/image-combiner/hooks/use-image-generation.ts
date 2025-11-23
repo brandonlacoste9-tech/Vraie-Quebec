@@ -19,6 +19,7 @@ interface UseImageGenerationProps {
   onToast: (message: string, type?: "success" | "error") => void
   onImageUpload: (file: File, imageNumber: 1 | 2) => Promise<void>
   onApiKeyMissing?: () => void
+  userId?: string // Add userId prop
 }
 
 interface GenerateImageOptions {
@@ -29,6 +30,8 @@ interface GenerateImageOptions {
   image1Url?: string
   image2Url?: string
   useUrls?: boolean
+  onApiKeyMissing?: () => void
+  userId?: string // Destructure userId
 }
 
 const playSuccessSound = () => {
@@ -67,6 +70,7 @@ export function useImageGeneration({
   onToast,
   onImageUpload,
   onApiKeyMissing,
+  userId,
 }: UseImageGenerationProps) {
   const [selectedGenerationId, setSelectedGenerationId] = useState<string | null>(null)
   const [imageLoaded, setImageLoaded] = useState(false)
@@ -95,6 +99,7 @@ export function useImageGeneration({
     const effectiveImage1Url = options?.image1Url !== undefined ? options.image1Url : image1Url
     const effectiveImage2Url = options?.image2Url !== undefined ? options.image2Url : image2Url
     const effectiveUseUrls = options?.useUrls !== undefined ? options.useUrls : useUrls
+    const effectiveUserId = options?.userId !== undefined ? options.userId : userId
 
     const hasImages = effectiveUseUrls ? effectiveImage1Url || effectiveImage2Url : effectiveImage1 || effectiveImage2
     const currentMode = hasImages ? "image-editing" : "text-to-image"
@@ -185,6 +190,9 @@ export function useImageGeneration({
 
           const response = await fetch("/api/generate-image", {
             method: "POST",
+            headers: {
+              "x-user-email": effectiveUserId || "guest@example.com", // Pass userId in headers
+            },
             body: formData,
             signal: controller.signal,
           })

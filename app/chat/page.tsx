@@ -12,16 +12,17 @@ import { useEffect, useRef, useState } from "react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import Link from "next/link"
 import { UsageIndicator } from "@/components/usage-indicator"
+import { useUserIdentity } from "@/hooks/use-user-identity" // Import hook
 
 export default function ChatPage() {
-  const [userEmail, setUserEmail] = useState("guest@example.com")
+  const userId = useUserIdentity() // Use the hook to get unique ID
   const [limitReached, setLimitReached] = useState(false)
   const [limitMessage, setLimitMessage] = useState("")
   const [inputValue, setInputValue] = useState("")
 
   const { messages, append, isLoading } = useChat({
     headers: {
-      "x-user-email": userEmail,
+      "x-user-email": userId || "guest@example.com", // Use unique ID instead of static guest email
     },
     onError: (err) => {
       try {

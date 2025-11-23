@@ -2,6 +2,6 @@
 
 import { getOrCreateSubscription, type Subscription } from "@/lib/subscription"
 
-export async function getSubscriptionStatus(email = "guest@example.com"): Promise<Subscription | null> {
-  return await getOrCreateSubscription(email)
+export async function getSubscriptionStatus(email?: string): Promise<Subscription | null> {
+  return await getOrCreateSubscription(email || "guest@example.com")
 }

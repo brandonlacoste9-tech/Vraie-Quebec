@@ -7,15 +7,19 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Loader2, Clock, MessageSquare, ImageIcon } from "lucide-react"
 import Link from "next/link"
+import { useUserIdentity } from "@/hooks/use-user-identity" // Import hook
 
 export function UsageIndicator({ type = "all" }: { type?: "message" | "image" | "all" }) {
+  const userId = useUserIdentity() // Use hook
   const [subscription, setSubscription] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    if (!userId) return // Wait for userId
+
     async function fetchStatus() {
       try {
-        const sub = await getSubscriptionStatus()
+        const sub = await getSubscriptionStatus(userId) // Pass userId to action
         setSubscription(sub)
       } catch (error) {
         console.error("Failed to fetch subscription", error)
@@ -24,7 +28,7 @@ export function UsageIndicator({ type = "all" }: { type?: "message" | "image" | 
       }
     }
     fetchStatus()
-  }, [])
+  }, [userId]) // Add userId dependency
 
   if (loading) return <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
   if (!subscription) return null

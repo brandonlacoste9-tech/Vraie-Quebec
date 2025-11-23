@@ -27,7 +27,7 @@ export async function getOrCreateSubscription(email: string): Promise<Subscripti
     .from("subscriptions")
     .select("*")
     .eq("user_email", email)
-    .single()
+    .maybeSingle()
 
   if (existing) {
     return existing as Subscription
@@ -46,7 +46,7 @@ export async function getOrCreateSubscription(email: string): Promise<Subscripti
       images_used: 0,
     })
     .select()
-    .single()
+    .maybeSingle()
 
   if (createError) {
     console.error("Error creating subscription:", createError)
