@@ -72,6 +72,21 @@ type Translations = {
       shareOn: string
       download: string
     }
+    agenda: {
+      title: string
+      subtitle: string
+      filterAll: string
+      filterMusic: string
+      filterArts: string
+      filterNightlife: string
+      filterFood: string
+      date: string
+      location: string
+      price: string
+      buyTickets: string
+      soldOut: string
+      featured: string
+    }
   }
 }
 
@@ -152,6 +167,21 @@ const translations: Translations = {
       shareOn: "Partager sur",
       download: "Télécharger l'image",
     },
+    agenda: {
+      title: "L'AGENDA VRAI",
+      subtitle: "Les événements incontournables à Québec et Montréal. Festivals, shows, et nightlife.",
+      filterAll: "Tous",
+      filterMusic: "Musique",
+      filterArts: "Arts",
+      filterNightlife: "Nightlife",
+      filterFood: "Bouffe",
+      date: "Date",
+      location: "Lieu",
+      price: "Prix",
+      buyTickets: "Billets",
+      soldOut: "Complet",
+      featured: "À ne pas manquer",
+    },
   },
   EN: {
     nav: {
@@ -219,6 +249,21 @@ const translations: Translations = {
       copied: "Copied!",
       shareOn: "Share on",
       download: "Download image",
+    },
+    agenda: {
+      title: "THE TRUE AGENDA",
+      subtitle: "Unmissable events in Quebec and Montreal. Festivals, shows, and nightlife.",
+      filterAll: "All",
+      filterMusic: "Music",
+      filterArts: "Arts",
+      filterNightlife: "Nightlife",
+      filterFood: "Food",
+      date: "Date",
+      location: "Location",
+      price: "Price",
+      buyTickets: "Get Tickets",
+      soldOut: "Sold Out",
+      featured: "Must See",
     },
   },
 }

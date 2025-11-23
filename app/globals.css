@@ -249,3 +249,149 @@
     transform: translateX(-50%);
   }
 }
+
+/* Adding RGB edge lighting animations */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin-border {
+  to {
+    --angle: 360deg;
+  }
+}
+
+.rgb-border-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  padding: 3px; /* Width of the border */
+  /* Uses a mask to show only the border area */
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.rgb-border-container::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(from var(--angle), #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff, #ff0000);
+  animation: spin-border 4s linear infinite;
+}
+
+/* Added animations for different RGB modes */
+@keyframes hue-cycle {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.3;
+    box-shadow: 0 0 10px currentColor;
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 30px currentColor;
+  }
+}
+
+.rgb-mode-cycle::before {
+  background: #ff0000; /* Start Red */
+  animation: hue-cycle 10s linear infinite !important;
+  /* Override the conic gradient for cycle mode */
+}
+
+.rgb-mode-breathing::before {
+  background: var(--primary);
+  animation: breathe 4s ease-in-out infinite !important;
+}
+
+.rgb-mode-off::before {
+  display: none;
+}
+
+/* RGB Text Effects */
+
+/* Cycle Mode: Smoothly changes color of all headings */
+body.rgb-text-cycle :is(h1, h2, h3, h4, h5, h6, .font-heading) {
+  animation: hue-cycle 10s linear infinite;
+  color: #ff0000; /* Start color */
+}
+
+/* Rainbow Mode: Static rainbow gradient on text */
+body.rgb-text-rainbow :is(h1, h2, h3, h4, h5, h6, .font-heading) {
+  background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block; /* Helps with background-clip sometimes */
+}
+
+/* Ensure links inside headings inherit the effect */
+body.rgb-text-rainbow :is(h1, h2, h3, h4, h5, h6, .font-heading) a,
+body.rgb-text-cycle :is(h1, h2, h3, h4, h5, h6, .font-heading) a {
+  color: inherit;
+  background: inherit;
+  -webkit-background-clip: inherit;
+  background-clip: inherit;
+}
+
+/* Added ambient orb float animations */
+@keyframes float-1 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+}
+
+@keyframes float-2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-30px, 50px) scale(1.2);
+  }
+  66% {
+    transform: translate(20px, -20px) scale(0.8);
+  }
+}
+
+@keyframes float-3 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(50px, 50px) scale(0.9);
+  }
+  66% {
+    transform: translate(-30px, -30px) scale(1.1);
+  }
+}
+
+.animate-float-1 {
+  animation: float-1 20s ease-in-out infinite;
+}
+.animate-float-2 {
+  animation: float-2 25s ease-in-out infinite;
+}
+.animate-float-3 {
+  animation: float-3 22s ease-in-out infinite;
+}

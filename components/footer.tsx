@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Facebook, Instagram, Twitter } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { NewsletterSignup } from "@/components/newsletter-signup"
 
 export function Footer() {
   return (
@@ -12,8 +12,16 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="h-10 w-10 bg-primary rotate-3 flex items-center justify-center font-heading font-bold text-white text-xl">
-                V
+              {/* Replaced the footer logo with the same orange-reddish tilted Fleur-de-lis */}
+              <div className="h-10 w-10 flex items-center justify-center rotate-12">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-full h-full text-[#FF4500] drop-shadow-[0_0_8px_rgba(255,69,0,0.5)]"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M12 2C12 2 8 6 8 10C8 12.2091 9.79086 14 12 14C14.2091 14 16 12.2091 16 10C16 6 12 2 12 2ZM12 16C9 16 7 18 7 22H17C17 18 15 16 12 16ZM4 12C4 12 5 13 7 13C7 10 9 9 9 9C6 7 4 12 4 12ZM20 12C20 12 19 13 17 13C17 10 15 9 15 9C18 7 20 12 20 12Z" />
+                </svg>
               </div>
               <span className="text-3xl font-heading font-bold tracking-tighter text-white">
                 VRAI<span className="text-primary">QUÉBEC</span>
@@ -82,20 +90,7 @@ export function Footer() {
           <div>
             <h4 className="font-heading font-bold text-white uppercase text-lg mb-6">Infolettre</h4>
             <p className="text-sm text-gray-400 mb-4">Reçois les deals avant tout le monde.</p>
-            {/* Wrapped input and button in a form for proper submission handling */}
-            <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-              <Input
-                placeholder="Ton email..."
-                type="email"
-                className="bg-secondary border-border text-white rounded-none focus-visible:ring-primary"
-              />
-              <Button
-                type="submit"
-                className="bg-primary hover:bg-primary/90 text-white rounded-none font-heading uppercase"
-              >
-                Go
-              </Button>
-            </form>
+            <NewsletterSignup compact />
           </div>
         </div>
 

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
+import Link from "next/link"
 
 export function SubscriptionBanner() {
   return (
@@ -16,7 +17,7 @@ export function SubscriptionBanner() {
         </h2>
         <p className="mx-auto max-w-2xl text-xl text-gray-300 mb-10 font-light">
           Accès exclusif aux pré-ventes, rabais dans les restos, et le statut officiel "Vrai Québec". Juste{" "}
-          <span className="font-bold text-white">4 piastres</span> par mois.
+          <span className="font-bold text-white">6 piastres</span> par mois.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10 text-left">
@@ -30,12 +31,14 @@ export function SubscriptionBanner() {
           ))}
         </div>
 
-        <Button
-          size="lg"
-          className="h-14 px-10 bg-primary hover:bg-primary/90 text-white font-heading uppercase text-xl tracking-widest rounded-none shadow-[0_0_30px_-5px_rgba(0,68,255,0.5)] hover:shadow-[0_0_50px_-5px_rgba(0,68,255,0.7)] transition-all scale-100 hover:scale-105"
-        >
-          S'abonner pour 4$ / mois
-        </Button>
+        <Link href="https://buy.stripe.com/test_6oU4gAfx18Ye11Xapw1kA00" target="_blank">
+          <Button
+            size="lg"
+            className="h-14 px-10 bg-primary hover:bg-primary/90 text-white font-heading uppercase text-xl tracking-widest rounded-none shadow-[0_0_30px_-5px_rgba(0,68,255,0.5)] hover:shadow-[0_0_50px_-5px_rgba(0,68,255,0.7)] transition-all scale-100 hover:scale-105"
+          >
+            S'abonner pour 6$ / mois
+          </Button>
+        </Link>
         <p className="mt-4 text-xs text-muted-foreground uppercase tracking-wider">
           Annule quand tu veux • Pas de niaisage
         </p>

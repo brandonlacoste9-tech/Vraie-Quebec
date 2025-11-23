@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { useChat } from "@ai-sdk/react"
 import { Send, Sparkles, User, Bot, Crown } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -9,13 +11,15 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { useEffect, useRef, useState } from "react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import Link from "next/link"
+import { UsageIndicator } from "@/components/usage-indicator"
 
 export default function ChatPage() {
   const [userEmail, setUserEmail] = useState("guest@example.com")
   const [limitReached, setLimitReached] = useState(false)
   const [limitMessage, setLimitMessage] = useState("")
+  const [inputValue, setInputValue] = useState("")
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
+  const { messages, append, isLoading } = useChat({
     headers: {
       "x-user-email": userEmail,
     },
@@ -33,6 +37,18 @@ export default function ChatPage() {
   })
   const scrollRef = useRef<HTMLDivElement>(null)
 
+  const handleCustomSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!inputValue.trim() || isLoading || limitReached) return
+
+    try {
+      await append({ role: "user", content: inputValue })
+      setInputValue("")
+    } catch (error) {
+      console.error("Failed to send message:", error)
+    }
+  }
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
@@ -40,7 +56,11 @@ export default function ChatPage() {
   }, [messages])
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)] bg-black text-white">
+    <div className="flex flex-col h-[calc(100vh-4rem)] bg-black text-white relative">
+      <div className="absolute top-4 right-4 z-50 hidden md:block">
+        <UsageIndicator type="message" />
+      </div>
+
       <div className="flex-1 overflow-hidden relative">
         {/* Background Gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
@@ -53,6 +73,10 @@ export default function ChatPage() {
                 Free trial: 100 messages & 10 images for 7 days. Subscribe for unlimited access at just $6/month.
               </AlertDescription>
             </Alert>
+
+            <div className="md:hidden">
+              <UsageIndicator type="message" />
+            </div>
 
             {limitReached && (
               <Alert className="bg-destructive/10 border-destructive/20">
@@ -138,10 +162,10 @@ export default function ChatPage() {
 
       <div className="border-t border-white/10 bg-black/50 backdrop-blur-lg p-4">
         <div className="max-w-3xl mx-auto">
-          <form onSubmit={handleSubmit} className="relative flex gap-2">
+          <form onSubmit={handleCustomSubmit} className="relative flex gap-2">
             <Input
-              value={input}
-              onChange={handleInputChange}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
               placeholder="Ask about restaurants, hotels, or events..."
               className="bg-secondary/50 border-white/10 text-white placeholder:text-muted-foreground/50 focus-visible:ring-primary pr-12 py-6"
               disabled={limitReached}
@@ -149,7 +173,7 @@ export default function ChatPage() {
             <Button
               type="submit"
               size="icon"
-              disabled={isLoading || !input.trim() || limitReached}
+              disabled={isLoading || !inputValue.trim() || limitReached}
               className="absolute right-1.5 top-1.5 h-9 w-9 bg-primary hover:bg-primary/90 text-primary-foreground transition-all"
             >
               <Send className="w-4 h-4" />

@@ -3,6 +3,7 @@
 import { MainNav } from "@/components/main-nav"
 import { ImageCombiner } from "@/components/image-combiner"
 import { useLanguage } from "@/components/language-provider"
+import { UsageIndicator } from "@/components/usage-indicator" // Import UsageIndicator component
 
 export default function CreerPage() {
   const { t } = useLanguage()
@@ -22,7 +23,11 @@ export default function CreerPage() {
           <h1 className="text-4xl md:text-6xl font-bold text-center bg-gradient-to-r from-primary via-white to-accent bg-clip-text text-transparent mb-2">
             {t.creer.title}
           </h1>
-          <p className="text-center text-gray-400 text-sm md:text-base max-w-2xl mx-auto">{t.creer.subtitle}</p>
+          <p className="text-center text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-6">{t.creer.subtitle}</p>
+
+          <div className="flex justify-center mb-8">
+            <UsageIndicator type="image" />
+          </div>
         </div>
       </div>
 
