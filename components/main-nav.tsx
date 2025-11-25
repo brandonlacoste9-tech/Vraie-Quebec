@@ -114,6 +114,7 @@ export function MainNav() {
               <Input
                 type="search"
                 placeholder={t.nav.search}
+                aria-label={t.nav.search}
                 className="h-9 w-full bg-secondary/50 pl-9 text-sm text-white border-none focus-visible:ring-1 focus-visible:ring-primary"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -167,6 +168,7 @@ export function MainNav() {
               <Globe className="h-4 w-4 text-muted-foreground mr-1" />
               <button
                 onClick={() => setLanguage("FR")}
+                aria-label="Switch to French"
                 className={`text-xs font-heading font-bold transition-colors ${
                   language === "FR" ? "text-primary" : "text-muted-foreground hover:text-white"
                 }`}
@@ -176,6 +178,7 @@ export function MainNav() {
               <span className="text-muted-foreground/30 text-[10px]">|</span>
               <button
                 onClick={() => setLanguage("EN")}
+                aria-label="Switch to English"
                 className={`text-xs font-heading font-bold transition-colors ${
                   language === "EN" ? "text-primary" : "text-muted-foreground hover:text-white"
                 }`}
@@ -256,6 +259,7 @@ export function MainNav() {
                 <Globe className="h-4 w-4 text-muted-foreground" />
                 <button
                   onClick={() => setLanguage("FR")}
+                  aria-label="Switch to French"
                   className={`text-sm font-heading font-bold ${language === "FR" ? "text-primary" : "text-muted-foreground"}`}
                 >
                   FR
@@ -263,6 +267,7 @@ export function MainNav() {
                 <span className="text-muted-foreground/50">|</span>
                 <button
                   onClick={() => setLanguage("EN")}
+                  aria-label="Switch to English"
                   className={`text-sm font-heading font-bold ${language === "EN" ? "text-primary" : "text-muted-foreground"}`}
                 >
                   EN

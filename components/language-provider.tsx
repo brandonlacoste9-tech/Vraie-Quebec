@@ -104,24 +104,16 @@ const translations: Translations = {
       search: "Trouver un spot malade...",
     },
     hero: {
-      badge: "C'EST MALADE • LE PARIS DU NORD",
+      badge: "LE VRAI PARIS DU NORD",
       headline_prefix: "ICI C'EST",
       headline_highlight: "VRAI QUÉBEC",
       description:
-        "Le seul guide qui te dit les vraies affaires. Restos, bars, clubs, tout ce qui est HOT en ce moment à Montréal.",
-      cta_primary: "Trouver un spot",
-      cta_secondary: "Réserver",
+        "Le seul guide qui te montre les vraies affaires. Restos, bars, clubs — tout ce qui est HOT à Montréal.",
+      cta_primary: "Découvrir",
+      cta_secondary: "Book Now",
       ticker:
         "• LA GROSSE CLASSE • C'EST CHAUD À SOIR • RÉSERVE TA PLACE • VRAI QUÉBEC • T'ES DOWN? • GROS LUXE • LA SHOT •",
-      marquee: [
-        "LA GROSSE CLASSE",
-        "C'EST CHAUD À SOIR",
-        "RÉSERVE TA PLACE",
-        "VRAI QUÉBEC",
-        "T'ES DOWN?",
-        "GROS LUXE",
-        "LA SHOT",
-      ],
+      marquee: ["GROS LUXE", "C'EST CHAUD À SOIR", "RÉSERVE TA PLACE", "T'ES DOWN?", "LA GROSSE CLASSE"],
     },
     featured: {
       badge: "Trending",
@@ -196,15 +188,14 @@ const translations: Translations = {
       search: "Find epic spots...",
     },
     hero: {
-      badge: "THAT'S SICK • PARIS OF THE NORTH",
+      badge: "THE REAL PARIS OF THE NORTH",
       headline_prefix: "THIS IS",
       headline_highlight: "REAL QUEBEC",
-      description:
-        "The only guide giving you the real deal. Restaurants, bars, clubs, everything that's HOT right now in Montreal.",
-      cta_primary: "Find a spot",
-      cta_secondary: "Book now",
+      description: "The only guide showing you the real deal. Restaurants, bars, clubs — everything HOT in Montreal.",
+      cta_primary: "Explore",
+      cta_secondary: "Book Now",
       ticker: "• HIGH CLASS • IT'S HOT TONIGHT • BOOK YOUR SPOT • REAL QUEBEC • YOU DOWN? • PURE LUXURY • THE SHOT •",
-      marquee: ["BIG CLASS", "IT'S HOT TONIGHT", "SAVE YOUR SEAT", "TRUE QUÉBEC", "YOU DOWN?", "BIG LUXE", "THE SHOT"],
+      marquee: ["PURE LUXURY", "IT'S HOT TONIGHT", "SAVE YOUR SEAT", "YOU DOWN?", "HIGH CLASS"],
     },
     featured: {
       badge: "Trending",

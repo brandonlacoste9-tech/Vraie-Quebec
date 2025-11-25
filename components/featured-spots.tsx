@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { MapPin, Clock } from "lucide-react"
+import Image from "next/image" // Import Next.js Image component
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { createClient } from "@/lib/supabase"
@@ -147,9 +148,12 @@ export function FeaturedSpots() {
                 className="group bg-card border border-border hover:border-primary transition-all duration-300 flex flex-col h-full"
               >
                 <div className="relative h-64 overflow-hidden">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                    style={{ backgroundImage: `url('${spot.image_url}')` }}
+                  <Image
+                    src={spot.image_url || "/placeholder.svg"}
+                    alt={spot.name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
 

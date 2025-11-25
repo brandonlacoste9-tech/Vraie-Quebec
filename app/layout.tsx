@@ -9,10 +9,10 @@ import { RGBBorder } from "@/components/rgb-border" // importing the new compone
 import { RGBProvider } from "@/components/rgb-provider" // imported RGBProvider
 import { AmbientOrbs } from "@/components/ambient-orbs" // importing AmbientOrbs
 import "./globals.css"
-import { Inter, Oswald, Abel as V0_Font_Abel } from 'next/font/google'
+import { Inter, Oswald, Abel as V0_Font_Abel } from "next/font/google"
 
 // Initialize fonts
-const _abel = V0_Font_Abel({ subsets: ['latin'], weight: ["400"] })
+const _abel = V0_Font_Abel({ subsets: ["latin"], weight: ["400"] })
 
 const inter = Inter({
   subsets: ["latin"],
@@ -51,9 +51,15 @@ export default function RootLayout({
       suppressHydrationWarning
       style={{ backgroundColor: "#000000" }}
     >
-      <body className="font-sans antialiased min-h-screen bg-black text-foreground selection:bg-primary selection:text-primary-foreground">
+      <body
+        className="font-sans antialiased min-h-screen bg-black text-foreground selection:bg-primary selection:text-primary-foreground"
+        style={{
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", var(--font-sans), sans-serif',
+          fontFeatureSettings: '"kern" 1, "liga" 1',
+        }}
+      >
         <RGBProvider>
-          <AmbientOrbs /> {/* added AmbientOrbs */}
+          <AmbientOrbs />
           <RGBBorder />
           <ErrorBoundary>
             <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>

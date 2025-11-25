@@ -2,13 +2,17 @@
 
 import { generateText } from "ai"
 import { openai } from "@ai-sdk/openai"
-import { createClient } from "@supabase/supabase-js"
-
-const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
+import { createClient } from "@/lib/supabase"
 
 export async function searchVenuesAction(query: string, language: "FR" | "EN" = "FR") {
   if (!query || query.trim().length === 0) {
     return { venueIds: [], summary: "" }
+  }
+
+  const supabase = createClient()
+  if (!supabase) {
+    console.warn("[v0] Supabase not available for search")
+    return { venueIds: [], summary: "Base de données non disponible." }
   }
 
   const { data: venues } = await supabase

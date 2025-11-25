@@ -54,12 +54,13 @@ export function HeroSection() {
               textShadow: `0 0 20px hsla(var(--primary-hue), 91%, 60%, 0.5)`,
             }}
           >
-            <span className="block text-foreground drop-shadow-2xl filter">{content.headline_prefix}</span>
+            <span className="block drop-shadow-2xl filter text-[rgba(9,9,22,1)] text-9xl font-serif">
+              {content.headline_prefix}
+            </span>
             <span
-              className="block bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50"
+              className="block bg-clip-text bg-gradient-to-b from-white to-white/50 text-9xl bg-[rgba(128,75,75,1)] text-shadow-color font-serif"
               style={{
                 backgroundImage: `linear-gradient(180deg, #fff 0%, hsl(var(--primary-hue), 91%, 80%) 100%)`,
-                filter: `drop-shadow(0 0 15px hsla(var(--accent-hue), 76%, 36%, 0.6))`,
               }}
             >
               {content.headline_highlight}

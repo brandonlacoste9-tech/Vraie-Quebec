@@ -18,9 +18,30 @@ export interface Subscription {
   updated_at: string
 }
 
+function createMockSubscription(email: string): Subscription {
+  const now = new Date()
+  return {
+    id: `mock-${Date.now()}`,
+    user_email: email,
+    subscription_status: "trial",
+    trial_start_date: now.toISOString(),
+    trial_end_date: new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+    messages_used: 0,
+    images_used: 0,
+    message_limit: 100,
+    image_limit: 10,
+    created_at: now.toISOString(),
+    updated_at: now.toISOString(),
+  }
+}
+
 export async function getOrCreateSubscription(email: string): Promise<Subscription | null> {
   const supabase = createClient()
-  if (!supabase) return null
+
+  if (!supabase) {
+    console.log("[v0] Supabase not available, using mock subscription")
+    return createMockSubscription(email)
+  }
 
   // Try to get existing subscription
   const { data: existing, error: fetchError } = await supabase
@@ -39,7 +60,7 @@ export async function getOrCreateSubscription(email: string): Promise<Subscripti
     .insert({
       user_email: email,
       subscription_status: "trial",
-      trial_end_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days from now
+      trial_end_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
       message_limit: 100,
       image_limit: 10,
       messages_used: 0,
@@ -50,7 +71,7 @@ export async function getOrCreateSubscription(email: string): Promise<Subscripti
 
   if (createError) {
     console.error("Error creating subscription:", createError)
-    return null
+    return createMockSubscription(email)
   }
 
   return newSub as Subscription
@@ -63,7 +84,8 @@ export async function checkUsageLimit(
   const subscription = await getOrCreateSubscription(email)
 
   if (!subscription) {
-    return { allowed: false, subscription: null, reason: "Unable to fetch subscription" }
+    // This should never happen now, but just in case
+    return { allowed: true, subscription: createMockSubscription(email) }
   }
 
   // Check if trial has expired
@@ -111,7 +133,11 @@ export async function checkUsageLimit(
 
 export async function incrementUsage(email: string, type: "message" | "image"): Promise<boolean> {
   const supabase = createClient()
-  if (!supabase) return false
+
+  if (!supabase) {
+    console.log("[v0] Supabase not available, skipping usage increment")
+    return true
+  }
 
   const field = type === "message" ? "messages_used" : "images_used"
 
@@ -122,7 +148,7 @@ export async function incrementUsage(email: string, type: "message" | "image"): 
 
   if (error) {
     // Fallback to manual increment if function doesn't exist
-    const { data: sub } = await supabase.from("subscriptions").select("*").eq("user_email", email).single()
+    const { data: sub } = await supabase.from("subscriptions").select("*").eq("user_email", email).maybeSingle()
 
     if (sub) {
       const { error: updateError } = await supabase

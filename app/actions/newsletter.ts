@@ -6,6 +6,10 @@ export async function subscribeToNewsletter(email: string, preferences?: Record<
   try {
     const supabase = createClient()
 
+    if (!supabase) {
+      return { success: false, message: "Service temporairement indisponible. Réessaye plus tard." }
+    }
+
     const { data, error } = await supabase
       .from("email_subscribers")
       .insert({
@@ -16,7 +20,6 @@ export async function subscribeToNewsletter(email: string, preferences?: Record<
       .single()
 
     if (error) {
-      // Check if already subscribed
       if (error.code === "23505") {
         return { success: true, message: "Déjà inscrit! Tu reçois déjà nos updates." }
       }
@@ -33,6 +36,10 @@ export async function subscribeToNewsletter(email: string, preferences?: Record<
 export async function updatePreferences(email: string, preferences: Record<string, boolean>) {
   try {
     const supabase = createClient()
+
+    if (!supabase) {
+      return { success: false, message: "Service temporairement indisponible." }
+    }
 
     const { error } = await supabase.from("email_subscribers").update({ preferences }).eq("email", email)
 

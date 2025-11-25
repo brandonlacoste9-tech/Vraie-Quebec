@@ -37,6 +37,32 @@
 
   /* Custom Animation Vars */
   --glow-color: hsla(var(--primary-hue), 91%, 60%, 0.5);
+
+  /* Added 8px grid spacing tokens */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+
+  /* Added consistent component sizing tokens */
+  --button-height: 48px;
+  --input-height: 56px;
+  --card-padding: 16px;
+
+  /* Added animation timing tokens */
+  --duration-micro: 150ms;
+  --duration-standard: 300ms;
+  --duration-emphasis: 500ms;
+  --easing-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+
+  /* Added shadow tokens for consistent depth */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px -5px var(--glow-color);
 }
 
 /* Terrasse Theme (Greens/Yellows) */
@@ -101,7 +127,7 @@
 
 @theme inline {
   --font-heading: var(--font-oswald);
-  --font-sans: 'Abel', 'Abel Fallback';
+  --font-sans: "Abel", "Abel Fallback";
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -147,6 +173,10 @@
   }
   body {
     @apply bg-background text-foreground overflow-x-hidden;
+    /* Added font smoothing for crisp text */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   h1,
   h2,
@@ -157,22 +187,79 @@
     /* Replaced @apply font-heading with native CSS to avoid utility resolution errors */
     font-family: var(--font-oswald), sans-serif;
     @apply uppercase tracking-tight;
+    /* Added optimal line-height for headings */
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  /* Added body text line-height */
+  p,
+  li,
+  span {
+    line-height: 1.5;
+  }
+
+  /* Added performance optimizations for animations and images */
+  img {
+    @apply will-change-auto;
+    /* Added image rendering optimization */
+    image-rendering: -webkit-optimize-contrast;
+  }
+
+  .animate-pulse-glow,
+  .animate-float-1,
+  .animate-float-2,
+  .animate-float-3 {
+    @apply will-change-transform;
+    /* Added GPU acceleration */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Added consistent button base styles */
+  button,
+  [role="button"] {
+    min-height: var(--button-height);
+    transition: all var(--duration-standard) var(--easing-smooth);
+  }
+
+  /* Added consistent input base styles */
+  input,
+  textarea,
+  select {
+    min-height: var(--input-height);
+    transition: all var(--duration-standard) var(--easing-smooth);
   }
 }
 
 /* Added ambient glow utilities and animations */
+/* Enhanced glow utilities with layered shadows */
 .text-glow {
-  /* Sharper glow radius */
-  text-shadow: 0 0 5px var(--glow-color);
+  text-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color);
 }
 
 .card-glow {
-  /* Sharper box shadow */
-  box-shadow: 0 0 20px -5px var(--glow-color);
+  box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .border-glow {
-  box-shadow: 0 0 10px -2px var(--glow-color);
+  box-shadow: 0 0 10px -2px var(--glow-color), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Added metallic gold effect utility */
+.metallic-gold {
+  background: linear-gradient(135deg, #ffd76c 0%, #f4c542 25%, #c49a2b 50%, #f4c542 75%, #ffd76c 100%);
+  box-shadow: 0 2px 8px rgba(255, 215, 108, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0
+    rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Added glassmorphism utility */
+.glass {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .neon-text {
@@ -185,16 +272,16 @@
   0%,
   100% {
     opacity: 0.5;
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
   }
   50% {
     opacity: 0.8;
-    transform: scale(1.05);
+    transform: scale(1.05) translateZ(0);
   }
 }
 
 .animate-pulse-glow {
-  animation: pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse-glow 4s var(--easing-smooth) infinite;
 }
 
 @keyframes gradient-shift {
