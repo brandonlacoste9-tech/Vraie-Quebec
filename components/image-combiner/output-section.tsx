@@ -24,6 +24,7 @@ interface OutputSectionProps {
   onCopy: () => void
   onDownload: () => void
   onOpenInNewTab: () => void
+  onRetryGeneration?: (id: string) => void
 }
 
 export function OutputSection({
@@ -42,6 +43,7 @@ export function OutputSection({
   onCopy,
   onDownload,
   onOpenInNewTab,
+  onRetryGeneration,
 }: OutputSectionProps) {
   const isMobile = useMobile()
   const [showShareModal, setShowShareModal] = useState(false)
@@ -157,10 +159,55 @@ export function OutputSection({
         <div className="relative flex-1 min-h-0 flex flex-col">
           {selectedGeneration?.status === "loading" ? (
             <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-              <ProgressBar
-                progress={selectedGeneration.progress}
-                onCancel={() => onCancelGeneration(selectedGeneration.id)}
-              />
+              <div className="text-center">
+                <ProgressBar
+                  progress={selectedGeneration.progress}
+                  onCancel={() => onCancelGeneration(selectedGeneration.id)}
+                />
+                <p className="text-xs text-gray-400 mt-3">
+                  {selectedGeneration.progress < 25
+                    ? "Initializing generation..."
+                    : selectedGeneration.progress < 50
+                      ? "Processing your prompt..."
+                      : selectedGeneration.progress < 75
+                        ? "Creating your image..."
+                        : "Almost done..."}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">{Math.round(selectedGeneration.progress)}%</p>
+              </div>
+            </div>
+          ) : selectedGeneration?.status === "error" ? (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+              <div className="text-center p-6 max-w-md">
+                <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 border-2 border-red-500/50 rounded-full flex items-center justify-center bg-red-500/10">
+                  <svg
+                    className="w-6 h-6 md:w-8 md:h-8 text-red-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <p className="text-sm md:text-base text-white font-medium mb-2">Generation Failed</p>
+                <p className="text-xs md:text-sm text-gray-400 mb-4">
+                  {selectedGeneration.error || "An error occurred while generating the image."}
+                </p>
+                {onRetryGeneration && (
+                  <Button
+                    onClick={() => onRetryGeneration(selectedGeneration.id)}
+                    className="bg-white text-black hover:bg-gray-200"
+                    size="sm"
+                  >
+                    Try Again
+                  </Button>
+                )}
+              </div>
             </div>
           ) : isConvertingHeic ? (
             <div className="absolute inset-0 flex items-center justify-center bg-black/20">

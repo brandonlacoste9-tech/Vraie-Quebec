@@ -3,9 +3,16 @@
 import type React from "react"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Trash2 } from "lucide-react"
+import { Slider } from "@/components/ui/slider"
+import { Trash2, Info } from "lucide-react"
 import { ImageUploadBox } from "./image-upload-box"
 import { cn } from "@/lib/utils"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 const btnClassName = "w-full h-10 md:h-12 text-sm md:base font-semibold bg-white text-black hover:bg-gray-200"
 
@@ -47,6 +54,9 @@ interface InputSectionProps {
   hasMore: boolean
   onLoadMore: () => void
   isLoadingMore: boolean
+  strength?: number
+  setStrength?: (strength: number) => void
+  currentMode?: "text-to-image" | "image-editing"
 }
 
 export function InputSection({
@@ -73,6 +83,9 @@ export function InputSection({
   onPromptPaste,
   onImageFullscreen,
   promptTextareaRef,
+  strength = 0.8,
+  setStrength,
+  currentMode = "text-to-image",
 }: InputSectionProps) {
   return (
     <div className="flex flex-col h-full min-h-0">
@@ -124,6 +137,40 @@ export function InputSection({
               userSelect: "text",
             }}
           />
+          
+          {/* Strength Slider for Image Editing Mode */}
+          {currentMode === "image-editing" && setStrength && (
+            <div className="space-y-2 mt-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <label className="text-xs md:text-sm font-medium text-gray-300">
+                    Editing Strength
+                  </label>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="w-3 h-3 md:w-4 md:h-4 text-gray-400 cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent className="bg-black/95 border border-gray-600 text-white text-xs max-w-xs">
+                        <p>Controls how much the original image is modified. Higher values create more dramatic changes.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+                <span className="text-xs md:text-sm text-gray-400 font-mono">
+                  {Math.round(strength * 100)}%
+                </span>
+              </div>
+              <Slider
+                value={[strength]}
+                onValueChange={(values) => setStrength(values[0])}
+                min={0}
+                max={1}
+                step={0.01}
+                className="w-full"
+              />
+            </div>
+          )}
         </div>
 
         <div className="space-y-2 md:space-y-4">

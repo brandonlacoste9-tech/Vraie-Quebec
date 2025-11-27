@@ -27,6 +27,7 @@ export function ImageCombiner() {
   const isMobile = useMobile()
   const [prompt, setPrompt] = useState("A beautiful landscape with mountains and a lake at sunset")
   const [useUrls, setUseUrls] = useState(false)
+  const [strength, setStrength] = useState(0.8) // Default strength for image editing (0.0-1.0)
   const [showFullscreen, setShowFullscreen] = useState(false)
   const [fullscreenImageUrl, setFullscreenImageUrl] = useState("")
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
@@ -85,6 +86,7 @@ export function ImageCombiner() {
     generateImage: runGeneration,
     cancelGeneration,
     loadGeneratedAsInput,
+    retryGeneration,
   } = useImageGeneration({
     prompt,
     aspectRatio,
@@ -93,6 +95,7 @@ export function ImageCombiner() {
     image1Url,
     image2Url,
     useUrls,
+    strength,
     generations: persistedGenerations,
     setGenerations: setPersistedGenerations,
     addGeneration,
@@ -745,6 +748,9 @@ export function ImageCombiner() {
                       hasMore={hasMore}
                       onLoadMore={loadMore}
                       isLoadingMore={isLoadingMore}
+                      strength={strength}
+                      setStrength={setStrength}
+                      currentMode={currentMode}
                     />
                     {/* </CHANGE> */}
 
@@ -795,6 +801,7 @@ export function ImageCombiner() {
                       onCopy={copyImageToClipboard}
                       onDownload={downloadImage}
                       onOpenInNewTab={openImageInNewTab}
+                      onRetryGeneration={retryGeneration}
                     />
                   </div>
                 </div>

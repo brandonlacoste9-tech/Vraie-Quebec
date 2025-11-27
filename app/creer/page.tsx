@@ -2,6 +2,7 @@
 
 import { MainNav } from "@/components/main-nav"
 import { ImageCombiner } from "@/components/image-combiner"
+import { ImageGenerationErrorBoundary } from "@/components/image-combiner/error-boundary"
 import { useLanguage } from "@/components/language-provider"
 import { UsageIndicator } from "@/components/usage-indicator" // Import UsageIndicator component
 
@@ -32,7 +33,9 @@ export default function CreerPage() {
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <ImageCombiner />
+        <ImageGenerationErrorBoundary>
+          <ImageCombiner />
+        </ImageGenerationErrorBoundary>
       </div>
     </main>
   )

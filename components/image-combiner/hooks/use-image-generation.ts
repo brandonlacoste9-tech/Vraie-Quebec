@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import type { Generation } from "../types"
+import { saveGeneration } from "@/lib/data/aiGenerations"
 
 interface UseImageGenerationProps {
   prompt: string
@@ -13,6 +14,7 @@ interface UseImageGenerationProps {
   image1Url: string
   image2Url: string
   useUrls: boolean
+  strength?: number // Strength for image editing (0.0-1.0)
   generations: Generation[]
   setGenerations: React.Dispatch<React.SetStateAction<Generation[]>>
   addGeneration: (generation: Generation) => Promise<void>
@@ -30,6 +32,7 @@ interface GenerateImageOptions {
   image1Url?: string
   image2Url?: string
   useUrls?: boolean
+  strength?: number // Strength for image editing
   onApiKeyMissing?: () => void
   userId?: string // Destructure userId
 }
@@ -64,6 +67,7 @@ export function useImageGeneration({
   image1Url,
   image2Url,
   useUrls,
+  strength = 0.8,
   generations,
   setGenerations,
   addGeneration,
@@ -99,6 +103,7 @@ export function useImageGeneration({
     const effectiveImage1Url = options?.image1Url !== undefined ? options.image1Url : image1Url
     const effectiveImage2Url = options?.image2Url !== undefined ? options.image2Url : image2Url
     const effectiveUseUrls = options?.useUrls !== undefined ? options.useUrls : useUrls
+    const effectiveStrength = options?.strength !== undefined ? options.strength : strength
     const effectiveUserId = options?.userId !== undefined ? options.userId : userId
 
     const hasImages = effectiveUseUrls ? effectiveImage1Url || effectiveImage2Url : effectiveImage1 || effectiveImage2
@@ -173,6 +178,7 @@ export function useImageGeneration({
           formData.append("aspectRatio", effectiveAspectRatio)
 
           if (currentMode === "image-editing") {
+            formData.append("strength", effectiveStrength.toString())
             if (effectiveUseUrls) {
               formData.append("image1Url", effectiveImage1Url)
               if (effectiveImage2Url) {
@@ -200,14 +206,84 @@ export function useImageGeneration({
           if (!response.ok) {
             const errorData = await response.json().catch(() => ({ error: "Unknown error" }))
 
-            if (errorData.error === "Configuration error" && errorData.details?.includes("AI_GATEWAY_API_KEY")) {
-              clearInterval(progressInterval)
+            clearInterval(progressInterval)
+
+            // Handle configuration errors (missing API key)
+            if (errorData.error === "Configuration error" || errorData.type === "configuration") {
               setGenerations((prev) => prev.filter((gen) => gen.id !== generationId))
               onApiKeyMissing?.()
+              onToast("AI Gateway API key is not configured. Please contact the administrator.", "error")
               return
             }
 
-            throw new Error(`${errorData.error}${errorData.details ? `: ${errorData.details}` : ""}`)
+            // Handle rate limit errors
+            if (response.status === 429 || errorData.type === "rate_limit") {
+              setGenerations((prev) =>
+                prev.map((gen) =>
+                  gen.id === generationId
+                    ? { ...gen, status: "error" as const, error: errorData.details || "Rate limit exceeded", progress: 0, abortController: undefined }
+                    : gen,
+                ),
+              )
+              onToast("Rate limit exceeded. Please try again in a few moments.", "error")
+              return
+            }
+
+            // Handle usage limit errors (403)
+            if (response.status === 403) {
+              setGenerations((prev) => prev.filter((gen) => gen.id !== generationId))
+              const upgradeMessage = errorData.upgradeUrl 
+                ? "Trial limit reached. Subscribe for unlimited access."
+                : errorData.error || "Usage limit reached"
+              onToast(upgradeMessage, "error")
+              return
+            }
+
+            // Handle network errors
+            if (errorData.type === "network" || response.status === 503) {
+              setGenerations((prev) =>
+                prev.map((gen) =>
+                  gen.id === generationId
+                    ? { ...gen, status: "error" as const, error: "Network error", progress: 0, abortController: undefined }
+                    : gen,
+                ),
+              )
+              onToast("Network error. Please check your connection and try again.", "error")
+              return
+            }
+
+            // Handle validation errors (400)
+            if (response.status === 400) {
+              setGenerations((prev) => prev.filter((gen) => gen.id !== generationId))
+              onToast(errorData.error || "Invalid request. Please check your input.", "error")
+              return
+            }
+
+            // Handle model errors (no image generated)
+            if (errorData.error === "No image generated") {
+              setGenerations((prev) =>
+                prev.map((gen) =>
+                  gen.id === generationId
+                    ? { ...gen, status: "error" as const, error: "Model did not generate an image", progress: 0, abortController: undefined }
+                    : gen,
+                ),
+              )
+              onToast("The AI model did not generate an image. Please try a different prompt.", "error")
+              return
+            }
+
+            // Generic error handling
+            const errorMessage = errorData.error || "Unknown error"
+            const errorDetails = errorData.details ? `: ${errorData.details}` : ""
+            setGenerations((prev) =>
+              prev.map((gen) =>
+                gen.id === generationId
+                  ? { ...gen, status: "error" as const, error: errorMessage, progress: 0, abortController: undefined }
+                  : gen,
+              ),
+            )
+            onToast(`Error: ${errorMessage}${errorDetails}`, "error")
+            return
           }
 
           const data = await response.json()
@@ -230,6 +306,22 @@ export function useImageGeneration({
             setGenerations((prev) => prev.filter((gen) => gen.id !== generationId))
 
             await addGeneration(completedGeneration)
+
+            // Save to Supabase for persistent history
+            try {
+              await saveGeneration({
+                user_id: effectiveUserId || null,
+                user_email: effectiveUserId || null, // Using userId as email for now
+                prompt: effectivePrompt,
+                image_url: data.url,
+                mode: currentMode,
+                aspect_ratio: effectiveAspectRatio,
+                description: data.description || null,
+              })
+            } catch (error) {
+              // Don't fail the generation if saving to DB fails
+              console.error("Failed to save generation to database:", error)
+            }
           }
 
           if (selectedGenerationId === generationId) {
@@ -242,12 +334,32 @@ export function useImageGeneration({
           clearInterval(progressInterval)
 
           if (error instanceof Error && error.name === "AbortError") {
+            // Generation was cancelled by user, don't show error
+            return
+          }
+
+          // Handle network/fetch errors
+          if (error instanceof TypeError && error.message.includes("fetch")) {
+            setGenerations((prev) =>
+              prev.map((gen) =>
+                gen.id === generationId
+                  ? { ...gen, status: "error" as const, error: "Network error", progress: 0, abortController: undefined }
+                  : gen,
+              ),
+            )
+            onToast("Network error. Please check your internet connection and try again.", "error")
             return
           }
 
           const errorMessage = error instanceof Error ? error.message : "Unknown error occurred"
 
-          setGenerations((prev) => prev.filter((gen) => gen.id !== generationId))
+          setGenerations((prev) =>
+            prev.map((gen) =>
+              gen.id === generationId
+                ? { ...gen, status: "error" as const, error: errorMessage, progress: 0, abortController: undefined }
+                : gen,
+            ),
+          )
 
           onToast(`Error generating image: ${errorMessage}`, "error")
         }
@@ -276,6 +388,32 @@ export function useImageGeneration({
     }
   }
 
+  const retryGeneration = async (generationId: string) => {
+    const generation = generations.find((g) => g.id === generationId)
+    if (!generation) return
+
+    // Reset the generation to loading state
+    setGenerations((prev) =>
+      prev.map((gen) =>
+        gen.id === generationId
+          ? {
+              ...gen,
+              status: "loading" as const,
+              progress: 0,
+              error: undefined,
+              abortController: new AbortController(),
+            }
+          : gen,
+      ),
+    )
+
+    // Retry with the same parameters
+    await generateImage({
+      prompt: generation.prompt,
+      aspectRatio: generation.aspectRatio,
+    })
+  }
+
   return {
     selectedGenerationId,
     setSelectedGenerationId,
@@ -284,5 +422,6 @@ export function useImageGeneration({
     generateImage,
     cancelGeneration,
     loadGeneratedAsInput,
+    retryGeneration,
   }
 }
