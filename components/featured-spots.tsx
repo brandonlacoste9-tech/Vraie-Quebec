@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/components/language-provider"
 import { REAL_QUEBEC_DATA, Place } from "@/lib/data"
-import { RSVPModal } from "@/components/booking/rsvp-modal"
+import { RSVPModal } from "@/components/booking/RSVPModal"
 import { cn } from "@/lib/utils"
 
 export function FeaturedSpots() {

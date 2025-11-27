@@ -2,7 +2,7 @@ import React from "react"
 import { cn } from "@/lib/utils"
 import { Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { RSVPModal } from "./rsvp-modal"
+import { RSVPModal } from "./RSVPModal"
 
 interface NativeAdCardProps {
   name: string
