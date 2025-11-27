@@ -7,32 +7,38 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/components/language-provider"
-import { REAL_QUEBEC_DATA, Place } from "@/lib/data"
+import { getFeaturedPlaces } from "@/lib/data/places"
+import type { Place } from "@/lib/types/database"
 import { RSVPModal } from "@/components/booking/RSVPModal"
 import { cn } from "@/lib/utils"
 
 export function FeaturedSpots() {
   const router = useRouter()
   const [spots, setSpots] = useState<Place[]>([])
+  const [loading, setLoading] = useState(true)
   const [cityFilter, setCityFilter] = useState<'All' | 'Montreal' | 'Quebec City'>('All')
   const { t } = useLanguage()
 
   useEffect(() => {
     const fetchSpots = async () => {
-      // For now, we prioritize our high-end curated data
-      // Combine top spots from each category
-      let allSpots = [
-        ...REAL_QUEBEC_DATA.restaurants.filter(p => p.exclusive || p.bookingType !== 'none'),
-        ...REAL_QUEBEC_DATA.nightlife.filter(p => p.exclusive || p.bookingType !== 'none'),
-        ...REAL_QUEBEC_DATA.hotels.filter(p => p.exclusive || p.bookingType !== 'none'),
-      ]
+      setLoading(true)
+      try {
+        // Fetch featured places from Supabase
+        const allSpots = await getFeaturedPlaces(20)
 
-      if (cityFilter !== 'All') {
-        allSpots = allSpots.filter(s => s.city === cityFilter)
+        // Apply city filter
+        const filtered = cityFilter !== 'All' 
+          ? allSpots.filter(s => s.city === cityFilter)
+          : allSpots
+
+        // Take top 8
+        setSpots(filtered.slice(0, 8))
+      } catch (error) {
+        console.error('Error fetching featured spots:', error)
+        setSpots([])
+      } finally {
+        setLoading(false)
       }
-
-      // Randomize or sort by priority? For now, just slice
-      setSpots(allSpots.slice(0, 8))
     }
     fetchSpots()
   }, [cityFilter])
@@ -73,9 +79,9 @@ export function FeaturedSpots() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {spots.length === 0
+        {loading || spots.length === 0
           ? // Skeleton loading state
-            [...Array(4)].map((_, i) => (
+            [...Array(8)].map((_, i) => (
               <div key={i} className="h-[400px] bg-card/50 animate-pulse border border-border" />
             ))
           : spots.map((spot) => (
@@ -141,6 +147,7 @@ export function FeaturedSpots() {
                   <div className="mt-auto flex gap-2">
                     <RSVPModal 
                         venueName={spot.name}
+                        placeId={spot.id}
                         imageUrl={spot.image}
                     >
                         <Button

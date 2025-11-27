@@ -7,35 +7,62 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { motion, AnimatePresence } from "framer-motion"
 import { VIPPass } from "./VIPPass"
+import { createVipBooking } from "@/lib/data/vipBookings"
 import { cn } from "@/lib/utils"
 import { Loader2, Check, CreditCard, Users, Calendar } from "lucide-react"
 
 interface RSVPModalProps {
   venueName: string
+  placeId?: string
   imageUrl?: string
   children?: React.ReactNode
 }
 
 type Step = "select" | "details" | "confirm" | "success"
 
-export function RSVPModal({ venueName, imageUrl, children }: RSVPModalProps) {
+export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [step, setStep] = useState<Step>("select")
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [confirmationCode, setConfirmationCode] = useState<string | null>(null)
   const [bookingData, setBookingData] = useState({
-    type: "guestlist",
+    type: "guestlist" as "guestlist" | "vip" | "event",
     date: new Date().toISOString().split("T")[0],
     guests: "2",
-    name: "Julien Tremblay", // Default/Placeholder
-    email: "julien@example.com"
+    name: "",
+    email: ""
   })
 
   const handleBook = async () => {
+    if (!placeId) {
+      setError("Place ID is required")
+      return
+    }
+
     setLoading(true)
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    setLoading(false)
-    setStep("success")
+    setError(null)
+    
+    try {
+      const booking = await createVipBooking({
+        place_id: placeId,
+        user_name: bookingData.name,
+        user_email: bookingData.email,
+        booking_type: bookingData.type,
+        booking_date: bookingData.date,
+        party_size: parseInt(bookingData.guests),
+      })
+
+      if (booking) {
+        setConfirmationCode(booking.confirmation_code || null)
+        setStep("success")
+      }
+    } catch (err) {
+      console.error('Booking error:', err)
+      setError('Unable to complete booking. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const reset = () => {

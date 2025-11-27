@@ -6,7 +6,8 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { RSVPModal } from "@/components/booking/RSVPModal"
-import { REAL_QUEBEC_DATA, Place } from "@/lib/data"
+import { getPlaceById } from "@/lib/data/places"
+import type { Place } from "@/lib/types/database"
 import { MapPin, Star, Clock, Users, Music, Shirt, Calendar, ArrowLeft, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -17,18 +18,22 @@ export default function VenuePage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const id = params.id as string
+    const fetchVenue = async () => {
+      const id = params.id as string
+      setLoading(true)
+      
+      try {
+        const place = await getPlaceById(id)
+        setVenue(place)
+      } catch (error) {
+        console.error('Error fetching venue:', error)
+        setVenue(null)
+      } finally {
+        setLoading(false)
+      }
+    }
     
-    // Find venue in all categories
-    const allVenues = [
-      ...REAL_QUEBEC_DATA.restaurants,
-      ...REAL_QUEBEC_DATA.nightlife,
-      ...REAL_QUEBEC_DATA.hotels,
-    ]
-    
-    const found = allVenues.find(v => v.id === id)
-    setVenue(found || null)
-    setLoading(false)
+    fetchVenue()
   }, [params.id])
 
   if (loading) {
@@ -215,7 +220,7 @@ export default function VenuePage() {
                 </div>
               </div>
 
-              <RSVPModal venueName={venue.name} imageUrl={venue.image}>
+              <RSVPModal venueName={venue.name} placeId={venue.id} imageUrl={venue.image}>
                 <Button className="w-full bg-gold-500 text-black hover:bg-gold-400 font-heading uppercase font-bold h-12 shadow-[0_0_20px_rgba(234,179,8,0.4)]">
                   Secure VIP Access
                 </Button>
@@ -261,4 +266,5 @@ export default function VenuePage() {
     </div>
   )
 }
+
 
