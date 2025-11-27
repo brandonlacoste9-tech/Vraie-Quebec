@@ -11,14 +11,14 @@ import { cn } from "@/lib/utils"
 import { Loader2, Check, CreditCard, Users, Calendar } from "lucide-react"
 
 interface RSVPModalProps {
-  placeName: string
-  placeId: string
-  trigger?: React.ReactNode
+  venueName: string
+  imageUrl?: string
+  children?: React.ReactNode
 }
 
 type Step = "select" | "details" | "confirm" | "success"
 
-export function RSVPModal({ placeName, placeId, trigger }: RSVPModalProps) {
+export function RSVPModal({ venueName, imageUrl, children }: RSVPModalProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [step, setStep] = useState<Step>("select")
   const [loading, setLoading] = useState(false)
@@ -46,7 +46,7 @@ export function RSVPModal({ placeName, placeId, trigger }: RSVPModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        {trigger || (
+        {children || (
           <Button className="bg-gradient-to-r from-gold-600 to-gold-400 text-black font-bold hover:scale-105 transition-transform">
             Reserve VIP Access
           </Button>
@@ -73,7 +73,7 @@ export function RSVPModal({ placeName, placeId, trigger }: RSVPModalProps) {
                 className="space-y-6"
               >
                 <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">{placeName}</h3>
+                  <h3 className="text-2xl font-bold text-white mb-2">{venueName}</h3>
                   <p className="text-gold-400 text-sm">Select your experience</p>
                 </div>
 
