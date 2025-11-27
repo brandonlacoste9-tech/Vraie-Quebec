@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import { MapPin, Clock, Star } from "lucide-react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -11,6 +12,7 @@ import { RSVPModal } from "@/components/booking/RSVPModal"
 import { cn } from "@/lib/utils"
 
 export function FeaturedSpots() {
+  const router = useRouter()
   const [spots, setSpots] = useState<Place[]>([])
   const [cityFilter, setCityFilter] = useState<'All' | 'Montreal' | 'Quebec City'>('All')
   const { t } = useLanguage()
@@ -149,6 +151,7 @@ export function FeaturedSpots() {
                     </RSVPModal>
                     <Button
                       variant="outline"
+                      onClick={() => router.push(`/venue/${spot.id}`)}
                       className="flex-1 border-white/20 text-white hover:border-gold-500 hover:text-gold-400 font-heading uppercase text-xs font-bold rounded-none h-8 bg-transparent"
                     >
                       {t.featured.details}
