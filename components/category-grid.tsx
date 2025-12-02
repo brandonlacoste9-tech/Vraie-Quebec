@@ -59,10 +59,18 @@ export function CategoryGrid() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        {categories.map((category) => (
+        {categories.map((category) => {
+          const href = category.name === "Restos" ? "/restaurants" :
+                       category.name === "Bars & Clubs" ? "/bars" :
+                       category.name === "Shows" ? "/agenda" :
+                       category.name === "Sports" ? "/sports" :
+                       category.name === "Trending" ? "/search?q=trending" :
+                       category.name === "Billets" ? "/agenda" : "#"
+          
+          return (
           <Link
             key={category.name}
-            href="#"
+            href={href}
             className="group relative h-48 overflow-hidden rounded-none border border-border bg-secondary transition-all hover:border-primary"
           >
             <div
@@ -79,7 +87,8 @@ export function CategoryGrid() {
               <p className="text-xs text-gray-300 font-medium">{category.count}</p>
             </div>
           </Link>
-        ))}
+          )
+        })}
       </div>
     </section>
   )

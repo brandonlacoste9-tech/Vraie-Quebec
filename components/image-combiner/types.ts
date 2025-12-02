@@ -15,6 +15,9 @@ export interface Generation {
   timestamp: number
   abortController?: AbortController
   thumbnailLoaded?: boolean
+  createdAt?: string
+  aspectRatio?: string
+  mode?: "text-to-image" | "image-editing"
 }
 
 export type AspectRatioOption = {

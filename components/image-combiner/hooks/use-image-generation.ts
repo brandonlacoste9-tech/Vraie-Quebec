@@ -410,7 +410,7 @@ export function useImageGeneration({
     // Retry with the same parameters
     await generateImage({
       prompt: generation.prompt,
-      aspectRatio: generation.aspectRatio,
+      aspectRatio: generation.aspectRatio || aspectRatio,
     })
   }
 

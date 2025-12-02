@@ -34,20 +34,37 @@ const events = [
   },
 ]
 
-export function UpcomingEvents() {
+interface UpcomingEventsProps {
+  filterType?: "sports" | "techno" | "festival" | "all"
+}
+
+export function UpcomingEvents({ filterType = "all" }: UpcomingEventsProps) {
+  const filteredEvents = filterType === "all" 
+    ? events 
+    : events.filter(e => {
+        if (filterType === "sports") return e.category === "Sports"
+        if (filterType === "techno") return e.category === "Techno"
+        if (filterType === "festival") return e.category === "Festival"
+        return true
+      })
+
   return (
     <section className="py-8">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-3xl md:text-5xl font-heading font-bold uppercase text-white">
           À ne pas <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white">manquer</span>
         </h2>
-        <Button variant="link" className="text-primary font-heading uppercase">
+        <Button 
+          variant="link" 
+          className="text-primary font-heading uppercase"
+          onClick={() => window.location.href = "/agenda"}
+        >
           Voir le calendrier
         </Button>
       </div>
 
       <div className="space-y-4">
-        {events.map((event) => (
+        {filteredEvents.length > 0 ? filteredEvents.map((event) => (
           <div
             key={event.id}
             className="group flex flex-col md:flex-row bg-card border border-border hover:border-primary transition-colors overflow-hidden"
@@ -94,14 +111,26 @@ export function UpcomingEvents() {
                   <p className="text-xs text-muted-foreground uppercase">À partir de</p>
                   <p className="text-xl font-heading font-bold text-white">{event.price}</p>
                 </div>
-                <Button className="flex-1 md:flex-none bg-white text-black hover:bg-primary hover:text-white font-heading uppercase font-bold rounded-none px-8 h-12">
+                <Button 
+                  className="flex-1 md:flex-none bg-white text-black hover:bg-primary hover:text-white font-heading uppercase font-bold rounded-none px-8 h-12"
+                  onClick={() => {
+                    // TODO: Link to ticket purchasing or event details
+                    console.log('Ticket button clicked for:', event.title)
+                  }}
+                >
                   <Ticket className="mr-2 h-4 w-4" />
                   Billets
                 </Button>
               </div>
             </div>
           </div>
-        ))}
+        )) : (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground font-heading uppercase">
+              Aucun événement {filterType !== "all" ? filterType : ""} à venir
+            </p>
+          </div>
+        )}
       </div>
     </section>
   )

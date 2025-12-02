@@ -56,25 +56,25 @@ export function MainNav() {
 
         <div className="hidden md:flex items-center gap-6">
           <Link
-            href="#"
+            href="/agenda"
             className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors uppercase font-heading"
           >
             {t.nav.todo}
           </Link>
           <Link
-            href="#"
+            href="/restaurants"
             className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors uppercase font-heading"
           >
             {t.nav.eat}
           </Link>
           <Link
-            href="#"
+            href="/bars"
             className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors uppercase font-heading"
           >
             {t.nav.drink}
           </Link>
           <Link
-            href="#"
+            href="/bars"
             className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors uppercase font-heading"
           >
             {t.nav.club}
@@ -94,7 +94,7 @@ export function MainNav() {
             AI Assistant
           </Link>
           <Link
-            href="#"
+            href="/sports"
             className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors uppercase font-heading"
           >
             {t.nav.sports}
@@ -287,28 +287,28 @@ export function MainNav() {
               </form>
             </div>
             <Link
-              href="#"
+              href="/agenda"
               className="block rounded-md px-3 py-3 text-lg font-heading uppercase text-muted-foreground hover:bg-primary/10 hover:text-primary"
               onClick={() => setIsOpen(false)}
             >
               {t.nav.todo}
             </Link>
             <Link
-              href="#"
+              href="/restaurants"
               className="block rounded-md px-3 py-3 text-lg font-heading uppercase text-muted-foreground hover:bg-primary/10 hover:text-primary"
               onClick={() => setIsOpen(false)}
             >
               {t.nav.eat}
             </Link>
             <Link
-              href="#"
+              href="/bars"
               className="block rounded-md px-3 py-3 text-lg font-heading uppercase text-muted-foreground hover:bg-primary/10 hover:text-primary"
               onClick={() => setIsOpen(false)}
             >
               {t.nav.drink}
             </Link>
             <Link
-              href="#"
+              href="/bars"
               className="block rounded-md px-3 py-3 text-lg font-heading uppercase text-muted-foreground hover:bg-primary/10 hover:text-primary"
               onClick={() => setIsOpen(false)}
             >
@@ -331,7 +331,7 @@ export function MainNav() {
               AI Assistant
             </Link>
             <Link
-              href="#"
+              href="/sports"
               className="block rounded-md px-3 py-3 text-lg font-heading uppercase text-muted-foreground hover:bg-primary/10 hover:text-primary"
               onClick={() => setIsOpen(false)}
             >
