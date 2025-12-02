@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export function SubscriptionBanner() {
   return (
-    <section className="relative overflow-hidden border-y border-primary/30 bg-secondary/30 py-16 md:py-24">
+    <section className="relative overflow-hidden border-y border-primary/30 leather-card-elevated stitched py-16 md:py-24">
       {/* Background Effects */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
@@ -22,7 +22,7 @@ export function SubscriptionBanner() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10 text-left">
           {["Réservations prioritaires", "Rabais exclusifs (20% off)", "Accès aux événements privés"].map((feature) => (
-            <div key={feature} className="flex items-center gap-3 bg-black/40 p-3 border border-border">
+            <div key={feature} className="flex items-center gap-3 leather-card p-3 border border-border">
               <div className="flex-shrink-0 h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center">
                 <Check className="h-3 w-3 text-primary" />
               </div>

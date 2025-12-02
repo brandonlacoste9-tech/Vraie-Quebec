@@ -67,7 +67,7 @@ export function UpcomingEvents({ filterType = "all" }: UpcomingEventsProps) {
         {filteredEvents.length > 0 ? filteredEvents.map((event) => (
           <div
             key={event.id}
-            className="group flex flex-col md:flex-row bg-card border border-border hover:border-primary transition-colors overflow-hidden"
+            className="group flex flex-col md:flex-row leather-card border border-border hover:border-primary transition-colors overflow-hidden"
           >
             <div
               className="md:w-1/4 h-48 md:h-auto bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-500"

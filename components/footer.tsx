@@ -74,13 +74,20 @@ export function Footer() {
           <div>
             <h4 className="font-heading font-bold text-white uppercase text-lg mb-6">Explorer</h4>
             <ul className="space-y-4">
-              {["Restos", "Bars", "Clubs", "Événements", "Sports", "Top 10"].map((item) => (
-                <li key={item}>
+              {[
+                { label: "Restos", href: "/restaurants" },
+                { label: "Bars", href: "/bars" },
+                { label: "Clubs", href: "/bars" },
+                { label: "Événements", href: "/agenda" },
+                { label: "Sports", href: "/sports" },
+                { label: "Top 10", href: "/search?q=trending" },
+              ].map((item) => (
+                <li key={item.label}>
                   <Link
-                    href="#"
+                    href={item.href}
                     className="text-gray-400 hover:text-primary transition-colors uppercase text-sm tracking-wide"
                   >
-                    {item}
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -106,13 +113,13 @@ export function Footer() {
             <p className="mt-1 text-white/50 font-serif italic capitalize tracking-normal">Marie‑Elaine ❤️</p>
           </div>
           <div className="flex gap-8">
-            <Link href="#" className="hover:text-white transition-colors">
+            <Link href="/legal/terms" className="hover:text-white transition-colors">
               Termes
             </Link>
-            <Link href="#" className="hover:text-white transition-colors">
+            <Link href="/legal/privacy" className="hover:text-white transition-colors">
               Confidentialité
             </Link>
-            <Link href="#" className="hover:text-white transition-colors">
+            <Link href="/contact" className="hover:text-white transition-colors">
               Contact
             </Link>
           </div>

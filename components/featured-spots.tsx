@@ -88,8 +88,8 @@ export function FeaturedSpots() {
               <div
                 key={spot.id}
                 className={cn(
-                    "group bg-black border border-white/10 hover:border-gold-500/50 transition-all duration-500 flex flex-col h-full relative overflow-hidden",
-                    spot.priceTier === 'VIP' && "ring-1 ring-gold-500/20"
+                    "group leather-card border border-white/10 hover:border-primary/50 transition-all duration-500 flex flex-col h-full relative overflow-hidden",
+                    spot.priceTier === 'VIP' && "leather-card-elevated stitched ring-1 ring-primary/20"
                 )}
               >
                 <div className="relative h-64 overflow-hidden">
