@@ -29,6 +29,7 @@ export default function CreerPage() {
       </div>
 
       <div className="container mx-auto px-4 py-8">
+        {/* Memory Game Component */}
         <QuebecMemoryGame />
       </div>
     </main>
