@@ -1,10 +1,8 @@
 "use client"
 
 import { MainNav } from "@/components/main-nav"
-import { ImageCombiner } from "@/components/image-combiner"
-import { ImageGenerationErrorBoundary } from "@/components/image-combiner/error-boundary"
+import { QuebecMemoryGame } from "@/components/quebec-memory-game"
 import { useLanguage } from "@/components/language-provider"
-import { UsageIndicator } from "@/components/usage-indicator" // Import UsageIndicator component
 
 export default function CreerPage() {
   const { t } = useLanguage()
@@ -22,20 +20,16 @@ export default function CreerPage() {
 
         <div className="container mx-auto px-4 py-8 relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold text-center bg-gradient-to-r from-primary via-white to-accent bg-clip-text text-transparent mb-2">
-            {t.creer.title}
+            JEU MÉMOIRE
           </h1>
-          <p className="text-center text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-6">{t.creer.subtitle}</p>
-
-          <div className="flex justify-center mb-8">
-            <UsageIndicator type="image" />
-          </div>
+          <p className="text-center text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-6">
+            Teste ta mémoire avec les symboles du Québec! Retrouve toutes les paires le plus rapidement possible.
+          </p>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <ImageGenerationErrorBoundary>
-          <ImageCombiner />
-        </ImageGenerationErrorBoundary>
+        <QuebecMemoryGame />
       </div>
     </main>
   )

@@ -3,25 +3,25 @@ import Link from "next/link"
 
 const categories = [
   {
-    name: "Restos",
+    name: "Restaurants",
     icon: Utensils,
     image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop",
     color: "from-orange-600 to-red-600",
-    count: "420+ spots",
+    count: "420+ établissements",
   },
   {
     name: "Bars & Clubs",
     icon: Wine,
     image: "https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?q=80&w=2029&auto=format&fit=crop",
     color: "from-purple-600 to-blue-600",
-    count: "180+ spots",
+    count: "180+ adresses",
   },
   {
-    name: "Shows",
+    name: "Spectacles",
     icon: Music,
     image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070&auto=format&fit=crop",
     color: "from-pink-600 to-rose-600",
-    count: "55 events",
+    count: "55 événements",
   },
   {
     name: "Sports",
@@ -31,18 +31,18 @@ const categories = [
     count: "12 matchs",
   },
   {
-    name: "Trending",
+    name: "Tendance",
     icon: Flame,
     image: "https://images.unsplash.com/photo-1496337589254-7e19d01cec44?q=80&w=2070&auto=format&fit=crop",
     color: "from-yellow-600 to-orange-600",
-    count: "Top 10",
+    count: "Notre Top 10",
   },
   {
-    name: "Billets",
+    name: "Billetterie",
     icon: Ticket,
     image: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=1974&auto=format&fit=crop",
     color: "from-blue-600 to-cyan-600",
-    count: "Acheter mtn",
+    count: "Réserver",
   },
 ]
 
@@ -52,20 +52,20 @@ export function CategoryGrid() {
       <div className="flex items-end justify-between mb-8">
         <div>
           <h2 className="text-3xl md:text-5xl font-heading font-bold uppercase text-white mb-2">
-            Qu'est-ce qu'on fait <span className="text-primary">à soir?</span>
+            Que souhaitez-vous <span className="text-primary">découvrir?</span>
           </h2>
-          <p className="text-muted-foreground">Choisis ton vibe, on s'occupe du reste.</p>
+          <p className="text-muted-foreground">Une sélection rigoureuse des meilleures adresses.</p>
         </div>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {categories.map((category) => {
-          const href = category.name === "Restos" ? "/restaurants" :
+          const href = category.name === "Restaurants" ? "/restaurants" :
                        category.name === "Bars & Clubs" ? "/bars" :
-                       category.name === "Shows" ? "/agenda" :
+                       category.name === "Spectacles" ? "/agenda" :
                        category.name === "Sports" ? "/sports" :
-                       category.name === "Trending" ? "/search?q=trending" :
-                       category.name === "Billets" ? "/agenda" : "#"
+                       category.name === "Tendance" ? "/search?q=trending" :
+                       category.name === "Billetterie" ? "/agenda" : "#"
           
           return (
           <Link

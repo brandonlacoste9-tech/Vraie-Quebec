@@ -32,6 +32,49 @@ export interface Place {
 export const REAL_QUEBEC_DATA: { [key: string]: Place[] } = {
   restaurants: [
     {
+      id: 'r5',
+      name: 'L\'Express',
+      type: 'Bistro Parisien',
+      location: 'Plateau-Mont-Royal',
+      city: 'Montreal',
+      rating: 4.7,
+      price: '$$',
+      priceTier: '$$',
+      image: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070',
+      description: 'Le bistro parisien le plus authentique de Montréal. Steak-frites incomparable.',
+      is_hot: true,
+      bookingType: 'reservation'
+    },
+    {
+      id: 'r6',
+      name: 'Damas',
+      type: 'Syrian',
+      location: 'Outremont',
+      city: 'Montreal',
+      rating: 4.8,
+      price: '$$$',
+      priceTier: '$$$',
+      image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974',
+      description: 'Meilleur restaurant syrien au Canada. Expérience inoubliable.',
+      is_hot: true,
+      bookingType: 'reservation'
+    },
+    {
+      id: 'r7',
+      name: 'Chez Boulay',
+      type: 'Boréal',
+      location: 'Old Quebec',
+      city: 'Quebec City',
+      rating: 4.6,
+      price: '$$$',
+      priceTier: '$$$',
+      image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070',
+      description: 'Cuisine boréale créative au cœur du Vieux-Québec.',
+      is_hot: true,
+      bookingType: 'reservation'
+    },
+    {
+    {
       id: 'r1',
       name: 'Au Pied de Cochon',
       type: 'Classic Poutine',
@@ -162,6 +205,54 @@ export const REAL_QUEBEC_DATA: { [key: string]: Place[] } = {
       isSponsored: true,
       sponsorName: 'Videotron',
       adUrl: 'https://videotron.com'
+    },
+    {
+      id: 'n5',
+      name: 'Foufounes Électriques',
+      type: 'Club Alternatif',
+      location: 'Downtown',
+      city: 'Montreal',
+      vibe: 'Punk / Rock / Alternative',
+      rating: 4.4,
+      price: '$',
+      priceTier: '$',
+      image: 'https://images.unsplash.com/photo-1598387993441-a364f854c3e1?q=80&w=2076',
+      description: 'Institution montréalaise depuis 1983. Musique live et DJ sets alternatifs.',
+      is_hot: false,
+      bookingType: 'guestlist',
+      musicGenre: 'Punk / Rock / Metal'
+    },
+    {
+      id: 'n6',
+      name: 'Tokyo Bar',
+      type: 'Nightclub',
+      location: 'Downtown',
+      city: 'Montreal',
+      vibe: 'Hip-Hop / R&B',
+      rating: 4.5,
+      price: '$$',
+      priceTier: '$$',
+      image: 'https://images.unsplash.com/photo-1563841930606-67e2bce48b78?q=80&w=2070',
+      description: 'Club branché avec ambiance Tokyo au cœur du centre-ville.',
+      is_hot: true,
+      bookingType: 'guestlist',
+      musicGenre: 'Hip-Hop / R&B / Top 40'
+    },
+    {
+      id: 'n7',
+      name: 'Le Cercle',
+      type: 'Club Underground',
+      location: 'Saint-Roch',
+      city: 'Quebec City',
+      vibe: 'Underground / Electronic',
+      rating: 4.6,
+      price: '$$',
+      priceTier: '$$',
+      image: 'https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?q=80&w=2070',
+      description: 'Meilleur club underground de Québec. Scène électronique locale.',
+      is_hot: false,
+      bookingType: 'ticket',
+      musicGenre: 'Techno / House / Electronic'
     }
   ],
   hotels: [
@@ -194,7 +285,7 @@ export const REAL_QUEBEC_DATA: { [key: string]: Place[] } = {
       is_hot: true,
       bookingType: 'reservation'
     },
-     {
+    {
       id: 'h3',
       name: 'Ritz-Carlton Montréal',
       location: 'Downtown',
@@ -211,6 +302,49 @@ export const REAL_QUEBEC_DATA: { [key: string]: Place[] } = {
       isSponsored: true,
       sponsorName: 'Holt Renfrew',
       adUrl: 'https://holtrenfrew.com'
+    },
+    {
+      id: 'h4',
+      name: 'Auberge Saint-Antoine',
+      location: 'Old Quebec',
+      city: 'Quebec City',
+      type: 'Boutique Hotel',
+      rating: 4.9,
+      price: '$$$$',
+      priceTier: 'VIP',
+      image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2070',
+      description: 'Boutique de luxe avec artefacts archéologiques exposés. Romance absolue.',
+      is_hot: true,
+      exclusive: true,
+      bookingType: 'reservation'
+    },
+    {
+      id: 'h5',
+      name: 'Hotel Nelligan',
+      location: 'Old Montreal',
+      city: 'Montreal',
+      type: 'Boutique Hotel',
+      rating: 4.7,
+      price: '$$$',
+      priceTier: '$$$',
+      image: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=80&w=1932',
+      description: 'Charme historique avec une terrasse sur le toit spectaculaire.',
+      is_hot: true,
+      bookingType: 'reservation'
+    },
+    {
+      id: 'h6',
+      name: 'Hôtel 71',
+      location: 'Old Quebec',
+      city: 'Quebec City',
+      type: 'Design Hotel',
+      rating: 4.6,
+      price: '$$$',
+      priceTier: '$$$',
+      image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=2070',
+      description: 'Hôtel design dans une ancienne banque avec vue imprenable.',
+      is_hot: false,
+      bookingType: 'reservation'
     }
   ]
 };

@@ -54,14 +54,14 @@ export function UpcomingEvents({ filterType = "all" }: UpcomingEventsProps) {
     <section className="py-8">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-3xl md:text-5xl font-heading font-bold uppercase text-white">
-          À ne pas <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white">manquer</span>
+          Événements <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white">à venir</span>
         </h2>
         <Button 
           variant="link" 
           className="text-primary font-heading uppercase"
           onClick={() => window.location.href = "/agenda"}
         >
-          Voir le calendrier
+          Consulter l'agenda
         </Button>
       </div>
 
@@ -121,7 +121,7 @@ export function UpcomingEvents({ filterType = "all" }: UpcomingEventsProps) {
                   }}
                 >
                   <Ticket className="mr-2 h-4 w-4" />
-                  Billets
+                  Réserver
                 </Button>
               </div>
             </div>
@@ -129,7 +129,7 @@ export function UpcomingEvents({ filterType = "all" }: UpcomingEventsProps) {
         )) : (
           <div className="text-center py-12">
             <p className="text-muted-foreground font-heading uppercase">
-              Aucun événement {filterType !== "all" ? filterType : ""} à venir
+              Aucun événement {filterType !== "all" ? filterType : ""} à l'horizon
             </p>
           </div>
         )}

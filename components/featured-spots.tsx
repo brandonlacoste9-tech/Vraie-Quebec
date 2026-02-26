@@ -49,10 +49,10 @@ export function FeaturedSpots() {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Badge variant="outline" className="border-gold-500 text-gold-400 font-heading uppercase rounded-none px-2">
-              Vrai Québec Select
+              Sélection Vrai Québec
             </Badge>
             <span className="text-sm text-gold-500/80 font-heading uppercase tracking-widest">
-               Members Only Access
+               Accès Membres
             </span>
           </div>
           <h2 className="text-3xl md:text-5xl font-heading font-bold uppercase text-white">
@@ -72,7 +72,7 @@ export function FeaturedSpots() {
                 )}
                 onClick={() => setCityFilter(city as any)}
               >
-                {city === 'All' ? 'Tout' : city === 'Montreal' ? 'MTL' : 'QC'}
+                {city === 'All' ? 'Tous' : city === 'Montreal' ? 'Montréal' : 'Québec'}
               </Button>
            ))}
         </div>
@@ -110,7 +110,7 @@ export function FeaturedSpots() {
                     )}
                     {spot.isSponsored && (
                          <Badge className="w-fit bg-white/90 text-black font-bold border-none font-heading uppercase rounded-none text-[10px] flex items-center gap-1">
-                            <Star className="w-3 h-3 fill-current" /> Sponsored
+                            <Star className="w-3 h-3 fill-current" /> Partenaire
                         </Badge>
                     )}
                   </div>
