@@ -74,7 +74,6 @@ export const REAL_QUEBEC_DATA: { [key: string]: Place[] } = {
       bookingType: 'reservation'
     },
     {
-    {
       id: 'r1',
       name: 'Au Pied de Cochon',
       type: 'Classic Poutine',
