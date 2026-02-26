@@ -6,7 +6,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useRouter } from "next/navigation" // import useRouter
-import { Menu, X, Search, User, Globe, Sparkles, MessageSquare, Settings2 } from "lucide-react"
+import { Menu, X, Search, User, Globe, Sparkles, MessageSquare, Settings2, Train } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { useLanguage } from "@/components/language-provider"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -142,6 +142,13 @@ export function MainNav() {
           >
             <MessageSquare className="w-3.5 h-3.5" />
             AI Assistant
+          </Link>
+          <Link
+            href="/voyage"
+            className="text-sm font-medium text-gold-500 hover:text-gold-400 transition-colors uppercase font-heading flex items-center gap-1"
+          >
+            <Train className="w-3.5 h-3.5" />
+            Voyage
           </Link>
           <Link
             href="/sports"
@@ -379,6 +386,14 @@ export function MainNav() {
             >
               <MessageSquare className="w-5 h-5" />
               AI Assistant
+            </Link>
+            <Link
+              href="/voyage"
+              className="block rounded-md px-3 py-3 text-lg font-heading uppercase text-gold-500 hover:bg-gold-500/10 flex items-center gap-2"
+              onClick={() => setIsOpen(false)}
+            >
+              <Train className="w-5 h-5" />
+              Voyage
             </Link>
             <Link
               href="/sports"
