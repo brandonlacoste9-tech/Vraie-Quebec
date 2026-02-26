@@ -7,30 +7,44 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/components/language-provider"
-import type { Place } from "@/lib/types/database"
 import { RSVPModal } from "@/components/booking/RSVPModal"
 import { cn } from "@/lib/utils"
-import { REAL_QUEBEC_DATA } from "@/lib/data"
+import { getQuebecDataWithMinCounts, type QuebecVenue } from "@/lib/data/cached-quebec-loader"
 
-// Local data for immediate display
-const LOCAL_SPOTS: Place[] = [
-  ...(REAL_QUEBEC_DATA.restaurants || []),
-  ...(REAL_QUEBEC_DATA.nightlife || []),
-  ...(REAL_QUEBEC_DATA.hotels || [])
-] as Place[]
+// Get data immediately from cache/fallback
+const CACHED_DATA = getQuebecDataWithMinCounts(12, 6)
 
 export function FeaturedSpots() {
   const router = useRouter()
   const [cityFilter, setCityFilter] = useState<'All' | 'Montreal' | 'Quebec City'>('All')
+  const [categoryFilter, setCategoryFilter] = useState<string>('all')
   const { t } = useLanguage()
 
-  // Filter spots based on city selection - immediate, no loading state
+  // Filter spots based on city and category
   const spots = useMemo(() => {
-    const filtered = cityFilter !== 'All' 
-      ? LOCAL_SPOTS.filter(s => s.city === cityFilter)
-      : LOCAL_SPOTS
+    let filtered = CACHED_DATA.venues
+    
+    if (cityFilter !== 'All') {
+      filtered = filtered.filter(s => s.city === cityFilter)
+    }
+    
+    if (categoryFilter !== 'all') {
+      filtered = filtered.filter(s => s.type === categoryFilter)
+    }
+    
     return filtered.slice(0, 8)
-  }, [cityFilter])
+  }, [cityFilter, categoryFilter])
+
+  const categories = [
+    { id: 'all', label: 'Tous' },
+    { id: 'restaurant', label: 'Restos' },
+    { id: 'hotel', label: 'Hôtels' },
+    { id: 'bar', label: 'Bars' },
+    { id: 'cafe', label: 'Cafés' },
+    { id: 'attraction', label: 'Attractions' },
+    { id: 'church', label: 'Églises' },
+    { id: 'museum', label: 'Musées' },
+  ]
 
   return (
     <section className="py-8" id="featured">
@@ -50,20 +64,41 @@ export function FeaturedSpots() {
           </h2>
         </div>
         
-        <div className="flex gap-2">
-           {['All', 'Montreal', 'Quebec City'].map(city => (
-              <Button 
-                key={city}
-                variant={cityFilter === city ? "default" : "outline"}
-                className={cn(
-                    "font-heading uppercase rounded-none text-xs font-bold h-8 transition-all",
-                    cityFilter === city ? "bg-gold-500 text-black hover:bg-gold-400" : "border-white/20 text-white hover:border-gold-500 hover:text-gold-400 bg-transparent"
-                )}
-                onClick={() => setCityFilter(city as any)}
-              >
-                {city === 'All' ? 'Tous' : city === 'Montreal' ? 'Montréal' : 'Québec'}
-              </Button>
-           ))}
+        <div className="flex flex-col gap-2">
+          {/* City Filter */}
+          <div className="flex gap-2">
+             {['All', 'Montreal', 'Quebec City'].map(city => (
+                <Button 
+                  key={city}
+                  variant={cityFilter === city ? "default" : "outline"}
+                  className={cn(
+                      "font-heading uppercase rounded-none text-xs font-bold h-8 transition-all",
+                      cityFilter === city ? "bg-gold-500 text-black hover:bg-gold-400" : "border-white/20 text-white hover:border-gold-500 hover:text-gold-400 bg-transparent"
+                  )}
+                  onClick={() => setCityFilter(city as any)}
+                >
+                  {city === 'All' ? 'Tous' : city === 'Montreal' ? 'Montréal' : 'Québec'}
+                </Button>
+             ))}
+          </div>
+          
+          {/* Category Filter */}
+          <div className="flex gap-1 flex-wrap">
+             {categories.map(cat => (
+                <Button 
+                  key={cat.id}
+                  variant={categoryFilter === cat.id ? "default" : "outline"}
+                  size="sm"
+                  className={cn(
+                      "font-heading uppercase rounded-none text-[10px] font-bold h-6 px-2 transition-all",
+                      categoryFilter === cat.id ? "bg-primary text-white" : "border-white/10 text-white/60 hover:border-primary/50 hover:text-primary bg-transparent"
+                  )}
+                  onClick={() => setCategoryFilter(cat.id)}
+                >
+                  {cat.label}
+                </Button>
+             ))}
+          </div>
         </div>
       </div>
 
@@ -73,7 +108,7 @@ export function FeaturedSpots() {
             key={spot.id}
             className={cn(
                 "group leather-card border border-white/10 hover:border-primary/50 transition-all duration-500 flex flex-col h-full relative overflow-hidden",
-                spot.priceTier === 'VIP' && "leather-card-elevated stitched ring-1 ring-primary/20"
+                spot.isFeatured && "leather-card-elevated stitched ring-1 ring-primary/20"
             )}
           >
             <div className="relative h-64 overflow-hidden">
@@ -87,16 +122,14 @@ export function FeaturedSpots() {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
 
               <div className="absolute top-4 left-4 flex flex-col gap-2">
-                {spot.priceTier === 'VIP' && (
+                {spot.isFeatured && (
                     <Badge className="w-fit bg-gold-500 text-black font-bold border-none font-heading uppercase rounded-none text-xs shadow-lg shadow-gold-500/20">
                         VIP Access
                     </Badge>
                 )}
-                {spot.isSponsored && (
-                     <Badge className="w-fit bg-white/90 text-black font-bold border-none font-heading uppercase rounded-none text-[10px] flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-current" /> Partenaire
-                    </Badge>
-                )}
+                <Badge className="w-fit bg-white/10 text-white font-bold border-none font-heading uppercase rounded-none text-[10px]">
+                    {spot.type}
+                </Badge>
               </div>
 
               <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur border border-white/20 text-white px-2 py-1 font-heading font-bold text-lg">
@@ -107,23 +140,23 @@ export function FeaturedSpots() {
             <div className="p-5 flex flex-col flex-grow bg-gradient-to-b from-transparent to-white/5">
               <div className="flex justify-between items-start mb-2">
                 <div>
-                  <h3 className="font-heading text-2xl font-bold uppercase text-white group-hover:text-gold-400 transition-colors">
+                  <h3 className="font-heading text-xl font-bold uppercase text-white group-hover:text-gold-400 transition-colors">
                     {spot.name}
                   </h3>
-                  <p className="text-sm text-gold-500/60 uppercase tracking-widest text-[10px]">{spot.type}</p>
+                  <p className="text-sm text-gold-500/60 uppercase tracking-widest text-[10px]">{spot.category}</p>
                 </div>
-                <span className="text-gold-400 font-heading font-bold">{spot.priceTier || spot.price}</span>
+                <span className="text-gold-400 font-heading font-bold">{spot.priceDisplay}</span>
               </div>
 
               <div className="space-y-2 mb-6">
                 <div className="flex items-center text-sm text-gray-400">
                   <MapPin className="h-3 w-3 mr-2 text-gold-500" />
-                  {spot.location}, {spot.city}
+                  {spot.neighborhood.fr}, {spot.city}
                 </div>
-                {spot.vibe && (
+                {spot.hours && (
                      <div className="flex items-center text-sm text-gray-400">
                         <Clock className="h-3 w-3 mr-2 text-gold-500" />
-                        {spot.vibe}
+                        {spot.hours.fr}
                     </div>
                 )}
               </div>
