@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/components/language-provider"
 import { getFeaturedPlaces } from "@/lib/data/places"
 import type { Place } from "@/lib/types/database"
+import { REAL_QUEBEC_DATA } from "@/lib/data"
 import { RSVPModal } from "@/components/booking/RSVPModal"
 import { cn } from "@/lib/utils"
 
@@ -23,19 +24,35 @@ export function FeaturedSpots() {
     const fetchSpots = async () => {
       setLoading(true)
       try {
-        // Fetch featured places from Supabase
+        // Try to fetch from Supabase first
         const allSpots = await getFeaturedPlaces(20)
+        
+        // If Supabase returns empty, use local data
+        const spotsToUse = allSpots.length > 0 ? allSpots : [
+          ...REAL_QUEBEC_DATA.restaurants,
+          ...REAL_QUEBEC_DATA.nightlife,
+          ...REAL_QUEBEC_DATA.events
+        ] as Place[]
 
         // Apply city filter
         const filtered = cityFilter !== 'All' 
-          ? allSpots.filter(s => s.city === cityFilter)
-          : allSpots
+          ? spotsToUse.filter(s => s.city === cityFilter)
+          : spotsToUse
 
         // Take top 8
         setSpots(filtered.slice(0, 8))
       } catch (error) {
         console.error('Error fetching featured spots:', error)
-        setSpots([])
+        // Fallback to local data
+        const localSpots = [
+          ...REAL_QUEBEC_DATA.restaurants,
+          ...REAL_QUEBEC_DATA.nightlife,
+          ...REAL_QUEBEC_DATA.events
+        ] as Place[]
+        const filtered = cityFilter !== 'All' 
+          ? localSpots.filter(s => s.city === cityFilter)
+          : localSpots
+        setSpots(filtered.slice(0, 8))
       } finally {
         setLoading(false)
       }
