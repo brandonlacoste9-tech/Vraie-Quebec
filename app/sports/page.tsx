@@ -118,7 +118,7 @@ export default function SportsPage() {
   return (
     <main className="min-h-screen bg-black text-white">
       <MainNav />
-      
+
       {/* Hero */}
       <div className="relative overflow-hidden border-b border-primary/20">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10" />
@@ -127,7 +127,7 @@ export default function SportsPage() {
             SPORTS <span className="text-primary text-glow">QUÉBEC</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl">
-            Des arénas mythiques aux circuits prestigieux. 
+            Des arénas mythiques aux circuits prestigieux.
             Vivez l'adrénaline du sport québécois.
           </p>
         </div>
@@ -135,7 +135,7 @@ export default function SportsPage() {
 
       {/* Featured Sports Venues */}
       <div className="container mx-auto px-4 py-12">
-        <FeaturedSpots 
+        <FeaturedSpots
           title="Arénas & Stades"
           spots={SPORTS_VENUES}
           showFilter={true}
@@ -155,25 +155,32 @@ export default function SportsPage() {
         <h2 className="text-3xl font-heading font-bold text-white mb-8">
           ÉVÉNEMENTS À VENIR
         </h2>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-4 gap-6">
           <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer">
             <div className="text-primary text-sm font-bold mb-2">JUIN 2026</div>
             <h3 className="text-xl font-bold text-white mb-2">Grand Prix du Canada</h3>
-            <p className="text-gray-400 text-sm mb-4">Circuit Gilles-Villeneuve</p>
+            <p className="text-gray-400 text-sm mb-4">Circuit Gilles-Villeneuve, Montréal</p>
             <button className="btn-primary w-full">Réserver</button>
           </div>
-          
+
           <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer">
             <div className="text-primary text-sm font-bold mb-2">SEPTEMBRE 2026</div>
             <h3 className="text-xl font-bold text-white mb-2">Presidents Cup</h3>
             <p className="text-gray-400 text-sm mb-4">Royal Montréal Golf Club</p>
             <button className="btn-primary w-full">Réserver</button>
           </div>
-          
+
+          <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer">
+            <div className="text-primary text-sm font-bold mb-2">FÉVRIER 2026</div>
+            <h3 className="text-xl font-bold text-white mb-2">Remparts de Québec vs Océanic</h3>
+            <p className="text-gray-400 text-sm mb-4">Centre Vidéotron, Québec</p>
+            <button className="btn-primary w-full">Billets</button>
+          </div>
+
           <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer">
             <div className="text-primary text-sm font-bold mb-2">SAISON 2025-26</div>
             <h3 className="text-xl font-bold text-white mb-2">Canadiens de Montréal</h3>
-            <p className="text-gray-400 text-sm mb-4">Centre Bell</p>
+            <p className="text-gray-400 text-sm mb-4">Centre Bell, Montréal</p>
             <button className="btn-primary w-full">Billets</button>
           </div>
         </div>

@@ -25,10 +25,53 @@ const oswald = Oswald({
 })
 
 export const metadata: Metadata = {
-  title: "Vrai Québec | La Référence Nightlife & Sorties",
+  metadataBase: new URL("https://vraiquebec.com"),
+  title: {
+    default: "Vrai Québec | La Référence Nightlife & Sorties",
+    template: "%s | Vrai Québec"
+  },
   description: "Le guide ultime pour Montréal et le Québec. Restos, bars, clubs, sports. C'est malade.",
-  keywords: ["Montréal", "Québec", "Nightlife", "Restaurants", "Bars", "Clubs", "Sorties", "Events"],
-  generator: "v0.app",
+  keywords: ["Montréal", "Québec", "Nightlife", "Restaurants", "Bars", "Clubs", "Sorties", "Events", "Tourisme Québec", "Sortir Montréal"],
+  authors: [{ name: "Vrai Québec" }],
+  creator: "Vrai Québec",
+  generator: "Next.js",
+  alternates: {
+    canonical: '/',
+    languages: {
+      'fr-CA': '/fr',
+      'en-CA': '/en',
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "fr_CA",
+    alternateLocales: ["en_CA"],
+    url: "https://vraiquebec.com",
+    title: "Vrai Québec | L'Éxpérience VIP",
+    description: "Le guide exclusif pour Montréal et le Québec. Découvrez les meilleurs restos, bars, clubs et événements sportifs.",
+    siteName: "Vrai Québec",
+    images: [
+      {
+        url: "/og-image.png", // Image has been added!
+        width: 1200,
+        height: 630,
+        alt: "Vrai Québec - Nightlife & Sorties",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vrai Québec | L'Éxpérience VIP",
+    description: "Le guide exclusif pour Montréal et le Québec. Découvrez les meilleurs restos, bars, et clubs.",
+    images: ["/og-image.png"],
+    creator: "@vraiquebec",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
 }
 
 export const viewport = {

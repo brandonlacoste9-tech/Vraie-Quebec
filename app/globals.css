@@ -246,7 +246,8 @@
 /* Added ambient glow utilities and animations */
 /* Enhanced glow utilities with layered shadows */
 .text-glow {
-  text-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color);
+  /* Subdued glow for a more elegant, less loud appearance */
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .card-glow {
@@ -274,9 +275,9 @@
 }
 
 .neon-text {
-  color: #fff;
-  /* Tighter neon glow for sharpness */
-  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+  color: var(--primary);
+  /* Significantly softened the loud neon to a refined, clean text with a backdrop drop-shadow */
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 @keyframes pulse-glow {

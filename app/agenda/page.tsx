@@ -10,7 +10,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { NewsletterSignup } from "@/components/newsletter-signup"
 
-// Mock data for events
+// Mock data for events (concerts, festivals, tickets) with real places in Montreal & Quebec
 const EVENTS = [
   {
     id: 1,
@@ -19,18 +19,18 @@ const EVENTS = [
     date: "2025-01-16",
     location: "Vieux-Port, Montréal",
     price: "$45",
-    image: "/igloofest-montreal-crowd-neon.jpg",
+    image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800",
     category: "Nightlife",
     featured: true,
   },
   {
     id: 2,
-    title: "Jazz Fest: After Hours",
-    description: "Sessions de jam exclusives avec des légendes du jazz dans un club secret.",
-    date: "2025-06-28",
-    location: "Secret Location, Plateau",
-    price: "$80",
-    image: "/jazz-club-montreal-moody.jpg",
+    title: "Charlotte de Witte - Techno Night",
+    description: "La reine de la techno de retour au Québec pour une nuit inoubliable.",
+    date: "2025-03-01",
+    location: "Centre Vidéotron, Québec",
+    price: "$85",
+    image: "https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=800",
     category: "Music",
     featured: true,
   },
@@ -41,29 +41,29 @@ const EVENTS = [
     date: "2025-02-05",
     location: "La Banquise, Montréal",
     price: "$35",
-    image: "/gourmet-poutine-montreal.jpg",
+    image: "https://images.unsplash.com/photo-1582169505937-b9992bd01ed9?w=800",
     category: "Food",
     featured: false,
   },
   {
     id: 4,
-    title: "MURAL Festival Opening",
-    description: "Lancement du festival d'art urbain avec DJ sets et live painting.",
+    title: "MURAL Festival",
+    description: "Festival d'art urbain avec DJ sets et live painting en direct sur la rue.",
     date: "2025-06-06",
-    location: "Boul. Saint-Laurent",
+    location: "Boul. Saint-Laurent, Montréal",
     price: "Gratuit",
-    image: "/mural-festival-montreal-street-art.jpg",
+    image: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=800",
     category: "Arts",
     featured: false,
   },
   {
     id: 5,
-    title: "Osheaga 2025 - Weekend 1",
-    description: "Le plus gros festival de musique au Canada. Lineup surprise.",
-    date: "2025-08-01",
-    location: "Parc Jean-Drapeau",
-    price: "$320",
-    image: "/osheaga-festival-crowd-summer.jpg",
+    title: "Festival d'été de Québec (FEQ)",
+    description: "Le plus grand festival de musique en plein air au Canada. Des scènes incroyables.",
+    date: "2025-07-03",
+    location: "Plaines d'Abraham, Québec",
+    price: "$150 (Passe)",
+    image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800",
     category: "Music",
     featured: true,
   },
@@ -74,7 +74,7 @@ const EVENTS = [
     date: "2025-03-01",
     location: "Centre-ville, Montréal",
     price: "Gratuit",
-    image: "/nuit-blanche-montreal-lights.jpg",
+    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800",
     category: "Arts",
     featured: false,
   },
@@ -119,11 +119,10 @@ export default function AgendaPage() {
             <button
               key={cat.id}
               onClick={() => setFilter(cat.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
-                filter === cat.id
+              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${filter === cat.id
                   ? "bg-primary text-white shadow-[0_0_15px_rgba(var(--primary),0.5)]"
                   : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
-              }`}
+                }`}
             >
               {cat.icon && <cat.icon className="w-4 h-4" />}
               {cat.label}

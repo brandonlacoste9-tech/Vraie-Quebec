@@ -9,18 +9,18 @@ const events = [
     title: "Canadiens vs Bruins",
     date: "SAM 24 FÉV",
     time: "19:00",
-    venue: "Centre Bell",
-    image: "https://images.unsplash.com/photo-1515895309288-a3a6610bd1f4?q=80&w=2064&auto=format&fit=crop",
+    venue: "Centre Bell, Montréal",
+    image: "https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=800",
     category: "Sports",
     price: "Dès 120$",
   },
   {
     id: 2,
-    title: "Charlotte de Witte",
+    title: "Charlotte de Witte Night",
     date: "VEN 1 MARS",
     time: "22:00",
-    venue: "Place Bell",
-    image: "https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?q=80&w=2074&auto=format&fit=crop",
+    venue: "Centre Vidéotron, Québec",
+    image: "https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=800",
     category: "Techno",
     price: "Dès 85$",
   },
@@ -29,8 +29,8 @@ const events = [
     title: "Igloofest Final Week",
     date: "SAM 8 FÉV",
     time: "18:00",
-    venue: "Vieux-Port",
-    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
+    venue: "Vieux-Port, Montréal",
+    image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800",
     category: "Festival",
     price: "Sold Out",
   },
@@ -41,14 +41,14 @@ interface UpcomingEventsProps {
 }
 
 export function UpcomingEvents({ filterType = "all" }: UpcomingEventsProps) {
-  const filteredEvents = filterType === "all" 
-    ? events 
+  const filteredEvents = filterType === "all"
+    ? events
     : events.filter(e => {
-        if (filterType === "sports") return e.category === "Sports"
-        if (filterType === "techno") return e.category === "Techno"
-        if (filterType === "festival") return e.category === "Festival"
-        return true
-      })
+      if (filterType === "sports") return e.category === "Sports"
+      if (filterType === "techno") return e.category === "Techno"
+      if (filterType === "festival") return e.category === "Festival"
+      return true
+    })
 
   return (
     <section className="py-8">
@@ -56,8 +56,8 @@ export function UpcomingEvents({ filterType = "all" }: UpcomingEventsProps) {
         <h2 className="text-3xl md:text-5xl font-heading font-bold uppercase text-white">
           Événements <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white">à venir</span>
         </h2>
-        <Button 
-          variant="link" 
+        <Button
+          variant="link"
           className="text-primary font-heading uppercase"
           onClick={() => window.location.href = "/agenda"}
         >
@@ -113,7 +113,7 @@ export function UpcomingEvents({ filterType = "all" }: UpcomingEventsProps) {
                   <p className="text-xs text-muted-foreground uppercase">À partir de</p>
                   <p className="text-xl font-heading font-bold text-white">{event.price}</p>
                 </div>
-                <Button 
+                <Button
                   className="flex-1 md:flex-none bg-white text-black hover:bg-primary hover:text-white font-heading uppercase font-bold rounded-none px-8 h-12"
                   onClick={() => {
                     // TODO: Link to ticket purchasing or event details
