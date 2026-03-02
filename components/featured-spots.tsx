@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react"
 import { useRouter } from "next/navigation"
-import { MapPin, Clock, Star } from "lucide-react"
+import { MapPin, Clock, Star, Ticket } from "lucide-react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -14,28 +14,45 @@ import { getQuebecDataWithMinCounts, type QuebecVenue } from "@/lib/data/cached-
 // Get data immediately from cache/fallback
 const CACHED_DATA = getQuebecDataWithMinCounts(12, 6)
 
-export function FeaturedSpots() {
+interface FilterOption {
+  value: string;
+  label: string;
+}
+
+interface FeaturedSpotsProps {
+  title?: string;
+  spots?: any[];
+  showFilter?: boolean;
+  filterOptions?: FilterOption[];
+}
+
+export function FeaturedSpots({ title, spots: propSpots, showFilter = false, filterOptions }: FeaturedSpotsProps = {}) {
   const router = useRouter()
   const [cityFilter, setCityFilter] = useState<'All' | 'Montreal' | 'Quebec City'>('All')
   const [categoryFilter, setCategoryFilter] = useState<string>('all')
   const { t } = useLanguage()
 
   // Filter spots based on city and category
-  const spots = useMemo(() => {
-    let filtered = CACHED_DATA.venues
+  const activeSpots = useMemo(() => {
+    let filtered = propSpots || CACHED_DATA.venues
 
-    if (cityFilter !== 'All') {
-      filtered = filtered.filter(s => s.city === cityFilter)
+    if (cityFilter !== 'All' && !propSpots) {
+      filtered = (filtered as QuebecVenue[]).filter(s => s.city === cityFilter)
     }
 
     if (categoryFilter !== 'all') {
-      filtered = filtered.filter(s => s.type === categoryFilter)
+      filtered = filtered.filter((s: any) => {
+        const type = (s.type || '').toLowerCase()
+        const cat = (s.category || '').toLowerCase()
+        const target = categoryFilter.toLowerCase()
+        return type.includes(target) || cat.includes(target)
+      })
     }
 
-    return filtered.slice(0, 8)
-  }, [cityFilter, categoryFilter])
+    return propSpots ? filtered : filtered.slice(0, 8)
+  }, [cityFilter, categoryFilter, propSpots])
 
-  const categories = [
+  const defaultCategories = [
     { id: 'all', label: 'Tous' },
     { id: 'restaurant', label: 'Restos' },
     { id: 'hotel', label: 'Hôtels' },
@@ -45,6 +62,8 @@ export function FeaturedSpots() {
     { id: 'church', label: 'Églises' },
     { id: 'museum', label: 'Musées' },
   ]
+
+  const activeCategories = filterOptions ? filterOptions.map(opt => ({ id: opt.value, label: opt.label })) : defaultCategories
 
   return (
     <section className="py-8" id="featured">
@@ -59,56 +78,61 @@ export function FeaturedSpots() {
             </span>
           </div>
           <h2 className="text-3xl md:text-5xl font-heading font-bold uppercase text-white">
-            {t.featured.headline_prefix} <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-600">VIP Access</span>{" "}
-            {t.featured.headline_suffix}
+            {title ? (
+              <>{title.split(' ')[0]} <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-600">{title.split(' ').slice(1).join(' ')}</span></>
+            ) : (
+              <>{t.featured.headline_prefix} <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-600">VIP Access</span> {t.featured.headline_suffix}</>
+            )}
           </h2>
         </div>
 
         <div className="flex flex-col gap-2">
-          {/* City Filter */}
-          <div className="flex gap-2">
-            {['All', 'Montreal', 'Quebec City'].map(city => (
-              <Button
-                key={city}
-                variant={cityFilter === city ? "default" : "outline"}
-                className={cn(
-                  "font-heading uppercase rounded-none text-xs font-bold h-8 transition-all",
-                  cityFilter === city ? "bg-gold-500 text-black hover:bg-gold-400" : "border-white/20 text-white hover:border-gold-500 hover:text-gold-400 bg-transparent"
-                )}
-                onClick={() => setCityFilter(city as any)}
-              >
-                {city === 'All' ? 'Tous' : city === 'Montreal' ? 'Montréal' : 'Québec'}
-              </Button>
-            ))}
-          </div>
+          {!propSpots && (
+            <div className="flex gap-2">
+              {['All', 'Montreal', 'Quebec City'].map(city => (
+                <Button
+                  key={city}
+                  variant={cityFilter === city ? "default" : "outline"}
+                  className={cn(
+                    "font-heading uppercase rounded-none text-xs font-bold h-8 transition-all",
+                    cityFilter === city ? "bg-gold-500 text-black hover:bg-gold-400" : "border-white/20 text-white hover:border-gold-500 hover:text-gold-400 bg-transparent"
+                  )}
+                  onClick={() => setCityFilter(city as any)}
+                >
+                  {city === 'All' ? 'Tous' : city === 'Montreal' ? 'Montréal' : 'Québec'}
+                </Button>
+              ))}
+            </div>
+          )}
 
-          {/* Category Filter */}
-          <div className="flex gap-1 flex-wrap">
-            {categories.map(cat => (
-              <Button
-                key={cat.id}
-                variant={categoryFilter === cat.id ? "default" : "outline"}
-                size="sm"
-                className={cn(
-                  "font-heading uppercase rounded-none text-[10px] font-bold h-6 px-2 transition-all",
-                  categoryFilter === cat.id ? "bg-primary text-white" : "border-white/10 text-white/60 hover:border-primary/50 hover:text-primary bg-transparent"
-                )}
-                onClick={() => setCategoryFilter(cat.id)}
-              >
-                {cat.label}
-              </Button>
-            ))}
-          </div>
+          {(showFilter || !propSpots) && (
+            <div className="flex gap-1 flex-wrap">
+              {activeCategories.map(cat => (
+                <Button
+                  key={cat.id}
+                  variant={categoryFilter === cat.id ? "default" : "outline"}
+                  size="sm"
+                  className={cn(
+                    "font-heading uppercase rounded-none text-[10px] font-bold h-6 px-2 transition-all",
+                    categoryFilter === cat.id ? "bg-primary text-white" : "border-white/10 text-white/60 hover:border-primary/50 hover:text-primary bg-transparent"
+                  )}
+                  onClick={() => setCategoryFilter(cat.id)}
+                >
+                  {cat.label}
+                </Button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {spots.map((spot) => (
+        {activeSpots.map((spot) => (
           <div
             key={spot.id}
             className={cn(
               "group leather-card border border-white/10 hover:border-primary/50 transition-all duration-500 flex flex-col h-full relative overflow-hidden",
-              spot.isFeatured && "leather-card-elevated stitched ring-1 ring-primary/20"
+              (spot.isFeatured || spot.is_hot) && "leather-card-elevated stitched ring-1 ring-primary/20"
             )}
           >
             <div className="relative h-64 overflow-hidden">
@@ -122,13 +146,13 @@ export function FeaturedSpots() {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
 
               <div className="absolute top-4 left-4 flex flex-col gap-2">
-                {spot.isFeatured && (
+                {(spot.isFeatured || spot.is_hot) && (
                   <Badge className="w-fit bg-gold-500 text-black font-bold border-none font-heading uppercase rounded-none text-xs shadow-lg shadow-gold-500/20">
                     VIP Access
                   </Badge>
                 )}
                 <Badge className="w-fit bg-white/10 text-white font-bold border-none font-heading uppercase rounded-none text-[10px]">
-                  {spot.type}
+                  {spot.type || spot.category}
                 </Badge>
               </div>
 
@@ -143,16 +167,18 @@ export function FeaturedSpots() {
                   <h3 className="font-heading text-xl font-bold uppercase text-white group-hover:text-gold-400 transition-colors">
                     {spot.name}
                   </h3>
-                  <p className="text-sm text-gold-500/60 uppercase tracking-widest text-[10px]">{spot.category}</p>
+                  <p className="text-sm text-gold-500/60 uppercase tracking-widest text-[10px]">{spot.category || spot.type}</p>
                 </div>
-                <span className="text-gold-400 font-heading font-bold">{spot.priceDisplay}</span>
+                <span className="text-gold-400 font-heading font-bold">{spot.priceDisplay || spot.price}</span>
               </div>
 
               <div className="space-y-2 mb-6">
-                <div className="flex items-center text-sm text-gray-400">
-                  <MapPin className="h-3 w-3 mr-2 text-gold-500" />
-                  {spot.neighborhood.fr}, {spot.city}
-                </div>
+                {(spot.neighborhood?.fr || spot.location) && (
+                  <div className="flex items-center text-sm text-gray-400">
+                    <MapPin className="h-3 w-3 mr-2 text-gold-500" />
+                    {spot.neighborhood?.fr || spot.location}, {spot.city}
+                  </div>
+                )}
                 {spot.hours && (
                   <div className="flex items-center text-sm text-gray-400">
                     <Clock className="h-3 w-3 mr-2 text-gold-500" />
