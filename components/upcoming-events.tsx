@@ -2,6 +2,7 @@
 
 import { Calendar, MapPin, Ticket } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { RSVPModal } from "@/components/booking/RSVPModal"
 
 const events = [
   {
@@ -113,16 +114,14 @@ export function UpcomingEvents({ filterType = "all" }: UpcomingEventsProps) {
                   <p className="text-xs text-muted-foreground uppercase">À partir de</p>
                   <p className="text-xl font-heading font-bold text-white">{event.price}</p>
                 </div>
-                <Button
-                  className="flex-1 md:flex-none bg-white text-black hover:bg-primary hover:text-white font-heading uppercase font-bold rounded-none px-8 h-12"
-                  onClick={() => {
-                    // TODO: Link to ticket purchasing or event details
-                    console.log('Ticket button clicked for:', event.title)
-                  }}
-                >
-                  <Ticket className="mr-2 h-4 w-4" />
-                  Réserver
-                </Button>
+                <RSVPModal venueName={event.title} placeId={event.id.toString()} imageUrl={event.image}>
+                  <Button
+                    className="flex-1 md:flex-none bg-white text-black hover:bg-primary hover:text-white font-heading uppercase font-bold rounded-none px-8 h-12"
+                  >
+                    <Ticket className="mr-2 h-4 w-4" />
+                    Réserver
+                  </Button>
+                </RSVPModal>
               </div>
             </div>
           </div>

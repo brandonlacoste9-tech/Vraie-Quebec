@@ -3,6 +3,7 @@
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 import { FeaturedSpots } from "@/components/featured-spots"
+import { RSVPModal } from "@/components/booking/RSVPModal"
 
 const SPORTS_VENUES = [
   {
@@ -160,28 +161,36 @@ export default function SportsPage() {
             <div className="text-primary text-sm font-bold mb-2">JUIN 2026</div>
             <h3 className="text-xl font-bold text-white mb-2">Grand Prix du Canada</h3>
             <p className="text-gray-400 text-sm mb-4">Circuit Gilles-Villeneuve, Montréal</p>
-            <button className="btn-primary w-full">Réserver</button>
+            <RSVPModal venueName="Grand Prix du Canada" placeId="s3" imageUrl="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=2070">
+              <button className="btn-primary w-full">Réserver</button>
+            </RSVPModal>
           </div>
 
           <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer">
             <div className="text-primary text-sm font-bold mb-2">SEPTEMBRE 2026</div>
             <h3 className="text-xl font-bold text-white mb-2">Presidents Cup</h3>
             <p className="text-gray-400 text-sm mb-4">Royal Montréal Golf Club</p>
-            <button className="btn-primary w-full">Réserver</button>
+            <RSVPModal venueName="Presidents Cup" placeId="s6" imageUrl="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2070">
+              <button className="btn-primary w-full">Réserver</button>
+            </RSVPModal>
           </div>
 
           <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer">
             <div className="text-primary text-sm font-bold mb-2">FÉVRIER 2026</div>
             <h3 className="text-xl font-bold text-white mb-2">Remparts de Québec vs Océanic</h3>
             <p className="text-gray-400 text-sm mb-4">Centre Vidéotron, Québec</p>
-            <button className="btn-primary w-full">Billets</button>
+            <RSVPModal venueName="Remparts vs Océanic" placeId="s5" imageUrl="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?q=80&w=2070">
+              <button className="btn-primary w-full">Billets</button>
+            </RSVPModal>
           </div>
 
           <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer">
             <div className="text-primary text-sm font-bold mb-2">SAISON 2025-26</div>
             <h3 className="text-xl font-bold text-white mb-2">Canadiens de Montréal</h3>
             <p className="text-gray-400 text-sm mb-4">Centre Bell, Montréal</p>
-            <button className="btn-primary w-full">Billets</button>
+            <RSVPModal venueName="Canadiens de Montréal" placeId="s1" imageUrl="https://images.unsplash.com/photo-1577223625816-7546f13df25d?q=80&w=2070">
+              <button className="btn-primary w-full">Billets</button>
+            </RSVPModal>
           </div>
         </div>
       </div>

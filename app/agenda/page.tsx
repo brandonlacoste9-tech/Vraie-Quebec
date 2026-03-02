@@ -9,6 +9,7 @@ import { Calendar, MapPin, Ticket, Music, Utensils, Moon, Palette } from "lucide
 import { useState } from "react"
 import Link from "next/link"
 import { NewsletterSignup } from "@/components/newsletter-signup"
+import { RSVPModal } from "@/components/booking/RSVPModal"
 
 // Mock data for events (concerts, festivals, tickets) with real places in Montreal & Quebec
 const EVENTS = [
@@ -120,8 +121,8 @@ export default function AgendaPage() {
               key={cat.id}
               onClick={() => setFilter(cat.id)}
               className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${filter === cat.id
-                  ? "bg-primary text-white shadow-[0_0_15px_rgba(var(--primary),0.5)]"
-                  : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
+                ? "bg-primary text-white shadow-[0_0_15px_rgba(var(--primary),0.5)]"
+                : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
                 }`}
             >
               {cat.icon && <cat.icon className="w-4 h-4" />}
@@ -185,16 +186,15 @@ export default function AgendaPage() {
 
                 <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
                   <div className="text-lg font-bold text-white">{event.price}</div>
-                  <Button
-                    asChild
-                    size="sm"
-                    className="bg-white text-black hover:bg-primary hover:text-white border-none"
-                  >
-                    <Link href="https://buy.stripe.com/test_6oU4gAfx18Ye11Xapw1kA00" target="_blank">
+                  <RSVPModal venueName={event.title} placeId={event.id.toString()} imageUrl={event.image}>
+                    <Button
+                      size="sm"
+                      className="bg-white text-black hover:bg-primary hover:text-white border-none"
+                    >
                       <Ticket className="w-4 h-4 mr-2" />
                       {t.agenda.buyTickets}
-                    </Link>
-                  </Button>
+                    </Button>
+                  </RSVPModal>
                 </div>
               </div>
             </div>
