@@ -157,37 +157,45 @@ export default function SportsPage() {
           ÉVÉNEMENTS À VENIR
         </h2>
         <div className="grid md:grid-cols-4 gap-6">
-          <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer">
-            <div className="text-primary text-sm font-bold mb-2">JUIN 2026</div>
-            <h3 className="text-xl font-bold text-white mb-2">Grand Prix du Canada</h3>
-            <p className="text-gray-400 text-sm mb-4">Circuit Gilles-Villeneuve, Montréal</p>
+          <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer flex flex-col">
+            <a href="https://www.google.com/search?q=Grand+Prix+du+Canada+Montreal" target="_blank" rel="noopener noreferrer" className="flex-1 mb-4 block">
+              <div className="text-primary text-sm font-bold mb-2">JUIN 2026</div>
+              <h3 className="text-xl font-bold text-white mb-2">Grand Prix du Canada</h3>
+              <p className="text-gray-400 text-sm">Circuit Gilles-Villeneuve, Montréal</p>
+            </a>
             <RSVPModal venueName="Grand Prix du Canada" placeId="s3" imageUrl="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=2070">
               <button className="btn-primary w-full">Réserver</button>
             </RSVPModal>
           </div>
 
-          <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer">
-            <div className="text-primary text-sm font-bold mb-2">SEPTEMBRE 2026</div>
-            <h3 className="text-xl font-bold text-white mb-2">Presidents Cup</h3>
-            <p className="text-gray-400 text-sm mb-4">Royal Montréal Golf Club</p>
+          <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer flex flex-col">
+            <a href="https://www.google.com/search?q=Presidents+Cup+Royal+Montreal" target="_blank" rel="noopener noreferrer" className="flex-1 mb-4 block">
+              <div className="text-primary text-sm font-bold mb-2">SEPTEMBRE 2026</div>
+              <h3 className="text-xl font-bold text-white mb-2">Presidents Cup</h3>
+              <p className="text-gray-400 text-sm">Royal Montréal Golf Club</p>
+            </a>
             <RSVPModal venueName="Presidents Cup" placeId="s6" imageUrl="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2070">
               <button className="btn-primary w-full">Réserver</button>
             </RSVPModal>
           </div>
 
-          <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer">
-            <div className="text-primary text-sm font-bold mb-2">FÉVRIER 2026</div>
-            <h3 className="text-xl font-bold text-white mb-2">Remparts de Québec vs Océanic</h3>
-            <p className="text-gray-400 text-sm mb-4">Centre Vidéotron, Québec</p>
+          <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer flex flex-col">
+            <a href="https://www.google.com/search?q=Remparts+de+Quebec+Tickets" target="_blank" rel="noopener noreferrer" className="flex-1 mb-4 block">
+              <div className="text-primary text-sm font-bold mb-2">FÉVRIER 2026</div>
+              <h3 className="text-xl font-bold text-white mb-2">Remparts de Québec vs Océanic</h3>
+              <p className="text-gray-400 text-sm">Centre Vidéotron, Québec</p>
+            </a>
             <RSVPModal venueName="Remparts vs Océanic" placeId="s5" imageUrl="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?q=80&w=2070">
               <button className="btn-primary w-full">Billets</button>
             </RSVPModal>
           </div>
 
-          <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer">
-            <div className="text-primary text-sm font-bold mb-2">SAISON 2025-26</div>
-            <h3 className="text-xl font-bold text-white mb-2">Canadiens de Montréal</h3>
-            <p className="text-gray-400 text-sm mb-4">Centre Bell, Montréal</p>
+          <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer flex flex-col">
+            <a href="https://www.google.com/search?q=Canadiens+de+Montreal+Tickets" target="_blank" rel="noopener noreferrer" className="flex-1 mb-4 block">
+              <div className="text-primary text-sm font-bold mb-2">SAISON 2025-26</div>
+              <h3 className="text-xl font-bold text-white mb-2">Canadiens de Montréal</h3>
+              <p className="text-gray-400 text-sm">Centre Bell, Montréal</p>
+            </a>
             <RSVPModal venueName="Canadiens de Montréal" placeId="s1" imageUrl="https://images.unsplash.com/photo-1577223625816-7546f13df25d?q=80&w=2070">
               <button className="btn-primary w-full">Billets</button>
             </RSVPModal>

@@ -13,21 +13,21 @@ interface NativeAdCardProps {
   className?: string
 }
 
-export function NativeAdCard({ 
-  name, 
-  image, 
-  description, 
-  ctaText = "Experience It", 
+export function NativeAdCard({
+  name,
+  image,
+  description,
+  ctaText = "Experience It",
   sponsorName,
-  className 
+  className
 }: NativeAdCardProps) {
   return (
     <div className={cn("group relative overflow-hidden rounded-xl bg-zinc-900 border border-zinc-800", className)}>
       {/* Image Background */}
       <div className="absolute inset-0">
-        <img 
-          src={image} 
-          alt={name} 
+        <img
+          src={image}
+          alt={name}
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
@@ -45,7 +45,7 @@ export function NativeAdCard({
       <div className="relative h-full flex flex-col justify-end p-5 z-10">
         <div className="flex items-start justify-between mb-2">
           <div>
-             <h3 className="text-xl font-oswald text-white uppercase tracking-wide mb-1 group-hover:text-gold-400 transition-colors">
+            <h3 className="text-xl font-heading text-white uppercase tracking-wide mb-1 group-hover:text-gold-400 transition-colors">
               {name}
             </h3>
             <div className="flex items-center gap-1 text-gold-500 mb-2">
@@ -57,7 +57,7 @@ export function NativeAdCard({
             </div>
           </div>
         </div>
-        
+
         <p className="text-sm text-zinc-300 mb-4 line-clamp-2 font-light leading-relaxed">
           {description}
         </p>

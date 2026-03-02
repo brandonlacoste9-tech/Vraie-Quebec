@@ -144,46 +144,55 @@ export default function AgendaPage() {
               key={event.id}
               className="group relative bg-zinc-900/50 border border-white/10 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(var(--primary),0.2)] flex flex-col"
             >
-              {/* Image */}
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={event.image || "/placeholder.svg"}
-                  alt={event.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+              <a
+                href={`https://www.google.com/search?q=${encodeURIComponent(event.title + ' ' + event.location)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col flex-1"
+              >
+                {/* Image */}
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src={event.image || "/placeholder.svg"}
+                    alt={event.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
 
-                {/* Featured Badge */}
-                {event.featured && (
-                  <div className="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
-                    {t.agenda.featured}
-                  </div>
-                )}
+                  {/* Featured Badge */}
+                  {event.featured && (
+                    <div className="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                      {t.agenda.featured}
+                    </div>
+                  )}
 
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  {event.category}
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6 flex flex-col flex-1">
-                <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                  <div className="flex items-center gap-1.5 text-primary">
-                    <Calendar className="w-4 h-4" />
-                    <span className="font-mono">{event.date}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4" />
-                    <span className="truncate max-w-[150px]">{event.location}</span>
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    {event.category}
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold font-heading mb-2 group-hover:text-primary transition-colors">
-                  {event.title}
-                </h3>
-                <p className="text-gray-400 text-sm mb-6 flex-1">{event.description}</p>
+                {/* Content */}
+                <div className="px-6 pt-6 flex flex-col flex-1">
+                  <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                    <div className="flex items-center gap-1.5 text-primary">
+                      <Calendar className="w-4 h-4" />
+                      <span className="font-mono">{event.date}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <MapPin className="w-4 h-4" />
+                      <span className="truncate max-w-[150px]">{event.location}</span>
+                    </div>
+                  </div>
 
+                  <h3 className="text-2xl font-bold font-heading mb-2 group-hover:text-primary transition-colors">
+                    {event.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm mb-6 flex-1">{event.description}</p>
+                </div>
+              </a>
+
+              <div className="p-6 pt-0 flex flex-col">
                 <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
                   <div className="text-lg font-bold text-white">{event.price}</div>
                   <RSVPModal venueName={event.title} placeId={event.id.toString()} imageUrl={event.image}>
@@ -203,6 +212,6 @@ export default function AgendaPage() {
       </div>
 
       <Footer />
-    </div>
+    </div >
   )
 }

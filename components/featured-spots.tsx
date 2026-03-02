@@ -23,15 +23,15 @@ export function FeaturedSpots() {
   // Filter spots based on city and category
   const spots = useMemo(() => {
     let filtered = CACHED_DATA.venues
-    
+
     if (cityFilter !== 'All') {
       filtered = filtered.filter(s => s.city === cityFilter)
     }
-    
+
     if (categoryFilter !== 'all') {
       filtered = filtered.filter(s => s.type === categoryFilter)
     }
-    
+
     return filtered.slice(0, 8)
   }, [cityFilter, categoryFilter])
 
@@ -55,7 +55,7 @@ export function FeaturedSpots() {
               Sélection Vrai Québec
             </Badge>
             <span className="text-sm text-gold-500/80 font-heading uppercase tracking-widest">
-               Accès Membres
+              Accès Membres
             </span>
           </div>
           <h2 className="text-3xl md:text-5xl font-heading font-bold uppercase text-white">
@@ -63,41 +63,41 @@ export function FeaturedSpots() {
             {t.featured.headline_suffix}
           </h2>
         </div>
-        
+
         <div className="flex flex-col gap-2">
           {/* City Filter */}
           <div className="flex gap-2">
-             {['All', 'Montreal', 'Quebec City'].map(city => (
-                <Button 
-                  key={city}
-                  variant={cityFilter === city ? "default" : "outline"}
-                  className={cn(
-                      "font-heading uppercase rounded-none text-xs font-bold h-8 transition-all",
-                      cityFilter === city ? "bg-gold-500 text-black hover:bg-gold-400" : "border-white/20 text-white hover:border-gold-500 hover:text-gold-400 bg-transparent"
-                  )}
-                  onClick={() => setCityFilter(city as any)}
-                >
-                  {city === 'All' ? 'Tous' : city === 'Montreal' ? 'Montréal' : 'Québec'}
-                </Button>
-             ))}
+            {['All', 'Montreal', 'Quebec City'].map(city => (
+              <Button
+                key={city}
+                variant={cityFilter === city ? "default" : "outline"}
+                className={cn(
+                  "font-heading uppercase rounded-none text-xs font-bold h-8 transition-all",
+                  cityFilter === city ? "bg-gold-500 text-black hover:bg-gold-400" : "border-white/20 text-white hover:border-gold-500 hover:text-gold-400 bg-transparent"
+                )}
+                onClick={() => setCityFilter(city as any)}
+              >
+                {city === 'All' ? 'Tous' : city === 'Montreal' ? 'Montréal' : 'Québec'}
+              </Button>
+            ))}
           </div>
-          
+
           {/* Category Filter */}
           <div className="flex gap-1 flex-wrap">
-             {categories.map(cat => (
-                <Button 
-                  key={cat.id}
-                  variant={categoryFilter === cat.id ? "default" : "outline"}
-                  size="sm"
-                  className={cn(
-                      "font-heading uppercase rounded-none text-[10px] font-bold h-6 px-2 transition-all",
-                      categoryFilter === cat.id ? "bg-primary text-white" : "border-white/10 text-white/60 hover:border-primary/50 hover:text-primary bg-transparent"
-                  )}
-                  onClick={() => setCategoryFilter(cat.id)}
-                >
-                  {cat.label}
-                </Button>
-             ))}
+            {categories.map(cat => (
+              <Button
+                key={cat.id}
+                variant={categoryFilter === cat.id ? "default" : "outline"}
+                size="sm"
+                className={cn(
+                  "font-heading uppercase rounded-none text-[10px] font-bold h-6 px-2 transition-all",
+                  categoryFilter === cat.id ? "bg-primary text-white" : "border-white/10 text-white/60 hover:border-primary/50 hover:text-primary bg-transparent"
+                )}
+                onClick={() => setCategoryFilter(cat.id)}
+              >
+                {cat.label}
+              </Button>
+            ))}
           </div>
         </div>
       </div>
@@ -107,8 +107,8 @@ export function FeaturedSpots() {
           <div
             key={spot.id}
             className={cn(
-                "group leather-card border border-white/10 hover:border-primary/50 transition-all duration-500 flex flex-col h-full relative overflow-hidden",
-                spot.isFeatured && "leather-card-elevated stitched ring-1 ring-primary/20"
+              "group leather-card border border-white/10 hover:border-primary/50 transition-all duration-500 flex flex-col h-full relative overflow-hidden",
+              spot.isFeatured && "leather-card-elevated stitched ring-1 ring-primary/20"
             )}
           >
             <div className="relative h-64 overflow-hidden">
@@ -123,12 +123,12 @@ export function FeaturedSpots() {
 
               <div className="absolute top-4 left-4 flex flex-col gap-2">
                 {spot.isFeatured && (
-                    <Badge className="w-fit bg-gold-500 text-black font-bold border-none font-heading uppercase rounded-none text-xs shadow-lg shadow-gold-500/20">
-                        VIP Access
-                    </Badge>
+                  <Badge className="w-fit bg-gold-500 text-black font-bold border-none font-heading uppercase rounded-none text-xs shadow-lg shadow-gold-500/20">
+                    VIP Access
+                  </Badge>
                 )}
                 <Badge className="w-fit bg-white/10 text-white font-bold border-none font-heading uppercase rounded-none text-[10px]">
-                    {spot.type}
+                  {spot.type}
                 </Badge>
               </div>
 
@@ -154,28 +154,28 @@ export function FeaturedSpots() {
                   {spot.neighborhood.fr}, {spot.city}
                 </div>
                 {spot.hours && (
-                     <div className="flex items-center text-sm text-gray-400">
-                        <Clock className="h-3 w-3 mr-2 text-gold-500" />
-                        {spot.hours.fr}
-                    </div>
+                  <div className="flex items-center text-sm text-gray-400">
+                    <Clock className="h-3 w-3 mr-2 text-gold-500" />
+                    {spot.hours.fr}
+                  </div>
                 )}
               </div>
 
               <div className="mt-auto flex gap-2">
-                <RSVPModal 
-                    venueName={spot.name}
-                    placeId={spot.id}
-                    imageUrl={spot.image}
+                <RSVPModal
+                  venueName={spot.name}
+                  placeId={spot.id}
+                  imageUrl={spot.image}
                 >
-                    <Button
-                        className="flex-1 bg-gold-500 text-black hover:bg-gold-400 font-heading uppercase text-xs font-bold rounded-none h-8 transition-all shadow-[0_0_15px_rgba(234,179,8,0.3)] hover:shadow-[0_0_25px_rgba(234,179,8,0.5)]"
-                    >
-                        {t.featured.reserve}
-                    </Button>
+                  <Button
+                    className="flex-1 bg-gold-500 text-black hover:bg-gold-400 font-heading uppercase text-xs font-bold rounded-none h-8 transition-all shadow-[0_0_15px_rgba(234,179,8,0.3)] hover:shadow-[0_0_25px_rgba(234,179,8,0.5)]"
+                  >
+                    {t.featured.reserve}
+                  </Button>
                 </RSVPModal>
                 <Button
                   variant="outline"
-                  onClick={() => router.push(`/venue/${spot.id}`)}
+                  onClick={() => window.open(spot.website || `https://www.google.com/search?q=${encodeURIComponent(spot.name + ' ' + spot.city)}`, '_blank')}
                   className="flex-1 border-white/20 text-white hover:border-gold-500 hover:text-gold-400 font-heading uppercase text-xs font-bold rounded-none h-8 bg-transparent"
                 >
                   {t.featured.details}

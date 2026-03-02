@@ -33,7 +33,8 @@
   --ring: #0044ff;
   --radius: 0rem;
   --font-inter: "Inter", sans-serif;
-  --font-oswald: "Oswald", sans-serif;
+  --font-cinzel: "Cinzel", serif;
+  --font-playfair: "Playfair Display", serif;
 
   /* Custom Animation Vars */
   --glow-color: hsla(var(--primary-hue), 91%, 60%, 0.5);
@@ -127,8 +128,9 @@
 }
 
 @theme inline {
-  --font-heading: var(--font-oswald);
-  --font-sans: "Abel", "Abel Fallback";
+  --font-heading: var(--font-cinzel);
+  --font-sans: var(--font-inter);
+  --font-logo: var(--font-playfair);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -198,8 +200,7 @@
   h4,
   h5,
   h6 {
-    /* Replaced @apply font-heading with native CSS to avoid utility resolution errors */
-    font-family: var(--font-oswald), sans-serif;
+    font-family: var(--font-cinzel), serif;
     @apply uppercase tracking-tight;
     /* Added optimal line-height for headings */
     line-height: 1.2;

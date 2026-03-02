@@ -89,13 +89,13 @@ export function MainNav() {
             </svg>
           </div>
 
-          {/* Refined Sans-Serif Logo Text */}
+          {/* Elegant Serif Logo Text */}
           <div className="flex flex-col leading-none pt-1">
             <div className="flex items-center gap-1.5">
-              <span className="text-xl font-sans font-light tracking-[0.2em] text-white/90">
+              <span className="text-2xl font-logo tracking-[0.15em] text-white/90">
                 VRAI
               </span>
-              <span className="text-xl font-sans font-medium tracking-[0.1em] text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">
+              <span className="text-2xl font-logo italic tracking-[0.05em] text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">
                 QUÉBEC
               </span>
             </div>

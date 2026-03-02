@@ -9,19 +9,19 @@ import { RGBBorder } from "@/components/rgb-border" // importing the new compone
 import { RGBProvider } from "@/components/rgb-provider" // imported RGBProvider
 import { AmbientOrbs } from "@/components/ambient-orbs" // importing AmbientOrbs
 import "./globals.css"
-import { Inter, Oswald, Abel as V0_Font_Abel } from "next/font/google"
+import { Inter, Playfair_Display, Cinzel } from "next/font/google"
 
 // Initialize fonts
-const _abel = V0_Font_Abel({ subsets: ["latin"], weight: ["400"] })
+const cinzel = Cinzel({ subsets: ["latin"], variable: "--font-cinzel" })
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 })
 
-const oswald = Oswald({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-oswald",
+  variable: "--font-playfair",
 })
 
 export const metadata: Metadata = {
@@ -90,7 +90,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${inter.variable} ${oswald.variable}`}
+      className={`${inter.variable} ${cinzel.variable} ${playfair.variable}`}
       suppressHydrationWarning
       style={{ backgroundColor: "#000000" }}
     >
