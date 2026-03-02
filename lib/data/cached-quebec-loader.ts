@@ -9,19 +9,15 @@
  * Auto-refreshes via DeepSeek AI daily
  */
 
-import { readFileSync, existsSync } from "fs"
-import { join } from "path"
-
-const CACHE_PATH = join(process.cwd(), "lib", "data", "cached-quebec.json")
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000 // 24 hours
 
-export type VenueType = 
-  | "restaurant" 
-  | "hotel" 
-  | "bar" 
+export type VenueType =
+  | "restaurant"
+  | "hotel"
+  | "bar"
   | "cafe"
-  | "attraction" 
-  | "church" 
+  | "attraction"
+  | "church"
   | "museum"
   | "historic"
   | "nature"
@@ -148,7 +144,7 @@ const FALLBACK_DATA: CachedQuebecData = {
       isFeatured: false,
       bookingType: "reservation",
     },
-    
+
     // HOTELS
     {
       id: "qc-hotel-001",
@@ -193,7 +189,7 @@ const FALLBACK_DATA: CachedQuebecData = {
       tags: { fr: ["boutique", "design", "rooftop"], en: ["boutique", "design", "rooftop"] },
       isFeatured: true,
     },
-    
+
     // BARS & CAFÉS
     {
       id: "qc-bar-001",
@@ -241,7 +237,7 @@ const FALLBACK_DATA: CachedQuebecData = {
       isFeatured: false,
       isOpen: true,
     },
-    
+
     // CHURCHES
     {
       id: "qc-church-001",
@@ -286,7 +282,7 @@ const FALLBACK_DATA: CachedQuebecData = {
       tags: { fr: ["historique", "cathédrale", "religieux"], en: ["historic", "cathedral", "religious"] },
       isFeatured: true,
     },
-    
+
     // TOURIST ATTRACTIONS
     {
       id: "qc-att-001",
@@ -352,7 +348,7 @@ const FALLBACK_DATA: CachedQuebecData = {
       tags: { fr: ["historique", "patrimoine", "culture"], en: ["historic", "heritage", "culture"] },
       isFeatured: true,
     },
-    
+
     // MUSEUMS
     {
       id: "qc-mus-001",
@@ -398,7 +394,7 @@ const FALLBACK_DATA: CachedQuebecData = {
       tags: { fr: ["histoire", "interactif", "famille"], en: ["history", "interactive", "family"] },
       isFeatured: false,
     },
-    
+
     // SHOPPING
     {
       id: "qc-shop-001",
@@ -520,22 +516,6 @@ const FALLBACK_DATA: CachedQuebecData = {
 }
 
 export function getCachedQuebecData(): CachedQuebecData {
-  try {
-    if (existsSync(CACHE_PATH)) {
-      const cached = JSON.parse(readFileSync(CACHE_PATH, "utf-8")) as CachedQuebecData
-      const cacheAge = Date.now() - new Date(cached.lastUpdated).getTime()
-      
-      if (cacheAge < CACHE_TTL_MS) {
-        console.log("[Quebec Cache] Using fresh cached data")
-        return cached
-      }
-      console.log("[Quebec Cache] Cache expired")
-    }
-  } catch (error) {
-    console.error("[Quebec Cache] Error:", error)
-  }
-  
-  console.log("[Quebec Cache] Using fallback data")
   return FALLBACK_DATA
 }
 
@@ -544,15 +524,15 @@ export function getQuebecDataWithMinCounts(
   minEvents: number = 6
 ): CachedQuebecData {
   const data = getCachedQuebecData()
-  
-  const venues = data.venues.length >= minVenues 
-    ? data.venues 
+
+  const venues = data.venues.length >= minVenues
+    ? data.venues
     : [...data.venues, ...FALLBACK_DATA.venues].slice(0, minVenues)
-  
+
   const events = data.events.length >= minEvents
     ? data.events
     : [...data.events, ...FALLBACK_DATA.events].slice(0, minEvents)
-  
+
   return {
     venues,
     events,
