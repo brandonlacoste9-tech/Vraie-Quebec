@@ -6,13 +6,13 @@ import { Button } from "@/components/ui/button"
 const events = [
   {
     id: 1,
-    title: "Canadiens vs Bruins",
-    date: "SAM 24 FÉV",
+    title: "Canadiens vs Leafs",
+    date: "SAM 14 MARS",
     time: "19:00",
     venue: "Centre Bell, Montréal",
-    image: "https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=800",
+    image: "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?w=800", // New hockey action shot
     category: "Sports",
-    price: "Dès 120$",
+    price: "Dès 145$",
   },
   {
     id: 2,

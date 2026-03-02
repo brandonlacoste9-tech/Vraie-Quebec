@@ -97,17 +97,18 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: hsl(222.2 84% 4.9%);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: rgb(120, 245, 120);
+  --primary: hsl(45 93% 47%);
+  /* Elegant Amber/Gold */
   --primary-foreground: oklch(0.205 0 0);
-  --secondary: hsl(217.2 32.6% 17.5%);
-  --secondary-foreground: rgb(204, 39, 204);
-  --muted: hsl(217.2 32.6% 17.5%);
+  --secondary: hsl(45 10% 15%);
+  --secondary-foreground: hsl(45 93% 47%);
+  --muted: hsl(45 10% 15%);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: hsl(217.2 32.6% 17.5%);
-  --accent-foreground: rgb(233, 81, 155);
+  --accent: hsl(45 10% 15%);
+  --accent-foreground: hsl(45 93% 47%);
   --destructive: hsl(0 62.8% 30.6%);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: hsl(217.2 32.6% 17.5%);
+  --border: hsl(45 10% 15%);
   --input: hsl(217.2 32.6% 17.5%);
   --ring: hsl(224.3 76.3% 94.1%);
   --chart-1: hsl(217.2 91.2% 59.8%);
@@ -171,24 +172,26 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply text-foreground overflow-x-hidden;
     /* Base: Dark Pebbled Leather Texture */
     background-color: #0d0c0b;
-    background-image: 
+    background-image:
       /* Pebbled grain pattern */
       radial-gradient(circle at 20% 30%, rgba(30, 25, 20, 0.4) 0%, transparent 50%),
       radial-gradient(circle at 80% 70%, rgba(20, 15, 10, 0.4) 0%, transparent 50%),
       radial-gradient(circle at 50% 50%, rgba(25, 20, 15, 0.3) 0%, transparent 60%),
       /* Fine pebbled texture */
       url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pebble'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.03 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pebble)' opacity='0.15'/%3E%3C/svg%3E"),
-      /* Subtle green ambient glow */
-      radial-gradient(circle at 50% 50%, rgba(120, 245, 120, 0.02) 0%, transparent 50%);
+      /* Subtle gold ambient glow */
+      radial-gradient(circle at 50% 50%, rgba(234, 180, 8, 0.02) 0%, transparent 50%);
     /* Added font smoothing for crisp text */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
+
   h1,
   h2,
   h3,
@@ -261,8 +264,7 @@
 /* Added metallic gold effect utility */
 .metallic-gold {
   background: linear-gradient(135deg, #ffd76c 0%, #f4c542 25%, #c49a2b 50%, #f4c542 75%, #ffd76c 100%);
-  box-shadow: 0 2px 8px rgba(255, 215, 108, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0
-    rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(255, 215, 108, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -281,11 +283,13 @@
 }
 
 @keyframes pulse-glow {
+
   0%,
   100% {
     opacity: 0.5;
     transform: scale(1) translateZ(0);
   }
+
   50% {
     opacity: 0.8;
     transform: scale(1.05) translateZ(0);
@@ -300,9 +304,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -318,9 +324,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -331,9 +339,11 @@
   0% {
     transform: translateY(0) rotate(0deg);
   }
+
   50% {
     transform: translateY(-16px) rotate(2deg);
   }
+
   100% {
     transform: translateY(0) rotate(0deg);
   }
@@ -344,6 +354,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -367,7 +378,8 @@
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  padding: 3px; /* Width of the border */
+  padding: 3px;
+  /* Width of the border */
   /* Uses a mask to show only the border area */
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -387,17 +399,20 @@
   0% {
     filter: hue-rotate(0deg);
   }
+
   100% {
     filter: hue-rotate(360deg);
   }
 }
 
 @keyframes breathe {
+
   0%,
   100% {
     opacity: 0.3;
     box-shadow: 0 0 10px currentColor;
   }
+
   50% {
     opacity: 1;
     box-shadow: 0 0 30px currentColor;
@@ -405,7 +420,8 @@
 }
 
 .rgb-mode-cycle::before {
-  background: #ff0000; /* Start Red */
+  background: #ff0000;
+  /* Start Red */
   animation: hue-cycle 10s linear infinite !important;
   /* Override the conic gradient for cycle mode */
 }
@@ -424,7 +440,8 @@
 /* Cycle Mode: Smoothly changes color of all headings */
 body.rgb-text-cycle :is(h1, h2, h3, h4, h5, h6, .font-heading) {
   animation: hue-cycle 10s linear infinite;
-  color: #ff0000; /* Start color */
+  color: #ff0000;
+  /* Start color */
 }
 
 /* Rainbow Mode: Static rainbow gradient on text */
@@ -433,7 +450,8 @@ body.rgb-text-rainbow :is(h1, h2, h3, h4, h5, h6, .font-heading) {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  display: inline-block; /* Helps with background-clip sometimes */
+  display: inline-block;
+  /* Helps with background-clip sometimes */
 }
 
 /* Ensure links inside headings inherit the effect */
@@ -447,39 +465,48 @@ body.rgb-text-cycle :is(h1, h2, h3, h4, h5, h6, .font-heading) a {
 
 /* Added ambient orb float animations */
 @keyframes float-1 {
+
   0%,
   100% {
     transform: translate(0, 0) scale(1);
   }
+
   33% {
     transform: translate(30px, -50px) scale(1.1);
   }
+
   66% {
     transform: translate(-20px, 20px) scale(0.9);
   }
 }
 
 @keyframes float-2 {
+
   0%,
   100% {
     transform: translate(0, 0) scale(1);
   }
+
   33% {
     transform: translate(-30px, 50px) scale(1.2);
   }
+
   66% {
     transform: translate(20px, -20px) scale(0.8);
   }
 }
 
 @keyframes float-3 {
+
   0%,
   100% {
     transform: translate(0, 0) scale(1);
   }
+
   33% {
     transform: translate(50px, 50px) scale(0.9);
   }
+
   66% {
     transform: translate(-30px, -30px) scale(1.1);
   }
@@ -488,9 +515,11 @@ body.rgb-text-cycle :is(h1, h2, h3, h4, h5, h6, .font-heading) a {
 .animate-float-1 {
   animation: float-1 20s ease-in-out infinite;
 }
+
 .animate-float-2 {
   animation: float-2 25s ease-in-out infinite;
 }
+
 .animate-float-3 {
   animation: float-3 22s ease-in-out infinite;
 }
@@ -500,7 +529,7 @@ body.rgb-text-cycle :is(h1, h2, h3, h4, h5, h6, .font-heading) a {
 /* Base: Dark Pebbled Leather (for main backgrounds) */
 .leather-overlay {
   background-color: #0d0c0b;
-  background-image: 
+  background-image:
     radial-gradient(circle at 20% 30%, rgba(30, 25, 20, 0.3) 0%, transparent 50%),
     radial-gradient(circle at 80% 70%, rgba(20, 15, 10, 0.3) 0%, transparent 50%),
     url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pebble-base'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.03 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pebble-base)' opacity='0.12'/%3E%3C/svg%3E");
@@ -509,53 +538,53 @@ body.rgb-text-cycle :is(h1, h2, h3, h4, h5, h6, .font-heading) a {
 /* Layer 1: Medium Brown Suede (for standard cards) */
 .leather-card {
   background-color: #2a2523;
-  background-image: 
+  background-image:
     radial-gradient(circle at 30% 40%, rgba(60, 50, 45, 0.3) 0%, transparent 40%),
     radial-gradient(circle at 70% 60%, rgba(50, 40, 35, 0.3) 0%, transparent 40%),
     url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='suede'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0 0.05 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23suede)' opacity='0.2'/%3E%3C/svg%3E");
   @apply border border-border relative overflow-hidden;
-  box-shadow: 
-    0 4px 20px rgba(0,0,0,0.7), 
-    inset 0 1px 0 rgba(255,255,255,0.03),
-    inset 0 -1px 0 rgba(0,0,0,0.5);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* Layer 2: Reddish-Brown Suede (for elevated cards, VIP sections) */
 .leather-card-elevated {
   background-color: #3d2e28;
-  background-image: 
+  background-image:
     radial-gradient(circle at 25% 35%, rgba(80, 60, 50, 0.25) 0%, transparent 45%),
     radial-gradient(circle at 75% 65%, rgba(70, 50, 40, 0.25) 0%, transparent 45%),
     url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='suede-red'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0 0.05 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23suede-red)' opacity='0.18'/%3E%3C/svg%3E");
   @apply border border-border relative overflow-hidden;
-  box-shadow: 
-    0 6px 25px rgba(0,0,0,0.8), 
-    inset 0 1px 0 rgba(255,255,255,0.04),
-    inset 0 -1px 0 rgba(0,0,0,0.6),
-    0 0 0 1px rgba(120, 245, 120, 0.1);
+  box-shadow:
+    0 6px 25px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(234, 180, 8, 0.1);
 }
 
 /* Enhanced Green-Gold Stitching - Stands out against all leather textures */
 .stitched {
   position: relative;
-  /* Base dark thread with green tint */
-  border: 2px dashed rgba(120, 245, 120, 0.3);
+  /* Base dark thread with gold tint */
+  border: 2px dashed rgba(234, 180, 8, 0.3);
   /* Shadow for depth */
-  box-shadow: 
+  box-shadow:
     0 0 0 3px rgba(13, 12, 11, 0.9),
-    inset 0 0 15px rgba(0,0,0,0.6),
-    0 2px 4px rgba(0,0,0,0.4);
+    inset 0 0 15px rgba(0, 0, 0, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .stitched::before {
   content: '';
   position: absolute;
   inset: -4px;
-  /* Green-gold thread highlight */
-  border: 1px dashed rgba(120, 245, 120, 0.6);
+  /* Gold thread highlight */
+  border: 1px dashed rgba(234, 180, 8, 0.6);
   pointer-events: none;
   border-radius: inherit;
-  box-shadow: 0 0 8px rgba(120, 245, 120, 0.3);
+  box-shadow: 0 0 8px rgba(234, 180, 8, 0.3);
 }
 
 .stitched::after {
@@ -563,50 +592,50 @@ body.rgb-text-cycle :is(h1, h2, h3, h4, h5, h6, .font-heading) a {
   position: absolute;
   inset: -6px;
   /* Outer glow */
-  border: 1px dashed rgba(120, 245, 120, 0.2);
+  border: 1px dashed rgba(234, 180, 8, 0.2);
   pointer-events: none;
   border-radius: inherit;
 }
 
 .stitched-subtle {
-  border: 1px dashed rgba(120, 245, 120, 0.25);
-  box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+  border: 1px dashed rgba(234, 180, 8, 0.25);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
 }
 
-/* Stitching for elevated cards - brighter green */
+/* Stitching for elevated cards - brighter gold */
 .leather-card-elevated.stitched {
-  border-color: rgba(120, 245, 120, 0.5);
+  border-color: rgba(234, 180, 8, 0.5);
 }
 
 .leather-card-elevated.stitched::before {
-  border-color: rgba(120, 245, 120, 0.8);
-  box-shadow: 0 0 12px rgba(120, 245, 120, 0.4);
+  border-color: rgba(234, 180, 8, 0.8);
+  box-shadow: 0 0 12px rgba(234, 180, 8, 0.4);
 }
 
 /* Premium Buttons with Leather Texture */
 .btn-leather {
   background-color: #2a2523;
-  background-image: 
+  background-image:
     radial-gradient(circle at 50% 50%, rgba(60, 50, 45, 0.2) 0%, transparent 60%),
     url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='btn-leather'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.0' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.03 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23btn-leather)' opacity='0.15'/%3E%3C/svg%3E");
   @apply text-primary border border-border transition-all duration-300;
-  box-shadow: 
-    0 4px 6px rgba(0,0,0,0.4), 
-    inset 0 1px 0 rgba(255,255,255,0.03),
-    inset 0 -1px 0 rgba(0,0,0,0.5);
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
 }
 
 .btn-leather:hover {
   background-color: #3d2e28;
   @apply border-primary/50 text-primary;
   transform: translateY(-1px);
-  box-shadow: 
-    0 6px 12px rgba(0,0,0,0.5), 
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.5),
     0 0 10px rgba(120, 245, 120, 0.2),
-    inset 0 1px 0 rgba(255,255,255,0.04);
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .btn-leather:active {
   transform: translateY(0px);
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
 }
