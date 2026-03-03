@@ -45,17 +45,26 @@ export function HeroSection() {
             </span>
           </div>
 
-          {/* Hero Logo with Artistic Design */}
-          <div className="mb-8 flex justify-center">
-            <Image
-              src="/images/bienvenue-logo.jpg"
-              alt="Bienvenue au Vrai Quebec Logo"
-              width={600}
-              height={300}
-              className="w-full max-w-3xl h-auto drop-shadow-2xl"
-              priority
-            />
-          </div>
+          <h1
+            className="font-heading text-7xl md:text-9xl lg:text-[10rem] font-black leading-tight tracking-tighter mb-6 select-none py-4"
+            style={{
+              color: "transparent",
+              WebkitTextStroke: "2px hsl(var(--primary-hue), 91%, 60%)",
+              textShadow: `0 0 20px hsla(var(--primary-hue), 91%, 60%, 0.5)`,
+            }}
+          >
+            <span className="block drop-shadow-2xl filter text-[rgba(9,9,22,1)] text-9xl font-serif">
+              {content.headline_prefix}
+            </span>
+            <span
+              className="block bg-clip-text bg-gradient-to-b from-white to-white/50 text-9xl bg-[rgba(128,75,75,1)] text-shadow-color font-serif"
+              style={{
+                backgroundImage: `linear-gradient(180deg, #fff 0%, hsl(var(--primary-hue), 91%, 80%) 100%)`,
+              }}
+            >
+              {content.headline_highlight}
+            </span>
+          </h1>
 
           <p className="mb-8 text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed font-medium text-balance drop-shadow-md">
             {content.description}
