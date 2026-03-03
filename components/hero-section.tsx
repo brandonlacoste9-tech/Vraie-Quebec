@@ -16,7 +16,6 @@ export function HeroSection() {
           alt="Vrai Quebec Background Pattern"
           fill
           className="object-cover contrast-110 brightness-100"
-          quality={100}
           priority
         />
         <div className="absolute inset-0 bg-black/50" />
