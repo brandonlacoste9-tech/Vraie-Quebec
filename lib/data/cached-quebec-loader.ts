@@ -9,10 +9,6 @@
  * Auto-refreshes via DeepSeek AI daily
  */
 
-import { readFileSync, existsSync } from "fs"
-import { join } from "path"
-
-const CACHE_PATH = join(process.cwd(), "lib", "data", "cached-quebec.json")
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000 // 24 hours
 
 export type VenueType = 
@@ -520,22 +516,6 @@ const FALLBACK_DATA: CachedQuebecData = {
 }
 
 export function getCachedQuebecData(): CachedQuebecData {
-  try {
-    if (existsSync(CACHE_PATH)) {
-      const cached = JSON.parse(readFileSync(CACHE_PATH, "utf-8")) as CachedQuebecData
-      const cacheAge = Date.now() - new Date(cached.lastUpdated).getTime()
-      
-      if (cacheAge < CACHE_TTL_MS) {
-        console.log("[Quebec Cache] Using fresh cached data")
-        return cached
-      }
-      console.log("[Quebec Cache] Cache expired")
-    }
-  } catch (error) {
-    console.error("[Quebec Cache] Error:", error)
-  }
-  
-  console.log("[Quebec Cache] Using fallback data")
   return FALLBACK_DATA
 }
 
