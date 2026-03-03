@@ -9,10 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/components/language-provider"
 import { RSVPModal } from "@/components/booking/RSVPModal"
 import { cn } from "@/lib/utils"
-import { getQuebecDataWithMinCounts, type QuebecVenue } from "@/lib/data/cached-quebec-loader"
-
-// Get data immediately from cache/fallback
-const CACHED_DATA = getQuebecDataWithMinCounts(12, 6)
+import { FALLBACK_DATA, type QuebecVenue } from "@/lib/data/cached-quebec-loader"
 
 export function FeaturedSpots() {
   const router = useRouter()
@@ -22,7 +19,7 @@ export function FeaturedSpots() {
 
   // Filter spots based on city and category
   const spots = useMemo(() => {
-    let filtered = CACHED_DATA.venues
+    let filtered = FALLBACK_DATA.venues
     
     if (cityFilter !== 'All') {
       filtered = filtered.filter(s => s.city === cityFilter)
