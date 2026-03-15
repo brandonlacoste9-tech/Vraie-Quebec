@@ -21,7 +21,7 @@ const events = [
     date: "VEN 1 MARS",
     time: "22:00",
     venue: "Centre Vidéotron, Québec",
-    image: "https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=800",
+    image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800",
     category: "Techno",
     price: "Dès 85$",
   },

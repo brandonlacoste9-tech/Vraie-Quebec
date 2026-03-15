@@ -91,7 +91,7 @@ export default function HomePage() {
           </div>
           <div className="relative min-h-[55vh] lg:min-h-0 img-zoom overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1400&q=90&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1400&q=90&auto=format&fit=crop"
               alt="Table dressée avec élégance dans un restaurant montréalais"
               className="absolute inset-0 w-full h-full object-cover"
             />

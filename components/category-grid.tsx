@@ -5,7 +5,7 @@ const categories = [
   {
     name: "Restaurants",
     icon: Utensils,
-    image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop",
     count: "420+ établissements",
     href: "/restaurants",
   },
