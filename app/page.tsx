@@ -3,7 +3,7 @@ import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 import { NewsletterForm } from "@/components/newsletter-form"
 
-// ─── Curated data ─────────────────────────────────────────────────────────────
+// ─── Curated data (Louis Vuitton × Hermès) ───────────────────────────────────
 const featured = [
   {
     id: "1",
