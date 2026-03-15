@@ -28,13 +28,13 @@ const EVENTS = [
     id: 4, label: "Gastronomie", title: "Poutine Week VIP Tasting",
     description: "Dégustation des dix meilleures poutines de l'année avec accord bières artisanales.",
     date: "5 Février", location: "La Banquise, Montréal", price: "$35",
-    image: "https://images.unsplash.com/photo-1582169505937-b9992bd01ed9?w=800&q=85&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1558642891-54be180ea339?w=800&q=85&auto=format&fit=crop",
   },
   {
     id: 5, label: "Arts", title: "MURAL Festival",
     description: "Festival d'art urbain avec DJ sets et live painting en direct sur la rue Saint-Laurent.",
     date: "6 Juin", location: "Boul. Saint-Laurent, Montréal", price: "Entrée libre",
-    image: "https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=800&q=85&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&q=85&auto=format&fit=crop",
   },
   {
     id: 6, label: "Arts", title: "Nuit Blanche à Montréal",

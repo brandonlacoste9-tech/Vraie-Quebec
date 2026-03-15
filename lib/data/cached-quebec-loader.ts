@@ -230,7 +230,7 @@ const FALLBACK_DATA: CachedQuebecData = {
       reviewCount: 1823,
       price: 1,
       priceDisplay: "$",
-      image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800&q=80",
+      image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2d59?w=800&q=80",
       hours: { fr: "Lun-Dim: 7h-20h", en: "Mon-Sun: 7am-8pm" },
       features: ["Espresso italien", "Terrasse", "Ambiance locale"],
       tags: { fr: ["café", "italien", "authentique"], en: ["coffee", "italian", "authentic"] },
@@ -447,7 +447,7 @@ const FALLBACK_DATA: CachedQuebecData = {
         en: "The world's largest winter carnival. Bonhomme, ice slides, and parades.",
       },
       price: { fr: "À partir de 15$", en: "From $15" },
-      image: "https://images.unsplash.com/photo-1516961642265-531546e84af2?w=800&q=80",
+      image: "https://images.unsplash.com/photo-1418985991508-e47386d96a71?w=800&q=80",
       isFeatured: true,
     },
     {

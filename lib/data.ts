@@ -111,7 +111,7 @@ export const REAL_QUEBEC_DATA: { [key: string]: Place[] } = {
       rating: 4.9,
       price: '$$$$',
       priceTier: '$$$$',
-      image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974',
+      image: 'https://images.unsplash.com/photo-1600565193348-f74bd3960a5f?q=80&w=1974',
       description: 'Stéphane Modat\'s masterpiece celebrating Quebec\'s terroir.',
       is_hot: true,
       exclusive: true,

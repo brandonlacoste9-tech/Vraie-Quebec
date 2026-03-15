@@ -11,7 +11,7 @@ const events = [
     date: "SAM 14 MARS",
     time: "19:00",
     venue: "Centre Bell, Montréal",
-    image: "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?w=800",
+    image: "https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=800",
     category: "Sports",
     price: "Dès 145$",
   },

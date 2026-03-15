@@ -72,7 +72,7 @@ const FALLBACK_PLACES: Place[] = [
   {
     id: 'rest-mtl-7', name: 'Monarque', type: 'restaurant', city: 'Montreal', location: 'Vieux-Montréal', region: null,
     address: '406 Rue Saint-Jacques', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
-    image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800', rating: 4.6, rating_count: 520,
+    image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800', rating: 4.6, rating_count: 520,
     price: null, price_tier: '$$$$', description: "Au cœur du Vieux-Montréal, Monarque propose une cuisine de marché audacieuse dans un cadre grandiose. Menu dégustation acclamé et service exemplaire.", tags: ['gastronomique', 'vieux-montréal', 'dégustation'],
     is_hot: false, exclusive: true, booking_type: 'reservation', vibe: null, event_lineup: null, music_genre: null, party_type: null,
     dress_code: 'Smart Casual', is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: true, vip_min_spend: 300,
@@ -102,7 +102,7 @@ const FALLBACK_PLACES: Place[] = [
   {
     id: 'rest-mtl-10', name: 'Le Mousso', type: 'restaurant', city: 'Montreal', location: 'Sainte-Marie', region: null,
     address: '1023 Rue Ontario E', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
-    image: 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=800', rating: 4.9, rating_count: 670,
+    image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800', rating: 4.9, rating_count: 670,
     price: null, price_tier: '$$$$', description: "Le chef Antonin Mousseau-Rivard signe ici l'une des expériences gastronomiques les plus avant-gardistes du Canada. Menu dégustation surprenant, vingt services.",  tags: ['avant-garde', 'dégustation', 'québécois'],
     is_hot: false, exclusive: true, booking_type: 'reservation', vibe: null, event_lineup: null, music_genre: null, party_type: null,
     dress_code: 'Smart Casual', is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: true, vip_min_spend: 350,
@@ -112,7 +112,7 @@ const FALLBACK_PLACES: Place[] = [
   {
     id: 'rest-mtl-11', name: 'Pastel', type: 'restaurant', city: 'Montreal', location: 'Rosemont', region: null,
     address: '310 Rue Beaubien E', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
-    image: 'https://images.unsplash.com/photo-1543528176-61b239494933?w=800', rating: 4.6, rating_count: 440,
+    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800', rating: 4.6, rating_count: 440,
     price: null, price_tier: '$$', description: "Cuisine fusion asiatique-méditerranéenne lumineuse dans Rosemont. Partage de petites assiettes colorées, vins naturels et service décontracté font de Pastel la table branchée du moment.", tags: ['fusion', 'partage', 'tendance'],
     is_hot: true, exclusive: false, booking_type: 'reservation', vibe: null, event_lineup: null, music_genre: null, party_type: null,
     dress_code: null, is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: false, vip_min_spend: null,
