@@ -121,6 +121,146 @@ type Translations = {
       newsletterTitle: string
       newsletterDescription: string
     }
+    footer: {
+      tagline: string
+      discover: string
+      restaurants: string
+      bars: string
+      agenda: string
+      sports: string
+      travel: string
+      house: string
+      membership: string
+      advertise: string
+      contact: string
+      terms: string
+      privacy: string
+      newsletter: string
+      newsletterDesc: string
+      copyright: string
+    }
+    restaurants: {
+      overline: string
+      title: string
+      description: string
+      editorsPick: string
+      allVenues: string
+      discover: string
+      view: string
+      noResults: string
+      noResultsDesc: string
+    }
+    bars: {
+      overline: string
+      title: string
+      description: string
+      featured: string
+      allVenues: string
+      discover: string
+      view: string
+      noResults: string
+      noResultsDesc: string
+    }
+    venue: {
+      loading: string
+      notFound: string
+      backHome: string
+      back: string
+      vipAccess: string
+      trending: string
+      about: string
+      experience: string
+      ambiance: string
+      music: string
+      dressCode: string
+      artists: string
+      booking: string
+      bookingType: string
+      priceRange: string
+      reserve: string
+      instantConfirm: string
+      info: string
+      location: string
+      rating: string
+      status: string
+      exclusive: string
+    }
+    filters: {
+      filter: string
+      budget: string
+      moderate: string
+      premium: string
+      topRated: string
+      trending: string
+      vipAccess: string
+      clear: string
+    }
+    members: {
+      overline: string
+      title: string
+      highlight: string
+      description: string
+      benefits: string
+      benefitsTitle: string
+      priority: string
+      priorityTitle: string
+      priorityBody: string
+      curation: string
+      curationTitle: string
+      curationBody: string
+      circle: string
+      circleTitle: string
+      circleBody: string
+      service: string
+      serviceTitle: string
+      serviceBody: string
+      pricing: string
+      pricingTitle: string
+      mostPopular: string
+      explorer: string
+      explorerPrice: string
+      explorerDesc: string
+      insiders: string
+      insidersPrice: string
+      insidersPeriod: string
+      insidersDesc: string
+      elite: string
+      elitePrice: string
+      elitePeriod: string
+      eliteDesc: string
+      featureAccess: string
+      featureSearch: string
+      featureFavorites: string
+      featurePriority: string
+      featurePrivate: string
+      start: string
+      join: string
+      faq: string
+      faqTitle: string
+      faqCancel: string
+      faqCancelAnswer: string
+      faqTaxes: string
+      faqTaxesAnswer: string
+      faqChange: string
+      faqChangeAnswer: string
+      faqTrial: string
+      faqTrialAnswer: string
+    }
+    common: {
+      reserve: string
+      seeMore: string
+      viewAll: string
+      back: string
+      loading: string
+      error: string
+      free: string
+      perMonth: string
+    }
+    newsletter: {
+      placeholder: string
+      subscribe: string
+      thanks: string
+    }
   }
 }
 
@@ -242,6 +382,146 @@ const translations: Translations = {
       newsletterTitle: "Ne manquez rien",
       newsletterDescription: "Nos sélections exclusives, événements privés et recommandations de la semaine, directement dans votre boîte.",
     },
+    footer: {
+      tagline: "Le guide de référence pour les adresses d'exception à Montréal et au Québec.",
+      discover: "Découvrir",
+      restaurants: "Restaurants",
+      bars: "Bars",
+      agenda: "Agenda",
+      sports: "Sports",
+      travel: "Voyage",
+      house: "Maison",
+      membership: "Adhésion",
+      advertise: "Publicité",
+      contact: "Contact",
+      terms: "Conditions",
+      privacy: "Confidentialité",
+      newsletter: "La Lettre",
+      newsletterDesc: "Recevez nos sélections exclusives chaque semaine.",
+      copyright: "© 2025 Vrai Québec. Tous droits réservés.",
+    },
+    restaurants: {
+      overline: "Gastronomie",
+      title: "Restaurants",
+      description: "Des tables d'exception sélectionnées pour leur cuisine, leur service et l'art de recevoir qui les distingue.",
+      editorsPick: "Sélection de la rédaction",
+      allVenues: "Toutes les adresses",
+      discover: "Découvrir",
+      view: "Voir",
+      noResults: "Aucun résultat",
+      noResultsDesc: "Essayez de modifier vos filtres.",
+    },
+    bars: {
+      overline: "Vie nocturne",
+      title: "Bars & Clubs",
+      description: "Cocktails de précision, ambiances soignées et scènes musicales — la vie nocturne montréalaise dans toute son élégance.",
+      featured: "En vedette",
+      allVenues: "Toutes les adresses",
+      discover: "Découvrir",
+      view: "Voir",
+      noResults: "Aucun résultat",
+      noResultsDesc: "Essayez de modifier vos filtres.",
+    },
+    venue: {
+      loading: "Chargement",
+      notFound: "Établissement introuvable",
+      backHome: "Retour à l'accueil",
+      back: "Retour",
+      vipAccess: "Accès VIP",
+      trending: "Tendance",
+      about: "À propos",
+      experience: "Expérience",
+      ambiance: "Ambiance",
+      music: "Musique",
+      dressCode: "Code vestimentaire",
+      artists: "Artistes",
+      booking: "Réservation",
+      bookingType: "Type",
+      priceRange: "Gamme",
+      reserve: "Réserver",
+      instantConfirm: "Confirmation instantanée · Sans frais",
+      info: "Informations",
+      location: "Localisation",
+      rating: "Note",
+      status: "Statut",
+      exclusive: "Accès Exclusif",
+    },
+    filters: {
+      filter: "Filtrer",
+      budget: "Budget",
+      moderate: "Modéré",
+      premium: "Haut de gamme",
+      topRated: "Très bien classé",
+      trending: "Tendance",
+      vipAccess: "Accès VIP",
+      clear: "Effacer",
+    },
+    members: {
+      overline: "Membership",
+      title: "Le cercle des",
+      highlight: "initiés",
+      description: "Accédez aux meilleures tables de Montréal, aux événements privés et à une expérience culinaire hors du commun — réservé à nos membres.",
+      benefits: "Avantages",
+      benefitsTitle: "Ce que vous obtenez",
+      priority: "Priorité",
+      priorityTitle: "Tables garanties",
+      priorityBody: "Réservations assurées dans les établissements les plus en demande, avec accès en avant-première.",
+      curation: "Curation",
+      curationTitle: "Sélections hebdomadaires",
+      curationBody: "Découvrez nos adresses du moment, validées par nos experts culinaires et culturels, livrées chaque lundi.",
+      circle: "Cercle",
+      circleTitle: "Événements privés",
+      circleBody: "Participez à nos soirées exclusives — dégustations, rencontres avec les chefs, vernissages.",
+      service: "Service",
+      serviceTitle: "Concierge dédié",
+      serviceBody: "Une équipe à votre disposition pour toutes vos questions, suggestions et demandes spéciales.",
+      pricing: "Tarifs",
+      pricingTitle: "Choisissez votre accès",
+      mostPopular: "Le plus choisi",
+      explorer: "Explorateur",
+      explorerPrice: "Gratuit",
+      explorerDesc: "Pour découvrir l'essence de Vrai Québec",
+      insiders: "Initiés",
+      insidersPrice: "9,99 $",
+      insidersPeriod: "/ mois",
+      insidersDesc: "Pour les connaisseurs qui veulent le meilleur",
+      elite: "Élite",
+      elitePrice: "24,99 $",
+      elitePeriod: "/ mois",
+      eliteDesc: "L'expérience ultime, sans compromis",
+      featureAccess: "Accès aux fiches restaurants & bars",
+      featureSearch: "Recherche avancée",
+      featureFavorites: "Sauvegarde de favoris",
+      featurePriority: "Réservations prioritaires",
+      featurePrivate: "Invitations privées exclusives",
+      start: "Commencer",
+      join: "Rejoindre",
+      faq: "FAQ",
+      faqTitle: "Questions fréquentes",
+      faqCancel: "Comment annuler mon abonnement?",
+      faqCancelAnswer: "Vous pouvez annuler à tout moment depuis votre profil, sans frais de résiliation.",
+      faqTaxes: "Les prix incluent-ils les taxes?",
+      faqTaxesAnswer: "Non — les taxes applicables seront calculées lors du paiement.",
+      faqChange: "Puis-je changer de forfait?",
+      faqChangeAnswer: "Oui. Tout changement est effectif immédiatement, avec ajustement au prorata.",
+      faqTrial: "Y a-t-il une période d'essai?",
+      faqTrialAnswer: "Le plan Explorateur est toujours gratuit. Pour les plans payants, contactez-nous.",
+    },
+    common: {
+      reserve: "Réserver",
+      seeMore: "Voir plus",
+      viewAll: "Tout voir",
+      back: "Retour",
+      loading: "Chargement",
+      error: "Erreur",
+      free: "Gratuit",
+      perMonth: "/ mois",
+    },
+    newsletter: {
+      placeholder: "Votre adresse courriel",
+      subscribe: "S'inscrire",
+      thanks: "Merci — vous êtes inscrit.",
+    },
   },
   EN: {
     nav: {
@@ -357,6 +637,146 @@ const translations: Translations = {
       newsletterOverline: "The Weekly Letter",
       newsletterTitle: "Never miss a thing",
       newsletterDescription: "Our exclusive selections, private events, and recommendations of the week, delivered directly to your inbox.",
+    },
+    footer: {
+      tagline: "The definitive guide to exceptional venues in Montreal and Quebec.",
+      discover: "Discover",
+      restaurants: "Restaurants",
+      bars: "Bars",
+      agenda: "Agenda",
+      sports: "Sports",
+      travel: "Travel",
+      house: "House",
+      membership: "Membership",
+      advertise: "Advertise",
+      contact: "Contact",
+      terms: "Terms",
+      privacy: "Privacy",
+      newsletter: "The Letter",
+      newsletterDesc: "Receive our exclusive selections weekly.",
+      copyright: "© 2025 Vrai Quebec. All rights reserved.",
+    },
+    restaurants: {
+      overline: "Gastronomy",
+      title: "Restaurants",
+      description: "Exceptional tables selected for their cuisine, service, and the art of hospitality that sets them apart.",
+      editorsPick: "Editor's Pick",
+      allVenues: "All Venues",
+      discover: "Discover",
+      view: "View",
+      noResults: "No Results",
+      noResultsDesc: "Try adjusting your filters.",
+    },
+    bars: {
+      overline: "Nightlife",
+      title: "Bars & Clubs",
+      description: "Precision cocktails, refined atmospheres, and music scenes — Montreal nightlife at its finest.",
+      featured: "Featured",
+      allVenues: "All Venues",
+      discover: "Discover",
+      view: "View",
+      noResults: "No Results",
+      noResultsDesc: "Try adjusting your filters.",
+    },
+    venue: {
+      loading: "Loading",
+      notFound: "Venue not found",
+      backHome: "Back to home",
+      back: "Back",
+      vipAccess: "VIP Access",
+      trending: "Trending",
+      about: "About",
+      experience: "Experience",
+      ambiance: "Ambiance",
+      music: "Music",
+      dressCode: "Dress Code",
+      artists: "Artists",
+      booking: "Booking",
+      bookingType: "Type",
+      priceRange: "Range",
+      reserve: "Reserve",
+      instantConfirm: "Instant confirmation · No fees",
+      info: "Information",
+      location: "Location",
+      rating: "Rating",
+      status: "Status",
+      exclusive: "Exclusive Access",
+    },
+    filters: {
+      filter: "Filter",
+      budget: "Budget",
+      moderate: "Moderate",
+      premium: "Premium",
+      topRated: "Top Rated",
+      trending: "Trending",
+      vipAccess: "VIP Access",
+      clear: "Clear",
+    },
+    members: {
+      overline: "Membership",
+      title: "The circle of",
+      highlight: "insiders",
+      description: "Access Montreal's best tables, private events, and an extraordinary culinary experience — reserved for our members.",
+      benefits: "Benefits",
+      benefitsTitle: "What you get",
+      priority: "Priority",
+      priorityTitle: "Guaranteed tables",
+      priorityBody: "Assured reservations at the most sought-after venues, with early access.",
+      curation: "Curation",
+      curationTitle: "Weekly selections",
+      curationBody: "Discover our current favorites, validated by our culinary and cultural experts, delivered every Monday.",
+      circle: "Circle",
+      circleTitle: "Private events",
+      circleBody: "Join our exclusive evenings — tastings, chef meet-and-greets, vernissages.",
+      service: "Service",
+      serviceTitle: "Dedicated concierge",
+      serviceBody: "A team at your disposal for all your questions, suggestions, and special requests.",
+      pricing: "Pricing",
+      pricingTitle: "Choose your access",
+      mostPopular: "Most popular",
+      explorer: "Explorer",
+      explorerPrice: "Free",
+      explorerDesc: "To discover the essence of Vrai Quebec",
+      insiders: "Insiders",
+      insidersPrice: "$9.99",
+      insidersPeriod: "/ month",
+      insidersDesc: "For connoisseurs who want the best",
+      elite: "Elite",
+      elitePrice: "$24.99",
+      elitePeriod: "/ month",
+      eliteDesc: "The ultimate experience, without compromise",
+      featureAccess: "Access to restaurant & bar listings",
+      featureSearch: "Advanced search",
+      featureFavorites: "Save favorites",
+      featurePriority: "Priority reservations",
+      featurePrivate: "Exclusive private invitations",
+      start: "Get Started",
+      join: "Join",
+      faq: "FAQ",
+      faqTitle: "Frequently Asked Questions",
+      faqCancel: "How do I cancel my subscription?",
+      faqCancelAnswer: "You can cancel anytime from your profile, with no cancellation fees.",
+      faqTaxes: "Do prices include taxes?",
+      faqTaxesAnswer: "No — applicable taxes will be calculated at checkout.",
+      faqChange: "Can I change my plan?",
+      faqChangeAnswer: "Yes. Any change takes effect immediately, with prorated adjustment.",
+      faqTrial: "Is there a trial period?",
+      faqTrialAnswer: "The Explorer plan is always free. For paid plans, contact us.",
+    },
+    common: {
+      reserve: "Reserve",
+      seeMore: "See More",
+      viewAll: "View All",
+      back: "Back",
+      loading: "Loading",
+      error: "Error",
+      free: "Free",
+      perMonth: "/ month",
+    },
+    newsletter: {
+      placeholder: "Your email address",
+      subscribe: "Subscribe",
+      thanks: "Thank you — you're subscribed.",
     },
   },
 }

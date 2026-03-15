@@ -3,62 +3,72 @@
 import { MainNav } from '@/components/main-nav'
 import { Footer } from '@/components/footer'
 import { Check } from 'lucide-react'
-
-const plans = [
-  {
-    name: 'Explorateur',
-    price: 'Gratuit',
-    description: "Pour découvrir l'essence de Vrai Québec",
-    features: [
-      { text: 'Accès aux fiches restaurants & bars', included: true },
-      { text: 'Recherche avancée', included: true },
-      { text: 'Sauvegarde de favoris', included: false },
-      { text: 'Réservations prioritaires', included: false },
-      { text: 'Invitations privées', included: false },
-    ],
-    cta: 'Commencer',
-    highlight: false,
-  },
-  {
-    name: 'Initiés',
-    price: '9,99 $',
-    period: '/ mois',
-    description: 'Pour les connaisseurs qui veulent le meilleur',
-    features: [
-      { text: 'Accès aux fiches restaurants & bars', included: true },
-      { text: 'Recherche avancée', included: true },
-      { text: 'Sauvegarde de favoris', included: true },
-      { text: 'Réservations prioritaires', included: true },
-      { text: 'Invitations privées', included: false },
-    ],
-    cta: 'Rejoindre',
-    highlight: true,
-  },
-  {
-    name: 'Élite',
-    price: '24,99 $',
-    period: '/ mois',
-    description: "L'expérience ultime, sans compromis",
-    features: [
-      { text: 'Accès aux fiches restaurants & bars', included: true },
-      { text: 'Recherche avancée', included: true },
-      { text: 'Sauvegarde de favoris', included: true },
-      { text: 'Réservations prioritaires', included: true },
-      { text: 'Invitations privées exclusives', included: true },
-    ],
-    cta: 'Rejoindre',
-    highlight: false,
-  },
-]
-
-const benefits = [
-  { overline: 'Priorité', title: 'Tables garanties', body: "Réservations assurées dans les établissements les plus en demande, avec accès en avant-première." },
-  { overline: 'Curation', title: 'Sélections hebdomadaires', body: "Découvrez nos adresses du moment, validées par nos experts culinaires et culturels, livrées chaque lundi." },
-  { overline: 'Cercle', title: 'Événements privés', body: "Participez à nos soirées exclusives — dégustations, rencontres avec les chefs, vernissages." },
-  { overline: 'Service', title: 'Concierge dédié', body: "Une équipe à votre disposition pour toutes vos questions, suggestions et demandes spéciales." },
-]
+import { useLanguage } from '@/components/language-provider'
 
 export default function MembersPage() {
+  const { t } = useLanguage()
+
+  const plans = [
+    {
+      name: t.members.explorer,
+      price: t.members.explorerPrice,
+      description: t.members.explorerDesc,
+      features: [
+        { text: t.members.featureAccess, included: true },
+        { text: t.members.featureSearch, included: true },
+        { text: t.members.featureFavorites, included: false },
+        { text: t.members.featurePriority, included: false },
+        { text: t.members.featurePrivate, included: false },
+      ],
+      cta: t.members.start,
+      highlight: false,
+    },
+    {
+      name: t.members.insiders,
+      price: t.members.insidersPrice,
+      period: t.members.insidersPeriod,
+      description: t.members.insidersDesc,
+      features: [
+        { text: t.members.featureAccess, included: true },
+        { text: t.members.featureSearch, included: true },
+        { text: t.members.featureFavorites, included: true },
+        { text: t.members.featurePriority, included: true },
+        { text: t.members.featurePrivate, included: false },
+      ],
+      cta: t.members.join,
+      highlight: true,
+    },
+    {
+      name: t.members.elite,
+      price: t.members.elitePrice,
+      period: t.members.elitePeriod,
+      description: t.members.eliteDesc,
+      features: [
+        { text: t.members.featureAccess, included: true },
+        { text: t.members.featureSearch, included: true },
+        { text: t.members.featureFavorites, included: true },
+        { text: t.members.featurePriority, included: true },
+        { text: t.members.featurePrivate, included: true },
+      ],
+      cta: t.members.join,
+      highlight: false,
+    },
+  ]
+
+  const benefits = [
+    { overline: t.members.priority, title: t.members.priorityTitle, body: t.members.priorityBody },
+    { overline: t.members.curation, title: t.members.curationTitle, body: t.members.curationBody },
+    { overline: t.members.circle, title: t.members.circleTitle, body: t.members.circleBody },
+    { overline: t.members.service, title: t.members.serviceTitle, body: t.members.serviceBody },
+  ]
+
+  const faqs = [
+    { q: t.members.faqCancel, a: t.members.faqCancelAnswer },
+    { q: t.members.faqTaxes, a: t.members.faqTaxesAnswer },
+    { q: t.members.faqChange, a: t.members.faqChangeAnswer },
+    { q: t.members.faqTrial, a: t.members.faqTrialAnswer },
+  ]
+
   return (
     <div className="min-h-screen bg-background">
       <MainNav />
@@ -67,18 +77,18 @@ export default function MembersPage() {
       <section className="full-bleed bg-foreground">
         <div className="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-28 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-6">Membership</p>
+            <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-6">{t.members.overline}</p>
             <h1 className="font-display font-light text-primary-foreground leading-[1.1] mb-8" style={{ fontFamily: 'var(--font-display)' }}>
-              Le cercle des<br /><em className="italic text-primary">initiés</em>
+              {t.members.title}<br /><em className="italic text-primary">{t.members.highlight}</em>
             </h1>
             <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
-              Accédez aux meilleures tables de Montréal, aux événements privés et à une expérience culinaire hors du commun — réservé à nos membres.
+              {t.members.description}
             </p>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1544025162-d76694265947?w=1000&q=85&auto=format&fit=crop"
-              alt="Expérience gastronomique exclusive"
+              alt="Exclusive dining experience"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-4 border border-primary/30 pointer-events-none" />
@@ -90,8 +100,8 @@ export default function MembersPage() {
 
       {/* Benefits */}
       <section className="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-28">
-        <p className="overline mb-4">Avantages</p>
-        <h2 className="font-display font-light text-foreground mb-16" style={{ fontFamily: 'var(--font-display)' }}>Ce que vous obtenez</h2>
+        <p className="overline mb-4">{t.members.benefits}</p>
+        <h2 className="font-display font-light text-foreground mb-16" style={{ fontFamily: 'var(--font-display)' }}>{t.members.benefitsTitle}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {benefits.map((b) => (
             <div key={b.title} className="flex gap-6">
@@ -109,13 +119,13 @@ export default function MembersPage() {
       {/* Pricing */}
       <section className="full-bleed bg-surface border-t border-b border-border py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-8">
-          <p className="overline mb-4 text-center">Tarifs</p>
-          <h2 className="font-display font-light text-foreground text-center mb-16" style={{ fontFamily: 'var(--font-display)' }}>Choisissez votre accès</h2>
+          <p className="overline mb-4 text-center">{t.members.pricing}</p>
+          <h2 className="font-display font-light text-foreground text-center mb-16" style={{ fontFamily: 'var(--font-display)' }}>{t.members.pricingTitle}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
             {plans.map((plan) => (
               <div key={plan.name} className={`flex flex-col p-10 ${plan.highlight ? 'bg-foreground text-primary-foreground' : 'bg-surface'}`}>
                 {plan.highlight && (
-                  <p className="text-[9px] tracking-[0.25em] uppercase text-primary font-sans mb-4">Le plus choisi</p>
+                  <p className="text-[9px] tracking-[0.25em] uppercase text-primary font-sans mb-4">{t.members.mostPopular}</p>
                 )}
                 <p className={`overline mb-3 ${plan.highlight ? 'text-primary' : ''}`}>{plan.name}</p>
                 <div className="flex items-baseline gap-1 mb-2">
@@ -153,15 +163,10 @@ export default function MembersPage() {
 
       {/* FAQ */}
       <section className="max-w-4xl mx-auto px-6 md:px-8 py-20 md:py-28">
-        <p className="overline mb-4">FAQ</p>
-        <h2 className="font-display font-light text-foreground mb-12" style={{ fontFamily: 'var(--font-display)' }}>Questions fréquentes</h2>
+        <p className="overline mb-4">{t.members.faq}</p>
+        <h2 className="font-display font-light text-foreground mb-12" style={{ fontFamily: 'var(--font-display)' }}>{t.members.faqTitle}</h2>
         <div className="space-y-px bg-border">
-          {[
-            { q: "Comment annuler mon abonnement?", a: "Vous pouvez annuler à tout moment depuis votre profil, sans frais de résiliation." },
-            { q: "Les prix incluent-ils les taxes?", a: "Non — les taxes applicables seront calculées lors du paiement." },
-            { q: "Puis-je changer de forfait?", a: "Oui. Tout changement est effectif immédiatement, avec ajustement au prorata." },
-            { q: "Y a-t-il une période d'essai?", a: "Le plan Explorateur est toujours gratuit. Pour les plans payants, contactez-nous." },
-          ].map((item) => (
+          {faqs.map((item) => (
             <div key={item.q} className="bg-surface hover:bg-background transition-colors p-8">
               <h3 className="font-display font-light text-foreground text-xl mb-3" style={{ fontFamily: 'var(--font-display)' }}>{item.q}</h3>
               <p className="text-muted-foreground text-[15px] leading-relaxed">{item.a}</p>

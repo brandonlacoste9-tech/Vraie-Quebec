@@ -8,8 +8,10 @@ import { FilterBar } from "@/components/filter-bar"
 import { getPlacesByCategory } from "@/lib/data/places"
 import type { Place } from "@/lib/types/database"
 import { MapPin, Star, Music } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 export default function BarsPage() {
+  const { t } = useLanguage()
   const router = useRouter()
   const [bars, setBars] = useState<Place[]>([])
   const [loading, setLoading] = useState(true)
@@ -43,12 +45,12 @@ export default function BarsPage() {
 
       {/* Page header */}
       <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-border">
-        <p className="overline mb-4">Vie nocturne</p>
+        <p className="overline mb-4">{t.bars.overline}</p>
         <h1 className="font-display font-light text-foreground mb-4" style={{ fontFamily: "var(--font-display)" }}>
-          Bars & Clubs
+          {t.bars.title}
         </h1>
         <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          Cocktails de précision, ambiances soignées et scènes musicales — la vie nocturne montréalaise dans toute son élégance.
+          {t.bars.description}
         </p>
       </header>
 
@@ -85,7 +87,7 @@ export default function BarsPage() {
                   />
                 </div>
                 <div className="bg-foreground p-10 md:p-14 flex flex-col justify-center">
-                  <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-4">En vedette</p>
+                  <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-4">{t.bars.featured}</p>
                   <h2 className="font-display font-light text-primary-foreground text-3xl md:text-4xl lg:text-5xl mb-4 leading-tight" style={{ fontFamily: "var(--font-display)" }}>
                     {hero.name}
                   </h2>
@@ -109,7 +111,7 @@ export default function BarsPage() {
                       <span className="text-primary-foreground text-sm font-medium">{hero.rating.toFixed(1)}</span>
                     </div>
                     <span className="text-[10px] tracking-[0.2em] uppercase font-sans text-primary group-hover:text-primary-foreground transition-colors">
-                      Découvrir →
+                      {t.bars.discover} →
                     </span>
                   </div>
                 </div>
@@ -119,7 +121,7 @@ export default function BarsPage() {
             {/* Grid */}
             {rest.length > 0 && (
               <div>
-                <p className="overline mb-8">Toutes les adresses</p>
+                <p className="overline mb-8">{t.bars.allVenues}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
                   {rest.map((bar) => (
                     <article
@@ -160,7 +162,7 @@ export default function BarsPage() {
                             <Star className="h-3.5 w-3.5 fill-primary text-primary" />
                             <span className="text-foreground text-xs font-medium">{bar.rating.toFixed(1)}</span>
                           </div>
-                          <span className="text-[10px] tracking-[0.18em] uppercase text-primary font-sans">Voir →</span>
+                          <span className="text-[10px] tracking-[0.18em] uppercase text-primary font-sans">{t.bars.view} →</span>
                         </div>
                       </div>
                     </article>
@@ -171,8 +173,8 @@ export default function BarsPage() {
           </div>
         ) : (
           <div className="text-center py-32">
-            <p className="font-display font-light text-foreground text-2xl mb-3" style={{ fontFamily: "var(--font-display)" }}>Aucun résultat</p>
-            <p className="text-muted-foreground text-sm">Essayez de modifier vos filtres.</p>
+            <p className="font-display font-light text-foreground text-2xl mb-3" style={{ fontFamily: "var(--font-display)" }}>{t.bars.noResults}</p>
+            <p className="text-muted-foreground text-sm">{t.bars.noResultsDesc}</p>
           </div>
         )}
       </main>
