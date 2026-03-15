@@ -185,7 +185,7 @@ const FALLBACK_PLACES: Place[] = [
   {
     id: 'bar-mtl-3', name: 'Bar Le Mal Nécessaire', type: 'nightlife', city: 'Montreal', location: 'Chinatown', region: null,
     address: '1106 Boul Saint-Laurent', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
-    image: 'https://images.unsplash.com/photo-1514432324607-2e467f4af445?w=800', rating: 4.6, rating_count: 950,
+    image: 'https://images.unsplash.com/photo-1608270861620-7c40b430dab3?w=800', rating: 4.6, rating_count: 950,
     price: null, price_tier: '$$', description: "Tiki bar audacieux niché au dernier étage du Chinatown. Cocktails au rhum et aux fruits exotiques servis sous des néons roses dans une ambiance tropical-luxe unique.", tags: ['tiki', 'cocktails', 'tendance'],
     is_hot: true, exclusive: false, booking_type: 'none', vibe: 'Fun & Festive', event_lineup: null, music_genre: 'Latin & World', party_type: 'Tiki Bar',
     dress_code: null, is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: false, vip_min_spend: null,
