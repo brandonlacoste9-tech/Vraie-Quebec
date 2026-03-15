@@ -6,7 +6,6 @@ import Image from "next/image"
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 import { RSVPModal } from "@/components/booking/RSVPModal"
-import { getPlaceById } from "@/lib/data/places"
 import type { Place } from "@/lib/types/database"
 import { MapPin, Star, Clock, Users, Music, Shirt, Calendar, ArrowLeft } from "lucide-react"
 
@@ -18,7 +17,11 @@ export default function VenuePage() {
 
   useEffect(() => {
     const id = params.id as string
-    getPlaceById(id)
+    fetch(`/api/places/${id}`)
+      .then(res => {
+        if (!res.ok) throw new Error('Not found')
+        return res.json()
+      })
       .then(setVenue)
       .catch(() => setVenue(null))
       .finally(() => setLoading(false))
