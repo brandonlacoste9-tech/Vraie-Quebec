@@ -2,10 +2,11 @@ import { getPlaceById } from '@/lib/data/places'
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const place = await getPlaceById(params.id)
+    const { id } = await params
+    const place = await getPlaceById(id)
     
     if (!place) {
       return new Response(
