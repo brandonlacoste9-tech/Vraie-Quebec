@@ -2,14 +2,8 @@
 
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
-import { useLanguage } from "@/components/language-provider"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Calendar, MapPin, Ticket, Music, Utensils, Moon, Palette } from "lucide-react"
-import { useState } from "react"
+import { Calendar, MapPin, Ticket } from "lucide-react"
 import Link from "next/link"
-import { NewsletterSignup } from "@/components/newsletter-signup"
-import { RSVPModal } from "@/components/booking/RSVPModal"
 
 // Mock data for events (concerts, festivals, tickets) with real places in Montreal & Quebec
 const EVENTS = [
@@ -17,7 +11,7 @@ const EVENTS = [
     id: 1,
     title: "Igloofest 2025",
     description: "Le party le plus froid au monde. Musique électronique sous la neige.",
-    date: "2025-01-16",
+    date: "16-17 Janvier",
     location: "Vieux-Port, Montréal",
     price: "$45",
     image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800",
@@ -28,7 +22,7 @@ const EVENTS = [
     id: 2,
     title: "Charlotte de Witte - Techno Night",
     description: "La reine de la techno de retour au Québec pour une nuit inoubliable.",
-    date: "2025-03-01",
+    date: "1 Mars",
     location: "Centre Vidéotron, Québec",
     price: "$85",
     image: "https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=800",
@@ -39,29 +33,27 @@ const EVENTS = [
     id: 3,
     title: "Poutine Week VIP Tasting",
     description: "Dégustation des 10 meilleures poutines de l'année avec accord bières.",
-    date: "2025-02-05",
+    date: "5 Février",
     location: "La Banquise, Montréal",
     price: "$35",
     image: "https://images.unsplash.com/photo-1582169505937-b9992bd01ed9?w=800",
     category: "Food",
-    featured: false,
   },
   {
     id: 4,
     title: "MURAL Festival",
     description: "Festival d'art urbain avec DJ sets et live painting en direct sur la rue.",
-    date: "2025-06-06",
+    date: "6 Juin",
     location: "Boul. Saint-Laurent, Montréal",
     price: "Gratuit",
     image: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=800",
     category: "Arts",
-    featured: false,
   },
   {
     id: 5,
     title: "Festival d'été de Québec (FEQ)",
     description: "Le plus grand festival de musique en plein air au Canada. Des scènes incroyables.",
-    date: "2025-07-03",
+    date: "3-13 Juillet",
     location: "Plaines d'Abraham, Québec",
     price: "$150 (Passe)",
     image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800",
@@ -72,146 +64,121 @@ const EVENTS = [
     id: 6,
     title: "Nuit Blanche à Montréal",
     description: "Art, culture et fête toute la nuit à travers la ville.",
-    date: "2025-03-01",
+    date: "1 Mars",
     location: "Centre-ville, Montréal",
     price: "Gratuit",
     image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800",
     category: "Arts",
-    featured: false,
   },
 ]
 
 export default function AgendaPage() {
-  const { t } = useLanguage()
-  const [filter, setFilter] = useState("All")
-
-  const categories = [
-    { id: "All", label: t.agenda.filterAll, icon: null },
-    { id: "Music", label: t.agenda.filterMusic, icon: Music },
-    { id: "Nightlife", label: t.agenda.filterNightlife, icon: Moon },
-    { id: "Arts", label: t.agenda.filterArts, icon: Palette },
-    { id: "Food", label: t.agenda.filterFood, icon: Utensils },
-  ]
-
-  const filteredEvents = filter === "All" ? EVENTS : EVENTS.filter((e) => e.category === filter)
-
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
+    <main className="min-h-screen bg-background text-foreground">
       <MainNav />
 
-      {/* Hero Header */}
-      <div className="relative py-20 border-b border-white/10 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-purple-900/20" />
-        <div className="container mx-auto px-4 relative z-10 text-center">
-          <Badge className="mb-4 bg-primary text-white border-none px-3 py-1 text-xs uppercase tracking-widest">
-            {t.agenda.title}
-          </Badge>
-          <h1 className="text-4xl md:text-6xl font-black font-heading tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400">
-            VRAI<span className="text-primary">PULSE</span>
+      {/* Hero Section */}
+      <section className="full-bleed bg-gradient-to-br from-primary/5 to-primary/10 border-b border-border">
+        <div className="container mx-auto px-4 py-16">
+          <h1 className="text-5xl md:text-6xl font-display font-bold text-balance mb-4">
+            Agenda & Événements
           </h1>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">{t.agenda.subtitle}</p>
+          <p className="text-lg text-muted-foreground max-w-2xl">
+            Découvrez les événements incontournables de Montréal et du Québec. Concerts, festivals, expositions et bien plus encore.
+          </p>
         </div>
-      </div>
+      </section>
 
-      {/* Filters */}
-      <div className="sticky top-16 z-40 bg-black/90 backdrop-blur-md border-b border-white/10 py-4">
-        <div className="container mx-auto px-4 flex gap-2 overflow-x-auto no-scrollbar">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setFilter(cat.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${filter === cat.id
-                ? "bg-primary text-white shadow-[0_0_15px_rgba(var(--primary),0.5)]"
-                : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
-                }`}
-            >
-              {cat.icon && <cat.icon className="w-4 h-4" />}
-              {cat.label}
-            </button>
-          ))}
-        </div>
-      </div>
+      <div className="container mx-auto px-4 py-20">
+        {/* Featured Events */}
+        <section className="mb-20">
+          <h2 className="text-4xl font-display font-bold mb-12">Coups de cœur</h2>
+          <div className="space-y-8">
+            {EVENTS.filter(e => e.featured).map(event => (
+              <article key={event.id} className="card-editorial overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+                  <div className="md:col-span-1 aspect-square md:aspect-auto md:h-80 overflow-hidden bg-secondary">
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="h-full w-full object-cover hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="md:col-span-2 p-8 flex flex-col justify-center">
+                    <p className="text-primary text-sm uppercase tracking-widest mb-3">{event.category}</p>
+                    <h3 className="text-3xl md:text-4xl font-display font-bold mb-4">
+                      {event.title}
+                    </h3>
+                    <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                      {event.description}
+                    </p>
+                    <div className="flex flex-col md:flex-row gap-4 md:gap-8 mb-6 pb-6 border-b border-border">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-5 h-5 text-primary flex-shrink-0" />
+                        <span className="font-semibold">{event.date}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
+                        <span className="font-semibold">{event.location}</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-2xl font-bold text-primary">{event.price}</span>
+                      <a href="#" className="text-primary font-semibold hover:underline flex items-center gap-2">
+                        <Ticket className="w-4 h-4" />
+                        Réserver →
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      {/* Events Grid */}
-      <div className="flex-1 container mx-auto px-4 py-12">
-        <div className="mb-16">
-          <NewsletterSignup showPreferences />
-        </div>
+        <div className="divider" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredEvents.map((event) => (
-            <div
-              key={event.id}
-              className="group relative bg-zinc-900/50 border border-white/10 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(var(--primary),0.2)] flex flex-col"
-            >
-              <a
-                href={`https://www.google.com/search?q=${encodeURIComponent(event.title + ' ' + event.location)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col flex-1"
-              >
-                {/* Image */}
-                <div className="relative h-64 overflow-hidden">
+        {/* All Events */}
+        <section>
+          <h2 className="text-4xl font-display font-bold mb-12">Tous les événements</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {EVENTS.filter(e => !e.featured).map(event => (
+              <article key={event.id} className="card-editorial group overflow-hidden">
+                <div className="aspect-video w-full overflow-hidden bg-secondary">
                   <img
-                    src={event.image || "/placeholder.svg"}
+                    src={event.image}
                     alt={event.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
-
-                  {/* Featured Badge */}
-                  {event.featured && (
-                    <div className="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
-                      {t.agenda.featured}
-                    </div>
-                  )}
-
-                  {/* Category Badge */}
-                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                    {event.category}
-                  </div>
                 </div>
-
-                {/* Content */}
-                <div className="px-6 pt-6 flex flex-col flex-1">
-                  <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                    <div className="flex items-center gap-1.5 text-primary">
-                      <Calendar className="w-4 h-4" />
-                      <span className="font-mono">{event.date}</span>
+                <div className="p-6">
+                  <p className="text-primary text-xs uppercase tracking-widest mb-2">{event.category}</p>
+                  <h3 className="text-xl font-display font-bold mb-2 line-clamp-2">{event.title}</h3>
+                  <p className="text-muted-foreground text-sm mb-6 line-clamp-2">{event.description}</p>
+                  <div className="space-y-3 mb-6 pb-6 border-b border-border">
+                    <div className="flex items-center gap-2 text-sm">
+                      <Calendar className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span className="text-muted-foreground">{event.date}</span>
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <MapPin className="w-4 h-4" />
-                      <span className="truncate max-w-[150px]">{event.location}</span>
+                    <div className="flex items-center gap-2 text-sm">
+                      <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span className="text-muted-foreground line-clamp-1">{event.location}</span>
                     </div>
                   </div>
-
-                  <h3 className="text-2xl font-bold font-heading mb-2 group-hover:text-primary transition-colors">
-                    {event.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm mb-6 flex-1">{event.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-primary">{event.price}</span>
+                    <a href="#" className="text-primary font-semibold hover:underline text-sm">
+                      Réserver →
+                    </a>
+                  </div>
                 </div>
-              </a>
-
-              <div className="p-6 pt-0 flex flex-col">
-                <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
-                  <div className="text-lg font-bold text-white">{event.price}</div>
-                  <RSVPModal venueName={event.title} placeId={event.id.toString()} imageUrl={event.image}>
-                    <Button
-                      size="sm"
-                      className="bg-white text-black hover:bg-primary hover:text-white border-none"
-                    >
-                      <Ticket className="w-4 h-4 mr-2" />
-                      {t.agenda.buyTickets}
-                    </Button>
-                  </RSVPModal>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
 
       <Footer />
-    </div >
+    </main>
   )
 }

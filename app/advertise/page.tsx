@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { MainNav } from '@/components/main-nav'
 import { Footer } from '@/components/footer'
-import { Mail, Phone } from 'lucide-react'
+import { Mail, Phone, TrendingUp, Users, Zap } from 'lucide-react'
 
 export default function AdvertisePage() {
   const [formData, setFormData] = useState({
@@ -25,7 +25,6 @@ export default function AdvertisePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // In production, send to backend/email service
     console.log('Form submitted:', formData)
     setSubmitted(true)
     setTimeout(() => {
@@ -54,13 +53,52 @@ export default function AdvertisePage() {
               Advertissez avec Vrai Québec
             </h1>
             <p className="text-xl text-muted-foreground">
-              Rejoignez nos partenaires pour atteindre notre audience de lecteurs engagés à la recherche des meilleures adresses.
+              Rejoignez nos partenaires pour atteindre notre audience de lecteurs engagés à la recherche des meilleures adresses québécoises.
             </p>
           </div>
         </div>
       </section>
 
       <div className="container mx-auto px-4 py-20">
+        {/* Why Advertise Section */}
+        <section className="mb-20">
+          <h2 className="text-4xl font-display font-bold mb-12">Pourquoi Vrai Québec ?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="card-editorial p-8">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <Users className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-2xl font-display font-bold mb-3">Audience Engagée</h3>
+              <p className="text-muted-foreground">
+                Connectez-vous avec des lecteurs influents et passionnés par la découverte des meilleures adresses du Québec.
+              </p>
+            </div>
+
+            <div className="card-editorial p-8">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <TrendingUp className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-2xl font-display font-bold mb-3">Croissance Prouvée</h3>
+              <p className="text-muted-foreground">
+                Nos partenaires rapportent une augmentation moyenne de 45% de la visibilité et des réservations après 3 mois.
+              </p>
+            </div>
+
+            <div className="card-editorial p-8">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <Zap className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-2xl font-display font-bold mb-3">Impact Immédiat</h3>
+              <p className="text-muted-foreground">
+                Commencez à voir des résultats dès la première semaine avec notre plateforme hautement visible et bien ciblée.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div className="divider" />
+
+        {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Form */}
           <div className="lg:col-span-2">
@@ -70,7 +108,7 @@ export default function AdvertisePage() {
               {submitted ? (
                 <div className="bg-primary/10 border border-primary text-primary p-6 rounded">
                   <h3 className="font-bold text-lg mb-2">Merci pour votre soumission!</h3>
-                  <p>Nous reviendrons vers vous sous peu pour discuter de vos options publicitaires.</p>
+                  <p className="text-primary/80">Nous reviendrons vers vous sous peu pour discuter de vos options publicitaires.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -83,7 +121,7 @@ export default function AdvertisePage() {
                       value={formData.businessName}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       placeholder="Votre établissement"
                     />
                   </div>
@@ -97,7 +135,7 @@ export default function AdvertisePage() {
                         value={formData.contactName}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         placeholder="Votre nom"
                       />
                     </div>
@@ -110,7 +148,7 @@ export default function AdvertisePage() {
                         value={formData.phone}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         placeholder="+1 (514) 000-0000"
                       />
                     </div>
@@ -124,7 +162,7 @@ export default function AdvertisePage() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       placeholder="vous@exemple.com"
                     />
                   </div>
@@ -138,7 +176,7 @@ export default function AdvertisePage() {
                         value={formData.businessType}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       >
                         <option value="">Sélectionner...</option>
                         <option value="restaurant">Restaurant</option>
@@ -156,7 +194,7 @@ export default function AdvertisePage() {
                         value={formData.inquiryType}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       >
                         <option value="">Sélectionner...</option>
                         <option value="featured-listing">Fiche mise en avant</option>
@@ -176,14 +214,14 @@ export default function AdvertisePage() {
                       value={formData.message}
                       onChange={handleChange}
                       rows={5}
-                      className="w-full px-4 py-2 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       placeholder="Décrivez vos objectifs publicitaires..."
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-primary text-primary-foreground py-3 font-semibold rounded hover:bg-primary/90 transition-colors"
+                    className="w-full bg-primary text-primary-foreground py-3 font-semibold hover:bg-primary/90 transition-colors"
                   >
                     Soumettre la demande
                   </button>
@@ -199,12 +237,12 @@ export default function AdvertisePage() {
               <h3 className="text-2xl font-display font-bold mb-6">Forfaits publicitaires</h3>
               <div className="space-y-4">
                 {[
-                  { name: 'Fiche Basique', price: '$199', features: ['Logo', 'Description'] },
-                  { name: 'Fiche Premium', price: '$499', features: ['Logo', 'Gallerie', 'Événements'] },
-                  { name: 'Partenariat', price: 'Sur devis', features: ['Tout inclus', 'Support dédié'] },
+                  { name: 'Fiche Basique', price: '$199', features: ['Logo', 'Description courte', 'Contact'] },
+                  { name: 'Fiche Premium', price: '$499/mois', features: ['Logo', 'Galerie photos', 'Événements', 'Analytics'] },
+                  { name: 'Partenariat', price: 'Sur devis', features: ['Tout inclus', 'Support dédié', 'Priorité'] },
                 ].map((pkg) => (
-                  <div key={pkg.name} className="border border-border p-4 rounded">
-                    <h4 className="font-bold text-primary">{pkg.name}</h4>
+                  <div key={pkg.name} className="border border-border p-4 rounded hover:border-primary transition-colors">
+                    <h4 className="font-display font-bold text-primary mb-1">{pkg.name}</h4>
                     <p className="text-2xl font-bold my-2">{pkg.price}</p>
                     <ul className="text-xs text-muted-foreground space-y-1">
                       {pkg.features.map((f) => (
@@ -237,6 +275,25 @@ export default function AdvertisePage() {
                       +1 (514) 123-4567
                     </a>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="card-editorial p-6 bg-primary/5">
+              <h3 className="text-lg font-display font-bold mb-4">Vrai Québec par les chiffres</h3>
+              <div className="space-y-3 text-sm">
+                <div>
+                  <p className="text-muted-foreground">Visiteurs mensuels</p>
+                  <p className="text-2xl font-bold text-primary">50K+</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">Partenaires actifs</p>
+                  <p className="text-2xl font-bold text-primary">200+</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">Réservations générées</p>
+                  <p className="text-2xl font-bold text-primary">10K+ /mois</p>
                 </div>
               </div>
             </div>

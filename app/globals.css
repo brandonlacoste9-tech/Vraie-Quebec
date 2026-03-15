@@ -237,3 +237,7 @@
 .animate-slide-in-down {
   animation: slideInDown var(--duration-standard) var(--easing-smooth);
 }
+
+.animate-scroll-x {
+  animation: scrollX 30s linear infinite;
+}
