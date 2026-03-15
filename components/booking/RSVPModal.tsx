@@ -144,7 +144,7 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
               >
                  <div className="text-center mb-6">
                   <h3 className="text-xl font-bold text-white mb-1">Guest Details</h3>
-                  <p className="text-white/50 text-sm">For {bookingData.type} at {placeName}</p>
+                  <p className="text-white/50 text-sm">For {bookingData.type} at {venueName}</p>
                 </div>
 
                 <div className="space-y-4">
@@ -213,7 +213,7 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
                 <div className="mb-6 transform scale-90 origin-top">
                   <VIPPass 
                     eventName="Saturday Night" 
-                    venueName={placeName}
+                    venueName={venueName}
                     date={bookingData.date}
                     time="10:00 PM"
                     guestName={bookingData.name}
