@@ -107,7 +107,7 @@
   }
 
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth !important;
     text-size-adjust: 100%;
   }
 
