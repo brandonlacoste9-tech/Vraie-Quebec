@@ -40,7 +40,7 @@ const EVENTS = [
     id: 6, label: "Arts", title: "Nuit Blanche à Montréal",
     description: "Art, culture et fête toute la nuit à travers les quartiers de la ville.",
     date: "1 Mars", location: "Centre-ville, Montréal", price: "Entrée libre",
-    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=85&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=85&auto=format&fit=crop",
   },
 ]
 
