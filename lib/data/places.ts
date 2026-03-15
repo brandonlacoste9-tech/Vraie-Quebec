@@ -145,7 +145,7 @@ const FALLBACK_PLACES: Place[] = [
   {
     id: 'rest-qc-2', name: 'Chez Boulay', type: 'restaurant', city: 'Quebec City', location: 'Saint-Jean', region: null,
     address: '1110 Rue Saint-Jean', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
-    image: 'https://images.unsplash.com/photo-1600565193348-f74bd3960a5f?w=800', rating: 4.7, rating_count: 620,
+    image: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=800', rating: 4.7, rating_count: 620,
     price: null, price_tier: '$$$', description: "Bistro boréal signé Jean-Luc Boulay et Arnaud Marchand. La cuisine des terroirs nordiques du Québec — champignons sauvages, bleuets, fiddleheads — sublimée avec talent.", tags: ['boréal', 'terroir', 'québécois'],
     is_hot: true, exclusive: false, booking_type: 'reservation', vibe: null, event_lineup: null, music_genre: null, party_type: null,
     dress_code: null, is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: false, vip_min_spend: null,
