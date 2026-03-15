@@ -67,7 +67,7 @@ export default function VenuePage() {
 
         {/* Badges */}
         <div className="absolute top-6 right-6 flex flex-col items-end gap-2">
-          {venue.priceTier === "VIP" && (
+          {venue.has_vip && (
             <span className="px-3 py-1 bg-primary text-primary-foreground text-[9px] tracking-[0.2em] uppercase font-sans">
               Accès VIP
             </span>
@@ -113,7 +113,7 @@ export default function VenuePage() {
               <p className="text-muted-foreground text-lg leading-relaxed">{venue.description}</p>
             </section>
 
-            {(venue.vibe || venue.musicGenre || venue.dressCode || (venue.eventLineup && venue.eventLineup.length > 0)) && (
+            {(venue.vibe || venue.music_genre || venue.dress_code || (venue.event_lineup && venue.event_lineup.length > 0)) && (
               <section>
                 <p className="overline mb-4">Expérience</p>
                 <div className="h-px bg-border mb-8" />
@@ -127,32 +127,32 @@ export default function VenuePage() {
                       <p className="text-foreground">{venue.vibe}</p>
                     </div>
                   )}
-                  {venue.musicGenre && (
+                  {venue.music_genre && (
                     <div className="bg-surface p-6">
                       <div className="flex items-center gap-3 mb-3">
                         <Music className="w-4 h-4 text-primary" />
                         <p className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground font-sans">Musique</p>
                       </div>
-                      <p className="text-foreground">{venue.musicGenre}</p>
+                      <p className="text-foreground">{venue.music_genre}</p>
                     </div>
                   )}
-                  {venue.dressCode && (
+                  {venue.dress_code && (
                     <div className="bg-surface p-6">
                       <div className="flex items-center gap-3 mb-3">
                         <Shirt className="w-4 h-4 text-primary" />
                         <p className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground font-sans">Code vestimentaire</p>
                       </div>
-                      <p className="text-foreground">{venue.dressCode}</p>
+                      <p className="text-foreground">{venue.dress_code}</p>
                     </div>
                   )}
-                  {venue.eventLineup && venue.eventLineup.length > 0 && (
+                  {venue.event_lineup && venue.event_lineup.length > 0 && (
                     <div className="bg-surface p-6">
                       <div className="flex items-center gap-3 mb-3">
                         <Users className="w-4 h-4 text-primary" />
                         <p className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground font-sans">Artistes</p>
                       </div>
                       <ul className="space-y-1">
-                        {venue.eventLineup.map((artist, idx) => (
+                        {venue.event_lineup.map((artist, idx) => (
                           <li key={idx} className="text-foreground text-sm">— {artist}</li>
                         ))}
                       </ul>
@@ -172,11 +172,11 @@ export default function VenuePage() {
               <div className="space-y-4 mb-6 pb-6 border-b border-border">
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground text-sm">Type</span>
-                  <span className="text-primary text-xs tracking-[0.15em] uppercase font-sans">{venue.bookingType || "Réservation"}</span>
+                  <span className="text-primary text-xs tracking-[0.15em] uppercase font-sans">{venue.booking_type || "Réservation"}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground text-sm">Gamme</span>
-                  <span className="text-primary text-xs tracking-[0.15em] uppercase font-sans">{venue.priceTier || venue.price}</span>
+                  <span className="text-primary text-xs tracking-[0.15em] uppercase font-sans">{venue.price_tier || venue.price}</span>
                 </div>
               </div>
               <RSVPModal venueName={venue.name} placeId={venue.id} imageUrl={venue.image}>

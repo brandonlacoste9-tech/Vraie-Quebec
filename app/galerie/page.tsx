@@ -12,7 +12,51 @@ interface GalleryImage {
   prompt: string
   likes: number
   timestamp: number
+  curated?: boolean
 }
+
+const CURATED: GalleryImage[] = [
+  {
+    id: "c1", curated: true, likes: 48, timestamp: 0,
+    prompt: "Vieux-Québec sous la neige — ruelles pavées, lanternes dorées et façades en pierre au crépuscule",
+    url: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c2", curated: true, likes: 61, timestamp: 0,
+    prompt: "Table gastronomique montréalaise dressée avec élégance — chandelles, verrerie en cristal et terroir québécois",
+    url: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c3", curated: true, likes: 37, timestamp: 0,
+    prompt: "Bar à cocktails feutré à Montréal — cuir, bois sombre et lumières ambrées",
+    url: "https://images.unsplash.com/photo-1527761939622-933c972d11e1?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c4", curated: true, likes: 55, timestamp: 0,
+    prompt: "Charlevoix en automne — vignobles en feu de couleurs sur les rives du Saint-Laurent",
+    url: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c5", curated: true, likes: 29, timestamp: 0,
+    prompt: "Terrasse estivale du Plateau Mont-Royal — lumière dorée, bistrot et art de vivre québécois",
+    url: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c6", curated: true, likes: 43, timestamp: 0,
+    prompt: "Festival d'été de Québec — Plaines d'Abraham sous les étoiles, foule enivrée de musique",
+    url: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c7", curated: true, likes: 72, timestamp: 0,
+    prompt: "Chalet de luxe aux Laurentides — panorama enneigé, bois de cèdre et lumière tamisée",
+    url: "https://images.unsplash.com/photo-1477346611705-65d1883cee1e?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c8", curated: true, likes: 34, timestamp: 0,
+    prompt: "Île d'Orléans au printemps — vergers en fleurs, maisons ancestrales et ciel bleu du Québec",
+    url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=85&auto=format&fit=crop",
+  },
+]
 
 export default function GaleriePage() {
   const [images, setImages] = useState<GalleryImage[]>([])
@@ -20,10 +64,11 @@ export default function GaleriePage() {
 
   useEffect(() => {
     const stored = localStorage.getItem("generations")
+    let userImages: GalleryImage[] = []
     if (stored) {
       try {
         const parsed = JSON.parse(stored)
-        const gallery: GalleryImage[] = parsed
+        userImages = parsed
           .filter((g: any) => g.status === "complete" && g.imageUrl)
           .map((g: any) => ({
             id: g.id,
@@ -32,9 +77,10 @@ export default function GaleriePage() {
             likes: Math.floor(Math.random() * 50),
             timestamp: g.timestamp,
           }))
-        setImages(gallery)
       } catch {}
     }
+    // Merge user-generated first, then curated as fallback/backdrop
+    setImages([...userImages, ...CURATED])
   }, [])
 
   const handleLike = (id: string) =>
