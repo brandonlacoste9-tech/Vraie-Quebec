@@ -1,215 +1,258 @@
 "use client"
 
+import Link from "next/link"
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
-import { FeaturedSpots } from "@/components/featured-spots"
 import { RSVPModal } from "@/components/booking/RSVPModal"
+import { MapPin, Star, Calendar } from "lucide-react"
 
-const SPORTS_VENUES = [
+const venues = [
   {
-    id: 's1',
-    name: 'Centre Bell',
-    type: 'Arena',
-    category: 'hockey',
-    location: 'Centre-ville',
-    city: 'Montreal' as const,
+    id: "s1",
+    label: "Hockey",
+    name: "Centre Bell",
+    location: "Centre-ville, Montréal",
+    description: "Temple du hockey montréalais. Canadiens de Montréal, concerts majeurs et événements d'envergure internationale.",
     rating: 4.7,
-    price: '$$$',
-    priceTier: '$$$' as const,
-    image: 'https://images.unsplash.com/photo-1577223625816-7546f13df25d?q=80&w=2070',
-    description: 'Temple du hockey. Canadiens de Montréal et concerts majeurs.',
-    is_hot: true,
-    bookingType: 'ticket' as const,
-    vibe: 'Électrique',
-    eventLineup: ['Canadiens vs Leafs', 'Concert Taylor Swift'],
-    isSponsored: true,
-    sponsorName: 'Bell Canada',
-    adUrl: 'https://www.bell.ca'
+    price: "$$$",
+    image: "https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=1200&q=85&auto=format&fit=crop",
+    featured: true,
+    events: ["Canadiens de Montréal", "Concerts majeurs"],
   },
   {
-    id: 's2',
-    name: 'Stade Saputo',
-    type: 'Stadium',
-    category: 'soccer',
-    location: 'Parc Olympique',
-    city: 'Montreal' as const,
-    rating: 4.5,
-    price: '$$',
-    priceTier: '$$' as const,
-    image: 'https://images.unsplash.com/photo-1522778119026-d647f0565c6a?q=80&w=2070',
-    description: 'CF Montréal. Ambiance festive et passionnée.',
-    is_hot: true,
-    bookingType: 'ticket' as const,
-    vibe: 'Festive',
-    eventLineup: ['CFM vs Toronto FC', 'Derby canadien']
-  },
-  {
-    id: 's3',
-    name: 'Circuit Gilles-Villeneuve',
-    type: 'Circuit F1',
-    category: 'racing',
-    location: 'Île Notre-Dame',
-    city: 'Montreal' as const,
+    id: "s3",
+    label: "Formule 1",
+    name: "Circuit Gilles-Villeneuve",
+    location: "Île Notre-Dame, Montréal",
+    description: "Le Grand Prix du Canada — l'événement sportif de l'année. Prestige, vitesse et glamour réunis sur l'île Notre-Dame.",
     rating: 4.9,
-    price: '$$$$',
-    priceTier: 'VIP' as const,
-    image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=2070',
-    description: 'Grand Prix du Canada. L\'événement sportif de l\'année.',
-    is_hot: true,
+    price: "VIP",
+    image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1200&q=85&auto=format&fit=crop",
+    featured: true,
+    events: ["Grand Prix du Canada 2026", "F1 Sprint"],
     exclusive: true,
-    bookingType: 'ticket' as const,
-    vibe: 'Prestigieux',
-    eventLineup: ['GP du Canada 2026', 'F1 Sprint'],
-    isSponsored: true,
-    sponsorName: 'Casino de Montréal',
-    adUrl: 'https://casinos.lotoquebec.com'
   },
   {
-    id: 's4',
-    name: 'Stade Uniprix',
-    type: 'Tennis',
-    category: 'tennis',
-    location: 'Outremont',
-    city: 'Montreal' as const,
-    rating: 4.3,
-    price: '$',
-    priceTier: '$' as const,
-    image: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=2070',
-    description: 'Tournoi de tennis Challenger. Intime et accessible.',
-    is_hot: false,
-    bookingType: 'ticket' as const,
-    vibe: 'Intimiste',
-    eventLineup: ['Challenger ATP 100']
-  },
-  {
-    id: 's5',
-    name: 'Videotron Centre',
-    type: 'Arena',
-    category: 'hockey',
-    location: 'Centre-ville Québec',
-    city: 'Quebec City' as const,
-    rating: 4.6,
-    price: '$$',
-    priceTier: '$$' as const,
-    image: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?q=80&w=2070',
-    description: 'Remparts de Québec. Hockey junior et spectacles.',
-    is_hot: true,
-    bookingType: 'ticket' as const,
-    vibe: 'Passionnée',
-    eventLineup: ['Remparts vs Sea Dogs', 'Cirque du Soleil']
-  },
-  {
-    id: 's6',
-    name: 'Club de golf Royal Montréal',
-    type: 'Golf',
-    category: 'golf',
-    location: 'Île Bizard',
-    city: 'Montreal' as const,
+    id: "s6",
+    label: "Golf",
+    name: "Club de golf Royal Montréal",
+    location: "Île Bizard, Montréal",
+    description: "Le plus ancien club de golf d'Amérique du Nord. Hôte de la Presidents Cup 2026 — événement rare d'une élégance absolue.",
     rating: 4.8,
-    price: '$$$$',
-    priceTier: 'VIP' as const,
-    image: 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2070',
-    description: 'Championnat Presidents Cup 2026. Le plus ancien club d\'Amérique.',
-    is_hot: true,
+    price: "VIP",
+    image: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=1200&q=85&auto=format&fit=crop",
+    events: ["Presidents Cup 2026"],
     exclusive: true,
-    bookingType: 'ticket' as const,
-    vibe: 'Prestigieux',
-    eventLineup: ['Presidents Cup 2026'],
-    isSponsored: true,
-    sponsorName: 'RBC',
-    adUrl: 'https://www.rbc.com'
-  }
+  },
+  {
+    id: "s2",
+    label: "Soccer",
+    name: "Stade Saputo",
+    location: "Parc Olympique, Montréal",
+    description: "CF Montréal. Ambiance festive et passionnée dans un stade à l'architecture unique au cœur du Parc Olympique.",
+    rating: 4.5,
+    price: "$$",
+    image: "https://images.unsplash.com/photo-1522778119026-d647f0565c6a?w=1200&q=85&auto=format&fit=crop",
+    events: ["CF Montréal vs Toronto FC"],
+  },
+  {
+    id: "s5",
+    label: "Hockey junior",
+    name: "Centre Vidéotron",
+    location: "Centre-ville, Québec",
+    description: "Les Remparts de Québec — hockey junior passionné dans une enceinte moderne au cœur de la capitale nationale.",
+    rating: 4.6,
+    price: "$$",
+    image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=1200&q=85&auto=format&fit=crop",
+    events: ["Remparts de Québec"],
+  },
+  {
+    id: "s4",
+    label: "Tennis",
+    name: "Stade IGA",
+    location: "Outremont, Montréal",
+    description: "La Coupe Rogers — l'un des tournois ATP Masters 1000. Vedettes mondiales du tennis dans un cadre intimiste.",
+    rating: 4.3,
+    price: "$",
+    image: "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=1200&q=85&auto=format&fit=crop",
+    events: ["Coupe Rogers ATP"],
+  },
 ]
+
+const upcoming = [
+  { date: "Juin 2026", title: "Grand Prix du Canada", venue: "Circuit Gilles-Villeneuve", id: "s3", image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&q=80" },
+  { date: "Sept. 2026", title: "Presidents Cup", venue: "Club de golf Royal Montréal", id: "s6", image: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=600&q=80" },
+  { date: "Saison 2025–26", title: "Canadiens de Montréal", venue: "Centre Bell", id: "s1", image: "https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=600&q=80" },
+  { date: "Été 2026", title: "Coupe Rogers ATP", venue: "Stade IGA", id: "s4", image: "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=600&q=80" },
+]
+
+const [hero, ...rest] = venues.filter((v) => v.featured)
+const grid = venues.filter((v) => !v.featured)
 
 export default function SportsPage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#F4F1EC]">
       <MainNav />
 
-      {/* Hero */}
-      <div className="relative overflow-hidden border-b border-primary/20">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10" />
-        <div className="container mx-auto px-4 py-16 relative z-10">
-          <h1 className="text-4xl md:text-7xl font-heading font-bold uppercase text-white mb-4">
-            SPORTS <span className="text-primary text-glow">QUÉBEC</span>
-          </h1>
-          <p className="text-xl text-gray-300 max-w-2xl">
-            Des arénas mythiques aux circuits prestigieux.
-            Vivez l'adrénaline du sport québécois.
-          </p>
-        </div>
-      </div>
+      {/* Page header */}
+      <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-[#D6D0C6]">
+        <p className="overline mb-4">Sport & Prestige</p>
+        <h1
+          className="font-display font-light text-[#1C1916] mb-4"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
+          Sports
+        </h1>
+        <p className="text-[#7D7468] text-lg max-w-2xl leading-relaxed">
+          Des arénas mythiques aux circuits de prestige — vivez les émotions du sport québécois dans les meilleures conditions.
+        </p>
+      </header>
 
-      {/* Featured Sports Venues */}
-      <div className="container mx-auto px-4 py-12">
-        <FeaturedSpots
-          title="Arénas & Stades"
-          spots={SPORTS_VENUES}
-          showFilter={true}
-          filterOptions={[
-            { value: 'all', label: 'Tous les sports' },
-            { value: 'hockey', label: 'Hockey' },
-            { value: 'soccer', label: 'Soccer' },
-            { value: 'racing', label: 'Course' },
-            { value: 'tennis', label: 'Tennis' },
-            { value: 'golf', label: 'Golf' }
-          ]}
-        />
-      </div>
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-16 space-y-20">
 
-      {/* Upcoming Events Section */}
-      <div className="container mx-auto px-4 py-12 border-t border-primary/20">
-        <h2 className="text-3xl font-heading font-bold text-white mb-8">
-          ÉVÉNEMENTS À VENIR
-        </h2>
-        <div className="grid md:grid-cols-4 gap-6">
-          <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer flex flex-col">
-            <a href="https://www.google.com/search?q=Grand+Prix+du+Canada+Montreal" target="_blank" rel="noopener noreferrer" className="flex-1 mb-4 block">
-              <div className="text-primary text-sm font-bold mb-2">JUIN 2026</div>
-              <h3 className="text-xl font-bold text-white mb-2">Grand Prix du Canada</h3>
-              <p className="text-gray-400 text-sm">Circuit Gilles-Villeneuve, Montréal</p>
-            </a>
-            <RSVPModal venueName="Grand Prix du Canada" placeId="s3" imageUrl="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=2070">
-              <button className="btn-primary w-full">Réserver</button>
-            </RSVPModal>
+        {/* ── Featured two ────────────────────────────────────────────── */}
+        <section>
+          <p className="overline mb-8">En vedette</p>
+          <div className="space-y-px bg-[#D6D0C6]">
+            {venues.filter((v) => v.featured).map((venue) => (
+              <article key={venue.id} className="group grid grid-cols-1 md:grid-cols-5 bg-[#FAF8F5] hover:bg-white transition-colors duration-300">
+                <div className="md:col-span-2 relative aspect-[3/2] md:aspect-auto overflow-hidden bg-[#E8E4DC]">
+                  <img
+                    src={venue.image}
+                    alt={venue.name}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  />
+                  {venue.exclusive && (
+                    <div className="absolute top-4 left-4 px-3 py-1 bg-[#B08D57] text-[#FAF8F5] text-[9px] tracking-[0.2em] uppercase font-sans">
+                      Exclusif
+                    </div>
+                  )}
+                </div>
+                <div className="md:col-span-3 p-8 md:p-12 flex flex-col justify-between">
+                  <div>
+                    <p className="overline mb-4">{venue.label}</p>
+                    <h2
+                      className="font-display font-light text-[#1C1916] text-2xl md:text-3xl lg:text-4xl mb-4 leading-snug"
+                      style={{ fontFamily: "var(--font-display)" }}
+                    >
+                      {venue.name}
+                    </h2>
+                    <div className="flex items-center gap-2 text-sm text-[#7D7468] mb-4">
+                      <MapPin className="h-4 w-4 text-[#B08D57] flex-shrink-0" />
+                      <span>{venue.location}</span>
+                    </div>
+                    <div className="h-px bg-[#D6D0C6] mb-4" />
+                    <p className="text-[#7D7468] leading-relaxed mb-6">{venue.description}</p>
+                    {venue.events && (
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {venue.events.map((e) => (
+                          <span key={e} className="text-[10px] tracking-[0.12em] uppercase font-sans text-[#7D7468] border border-[#D6D0C6] px-2 py-1">
+                            {e}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Star className="h-4 w-4 fill-[#B08D57] text-[#B08D57]" />
+                      <span className="text-[#1C1916] text-sm font-medium">{venue.rating}</span>
+                    </div>
+                    <RSVPModal venueName={venue.name} placeId={venue.id} imageUrl={venue.image}>
+                      <button className="btn-luxury text-[11px]">Réserver</button>
+                    </RSVPModal>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
+        </section>
 
-          <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer flex flex-col">
-            <a href="https://www.google.com/search?q=Presidents+Cup+Royal+Montreal" target="_blank" rel="noopener noreferrer" className="flex-1 mb-4 block">
-              <div className="text-primary text-sm font-bold mb-2">SEPTEMBRE 2026</div>
-              <h3 className="text-xl font-bold text-white mb-2">Presidents Cup</h3>
-              <p className="text-gray-400 text-sm">Royal Montréal Golf Club</p>
-            </a>
-            <RSVPModal venueName="Presidents Cup" placeId="s6" imageUrl="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2070">
-              <button className="btn-primary w-full">Réserver</button>
-            </RSVPModal>
-          </div>
+        <div className="rule" />
 
-          <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer flex flex-col">
-            <a href="https://www.google.com/search?q=Remparts+de+Quebec+Tickets" target="_blank" rel="noopener noreferrer" className="flex-1 mb-4 block">
-              <div className="text-primary text-sm font-bold mb-2">FÉVRIER 2026</div>
-              <h3 className="text-xl font-bold text-white mb-2">Remparts de Québec vs Océanic</h3>
-              <p className="text-gray-400 text-sm">Centre Vidéotron, Québec</p>
-            </a>
-            <RSVPModal venueName="Remparts vs Océanic" placeId="s5" imageUrl="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?q=80&w=2070">
-              <button className="btn-primary w-full">Billets</button>
-            </RSVPModal>
+        {/* ── Grid ─────────────────────────────────────────────────────── */}
+        <section>
+          <p className="overline mb-8">Toutes les adresses</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#D6D0C6]">
+            {venues.filter((v) => !v.featured).map((venue) => (
+              <article key={venue.id} className="group bg-[#FAF8F5] hover:bg-white transition-colors duration-300">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#E8E4DC]">
+                  <img
+                    src={venue.image}
+                    alt={venue.name}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  />
+                </div>
+                <div className="p-6 md:p-8">
+                  <p className="overline mb-2">{venue.label}</p>
+                  <h3
+                    className="font-display font-light text-[#1C1916] text-xl md:text-2xl mb-2 leading-snug group-hover:text-[#B08D57] transition-colors duration-300"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {venue.name}
+                  </h3>
+                  <div className="flex items-center gap-1.5 text-xs text-[#7D7468] mb-4">
+                    <MapPin className="h-3 w-3 text-[#B08D57] flex-shrink-0" />
+                    <span>{venue.location}</span>
+                  </div>
+                  <p className="text-[#7D7468] text-sm leading-relaxed line-clamp-2 mb-5">
+                    {venue.description}
+                  </p>
+                  <div className="flex items-center justify-between pt-4 border-t border-[#E8E4DC]">
+                    <div className="flex items-center gap-1.5">
+                      <Star className="h-3.5 w-3.5 fill-[#B08D57] text-[#B08D57]" />
+                      <span className="text-[#1C1916] text-xs font-medium">{venue.rating}</span>
+                    </div>
+                    <RSVPModal venueName={venue.name} placeId={venue.id} imageUrl={venue.image}>
+                      <button className="text-[10px] tracking-[0.18em] uppercase text-[#B08D57] font-sans hover:text-[#8C6D3F] transition-colors">
+                        Billets →
+                      </button>
+                    </RSVPModal>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
+        </section>
 
-          <div className="leather-card p-6 stitched hover:border-primary transition-colors cursor-pointer flex flex-col">
-            <a href="https://www.google.com/search?q=Canadiens+de+Montreal+Tickets" target="_blank" rel="noopener noreferrer" className="flex-1 mb-4 block">
-              <div className="text-primary text-sm font-bold mb-2">SAISON 2025-26</div>
-              <h3 className="text-xl font-bold text-white mb-2">Canadiens de Montréal</h3>
-              <p className="text-gray-400 text-sm">Centre Bell, Montréal</p>
-            </a>
-            <RSVPModal venueName="Canadiens de Montréal" placeId="s1" imageUrl="https://images.unsplash.com/photo-1577223625816-7546f13df25d?q=80&w=2070">
-              <button className="btn-primary w-full">Billets</button>
-            </RSVPModal>
+        <div className="rule" />
+
+        {/* ── Upcoming events ───────────────────────────────────────────── */}
+        <section>
+          <p className="overline mb-8">Événements à venir</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-[#D6D0C6]">
+            {upcoming.map((ev) => (
+              <div key={ev.title} className="bg-[#FAF8F5] p-6 hover:bg-white transition-colors duration-300">
+                <div className="relative aspect-[3/2] overflow-hidden bg-[#E8E4DC] mb-5">
+                  <img
+                    src={ev.image}
+                    alt={ev.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </div>
+                <p className="text-[10px] tracking-[0.18em] uppercase text-[#B08D57] font-sans mb-2">
+                  {ev.date}
+                </p>
+                <h3
+                  className="font-display font-light text-[#1C1916] text-lg leading-snug mb-1"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {ev.title}
+                </h3>
+                <p className="text-xs text-[#7D7468] mb-4">{ev.venue}</p>
+                <RSVPModal venueName={ev.title} placeId={ev.id} imageUrl={ev.image}>
+                  <button className="btn-ghost-luxury text-[10px] w-full">
+                    Réserver
+                  </button>
+                </RSVPModal>
+              </div>
+            ))}
           </div>
-        </div>
-      </div>
+        </section>
+
+      </main>
 
       <Footer />
-    </main>
+    </div>
   )
 }
