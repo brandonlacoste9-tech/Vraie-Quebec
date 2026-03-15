@@ -78,6 +78,7 @@ export default function RootLayout({
       lang="fr"
       className={[cormorant.variable, dmSans.variable, dmMono.variable].join(" ")}
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
     >
       <body
         className="font-sans antialiased min-h-screen bg-background text-foreground"
