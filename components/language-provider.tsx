@@ -87,6 +87,40 @@ type Translations = {
       soldOut: string
       featured: string
     }
+    home: {
+      tagline: string
+      headline: string
+      headlineHighlight: string
+      description: string
+      ctaPrimary: string
+      ctaSecondary: string
+      featuredOverline: string
+      featuredTitle: string
+      viewAll: string
+      pillarsRestaurantsOverline: string
+      pillarsRestaurantsTitle: string
+      pillarsRestaurantsBody: string
+      pillarsRestaurantsCta: string
+      pillarsBarsOverline: string
+      pillarsBarsTitle: string
+      pillarsBarsBody: string
+      pillarsBarsCta: string
+      pillarsAgendaOverline: string
+      pillarsAgendaTitle: string
+      pillarsAgendaBody: string
+      pillarsAgendaCta: string
+      membershipOverline: string
+      membershipTitle: string
+      membershipHighlight: string
+      membershipDescription: string
+      membershipCta: string
+      editorialOverline: string
+      editorialTitle: string
+      editorialRead: string
+      newsletterOverline: string
+      newsletterTitle: string
+      newsletterDescription: string
+    }
   }
 }
 
@@ -174,6 +208,40 @@ const translations: Translations = {
       soldOut: "Complet",
       featured: "À ne pas manquer",
     },
+    home: {
+      tagline: "Montréal · Québec · 2025",
+      headline: "L'art de vivre",
+      headlineHighlight: "bien",
+      description: "Restaurants d'exception, bars de caractère, événements exclusifs — le guide de référence pour ceux qui exigent le meilleur.",
+      ctaPrimary: "Découvrir",
+      ctaSecondary: "Accès Membre",
+      featuredOverline: "Sélection de la rédaction",
+      featuredTitle: "En vedette",
+      viewAll: "Tout voir",
+      pillarsRestaurantsOverline: "Table",
+      pillarsRestaurantsTitle: "Restaurants",
+      pillarsRestaurantsBody: "Des tables d'exception sélectionnées par nos experts culinaires pour leur cuisine, leur service et leur atmosphère.",
+      pillarsRestaurantsCta: "Explorer les adresses",
+      pillarsBarsOverline: "Nuit",
+      pillarsBarsTitle: "Bars & Clubs",
+      pillarsBarsBody: "Les meilleures adresses de la vie nocturne montréalaise — cocktails de précision, terrasses et ambiances soignées.",
+      pillarsBarsCta: "Voir les bars",
+      pillarsAgendaOverline: "Agenda",
+      pillarsAgendaTitle: "Événements",
+      pillarsAgendaBody: "Festivals, galas, vernissages et soirées privées — votre agenda culturel curatif pour ne rien manquer.",
+      pillarsAgendaCta: "Consulter l'agenda",
+      membershipOverline: "Membership",
+      membershipTitle: "Le cercle des",
+      membershipHighlight: "initiés",
+      membershipDescription: "Réservations prioritaires, invitations privées, accès aux meilleures tables avant tout le monde — devenez membre et découvrez le Québec autrement.",
+      membershipCta: "Rejoindre la maison",
+      editorialOverline: "Chroniques",
+      editorialTitle: "À lire",
+      editorialRead: "Lire",
+      newsletterOverline: "La Lettre Hebdomadaire",
+      newsletterTitle: "Ne manquez rien",
+      newsletterDescription: "Nos sélections exclusives, événements privés et recommandations de la semaine, directement dans votre boîte.",
+    },
   },
   EN: {
     nav: {
@@ -255,6 +323,40 @@ const translations: Translations = {
       buyTickets: "Get Tickets",
       soldOut: "Sold Out",
       featured: "Must See",
+    },
+    home: {
+      tagline: "Montreal · Quebec · 2025",
+      headline: "The art of living",
+      headlineHighlight: "well",
+      description: "Exceptional restaurants, distinctive bars, exclusive events — the definitive guide for those who demand the best.",
+      ctaPrimary: "Explore",
+      ctaSecondary: "Member Access",
+      featuredOverline: "Editor's Selection",
+      featuredTitle: "Featured",
+      viewAll: "View All",
+      pillarsRestaurantsOverline: "Dining",
+      pillarsRestaurantsTitle: "Restaurants",
+      pillarsRestaurantsBody: "Exceptional tables selected by our culinary experts for their cuisine, service, and atmosphere.",
+      pillarsRestaurantsCta: "Explore venues",
+      pillarsBarsOverline: "Nightlife",
+      pillarsBarsTitle: "Bars & Clubs",
+      pillarsBarsBody: "The best addresses for Montreal nightlife — precision cocktails, terraces, and refined ambiances.",
+      pillarsBarsCta: "See the bars",
+      pillarsAgendaOverline: "Agenda",
+      pillarsAgendaTitle: "Events",
+      pillarsAgendaBody: "Festivals, galas, vernissages, and private parties — your curated cultural agenda so you never miss a moment.",
+      pillarsAgendaCta: "See the agenda",
+      membershipOverline: "Membership",
+      membershipTitle: "The circle of",
+      membershipHighlight: "insiders",
+      membershipDescription: "Priority reservations, private invitations, access to the best tables before anyone else — become a member and discover Quebec differently.",
+      membershipCta: "Join the house",
+      editorialOverline: "Stories",
+      editorialTitle: "Read",
+      editorialRead: "Read",
+      newsletterOverline: "The Weekly Letter",
+      newsletterTitle: "Never miss a thing",
+      newsletterDescription: "Our exclusive selections, private events, and recommendations of the week, delivered directly to your inbox.",
     },
   },
 }

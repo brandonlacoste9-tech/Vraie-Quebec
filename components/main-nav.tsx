@@ -6,17 +6,19 @@ import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import { NightToggle } from '@/components/night-toggle'
 import { LanguageToggle } from '@/components/language-toggle'
-
-const navLinks = [
-  { label: 'Restaurants', href: '/restaurants' },
-  { label: 'Bars', href: '/bars' },
-  { label: 'Agenda', href: '/agenda' },
-  { label: 'Sports', href: '/sports' },
-  { label: 'Voyage', href: '/voyage' },
-  { label: 'Publicité', href: '/advertise' },
-]
+import { useLanguage } from '@/components/language-provider'
 
 export function MainNav() {
+  const { t, language } = useLanguage()
+  
+  const navLinks = [
+    { label: t.nav.eat, href: '/restaurants' },
+    { label: t.nav.drink, href: '/bars' },
+    { label: t.nav.todo, href: '/agenda' },
+    { label: t.nav.sports, href: '/sports' },
+    { label: language === 'FR' ? 'Voyage' : 'Travel', href: '/voyage' },
+    { label: language === 'FR' ? 'Publicité' : 'Advertise', href: '/advertise' },
+  ]
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -37,13 +39,13 @@ export function MainNav() {
       {/* Top micro-bar */}
       <div className="hidden md:flex items-center justify-between px-8 py-2 border-b border-border">
         <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-sans">
-          Art de vivre · Montréal · Québec
+          {language === 'FR' ? 'Art de vivre · Montréal · Québec' : 'Art of Living · Montreal · Quebec'}
         </p>
         <Link
           href="/members"
           className="text-[10px] tracking-[0.2em] uppercase text-primary font-sans hover:text-[var(--primary-dark)] transition-colors"
         >
-          Accès Membre
+          {language === 'FR' ? 'Accès Membre' : 'Member Access'}
         </Link>
       </div>
 
@@ -79,7 +81,7 @@ export function MainNav() {
           <LanguageToggle />
           <NightToggle />
           <Link href="/members" className="btn-luxury text-[11px]">
-            Réserver
+            {language === 'FR' ? 'Réserver' : 'Reserve'}
           </Link>
         </div>
 
@@ -90,7 +92,7 @@ export function MainNav() {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="p-2 text-foreground"
-            aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            aria-label={isOpen ? (language === 'FR' ? 'Fermer le menu' : 'Close menu') : (language === 'FR' ? 'Ouvrir le menu' : 'Open menu')}
             aria-expanded={isOpen}
           >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -117,7 +119,7 @@ export function MainNav() {
               onClick={() => setIsOpen(false)}
               className="mt-4 btn-luxury text-center"
             >
-              Accès Membre
+              {language === 'FR' ? 'Accès Membre' : 'Member Access'}
             </Link>
           </nav>
         </div>
