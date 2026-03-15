@@ -339,7 +339,8 @@ export async function getPlaceById(id: string): Promise<Place | null> {
   const supabase = createClient()
   
   if (!supabase) {
-    return null
+    // Fallback to local data when Supabase is unavailable
+    return FALLBACK_PLACES.find(place => place.id === id) || null
   }
 
   const { data, error } = await supabase
@@ -350,7 +351,8 @@ export async function getPlaceById(id: string): Promise<Place | null> {
 
   if (error) {
     console.error('[Places] Error fetching place:', error)
-    return null
+    // Fallback to local data if query fails
+    return FALLBACK_PLACES.find(place => place.id === id) || null
   }
 
   return data as Place
