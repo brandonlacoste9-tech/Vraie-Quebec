@@ -1,13 +1,9 @@
-"use client"
-
 import { useState, useMemo } from "react"
-import { useRouter } from "next/navigation"
 import Image from "next/image"
+import Link from "next/link"
 import { MapPin, Star } from "lucide-react"
 import { RSVPModal } from "@/components/booking/RSVPModal"
-import { getQuebecDataWithMinCounts, type QuebecVenue } from "@/lib/data/cached-quebec-loader"
-
-const CACHED_DATA = getQuebecDataWithMinCounts(12, 6)
+import { FALLBACK_PLACES } from "@/lib/data/places"
 
 interface FilterOption {
   value: string
@@ -22,34 +18,29 @@ interface FeaturedSpotsProps {
 }
 
 export function FeaturedSpots({ title, spots: propSpots, showFilter = false, filterOptions }: FeaturedSpotsProps = {}) {
-  const router = useRouter()
   const [cityFilter, setCityFilter] = useState<"All" | "Montreal" | "Quebec City">("All")
   const [categoryFilter, setCategoryFilter] = useState<string>("all")
 
   const activeSpots = useMemo(() => {
-    let filtered = propSpots || CACHED_DATA.venues
-    if (cityFilter !== "All" && !propSpots) {
-      filtered = (filtered as QuebecVenue[]).filter((s) => s.city === cityFilter)
+    let filtered = propSpots || FALLBACK_PLACES
+    if (cityFilter !== "All") {
+      filtered = filtered.filter((s) => s.city === cityFilter)
     }
     if (categoryFilter !== "all") {
       filtered = filtered.filter((s: any) => {
         const type = (s.type || "").toLowerCase()
-        const cat = (s.category || "").toLowerCase()
         const target = categoryFilter.toLowerCase()
-        return type.includes(target) || cat.includes(target)
+        return type.includes(target)
       })
     }
-    return propSpots ? filtered : filtered.slice(0, 8)
+    return filtered.slice(0, 8)
   }, [cityFilter, categoryFilter, propSpots])
 
   const defaultCategories = [
     { id: "all", label: "Tous" },
     { id: "restaurant", label: "Restos" },
+    { id: "nightlife", label: "Bars" },
     { id: "hotel", label: "Hôtels" },
-    { id: "bar", label: "Bars" },
-    { id: "cafe", label: "Cafés" },
-    { id: "attraction", label: "Attractions" },
-    { id: "museum", label: "Musées" },
   ]
 
   const activeCategories = filterOptions
@@ -120,7 +111,7 @@ export function FeaturedSpots({ title, spots: propSpots, showFilter = false, fil
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
               />
-              {(spot.isFeatured || spot.is_hot) && (
+              {(spot.is_hot) && (
                 <div className="absolute top-3 left-3 px-2.5 py-1 bg-primary text-primary-foreground text-[9px] tracking-[0.18em] uppercase font-sans">
                   VIP
                 </div>
@@ -132,23 +123,21 @@ export function FeaturedSpots({ title, spots: propSpots, showFilter = false, fil
             </div>
 
             <div className="p-5 md:p-6 flex flex-col flex-1">
-              <p className="overline mb-2">{spot.type || spot.category}</p>
+              <p className="overline mb-2">{spot.type}</p>
               <h3 className="font-display font-light text-foreground text-lg md:text-xl mb-2 leading-snug group-hover:text-primary transition-colors duration-300" style={{ fontFamily: "var(--font-display)" }}>
                 {spot.name}
               </h3>
-              {(spot.neighborhood?.fr || spot.location) && (
+              {spot.location && (
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-4">
                   <MapPin className="h-3 w-3 text-primary flex-shrink-0" />
-                  <span>{spot.neighborhood?.fr || spot.location}, {spot.city}</span>
+                  <span>{spot.location}, {spot.city}</span>
                 </div>
               )}
               <div className="mt-auto pt-4 border-t border-border flex items-center justify-between">
-                <span className="text-sm text-foreground font-medium">{spot.priceDisplay || spot.price}</span>
-                <RSVPModal venueName={spot.name} placeId={spot.id} imageUrl={spot.image}>
-                  <button className="text-[10px] tracking-[0.18em] uppercase text-primary font-sans hover:text-primary-dark transition-colors">
-                    Réserver →
-                  </button>
-                </RSVPModal>
+                <span className="text-sm text-foreground font-medium">{spot.price_tier || spot.price || "$$"}</span>
+                <Link href={`/venue/${spot.id}`} className="text-[10px] tracking-[0.18em] uppercase text-primary font-sans hover:text-primary-dark transition-colors">
+                  Voir →
+                </Link>
               </div>
             </div>
           </article>
