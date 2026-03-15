@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useState, useEffect } from "react"
 
 type Language = "FR" | "EN"
 
@@ -269,6 +269,28 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>("FR")
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    // Load language from localStorage on mount
+    const savedLanguage = localStorage.getItem("language") as Language | null
+    if (savedLanguage && (savedLanguage === "FR" || savedLanguage === "EN")) {
+      setLanguage(savedLanguage)
+    }
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    // Save language to localStorage whenever it changes
+    if (mounted) {
+      localStorage.setItem("language", language)
+    }
+  }, [language, mounted])
+
+  // Don't render children until mounted to avoid hydration mismatch
+  if (!mounted) {
+    return <LanguageContext.Provider value={{ language: "FR", setLanguage, t: translations["FR"] }}>{children}</LanguageContext.Provider>
+  }
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t: translations[language] }}>
