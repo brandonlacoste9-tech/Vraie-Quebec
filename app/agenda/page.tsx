@@ -14,7 +14,7 @@ const EVENTS = [
     id: 2, label: "Musique", title: "Charlotte de Witte — Techno Night",
     description: "La reine de la techno de retour au Québec pour une nuit inoubliable.",
     date: "1 Mars", location: "Centre Vidéotron, Québec", price: "$85",
-    image: "https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=1200&q=85&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&q=85&auto=format&fit=crop",
     featured: true,
   },
   {
@@ -34,7 +34,7 @@ const EVENTS = [
     id: 5, label: "Arts", title: "MURAL Festival",
     description: "Festival d'art urbain avec DJ sets et live painting en direct sur la rue Saint-Laurent.",
     date: "6 Juin", location: "Boul. Saint-Laurent, Montréal", price: "Entrée libre",
-    image: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=800&q=85&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=800&q=85&auto=format&fit=crop",
   },
   {
     id: 6, label: "Arts", title: "Nuit Blanche à Montréal",

@@ -25,12 +25,12 @@ export default function BarsPage() {
   const filtered = bars.filter((b) => {
     if (!selectedFilters.length) return true
     return selectedFilters.some((f) => {
-      if (f === "price-low") return b.priceTier === "$"
-      if (f === "price-mid") return b.priceTier === "$$"
-      if (f === "price-high") return b.priceTier === "$$$"
-      if (f === "rating-high") return b.rating >= 4.5
-      if (f === "trending") return b.is_hot
-      if (f === "vip") return b.priceTier === "VIP"
+      if (f === "price-low")   return b.price_tier === "$"
+      if (f === "price-mid")   return b.price_tier === "$$" || b.price_tier === "$$$"
+      if (f === "price-high")  return b.price_tier === "$$$$"
+      if (f === "rating-high") return b.rating >= 4.7
+      if (f === "trending")    return b.is_hot === true
+      if (f === "vip")         return b.has_vip === true
       return true
     })
   })
@@ -95,10 +95,10 @@ export default function BarsPage() {
                       <span>{hero.location}, {hero.city}</span>
                     </div>
                   )}
-                  {hero.musicGenre && (
+                  {hero.music_genre && (
                     <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
                       <Music className="h-4 w-4 text-primary flex-shrink-0" />
-                      <span>{hero.musicGenre}</span>
+                      <span>{hero.music_genre}</span>
                     </div>
                   )}
                   <div className="h-px bg-border mb-6" />
@@ -148,10 +148,10 @@ export default function BarsPage() {
                             <span>{bar.location}, {bar.city}</span>
                           </div>
                         )}
-                        {bar.musicGenre && (
+                        {bar.music_genre && (
                           <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-4">
                             <Music className="h-3 w-3 text-primary flex-shrink-0" />
-                            <span>{bar.musicGenre}</span>
+                            <span>{bar.music_genre}</span>
                           </div>
                         )}
                         <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2 mb-5">{bar.description}</p>

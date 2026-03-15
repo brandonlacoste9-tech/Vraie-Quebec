@@ -39,7 +39,7 @@ const venues = [
     id: "s5", label: "Hockey junior", name: "Centre Vidéotron", location: "Centre-ville, Québec",
     description: "Les Remparts de Québec — hockey junior passionné dans une enceinte moderne au cœur de la capitale nationale.",
     rating: 4.6, price: "$$",
-    image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=1200&q=85&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1534158914592-062992fbe900?w=1200&q=85&auto=format&fit=crop",
     events: ["Remparts de Québec"],
   },
   {

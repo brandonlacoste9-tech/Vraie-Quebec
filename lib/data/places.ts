@@ -174,12 +174,57 @@ const FALLBACK_PLACES: Place[] = [
     vip_contact_name: null, vip_contact_phone: null, vip_contact_email: null, vip_notes: null, created_at: new Date().toISOString(), updated_at: new Date().toISOString()
   },
   {
+    id: 'bar-mtl-2', name: 'Coldroom', type: 'nightlife', city: 'Montreal', location: 'Vieux-Montréal', region: null,
+    address: '1 Rue King', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
+    image: 'https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=800', rating: 4.8, rating_count: 820,
+    price: null, price_tier: '$$$', description: "Bar à cocktails caché derrière une porte dissimulée dans le Vieux-Montréal. Ambiance feutrée, mixologistes de talent et carte de spiritueux d'exception.", tags: ['speakeasy', 'cocktails', 'exclusif'],
+    is_hot: true, exclusive: true, booking_type: 'none', vibe: 'Dark & Moody', event_lineup: null, music_genre: 'Jazz & Soul', party_type: 'Cocktail Bar',
+    dress_code: 'Smart Casual', is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: true, vip_min_spend: null,
+    vip_contact_name: null, vip_contact_phone: null, vip_contact_email: null, vip_notes: null, created_at: new Date().toISOString(), updated_at: new Date().toISOString()
+  },
+  {
+    id: 'bar-mtl-3', name: 'Bar Le Mal Nécessaire', type: 'nightlife', city: 'Montreal', location: 'Chinatown', region: null,
+    address: '1106 Boul Saint-Laurent', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
+    image: 'https://images.unsplash.com/photo-1573631583685-6e3a3d82de58?w=800', rating: 4.6, rating_count: 950,
+    price: null, price_tier: '$$', description: "Tiki bar audacieux niché au dernier étage du Chinatown. Cocktails au rhum et aux fruits exotiques servis sous des néons roses dans une ambiance tropical-luxe unique.", tags: ['tiki', 'cocktails', 'tendance'],
+    is_hot: true, exclusive: false, booking_type: 'none', vibe: 'Fun & Festive', event_lineup: null, music_genre: 'Latin & World', party_type: 'Tiki Bar',
+    dress_code: null, is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: false, vip_min_spend: null,
+    vip_contact_name: null, vip_contact_phone: null, vip_contact_email: null, vip_notes: null, created_at: new Date().toISOString(), updated_at: new Date().toISOString()
+  },
+  {
+    id: 'bar-mtl-4', name: 'Apt. 200', type: 'nightlife', city: 'Montreal', location: 'Plateau Mont-Royal', region: null,
+    address: '3456 Boul Saint-Laurent', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
+    image: 'https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?w=800', rating: 4.5, rating_count: 710,
+    price: null, price_tier: '$$', description: "Club électronique intimiste au cœur de la Main. DJs underground de renommée internationale et sound system de niveau professionnel dans un cadre minimaliste.", tags: ['electronic', 'underground', 'dj'],
+    is_hot: false, exclusive: false, booking_type: 'guestlist', vibe: 'Underground', event_lineup: null, music_genre: 'Electronic & Techno', party_type: 'Club',
+    dress_code: null, is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: false, vip_min_spend: null,
+    vip_contact_name: null, vip_contact_phone: null, vip_contact_email: null, vip_notes: null, created_at: new Date().toISOString(), updated_at: new Date().toISOString()
+  },
+  {
+    id: 'bar-mtl-5', name: 'Beaugrand Cocktail Bar', type: 'nightlife', city: 'Montreal', location: 'Hochelaga', region: null,
+    address: '3827 Rue Ontario E', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
+    image: 'https://images.unsplash.com/photo-1524673450801-b5aa9b621b76?w=800', rating: 4.6, rating_count: 380,
+    price: null, price_tier: '$', description: "Cocktail bar de quartier à l'ambiance chaleureuse dans Hochelaga. Carte de saison créative, prix accessibles et terrasse animée l'été.", tags: ['cocktails', 'quartier', 'terrasse'],
+    is_hot: false, exclusive: false, booking_type: 'none', vibe: 'Chill & Local', event_lineup: null, music_genre: 'Indie & Alternative', party_type: 'Bar',
+    dress_code: null, is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: false, vip_min_spend: null,
+    vip_contact_name: null, vip_contact_phone: null, vip_contact_email: null, vip_notes: null, created_at: new Date().toISOString(), updated_at: new Date().toISOString()
+  },
+  {
     id: 'bar-qc-1', name: 'Maurice Nightclub', type: 'nightlife', city: 'Quebec City', location: 'Grande Allée', region: null,
     address: '575 Grande Allée E', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
     image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800', rating: 4.5, rating_count: 450,
     price: null, price_tier: '$$$', description: "Le nightclub légendaire de la Grande Allée, incontournable depuis 30 ans. Trois salles, DJs internationaux et table VIP pour vivre la nuit québécoise à son apogée.", tags: ['club', 'electronic', 'vip'],
     is_hot: true, exclusive: true, booking_type: 'guestlist', vibe: 'High Energy', event_lineup: null, music_genre: 'Electronic & EDM', party_type: 'Nightclub',
     dress_code: 'Upscale', is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: true, vip_min_spend: null,
+    vip_contact_name: null, vip_contact_phone: null, vip_contact_email: null, vip_notes: null, created_at: new Date().toISOString(), updated_at: new Date().toISOString()
+  },
+  {
+    id: 'bar-qc-2', name: 'Bar Sainte-Angèle', type: 'nightlife', city: 'Quebec City', location: 'Vieux-Québec', region: null,
+    address: '26 Rue Sainte-Angèle', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
+    image: 'https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?w=800', rating: 4.7, rating_count: 530,
+    price: null, price_tier: '$$', description: "Institution du Vieux-Québec depuis 1982. Ambiance jazzy, whiskies de collection et clientèle locale fidèle dans un décor de bois chaleureux.", tags: ['jazz', 'whisky', 'institution'],
+    is_hot: false, exclusive: false, booking_type: 'none', vibe: 'Jazz & Classic', event_lineup: null, music_genre: 'Jazz & Blues', party_type: 'Bar',
+    dress_code: null, is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: false, vip_min_spend: null,
     vip_contact_name: null, vip_contact_phone: null, vip_contact_email: null, vip_notes: null, created_at: new Date().toISOString(), updated_at: new Date().toISOString()
   },
 
