@@ -13,17 +13,14 @@ export function NewsletterForm() {
 
   if (submitted) {
     return (
-      <p className="text-[#B08D57] text-sm tracking-[0.1em] uppercase font-sans">
+      <p className="text-primary text-sm tracking-[0.1em] uppercase font-sans">
         Merci — vous êtes inscrit.
       </p>
     )
   }
 
   return (
-    <form
-      className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-      onSubmit={handleSubmit}
-    >
+    <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={handleSubmit}>
       <input
         type="email"
         value={email}

@@ -18,7 +18,7 @@ export function NightToggle() {
       onClick={() => setTheme(isNight ? 'light' : 'dark')}
       aria-label={isNight ? 'Passer en mode jour' : 'Passer en mode nuit'}
       title={isNight ? 'Mode jour' : 'Mode nuit'}
-      className="relative flex items-center justify-center w-8 h-8 transition-colors duration-300 text-[#7D7468] hover:text-[#B08D57] dark:text-[#9E9080] dark:hover:text-[#C9A35E]"
+      className="relative flex items-center justify-center w-8 h-8 transition-colors duration-300 text-muted-foreground hover:text-primary"
     >
       {/* Sun — visible in day mode */}
       <svg

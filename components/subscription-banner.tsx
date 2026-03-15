@@ -1,46 +1,39 @@
-import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
 import Link from "next/link"
 
 export function SubscriptionBanner() {
   return (
-    <section className="relative overflow-hidden border-y border-primary/30 leather-card-elevated stitched py-16 md:py-24">
-      {/* Background Effects */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      </div>
-
+    <section className="relative overflow-hidden border-y border-border bg-foreground py-16 md:py-24">
       <div className="container relative z-10 px-4 text-center">
-        <h2 className="font-heading text-4xl md:text-6xl font-black uppercase text-white mb-6">
-          DEVENEZ <span className="text-primary neon-text">MEMBRE</span>
+        <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-4">Adhésion</p>
+        <h2 className="font-display font-light text-background text-4xl md:text-6xl mb-6" style={{ fontFamily: "var(--font-display)" }}>
+          Devenez Membre
         </h2>
-        <p className="mx-auto max-w-2xl text-xl text-gray-300 mb-10 font-light">
-          Accès privilégié aux pré-ventes, privilèges dans les établissements partenaires, et le statut "Membre Vrai Québec".{" "}
-          <span className="font-bold text-white">6$ par mois</span> seulement.
+        <p className="mx-auto max-w-2xl text-background/70 text-lg mb-10 font-light leading-relaxed">
+          Accès privilégié aux pré-ventes, privilèges dans les établissements partenaires, et le statut Membre Vrai Québec.{" "}
+          <span className="font-medium text-background">6$ par mois</span> seulement.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10 text-left">
-          {["Réservations prioritaires", "Avantages exclusifs (20%)", "Accès aux événements privés"].map((feature) => (
-            <div key={feature} className="flex items-center gap-3 leather-card p-3 border border-border">
-              <div className="flex-shrink-0 h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-background/20 max-w-3xl mx-auto mb-10">
+          {["Réservations prioritaires", "Avantages exclusifs", "Accès aux événements privés"].map((feature) => (
+            <div key={feature} className="flex items-center gap-3 bg-foreground p-5">
+              <div className="flex-shrink-0 h-5 w-5 border border-primary flex items-center justify-center">
                 <Check className="h-3 w-3 text-primary" />
               </div>
-              <span className="text-sm font-medium text-gray-200 uppercase font-heading tracking-wide">{feature}</span>
+              <span className="text-sm text-background/80 tracking-wide">{feature}</span>
             </div>
           ))}
         </div>
 
-        <Link href="https://buy.stripe.com/test_6oU4gAfx18Ye11Xapw1kA00" target="_blank">
-          <Button
-            size="lg"
-            className="h-14 px-10 bg-primary hover:bg-primary/90 text-white font-heading uppercase text-xl tracking-widest rounded-none shadow-[0_0_30px_-5px_rgba(0,68,255,0.5)] hover:shadow-[0_0_50px_-5px_rgba(0,68,255,0.7)] transition-all scale-100 hover:scale-105"
-          >
-            Devenir Membre — 6$ / mois
-          </Button>
+        <Link
+          href="https://buy.stripe.com/test_6oU4gAfx18Ye11Xapw1kA00"
+          target="_blank"
+          className="inline-flex items-center justify-center px-10 h-14 bg-primary text-primary-foreground text-[11px] tracking-[0.2em] uppercase font-sans hover:bg-[var(--primary-dark)] transition-colors"
+        >
+          Devenir Membre — 6$ / mois
         </Link>
-        <p className="mt-4 text-xs text-muted-foreground uppercase tracking-wider">
-          Sans engagement • Annulation à tout moment
+        <p className="mt-4 text-[10px] text-background/40 uppercase tracking-wider">
+          Sans engagement · Annulation à tout moment
         </p>
       </div>
     </section>

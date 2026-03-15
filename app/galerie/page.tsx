@@ -62,18 +62,15 @@ export default function GaleriePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F4F1EC]">
+    <div className="min-h-screen bg-background">
       <MainNav />
 
-      <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-[#D6D0C6]">
+      <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-border">
         <p className="overline mb-4">Créations visuelles</p>
-        <h1
-          className="font-display font-light text-[#1C1916] mb-4"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
+        <h1 className="font-display font-light text-foreground mb-4" style={{ fontFamily: "var(--font-display)" }}>
           Galerie
         </h1>
-        <p className="text-[#7D7468] text-lg max-w-2xl leading-relaxed">
+        <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
           Les créations générées par notre communauté — visions du Québec réinventé par l'intelligence artificielle.
         </p>
       </header>
@@ -81,20 +78,17 @@ export default function GaleriePage() {
       <main className="max-w-7xl mx-auto px-6 md:px-8 py-16">
         {images.length === 0 ? (
           <div className="py-24 text-center">
-            <div className="w-16 h-16 mx-auto mb-8 border border-[#D6D0C6] flex items-center justify-center">
-              <svg className="w-8 h-8 text-[#B08D57]" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
+            <div className="w-16 h-16 mx-auto mb-8 border border-border flex items-center justify-center">
+              <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
                 <rect x="3" y="3" width="18" height="18" rx="1" />
                 <circle cx="8.5" cy="8.5" r="1.5" />
                 <polyline points="21,15 16,10 5,21" />
               </svg>
             </div>
-            <p
-              className="font-display font-light text-[#1C1916] text-3xl mb-4"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
+            <p className="font-display font-light text-foreground text-3xl mb-4" style={{ fontFamily: "var(--font-display)" }}>
               La galerie est vide
             </p>
-            <p className="text-[#7D7468] mb-8 max-w-sm mx-auto">
+            <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
               Créez votre première vision du Québec avec notre outil de génération d'images.
             </p>
             <Link href="/creer" className="btn-luxury">
@@ -104,14 +98,14 @@ export default function GaleriePage() {
         ) : (
           <>
             <p className="overline mb-8">{images.length} création{images.length > 1 ? "s" : ""}</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-[#D6D0C6]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-border">
               {images.map((image) => (
                 <article
                   key={image.id}
-                  className="group bg-[#FAF8F5] hover:bg-white transition-colors duration-300 cursor-pointer"
+                  className="group bg-surface hover:bg-surface-raised transition-colors duration-300 cursor-pointer"
                   onClick={() => setSelected(image)}
                 >
-                  <div className="aspect-square relative overflow-hidden bg-[#E8E4DC]">
+                  <div className="aspect-square relative overflow-hidden bg-muted">
                     <img
                       src={image.url}
                       alt={image.prompt}
@@ -119,13 +113,13 @@ export default function GaleriePage() {
                     />
                   </div>
                   <div className="p-5">
-                    <p className="text-[#7D7468] text-sm line-clamp-2 mb-4 leading-relaxed">
+                    <p className="text-muted-foreground text-sm line-clamp-2 mb-4 leading-relaxed">
                       {image.prompt}
                     </p>
-                    <div className="flex items-center justify-between pt-3 border-t border-[#E8E4DC]">
+                    <div className="flex items-center justify-between pt-3 border-t border-border">
                       <button
                         onClick={(e) => { e.stopPropagation(); handleLike(image.id) }}
-                        className="flex items-center gap-1.5 text-xs text-[#7D7468] hover:text-[#B08D57] transition-colors"
+                        className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors"
                       >
                         <Heart className="w-3.5 h-3.5" />
                         <span>{image.likes}</span>
@@ -133,14 +127,14 @@ export default function GaleriePage() {
                       <div className="flex gap-2">
                         <button
                           onClick={(e) => { e.stopPropagation(); handleShare(image) }}
-                          className="p-1.5 text-[#7D7468] hover:text-[#B08D57] transition-colors"
+                          className="p-1.5 text-muted-foreground hover:text-primary transition-colors"
                           title="Partager"
                         >
                           <Share2 className="w-3.5 h-3.5" />
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); handleDownload(image) }}
-                          className="p-1.5 text-[#7D7468] hover:text-[#B08D57] transition-colors"
+                          className="p-1.5 text-muted-foreground hover:text-primary transition-colors"
                           title="Télécharger"
                         >
                           <Download className="w-3.5 h-3.5" />
@@ -158,30 +152,30 @@ export default function GaleriePage() {
       {/* Lightbox */}
       {selected && (
         <div
-          className="fixed inset-0 z-50 bg-[#1C1916]/95 flex items-center justify-center p-4 md:p-8"
+          className="fixed inset-0 z-50 bg-foreground/95 flex items-center justify-center p-4 md:p-8"
           onClick={() => setSelected(null)}
         >
           <div className="relative max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setSelected(null)}
-              className="absolute -top-10 right-0 text-[#FAF8F5] hover:text-[#B08D57] transition-colors"
+              className="absolute -top-10 right-0 text-background hover:text-primary transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
-            <div className="bg-[#FAF8F5]">
+            <div className="bg-surface">
               <img
                 src={selected.url}
                 alt={selected.prompt}
                 className="w-full h-auto max-h-[65vh] object-contain"
               />
               <div className="p-6 md:p-8">
-                <p className="text-[#1C1916] leading-relaxed mb-6" style={{ fontFamily: "var(--font-display)" }}>
+                <p className="text-foreground leading-relaxed mb-6" style={{ fontFamily: "var(--font-display)" }}>
                   {selected.prompt}
                 </p>
-                <div className="flex items-center justify-between pt-4 border-t border-[#D6D0C6]">
+                <div className="flex items-center justify-between pt-4 border-t border-border">
                   <button
                     onClick={() => handleLike(selected.id)}
-                    className="flex items-center gap-2 text-sm text-[#7D7468] hover:text-[#B08D57] transition-colors"
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
                     <Heart className="w-4 h-4" />
                     <span>{selected.likes}</span>

@@ -1,7 +1,7 @@
 "use client"
 
 import { Calendar, MapPin, Ticket } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { RSVPModal } from "@/components/booking/RSVPModal"
 
 const events = [
@@ -11,7 +11,7 @@ const events = [
     date: "SAM 14 MARS",
     time: "19:00",
     venue: "Centre Bell, Montréal",
-    image: "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?w=800", // New hockey action shot
+    image: "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?w=800",
     category: "Sports",
     price: "Dès 145$",
   },
@@ -44,70 +44,63 @@ interface UpcomingEventsProps {
 export function UpcomingEvents({ filterType = "all" }: UpcomingEventsProps) {
   const filteredEvents = filterType === "all"
     ? events
-    : events.filter(e => {
-      if (filterType === "sports") return e.category === "Sports"
-      if (filterType === "techno") return e.category === "Techno"
-      if (filterType === "festival") return e.category === "Festival"
-      return true
-    })
+    : events.filter((e) => {
+        if (filterType === "sports") return e.category === "Sports"
+        if (filterType === "techno") return e.category === "Techno"
+        if (filterType === "festival") return e.category === "Festival"
+        return true
+      })
 
   return (
     <section className="py-8">
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-3xl md:text-5xl font-heading font-bold uppercase text-white">
-          Événements <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white">à venir</span>
+        <h2 className="font-display font-light text-foreground text-3xl md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
+          Événements à venir
         </h2>
-        <Button
-          variant="link"
-          className="text-primary font-heading uppercase"
-          onClick={() => window.location.href = "/agenda"}
-        >
-          Consulter l'agenda
-        </Button>
+        <Link href="/agenda" className="link-luxury text-[11px]">
+          Voir l'agenda
+        </Link>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-px bg-border">
         {filteredEvents.length > 0 ? filteredEvents.map((event) => (
-          <div
-            key={event.id}
-            className="group flex flex-col md:flex-row leather-card border border-border hover:border-primary transition-colors overflow-hidden"
-          >
+          <div key={event.id} className="group flex flex-col md:flex-row bg-surface hover:bg-surface-raised transition-colors overflow-hidden">
             <div
               className="md:w-1/4 h-48 md:h-auto bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-500"
               style={{ backgroundImage: `url('${event.image}')` }}
             />
-
             <div className="flex-1 p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
               <a
-                href={`https://www.google.com/search?q=${encodeURIComponent(event.title + ' ' + event.venue)}`}
+                href={`https://www.google.com/search?q=${encodeURIComponent(event.title + " " + event.venue)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start gap-6 flex-1 hover:opacity-80 transition-opacity"
+                className="flex items-start gap-6 flex-1"
               >
-                <div className="flex flex-col items-center justify-center bg-secondary border border-border p-3 w-20 h-20 text-center">
-                  <span className="text-primary font-heading font-bold text-xl uppercase leading-none">
+                <div className="flex flex-col items-center justify-center border border-border p-3 w-20 h-20 text-center flex-shrink-0">
+                  <span className="text-primary font-sans font-medium text-xs uppercase leading-none tracking-[0.1em]">
                     {event.date.split(" ")[0]}
                   </span>
-                  <span className="text-white font-heading font-bold text-2xl leading-none my-1">
+                  <span className="text-foreground font-display font-light text-3xl leading-none my-1" style={{ fontFamily: "var(--font-display)" }}>
                     {event.date.split(" ")[1]}
                   </span>
-                  <span className="text-muted-foreground text-xs uppercase leading-none">
+                  <span className="text-muted-foreground text-[10px] uppercase leading-none tracking-[0.1em]">
                     {event.date.split(" ")[2]}
                   </span>
                 </div>
-
                 <div>
-                  <span className="text-primary text-xs font-bold uppercase tracking-widest mb-1 block">
+                  <span className="text-primary text-[10px] font-sans uppercase tracking-[0.18em] mb-2 block">
                     {event.category}
                   </span>
-                  <h3 className="text-2xl font-heading font-bold text-white uppercase mb-2 group-hover:text-primary transition-colors">{event.title}</h3>
-                  <div className="flex flex-col gap-1 text-gray-400 text-sm">
-                    <div className="flex items-center">
-                      <MapPin className="h-3 w-3 mr-2" />
+                  <h3 className="font-display font-light text-foreground text-xl md:text-2xl mb-2 group-hover:text-primary transition-colors" style={{ fontFamily: "var(--font-display)" }}>
+                    {event.title}
+                  </h3>
+                  <div className="flex flex-col gap-1 text-muted-foreground text-sm">
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-3 w-3" />
                       {event.venue}
                     </div>
-                    <div className="flex items-center">
-                      <Calendar className="h-3 w-3 mr-2" />
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-3 w-3" />
                       {event.time}
                     </div>
                   </div>
@@ -116,23 +109,23 @@ export function UpcomingEvents({ filterType = "all" }: UpcomingEventsProps) {
 
               <div className="flex items-center gap-4 w-full md:w-auto">
                 <div className="text-right hidden md:block">
-                  <p className="text-xs text-muted-foreground uppercase">À partir de</p>
-                  <p className="text-xl font-heading font-bold text-white">{event.price}</p>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-[0.1em]">À partir de</p>
+                  <p className="text-xl font-display font-light text-foreground" style={{ fontFamily: "var(--font-display)" }}>
+                    {event.price}
+                  </p>
                 </div>
                 <RSVPModal venueName={event.title} placeId={event.id.toString()} imageUrl={event.image}>
-                  <Button
-                    className="flex-1 md:flex-none bg-white text-black hover:bg-primary hover:text-white font-heading uppercase font-bold rounded-none px-8 h-12"
-                  >
-                    <Ticket className="mr-2 h-4 w-4" />
+                  <button className="btn-luxury flex items-center gap-2">
+                    <Ticket className="w-3.5 h-3.5" />
                     Réserver
-                  </Button>
+                  </button>
                 </RSVPModal>
               </div>
             </div>
           </div>
         )) : (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground font-heading uppercase">
+          <div className="text-center py-12 bg-surface">
+            <p className="text-muted-foreground text-[11px] tracking-[0.18em] uppercase">
               Aucun événement {filterType !== "all" ? filterType : ""} à l'horizon
             </p>
           </div>
