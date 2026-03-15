@@ -5,139 +5,82 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Base Hue Defaults (Nightlife) */
-  --primary-hue: 268;
-  --accent-hue: 188;
+  /* Editorial Magazine Color System */
+  --background: #FAFAF8;
+  --foreground: #1a1a1a;
+  --card: #FFFFFF;
+  --card-foreground: #1a1a1a;
+  --popover: #FFFFFF;
+  --popover-foreground: #1a1a1a;
 
-  /* Base Nightlife Theme (Default) */
-  --background: #000000;
-  --foreground: #ffffff;
-  --card: #0a0a0a;
-  --card-foreground: #ffffff;
-  --popover: #0a0a0a;
-  --popover-foreground: #ffffff;
-
-  /* Dynamic Colors using Hue Variables */
-  --primary: hsl(var(--primary-hue), 91%, 60%);
-  --primary-foreground: #ffffff;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #ffffff;
-  --muted: #1a1a1a;
-  --muted-foreground: #a1a1aa;
-  --accent: hsl(var(--accent-hue), 76%, 36%);
-  --accent-foreground: #ffffff;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #1f1f1f;
-  --input: #1f1f1f;
-  --ring: #0044ff;
+  /* Quebec Red (Primary Accent) */
+  --primary: #C8102E;
+  --primary-foreground: #FFFFFF;
+  
+  /* Neutral Grays */
+  --secondary: #E8E8E6;
+  --secondary-foreground: #1a1a1a;
+  --muted: #A0A09E;
+  --muted-foreground: #666664;
+  --accent: #C8102E;
+  --accent-foreground: #FFFFFF;
+  
+  --destructive: #C8102E;
+  --destructive-foreground: #FFFFFF;
+  --border: #E0E0DE;
+  --input: #FAFAF8;
+  --ring: #C8102E;
   --radius: 0rem;
-  --font-inter: "Inter", sans-serif;
-  --font-cinzel: "Cinzel", serif;
-  --font-playfair: "Playfair Display", serif;
+  
+  /* Magazine Typography */
+  --font-display: "Playfair Display", serif;
+  --font-sans: "DM Sans", sans-serif;
+  --font-mono: "DM Mono", monospace;
 
-  /* Custom Animation Vars */
-  --glow-color: hsla(var(--primary-hue), 91%, 60%, 0.5);
-
-  /* Added 8px grid spacing tokens */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 16px;
-  --space-4: 24px;
-  --space-5: 32px;
-  --space-6: 48px;
-  --space-7: 64px;
-
-  /* Added consistent component sizing tokens */
-  --button-height: 48px;
-  --input-height: 56px;
-  --card-padding: 16px;
-
-  /* Added animation timing tokens */
-  --duration-micro: 150ms;
+  /* Animation & Spacing Tokens */
+  --duration-fast: 150ms;
   --duration-standard: 300ms;
-  --duration-emphasis: 500ms;
+  --duration-slow: 500ms;
   --easing-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
 
-  /* Added shadow tokens for consistent depth */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px -5px var(--glow-color);
+  /* Shadow System */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
 }
 
 /* Terrasse Theme (Greens/Yellows) */
 [data-theme="terrasse"] {
-  --primary-hue: 142;
-  --accent-hue: 45;
-  /* mapped to hues */
-  --primary: hsl(var(--primary-hue), 70%, 50%);
-  --primary-foreground: #ffffff;
-  --accent: hsl(var(--accent-hue), 90%, 50%);
-  --ring: hsl(var(--primary-hue), 70%, 50%);
-  --glow-color: hsla(var(--primary-hue), 70%, 50%, 0.5);
+  --primary: #2D5016;
+  --accent: #C4A45A;
 }
 
 /* Festival Theme (Reds/Oranges) */
 [data-theme="festival"] {
-  --primary-hue: 345;
-  --accent-hue: 25;
-  /* mapped to hues */
-  --primary: hsl(var(--primary-hue), 80%, 60%);
-  --primary-foreground: #ffffff;
-  --accent: hsl(var(--accent-hue), 90%, 60%);
-  --ring: hsl(var(--primary-hue), 80%, 60%);
-  --glow-color: hsla(var(--primary-hue), 80%, 60%, 0.5);
+  --primary: #C8102E;
+  --accent: #FF8C00;
 }
 
 .dark {
-  /* ensuring dark mode respects the hue variables if used, but mostly we are forcing dark mode look */
-  --background: hsl(222.2 84% 4.9%);
-  --foreground: hsl(210 40% 98%);
-  --card: hsl(222.2 84% 4.9%);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: hsl(222.2 84% 4.9%);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: hsl(45 93% 47%);
-  /* Elegant Amber/Gold */
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: hsl(45 10% 15%);
-  --secondary-foreground: hsl(45 93% 47%);
-  --muted: hsl(45 10% 15%);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: hsl(45 10% 15%);
-  --accent-foreground: hsl(45 93% 47%);
-  --destructive: hsl(0 62.8% 30.6%);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: hsl(45 10% 15%);
-  --input: hsl(217.2 32.6% 17.5%);
-  --ring: hsl(224.3 76.3% 94.1%);
-  --chart-1: hsl(217.2 91.2% 59.8%);
-  --chart-2: hsl(212 95% 68%);
-  --chart-3: hsl(216 92% 60%);
-  --chart-4: hsl(210 98% 78%);
-  --chart-5: hsl(212 97% 87%);
-  --sidebar: hsl(240 5.9% 10%);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  /* Magazine light theme (removing dark mode since we're going light) */
+  --background: #FAFAF8;
+  --foreground: #1a1a1a;
+  --card: #FFFFFF;
+  --card-foreground: #1a1a1a;
+  --primary: #C8102E;
+  --border: #E0E0DE;
 }
 
 @theme inline {
-  --font-heading: var(--font-cinzel);
-  --font-sans: var(--font-inter);
-  --font-logo: var(--font-playfair);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
@@ -146,28 +89,10 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+  --radius: var(--radius);
 }
 
 @layer base {
@@ -175,468 +100,140 @@
     @apply border-border outline-ring/50;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply text-foreground overflow-x-hidden;
-    /* Base: Dark Pebbled Leather Texture */
-    background-color: #0d0c0b;
-    background-image:
-      /* Pebbled grain pattern */
-      radial-gradient(circle at 20% 30%, rgba(30, 25, 20, 0.4) 0%, transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(20, 15, 10, 0.4) 0%, transparent 50%),
-      radial-gradient(circle at 50% 50%, rgba(25, 20, 15, 0.3) 0%, transparent 60%),
-      /* Fine pebbled texture */
-      url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pebble'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.03 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pebble)' opacity='0.15'/%3E%3C/svg%3E"),
-      /* Subtle gold ambient glow */
-      radial-gradient(circle at 50% 50%, rgba(234, 180, 8, 0.02) 0%, transparent 50%);
-    /* Added font smoothing for crisp text */
+    @apply text-foreground bg-background overflow-x-hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-cinzel), serif;
-    @apply uppercase tracking-tight;
-    /* Added optimal line-height for headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply font-bold tracking-tight;
     line-height: 1.2;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
   }
 
-  /* Added body text line-height */
-  p,
-  li,
-  span {
-    line-height: 1.5;
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
   }
 
-  /* Added performance optimizations for animations and images */
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  p, li, span {
+    line-height: 1.6;
+  }
+
   img {
     @apply will-change-auto;
-    /* Added image rendering optimization */
     image-rendering: -webkit-optimize-contrast;
   }
 
-  .animate-pulse-glow,
-  .animate-float-1,
-  .animate-float-2,
-  .animate-float-3 {
-    @apply will-change-transform;
-    /* Added GPU acceleration */
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-
-  /* Added consistent button base styles */
-  button,
-  [role="button"] {
-    min-height: var(--button-height);
+  button, [role="button"] {
     transition: all var(--duration-standard) var(--easing-smooth);
   }
 
-  /* Added consistent input base styles */
-  input,
-  textarea,
-  select {
-    min-height: var(--input-height);
+  input, textarea, select {
     transition: all var(--duration-standard) var(--easing-smooth);
   }
 }
 
-/* Added ambient glow utilities and animations */
-/* Enhanced glow utilities with layered shadows */
-.text-glow {
-  /* Subdued glow for a more elegant, less loud appearance */
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+/* Editorial Magazine Utilities */
+
+/* Horizontal dividers */
+.divider {
+  @apply border-t border-border my-8;
 }
 
-.card-glow {
-  box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+/* Full-bleed background sections */
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
 }
 
-.border-glow {
-  box-shadow: 0 0 10px -2px var(--glow-color), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+/* Card with elegant shadow */
+.card-editorial {
+  @apply bg-card text-card-foreground rounded-none;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow var(--duration-standard) var(--easing-smooth);
 }
 
-/* Added metallic gold effect utility */
-.metallic-gold {
-  background: linear-gradient(135deg, #ffd76c 0%, #f4c542 25%, #c49a2b 50%, #f4c542 75%, #ffd76c 100%);
-  box-shadow: 0 2px 8px rgba(255, 215, 108, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+.card-editorial:hover {
+  box-shadow: var(--shadow-lg);
 }
 
-/* Added glassmorphism utility */
-.glass {
-  background: rgba(10, 10, 10, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* Text utilities */
+.text-balance-custom {
+  text-wrap: balance;
 }
 
-.neon-text {
-  color: var(--primary);
-  /* Significantly softened the loud neon to a refined, clean text with a backdrop drop-shadow */
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-@keyframes pulse-glow {
+/* Animations */
 
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(1) translateZ(0);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05) translateZ(0);
+  to {
+    opacity: 1;
   }
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 4s var(--easing-smooth) infinite;
-}
-
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.bg-gradient-animate {
-  background-size: 200% 200%;
-  animation: gradient-shift 15s ease infinite;
-}
-
-/* adding gradient animation for new hero */
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* adding float animation for bananas */
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-16px) rotate(2deg);
-  }
-
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-}
-
-/* adding scroll animation for marquee */
 @keyframes scrollX {
   0% {
     transform: translateX(0);
   }
-
   100% {
     transform: translateX(-50%);
   }
 }
 
-/* Adding RGB edge lighting animations */
-@property --angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
+.animate-fade-in {
+  animation: fadeIn var(--duration-standard) var(--easing-smooth);
 }
 
-@keyframes spin-border {
-  to {
-    --angle: 360deg;
-  }
+.animate-slide-in-up {
+  animation: slideInUp var(--duration-standard) var(--easing-smooth);
 }
 
-.rgb-border-container {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  padding: 3px;
-  /* Width of the border */
-  /* Uses a mask to show only the border area */
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-
-.rgb-border-container::before {
-  content: "";
-  position: absolute;
-  inset: -50%;
-  background: conic-gradient(from var(--angle), #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff, #ff0000);
-  animation: spin-border 4s linear infinite;
-}
-
-/* Added animations for different RGB modes */
-@keyframes hue-cycle {
-  0% {
-    filter: hue-rotate(0deg);
-  }
-
-  100% {
-    filter: hue-rotate(360deg);
-  }
-}
-
-@keyframes breathe {
-
-  0%,
-  100% {
-    opacity: 0.3;
-    box-shadow: 0 0 10px currentColor;
-  }
-
-  50% {
-    opacity: 1;
-    box-shadow: 0 0 30px currentColor;
-  }
-}
-
-.rgb-mode-cycle::before {
-  background: #ff0000;
-  /* Start Red */
-  animation: hue-cycle 10s linear infinite !important;
-  /* Override the conic gradient for cycle mode */
-}
-
-.rgb-mode-breathing::before {
-  background: var(--primary);
-  animation: breathe 4s ease-in-out infinite !important;
-}
-
-.rgb-mode-off::before {
-  display: none;
-}
-
-/* RGB Text Effects */
-
-/* Cycle Mode: Smoothly changes color of all headings */
-body.rgb-text-cycle :is(h1, h2, h3, h4, h5, h6, .font-heading) {
-  animation: hue-cycle 10s linear infinite;
-  color: #ff0000;
-  /* Start color */
-}
-
-/* Rainbow Mode: Static rainbow gradient on text */
-body.rgb-text-rainbow :is(h1, h2, h3, h4, h5, h6, .font-heading) {
-  background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: inline-block;
-  /* Helps with background-clip sometimes */
-}
-
-/* Ensure links inside headings inherit the effect */
-body.rgb-text-rainbow :is(h1, h2, h3, h4, h5, h6, .font-heading) a,
-body.rgb-text-cycle :is(h1, h2, h3, h4, h5, h6, .font-heading) a {
-  color: inherit;
-  background: inherit;
-  -webkit-background-clip: inherit;
-  background-clip: inherit;
-}
-
-/* Added ambient orb float animations */
-@keyframes float-1 {
-
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  33% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-}
-
-@keyframes float-2 {
-
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  33% {
-    transform: translate(-30px, 50px) scale(1.2);
-  }
-
-  66% {
-    transform: translate(20px, -20px) scale(0.8);
-  }
-}
-
-@keyframes float-3 {
-
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  33% {
-    transform: translate(50px, 50px) scale(0.9);
-  }
-
-  66% {
-    transform: translate(-30px, -30px) scale(1.1);
-  }
-}
-
-.animate-float-1 {
-  animation: float-1 20s ease-in-out infinite;
-}
-
-.animate-float-2 {
-  animation: float-2 25s ease-in-out infinite;
-}
-
-.animate-float-3 {
-  animation: float-3 22s ease-in-out infinite;
-}
-
-/* --- LAYERED LEATHER TEXTURE SYSTEM (Adapted for Green Theme) --- */
-
-/* Base: Dark Pebbled Leather (for main backgrounds) */
-.leather-overlay {
-  background-color: #0d0c0b;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(30, 25, 20, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(20, 15, 10, 0.3) 0%, transparent 50%),
-    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pebble-base'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.03 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pebble-base)' opacity='0.12'/%3E%3C/svg%3E");
-}
-
-/* Layer 1: Medium Brown Suede (for standard cards) */
-.leather-card {
-  background-color: #2a2523;
-  background-image:
-    radial-gradient(circle at 30% 40%, rgba(60, 50, 45, 0.3) 0%, transparent 40%),
-    radial-gradient(circle at 70% 60%, rgba(50, 40, 35, 0.3) 0%, transparent 40%),
-    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='suede'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0 0.05 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23suede)' opacity='0.2'/%3E%3C/svg%3E");
-  @apply border border-border relative overflow-hidden;
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
-}
-
-/* Layer 2: Reddish-Brown Suede (for elevated cards, VIP sections) */
-.leather-card-elevated {
-  background-color: #3d2e28;
-  background-image:
-    radial-gradient(circle at 25% 35%, rgba(80, 60, 50, 0.25) 0%, transparent 45%),
-    radial-gradient(circle at 75% 65%, rgba(70, 50, 40, 0.25) 0%, transparent 45%),
-    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='suede-red'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0 0.05 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23suede-red)' opacity='0.18'/%3E%3C/svg%3E");
-  @apply border border-border relative overflow-hidden;
-  box-shadow:
-    0 6px 25px rgba(0, 0, 0, 0.8),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(234, 180, 8, 0.1);
-}
-
-/* Enhanced Green-Gold Stitching - Stands out against all leather textures */
-.stitched {
-  position: relative;
-  /* Base dark thread with gold tint */
-  border: 2px dashed rgba(234, 180, 8, 0.3);
-  /* Shadow for depth */
-  box-shadow:
-    0 0 0 3px rgba(13, 12, 11, 0.9),
-    inset 0 0 15px rgba(0, 0, 0, 0.6),
-    0 2px 4px rgba(0, 0, 0, 0.4);
-}
-
-.stitched::before {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  /* Gold thread highlight */
-  border: 1px dashed rgba(234, 180, 8, 0.6);
-  pointer-events: none;
-  border-radius: inherit;
-  box-shadow: 0 0 8px rgba(234, 180, 8, 0.3);
-}
-
-.stitched::after {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  /* Outer glow */
-  border: 1px dashed rgba(234, 180, 8, 0.2);
-  pointer-events: none;
-  border-radius: inherit;
-}
-
-.stitched-subtle {
-  border: 1px dashed rgba(234, 180, 8, 0.25);
-  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
-}
-
-/* Stitching for elevated cards - brighter gold */
-.leather-card-elevated.stitched {
-  border-color: rgba(234, 180, 8, 0.5);
-}
-
-.leather-card-elevated.stitched::before {
-  border-color: rgba(234, 180, 8, 0.8);
-  box-shadow: 0 0 12px rgba(234, 180, 8, 0.4);
-}
-
-/* Premium Buttons with Leather Texture */
-.btn-leather {
-  background-color: #2a2523;
-  background-image:
-    radial-gradient(circle at 50% 50%, rgba(60, 50, 45, 0.2) 0%, transparent 60%),
-    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='btn-leather'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.0' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.03 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23btn-leather)' opacity='0.15'/%3E%3C/svg%3E");
-  @apply text-primary border border-border transition-all duration-300;
-  box-shadow:
-    0 4px 6px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
-}
-
-.btn-leather:hover {
-  background-color: #3d2e28;
-  @apply border-primary/50 text-primary;
-  transform: translateY(-1px);
-  box-shadow:
-    0 6px 12px rgba(0, 0, 0, 0.5),
-    0 0 10px rgba(120, 245, 120, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
-}
-
-.btn-leather:active {
-  transform: translateY(0px);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+.animate-slide-in-down {
+  animation: slideInDown var(--duration-standard) var(--easing-smooth);
 }
