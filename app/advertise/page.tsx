@@ -1,183 +1,198 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { MainNav } from '@/components/main-nav'
 import { Footer } from '@/components/footer'
-import { Mail, Phone, TrendingUp, Users, Zap } from 'lucide-react'
+import { Mail, TrendingUp, Users, Zap } from 'lucide-react'
+
+const packages = [
+  {
+    name: 'Présence',
+    price: '199 $',
+    period: 'fiche permanente',
+    features: ['Fiche établissement complète', 'Description & photos', 'Lien de réservation direct'],
+  },
+  {
+    name: 'Vedette',
+    price: '499 $',
+    period: '/ mois',
+    features: ['Tout inclus — Présence', 'Mise en avant sur la page d\'accueil', 'Galerie photos & événements', 'Tableau de bord analytique'],
+    highlight: true,
+  },
+  {
+    name: 'Partenariat',
+    price: 'Sur devis',
+    period: 'solutions sur mesure',
+    features: ['Campagnes éditoriales', 'Événements co-brandés', 'Support concierge dédié', 'Intégration newsletter'],
+  },
+]
+
+type FormData = {
+  businessName: string
+  contactName: string
+  email: string
+  phone: string
+  businessType: string
+  inquiryType: string
+  message: string
+}
+
+const empty: FormData = { businessName: '', contactName: '', email: '', phone: '', businessType: '', inquiryType: '', message: '' }
 
 export default function AdvertisePage() {
-  const [formData, setFormData] = useState({
-    businessName: '',
-    contactName: '',
-    email: '',
-    phone: '',
-    businessType: '',
-    inquiryType: '',
-    message: '',
-  })
+  const [form, setForm] = useState<FormData>(empty)
   const [submitted, setSubmitted] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
     setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
-      setFormData({
-        businessName: '',
-        contactName: '',
-        email: '',
-        phone: '',
-        businessType: '',
-        inquiryType: '',
-        message: '',
-      })
-    }, 3000)
+    setTimeout(() => { setSubmitted(false); setForm(empty) }, 4000)
   }
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-[#F4F1EC]">
       <MainNav />
 
-      {/* Hero Section */}
-      <section className="full-bleed bg-gradient-to-br from-primary/5 to-primary/10 border-b border-border">
-        <div className="container mx-auto px-4 py-20">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-display font-bold text-balance mb-6">
-              Advertissez avec Vrai Québec
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Rejoignez nos partenaires pour atteindre notre audience de lecteurs engagés à la recherche des meilleures adresses québécoises.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Page header */}
+      <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-[#D6D0C6]">
+        <p className="overline mb-4">Partenaires</p>
+        <h1
+          className="font-display font-light text-[#1C1916] mb-4"
+          style={{ fontFamily: 'var(--font-display)' }}
+        >
+          Annoncez avec nous
+        </h1>
+        <p className="text-[#7D7468] text-lg max-w-2xl leading-relaxed">
+          Rejoignez le réseau des établissements d'exception pour atteindre une audience de connaisseurs engagés et exigeants.
+        </p>
+      </header>
 
-      <div className="container mx-auto px-4 py-20">
-        {/* Why Advertise Section */}
-        <section className="mb-20">
-          <h2 className="text-4xl font-display font-bold mb-12">Pourquoi Vrai Québec ?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="card-editorial p-8">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                <Users className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="text-2xl font-display font-bold mb-3">Audience Engagée</h3>
-              <p className="text-muted-foreground">
-                Connectez-vous avec des lecteurs influents et passionnés par la découverte des meilleures adresses du Québec.
-              </p>
-            </div>
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-16 space-y-20">
 
-            <div className="card-editorial p-8">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                <TrendingUp className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="text-2xl font-display font-bold mb-3">Croissance Prouvée</h3>
-              <p className="text-muted-foreground">
-                Nos partenaires rapportent une augmentation moyenne de 45% de la visibilité et des réservations après 3 mois.
+        {/* ── Stats row ────────────────────────────────────────────────── */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#D6D0C6]">
+          {[
+            { stat: '50 K+', label: 'Visiteurs mensuels', icon: Users },
+            { stat: '200+', label: 'Partenaires actifs', icon: TrendingUp },
+            { stat: '10 K+', label: 'Réservations / mois', icon: Zap },
+          ].map(({ stat, label, icon: Icon }) => (
+            <div key={label} className="bg-[#FAF8F5] p-10 flex flex-col gap-4">
+              <Icon className="w-5 h-5 text-[#B08D57]" />
+              <p
+                className="font-display font-light text-[#1C1916] text-4xl"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
+                {stat}
               </p>
+              <p className="text-[#7D7468] text-sm">{label}</p>
             </div>
+          ))}
+        </section>
 
-            <div className="card-editorial p-8">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                <Zap className="w-6 h-6 text-primary" />
+        {/* ── Packages ─────────────────────────────────────────────────── */}
+        <section>
+          <p className="overline mb-4">Forfaits</p>
+          <h2
+            className="font-display font-light text-[#1C1916] mb-12"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
+            Solutions publicitaires
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#D6D0C6]">
+            {packages.map((pkg) => (
+              <div
+                key={pkg.name}
+                className={`flex flex-col p-10 ${pkg.highlight ? 'bg-[#1C1916]' : 'bg-[#FAF8F5]'}`}
+              >
+                {pkg.highlight && (
+                  <p className="text-[9px] tracking-[0.25em] uppercase text-[#B08D57] font-sans mb-4">Le plus populaire</p>
+                )}
+                <p className={`overline mb-3 ${pkg.highlight ? 'text-[#B08D57]' : ''}`}>{pkg.name}</p>
+                <p
+                  className={`font-display font-light text-3xl mb-1 ${pkg.highlight ? 'text-[#FAF8F5]' : 'text-[#1C1916]'}`}
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  {pkg.price}
+                </p>
+                <p className={`text-xs mb-6 ${pkg.highlight ? 'text-[#9E9388]' : 'text-[#7D7468]'}`}>{pkg.period}</p>
+                <div className={`h-px mb-6 ${pkg.highlight ? 'bg-[#2E2B27]' : 'bg-[#E8E4DC]'}`} />
+                <ul className="space-y-3 flex-1 mb-8">
+                  {pkg.features.map((f) => (
+                    <li key={f} className={`flex items-start gap-3 text-sm ${pkg.highlight ? 'text-[#9E9388]' : 'text-[#7D7468]'}`}>
+                      <span className="text-[#B08D57] mt-0.5">—</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <button className={pkg.highlight ? 'btn-luxury' : 'btn-ghost-luxury'}>
+                  Nous contacter
+                </button>
               </div>
-              <h3 className="text-2xl font-display font-bold mb-3">Impact Immédiat</h3>
-              <p className="text-muted-foreground">
-                Commencez à voir des résultats dès la première semaine avec notre plateforme hautement visible et bien ciblée.
-              </p>
-            </div>
+            ))}
           </div>
         </section>
 
-        <div className="divider" />
+        {/* ── Contact form ─────────────────────────────────────────────── */}
+        <section>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* Left: copy */}
+            <div>
+              <p className="overline mb-4">Contact</p>
+              <h2
+                className="font-display font-light text-[#1C1916] mb-6"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
+                Parlons de votre projet
+              </h2>
+              <p className="text-[#7D7468] leading-relaxed mb-10">
+                Chaque partenariat est unique. Remplissez le formulaire et notre équipe vous contactera sous 48 heures pour discuter d'une solution adaptée à vos objectifs.
+              </p>
+              <a
+                href="mailto:advertise@vraiquebec.com"
+                className="flex items-center gap-3 text-[#B08D57] hover:text-[#8C6D3F] transition-colors"
+              >
+                <Mail className="w-5 h-5 flex-shrink-0" />
+                <span className="text-sm font-medium">advertise@vraiquebec.com</span>
+              </a>
+            </div>
 
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Main Form */}
-          <div className="lg:col-span-2">
-            <div className="card-editorial p-8">
-              <h2 className="text-3xl font-display font-bold mb-8">Formulaire de demande</h2>
-
+            {/* Right: form */}
+            <div className="bg-[#FAF8F5] border border-[#D6D0C6] p-8 md:p-10">
               {submitted ? (
-                <div className="bg-primary/10 border border-primary text-primary p-6 rounded">
-                  <h3 className="font-bold text-lg mb-2">Merci pour votre soumission!</h3>
-                  <p className="text-primary/80">Nous reviendrons vers vous sous peu pour discuter de vos options publicitaires.</p>
+                <div className="flex flex-col items-center justify-center h-full text-center py-12">
+                  <div className="h-px w-12 bg-[#B08D57] mb-6" />
+                  <p
+                    className="font-display font-light text-[#1C1916] text-2xl mb-3"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
+                    Message reçu
+                  </p>
+                  <p className="text-[#7D7468] text-sm">Nous vous contacterons sous 48 heures.</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Business Info */}
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">Nom de l'entreprise *</label>
-                    <input
-                      type="text"
-                      name="businessName"
-                      value={formData.businessName}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      placeholder="Votre établissement"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-sm font-semibold mb-2">Personne de contact *</label>
-                      <input
-                        type="text"
-                        name="contactName"
-                        value={formData.contactName}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                        placeholder="Votre nom"
-                      />
+                      <label className="block text-[10px] tracking-[0.18em] uppercase text-[#7D7468] font-sans mb-2">Établissement *</label>
+                      <input name="businessName" value={form.businessName} onChange={handleChange} required className="input-luxury" placeholder="Nom de l'établissement" />
                     </div>
-
                     <div>
-                      <label className="block text-sm font-semibold mb-2">Téléphone *</label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                        placeholder="+1 (514) 000-0000"
-                      />
+                      <label className="block text-[10px] tracking-[0.18em] uppercase text-[#7D7468] font-sans mb-2">Contact *</label>
+                      <input name="contactName" value={form.contactName} onChange={handleChange} required className="input-luxury" placeholder="Votre nom" />
                     </div>
                   </div>
-
                   <div>
-                    <label className="block text-sm font-semibold mb-2">Courriel *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      placeholder="vous@exemple.com"
-                    />
+                    <label className="block text-[10px] tracking-[0.18em] uppercase text-[#7D7468] font-sans mb-2">Courriel *</label>
+                    <input name="email" type="email" value={form.email} onChange={handleChange} required className="input-luxury" placeholder="vous@etablissement.com" />
                   </div>
-
-                  {/* Business Details */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-sm font-semibold mb-2">Type d'établissement *</label>
-                      <select
-                        name="businessType"
-                        value={formData.businessType}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      >
+                      <label className="block text-[10px] tracking-[0.18em] uppercase text-[#7D7468] font-sans mb-2">Type d'établissement</label>
+                      <select name="businessType" value={form.businessType} onChange={handleChange} className="input-luxury">
                         <option value="">Sélectionner...</option>
                         <option value="restaurant">Restaurant</option>
                         <option value="bar">Bar</option>
@@ -186,122 +201,32 @@ export default function AdvertisePage() {
                         <option value="other">Autre</option>
                       </select>
                     </div>
-
                     <div>
-                      <label className="block text-sm font-semibold mb-2">Type de demande *</label>
-                      <select
-                        name="inquiryType"
-                        value={formData.inquiryType}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      >
+                      <label className="block text-[10px] tracking-[0.18em] uppercase text-[#7D7468] font-sans mb-2">Forfait souhaité</label>
+                      <select name="inquiryType" value={form.inquiryType} onChange={handleChange} className="input-luxury">
                         <option value="">Sélectionner...</option>
-                        <option value="featured-listing">Fiche mise en avant</option>
-                        <option value="sponsorship">Parrainage</option>
+                        <option value="presence">Présence</option>
+                        <option value="vedette">Vedette</option>
                         <option value="partnership">Partenariat</option>
-                        <option value="consultation">Consultation</option>
-                        <option value="other">Autre</option>
+                        <option value="other">À définir</option>
                       </select>
                     </div>
                   </div>
-
-                  {/* Message */}
                   <div>
-                    <label className="block text-sm font-semibold mb-2">Message</label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      rows={5}
-                      className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      placeholder="Décrivez vos objectifs publicitaires..."
-                    />
+                    <label className="block text-[10px] tracking-[0.18em] uppercase text-[#7D7468] font-sans mb-2">Message</label>
+                    <textarea name="message" value={form.message} onChange={handleChange} rows={4} className="input-luxury resize-none" placeholder="Décrivez vos objectifs..." />
                   </div>
-
-                  <button
-                    type="submit"
-                    className="w-full bg-primary text-primary-foreground py-3 font-semibold hover:bg-primary/90 transition-colors"
-                  >
+                  <button type="submit" className="btn-luxury w-full">
                     Soumettre la demande
                   </button>
                 </form>
               )}
             </div>
           </div>
-
-          {/* Sidebar - Packages & Info */}
-          <div className="space-y-8">
-            {/* Packages */}
-            <div className="card-editorial p-6">
-              <h3 className="text-2xl font-display font-bold mb-6">Forfaits publicitaires</h3>
-              <div className="space-y-4">
-                {[
-                  { name: 'Fiche Basique', price: '$199', features: ['Logo', 'Description courte', 'Contact'] },
-                  { name: 'Fiche Premium', price: '$499/mois', features: ['Logo', 'Galerie photos', 'Événements', 'Analytics'] },
-                  { name: 'Partenariat', price: 'Sur devis', features: ['Tout inclus', 'Support dédié', 'Priorité'] },
-                ].map((pkg) => (
-                  <div key={pkg.name} className="border border-border p-4 rounded hover:border-primary transition-colors">
-                    <h4 className="font-display font-bold text-primary mb-1">{pkg.name}</h4>
-                    <p className="text-2xl font-bold my-2">{pkg.price}</p>
-                    <ul className="text-xs text-muted-foreground space-y-1">
-                      {pkg.features.map((f) => (
-                        <li key={f}>• {f}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Contact Info */}
-            <div className="card-editorial p-6">
-              <h3 className="text-2xl font-display font-bold mb-6">Nous contacter</h3>
-              <div className="space-y-4">
-                <div className="flex gap-3">
-                  <Mail className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Courriel</p>
-                    <a href="mailto:advertise@vraiquebec.com" className="font-semibold text-primary hover:underline">
-                      advertise@vraiquebec.com
-                    </a>
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <Phone className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Téléphone</p>
-                    <a href="tel:+15141234567" className="font-semibold text-primary hover:underline">
-                      +1 (514) 123-4567
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Stats */}
-            <div className="card-editorial p-6 bg-primary/5">
-              <h3 className="text-lg font-display font-bold mb-4">Vrai Québec par les chiffres</h3>
-              <div className="space-y-3 text-sm">
-                <div>
-                  <p className="text-muted-foreground">Visiteurs mensuels</p>
-                  <p className="text-2xl font-bold text-primary">50K+</p>
-                </div>
-                <div>
-                  <p className="text-muted-foreground">Partenaires actifs</p>
-                  <p className="text-2xl font-bold text-primary">200+</p>
-                </div>
-                <div>
-                  <p className="text-muted-foreground">Réservations générées</p>
-                  <p className="text-2xl font-bold text-primary">10K+ /mois</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        </section>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   )
 }
