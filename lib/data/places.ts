@@ -227,7 +227,7 @@ export async function getPlaces(filters?: PlaceFilters): Promise<Place[]> {
   const supabase = createClient()
   
   if (!supabase) {
-    console.warn('[Places] Supabase client not available, returning fallback data')
+    // Supabase not configured — using fallback data
     return applyFilters(FALLBACK_PLACES, filters)
   }
 
@@ -294,7 +294,6 @@ export async function getPlaceById(id: string): Promise<Place | null> {
   const supabase = createClient()
   
   if (!supabase) {
-    console.warn('[Places] Supabase client not available')
     return null
   }
 
@@ -373,7 +372,6 @@ export async function createPlace(input: CreatePlaceInput): Promise<Place | null
   const supabase = createClient()
   
   if (!supabase) {
-    console.warn('[Places] Supabase client not available')
     return null
   }
 
@@ -398,7 +396,6 @@ export async function updatePlace(id: string, updates: Partial<CreatePlaceInput>
   const supabase = createClient()
   
   if (!supabase) {
-    console.warn('[Places] Supabase client not available')
     return null
   }
 
@@ -424,7 +421,6 @@ export async function deletePlace(id: string): Promise<boolean> {
   const supabase = createClient()
   
   if (!supabase) {
-    console.warn('[Places] Supabase client not available')
     return false
   }
 
