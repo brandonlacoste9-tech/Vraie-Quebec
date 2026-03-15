@@ -1,10 +1,137 @@
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
-import { Mail, Phone, MapPin, Instagram, MessageCircle } from "lucide-react"
+import { Mail, Phone, MapPin, Instagram, Linkedin } from "lucide-react"
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-background text-foreground">
+      <MainNav />
+      
+      {/* Hero */}
+      <section className="full-bleed bg-gradient-to-br from-primary/5 to-primary/10 border-b border-border">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <h1 className="text-5xl md:text-6xl font-display font-bold text-balance mb-6">
+            Nous contacter
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl">
+            Une question? Un partenariat? Un événement à suggérer? Contactez-nous directement.
+          </p>
+        </div>
+      </section>
+
+      <div className="container mx-auto px-4 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl">
+          {/* Contact Methods */}
+          <div className="space-y-8">
+            <div className="card-editorial p-8">
+              <h2 className="text-2xl font-display font-bold text-primary mb-4">Publicité & Partenariats</h2>
+              <p className="text-muted-foreground mb-4">
+                Vous représentez un établissement? Vous voulez rejoindre notre réseau VIP?
+              </p>
+              <a 
+                href="mailto:partners@vraiquebec.ca" 
+                className="flex items-center gap-3 text-primary hover:text-primary/80 font-semibold transition-colors"
+              >
+                <Mail className="h-5 w-5" />
+                <span>partners@vraiquebec.ca</span>
+              </a>
+            </div>
+
+            <div className="card-editorial p-8">
+              <h2 className="text-2xl font-display font-bold text-primary mb-4">Support & Questions</h2>
+              <p className="text-muted-foreground mb-4">
+                Vous avez une question sur votre réservation ou notre service?
+              </p>
+              <a 
+                href="mailto:support@vraiquebec.ca" 
+                className="flex items-center gap-3 text-primary hover:text-primary/80 font-semibold transition-colors"
+              >
+                <Mail className="h-5 w-5" />
+                <span>support@vraiquebec.ca</span>
+              </a>
+            </div>
+
+            <div className="card-editorial p-8">
+              <h2 className="text-2xl font-display font-bold text-primary mb-4">Communications</h2>
+              <p className="text-muted-foreground mb-4">
+                Suggestions, feedback, ou histoire à nous partager?
+              </p>
+              <a 
+                href="mailto:hello@vraiquebec.ca" 
+                className="flex items-center gap-3 text-primary hover:text-primary/80 font-semibold transition-colors mb-4"
+              >
+                <Mail className="h-5 w-5" />
+                <span>hello@vraiquebec.ca</span>
+              </a>
+              <div className="flex gap-4">
+                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className="card-editorial p-8">
+            <h2 className="text-2xl font-display font-bold mb-6">Formulaire de contact</h2>
+            <form className="space-y-6">
+              <div>
+                <label className="block text-sm font-semibold mb-2">Nom</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="Votre nom"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2">Courriel</label>
+                <input
+                  type="email"
+                  className="w-full px-4 py-2 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="vous@exemple.com"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2">Type de demande</label>
+                <select className="w-full px-4 py-2 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                  <option>Sélectionner...</option>
+                  <option>Publicité</option>
+                  <option>Partenariat</option>
+                  <option>Support</option>
+                  <option>Suggestion</option>
+                  <option>Autre</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2">Message</label>
+                <textarea
+                  rows={5}
+                  className="w-full px-4 py-2 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="Votre message..."
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-primary text-primary-foreground py-3 font-semibold hover:bg-primary/90 transition-colors"
+              >
+                Envoyer
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+    </main>
+  )
+}
       <MainNav />
       
       {/* Hero */}
