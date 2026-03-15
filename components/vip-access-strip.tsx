@@ -14,28 +14,28 @@ interface VIPAccessStripProps {
 export function VIPAccessStrip({ venues = [] }: VIPAccessStripProps) {
   const defaultVenues: VIPVenue[] = [
     {
-      id: '1',
-      name: 'Café Noir',
-      image: 'https://images.unsplash.com/photo-1514432324607-2e467f4af445?w=400',
-      category: 'Bar',
-    },
-    {
-      id: '2',
-      name: 'Le Restaurant',
-      image: 'https://images.unsplash.com/photo-1517248135467-4d71bcdd2d59?w=400',
+      id: 'rest-mtl-1',
+      name: 'Joe Beef',
+      image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400',
       category: 'Restaurant',
     },
     {
-      id: '3',
-      name: 'Club Électrique',
-      image: 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=400',
-      category: 'Club',
+      id: 'rest-mtl-2',
+      name: 'Toqué!',
+      image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400',
+      category: 'Restaurant',
     },
     {
-      id: '4',
-      name: 'Terrasse Vue',
-      image: 'https://images.unsplash.com/photo-1551632786-de41ecde00f8?w=400',
-      category: 'Venue',
+      id: 'bar-mtl-1',
+      name: 'Bar Big in Japan',
+      image: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400',
+      category: 'Bar',
+    },
+    {
+      id: 'rest-qc-1',
+      name: 'Le Saint-Amour',
+      image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400',
+      category: 'Restaurant',
     },
   ]
 

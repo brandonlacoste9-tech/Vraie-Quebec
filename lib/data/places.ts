@@ -185,7 +185,7 @@ const FALLBACK_PLACES: Place[] = [
   {
     id: 'bar-mtl-3', name: 'Bar Le Mal Nécessaire', type: 'nightlife', city: 'Montreal', location: 'Chinatown', region: null,
     address: '1106 Boul Saint-Laurent', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
-    image: 'https://images.unsplash.com/photo-1573631583685-6e3a3d82de58?w=800', rating: 4.6, rating_count: 950,
+    image: 'https://images.unsplash.com/photo-1572116469699-efb0f11e6167?w=800', rating: 4.6, rating_count: 950,
     price: null, price_tier: '$$', description: "Tiki bar audacieux niché au dernier étage du Chinatown. Cocktails au rhum et aux fruits exotiques servis sous des néons roses dans une ambiance tropical-luxe unique.", tags: ['tiki', 'cocktails', 'tendance'],
     is_hot: true, exclusive: false, booking_type: 'none', vibe: 'Fun & Festive', event_lineup: null, music_genre: 'Latin & World', party_type: 'Tiki Bar',
     dress_code: null, is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: false, vip_min_spend: null,
@@ -194,7 +194,7 @@ const FALLBACK_PLACES: Place[] = [
   {
     id: 'bar-mtl-4', name: 'Apt. 200', type: 'nightlife', city: 'Montreal', location: 'Plateau Mont-Royal', region: null,
     address: '3456 Boul Saint-Laurent', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
-    image: 'https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?w=800', rating: 4.5, rating_count: 710,
+    image: 'https://images.unsplash.com/photo-1545128485-c400e7702796?w=800', rating: 4.5, rating_count: 710,
     price: null, price_tier: '$$', description: "Club électronique intimiste au cœur de la Main. DJs underground de renommée internationale et sound system de niveau professionnel dans un cadre minimaliste.", tags: ['electronic', 'underground', 'dj'],
     is_hot: false, exclusive: false, booking_type: 'guestlist', vibe: 'Underground', event_lineup: null, music_genre: 'Electronic & Techno', party_type: 'Club',
     dress_code: null, is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: false, vip_min_spend: null,
@@ -203,7 +203,7 @@ const FALLBACK_PLACES: Place[] = [
   {
     id: 'bar-mtl-5', name: 'Beaugrand Cocktail Bar', type: 'nightlife', city: 'Montreal', location: 'Hochelaga', region: null,
     address: '3827 Rue Ontario E', latitude: null, longitude: null, phone: null, website: null, google_maps_url: null,
-    image: 'https://images.unsplash.com/photo-1524673450801-b5aa9b621b76?w=800', rating: 4.6, rating_count: 380,
+    image: 'https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=800', rating: 4.6, rating_count: 380,
     price: null, price_tier: '$', description: "Cocktail bar de quartier à l'ambiance chaleureuse dans Hochelaga. Carte de saison créative, prix accessibles et terrasse animée l'été.", tags: ['cocktails', 'quartier', 'terrasse'],
     is_hot: false, exclusive: false, booking_type: 'none', vibe: 'Chill & Local', event_lineup: null, music_genre: 'Indie & Alternative', party_type: 'Bar',
     dress_code: null, is_sponsored: false, sponsor_name: null, ad_url: null, opening_hours_json: null, has_vip: false, vip_min_spend: null,
