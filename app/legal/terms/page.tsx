@@ -57,46 +57,38 @@ const sections = [
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-[#F4F1EC]">
+    <div className="min-h-screen bg-background">
       <MainNav />
 
-      <header className="max-w-5xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-[#D6D0C6]">
+      <header className="max-w-5xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-border">
         <p className="overline mb-4">Légal</p>
-        <h1
-          className="font-display font-light text-[#1C1916]"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
+        <h1 className="font-display font-light text-foreground" style={{ fontFamily: "var(--font-display)" }}>
           Termes et conditions
         </h1>
-        <p className="text-[#7D7468] text-sm mt-4">Dernière mise à jour : 26 février 2026</p>
+        <p className="text-muted-foreground text-sm mt-4">Dernière mise à jour : 26 février 2026</p>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 md:px-8 py-16 space-y-px bg-[#D6D0C6]">
+      <main className="max-w-5xl mx-auto px-6 md:px-8 py-16 space-y-px bg-border">
         {sections.map((s) => (
-          <div key={s.number} className="bg-[#FAF8F5] p-8 md:p-12 grid grid-cols-1 md:grid-cols-[80px_1fr] gap-6 md:gap-12">
-            <span className="text-[11px] tracking-[0.18em] uppercase text-[#B08D57] font-sans pt-1">{s.number}</span>
+          <div key={s.number} className="bg-surface p-8 md:p-12 grid grid-cols-1 md:grid-cols-[80px_1fr] gap-6 md:gap-12">
+            <span className="text-[11px] tracking-[0.18em] uppercase text-primary font-sans pt-1">{s.number}</span>
             <div>
-              <h2
-                className="font-display font-light text-[#1C1916] text-xl md:text-2xl mb-4"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
+              <h2 className="font-display font-light text-foreground text-xl md:text-2xl mb-4" style={{ fontFamily: "var(--font-display)" }}>
                 {s.title}
               </h2>
-              {s.body && <p className="text-[#7D7468] leading-relaxed">{s.body}</p>}
+              {s.body && <p className="text-muted-foreground leading-relaxed">{s.body}</p>}
               {s.items && (
                 <ul className="space-y-2">
                   {s.items.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-[#7D7468]">
-                      <span className="mt-2 w-1 h-1 bg-[#B08D57] rounded-full flex-shrink-0" />
+                    <li key={item} className="flex items-start gap-3 text-muted-foreground">
+                      <span className="mt-2 w-1 h-1 bg-primary rounded-full flex-shrink-0" />
                       {item}
                     </li>
                   ))}
                 </ul>
               )}
               {s.contact && (
-                <a href={`mailto:${s.contact}`} className="link-luxury">
-                  {s.contact}
-                </a>
+                <a href={`mailto:${s.contact}`} className="link-luxury">{s.contact}</a>
               )}
             </div>
           </div>

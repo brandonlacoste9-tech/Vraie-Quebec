@@ -40,12 +40,12 @@ export function FilterBar({ onFilterChange, options = [] }: FilterBarProps) {
   }
 
   return (
-    <div className="sticky top-[105px] z-40 bg-[#F4F1EC] border-b border-[#D6D0C6] py-3">
+    <div className="sticky top-[105px] z-40 bg-background border-b border-border py-3">
       <div className="flex items-center gap-6 px-0">
         {/* Mobile toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase font-sans text-[#7D7468] hover:text-[#B08D57] transition-colors"
+          className="md:hidden flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase font-sans text-muted-foreground hover:text-primary transition-colors"
         >
           <SlidersHorizontal className="w-3.5 h-3.5" />
           Filtrer
@@ -59,8 +59,8 @@ export function FilterBar({ onFilterChange, options = [] }: FilterBarProps) {
               onClick={() => toggle(opt.id)}
               className={`px-4 py-1.5 text-[10px] tracking-[0.15em] uppercase font-sans border transition-colors duration-200 ${
                 selected.includes(opt.id)
-                  ? 'border-[#B08D57] bg-[#B08D57] text-[#FAF8F5]'
-                  : 'border-[#D6D0C6] text-[#7D7468] hover:border-[#B08D57] hover:text-[#B08D57]'
+                  ? 'border-primary bg-primary text-primary-foreground'
+                  : 'border-border text-muted-foreground hover:border-primary hover:text-primary'
               }`}
             >
               {opt.label}
@@ -72,7 +72,7 @@ export function FilterBar({ onFilterChange, options = [] }: FilterBarProps) {
         {selected.length > 0 && (
           <button
             onClick={clear}
-            className="flex items-center gap-1.5 text-[10px] tracking-[0.15em] uppercase font-sans text-[#7D7468] hover:text-[#B08D57] transition-colors ml-auto"
+            className="flex items-center gap-1.5 text-[10px] tracking-[0.15em] uppercase font-sans text-muted-foreground hover:text-primary transition-colors ml-auto"
           >
             <X className="w-3 h-3" />
             Effacer
@@ -82,15 +82,15 @@ export function FilterBar({ onFilterChange, options = [] }: FilterBarProps) {
 
       {/* Mobile drawer */}
       {isOpen && (
-        <div className="md:hidden pt-4 mt-2 border-t border-[#D6D0C6] flex flex-wrap gap-2">
+        <div className="md:hidden pt-4 mt-2 border-t border-border flex flex-wrap gap-2">
           {filterOptions.map((opt) => (
             <button
               key={opt.id}
               onClick={() => toggle(opt.id)}
               className={`px-3 py-1.5 text-[10px] tracking-[0.15em] uppercase font-sans border transition-colors ${
                 selected.includes(opt.id)
-                  ? 'border-[#B08D57] bg-[#B08D57] text-[#FAF8F5]'
-                  : 'border-[#D6D0C6] text-[#7D7468] hover:border-[#B08D57] hover:text-[#B08D57]'
+                  ? 'border-primary bg-primary text-primary-foreground'
+                  : 'border-border text-muted-foreground hover:border-primary hover:text-primary'
               }`}
             >
               {opt.label}

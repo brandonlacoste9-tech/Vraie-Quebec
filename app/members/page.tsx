@@ -8,7 +8,7 @@ const plans = [
   {
     name: 'Explorateur',
     price: 'Gratuit',
-    description: 'Pour découvrir l\'essence de Vrai Québec',
+    description: "Pour découvrir l'essence de Vrai Québec",
     features: [
       { text: 'Accès aux fiches restaurants & bars', included: true },
       { text: 'Recherche avancée', included: true },
@@ -38,7 +38,7 @@ const plans = [
     name: 'Élite',
     price: '24,99 $',
     period: '/ mois',
-    description: 'L\'expérience ultime, sans compromis',
+    description: "L'expérience ultime, sans compromis",
     features: [
       { text: 'Accès aux fiches restaurants & bars', included: true },
       { text: 'Recherche avancée', included: true },
@@ -52,46 +52,26 @@ const plans = [
 ]
 
 const benefits = [
-  {
-    overline: 'Priorité',
-    title: 'Tables garanties',
-    body: 'Réservations assurées dans les établissements les plus en demande, avec accès en avant-première.',
-  },
-  {
-    overline: 'Curation',
-    title: 'Sélections hebdomadaires',
-    body: 'Découvrez nos adresses du moment, validées par nos experts culinaires et culturels, livrées chaque lundi.',
-  },
-  {
-    overline: 'Cercle',
-    title: 'Événements privés',
-    body: 'Participez à nos soirées exclusives — dégustations, rencontres avec les chefs, vernissages.',
-  },
-  {
-    overline: 'Service',
-    title: 'Concierge dédié',
-    body: 'Une équipe à votre disposition pour toutes vos questions, suggestions et demandes spéciales.',
-  },
+  { overline: 'Priorité', title: 'Tables garanties', body: "Réservations assurées dans les établissements les plus en demande, avec accès en avant-première." },
+  { overline: 'Curation', title: 'Sélections hebdomadaires', body: "Découvrez nos adresses du moment, validées par nos experts culinaires et culturels, livrées chaque lundi." },
+  { overline: 'Cercle', title: 'Événements privés', body: "Participez à nos soirées exclusives — dégustations, rencontres avec les chefs, vernissages." },
+  { overline: 'Service', title: 'Concierge dédié', body: "Une équipe à votre disposition pour toutes vos questions, suggestions et demandes spéciales." },
 ]
 
 export default function MembersPage() {
   return (
-    <div className="min-h-screen bg-[#F4F1EC]">
+    <div className="min-h-screen bg-background">
       <MainNav />
 
       {/* Hero — full-bleed dark */}
-      <section className="full-bleed bg-[#1C1916]">
+      <section className="full-bleed bg-foreground">
         <div className="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-28 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <p className="text-[10px] tracking-[0.22em] uppercase text-[#B08D57] font-sans mb-6">Membership</p>
-            <h1
-              className="font-display font-light text-[#FAF8F5] leading-[1.1] mb-8"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              Le cercle des<br />
-              <em className="italic text-[#B08D57]">initiés</em>
+            <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-6">Membership</p>
+            <h1 className="font-display font-light text-primary-foreground leading-[1.1] mb-8" style={{ fontFamily: 'var(--font-display)' }}>
+              Le cercle des<br /><em className="italic text-primary">initiés</em>
             </h1>
-            <p className="text-[#9E9388] text-lg leading-relaxed max-w-md">
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
               Accédez aux meilleures tables de Montréal, aux événements privés et à une expérience culinaire hors du commun — réservé à nos membres.
             </p>
           </div>
@@ -101,36 +81,25 @@ export default function MembersPage() {
               alt="Expérience gastronomique exclusive"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-4 border border-[#B08D57]/30 pointer-events-none" />
+            <div className="absolute inset-4 border border-primary/30 pointer-events-none" />
           </div>
         </div>
       </section>
 
-      {/* Gold rule */}
-      <div className="h-px bg-[#B08D57]" />
+      <div className="h-px bg-primary" />
 
       {/* Benefits */}
       <section className="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-28">
         <p className="overline mb-4">Avantages</p>
-        <h2
-          className="font-display font-light text-[#1C1916] mb-16"
-          style={{ fontFamily: 'var(--font-display)' }}
-        >
-          Ce que vous obtenez
-        </h2>
+        <h2 className="font-display font-light text-foreground mb-16" style={{ fontFamily: 'var(--font-display)' }}>Ce que vous obtenez</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {benefits.map((b) => (
             <div key={b.title} className="flex gap-6">
-              <div className="w-px bg-[#B08D57] self-stretch flex-shrink-0" />
+              <div className="w-px bg-primary self-stretch flex-shrink-0" />
               <div>
                 <p className="overline mb-2">{b.overline}</p>
-                <h3
-                  className="font-display font-light text-[#1C1916] text-2xl mb-3"
-                  style={{ fontFamily: 'var(--font-display)' }}
-                >
-                  {b.title}
-                </h3>
-                <p className="text-[#7D7468] leading-relaxed">{b.body}</p>
+                <h3 className="font-display font-light text-foreground text-2xl mb-3" style={{ fontFamily: 'var(--font-display)' }}>{b.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{b.body}</p>
               </div>
             </div>
           ))}
@@ -138,83 +107,44 @@ export default function MembersPage() {
       </section>
 
       {/* Pricing */}
-      <section className="full-bleed bg-[#FAF8F5] border-t border-b border-[#D6D0C6] py-20 md:py-28">
+      <section className="full-bleed bg-surface border-t border-b border-border py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-8">
           <p className="overline mb-4 text-center">Tarifs</p>
-          <h2
-            className="font-display font-light text-[#1C1916] text-center mb-16"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            Choisissez votre accès
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#D6D0C6]">
+          <h2 className="font-display font-light text-foreground text-center mb-16" style={{ fontFamily: 'var(--font-display)' }}>Choisissez votre accès</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
             {plans.map((plan) => (
-              <div
-                key={plan.name}
-                className={`flex flex-col p-10 ${
-                  plan.highlight ? 'bg-[#1C1916] text-[#FAF8F5]' : 'bg-[#FAF8F5]'
-                }`}
-              >
+              <div key={plan.name} className={`flex flex-col p-10 ${plan.highlight ? 'bg-foreground text-primary-foreground' : 'bg-surface'}`}>
                 {plan.highlight && (
-                  <p className="text-[9px] tracking-[0.25em] uppercase text-[#B08D57] font-sans mb-4">
-                    Le plus choisi
-                  </p>
+                  <p className="text-[9px] tracking-[0.25em] uppercase text-primary font-sans mb-4">Le plus choisi</p>
                 )}
-                <p
-                  className={`overline mb-3 ${plan.highlight ? 'text-[#B08D57]' : ''}`}
-                >
-                  {plan.name}
-                </p>
+                <p className={`overline mb-3 ${plan.highlight ? 'text-primary' : ''}`}>{plan.name}</p>
                 <div className="flex items-baseline gap-1 mb-2">
-                  <span
-                    className={`font-display font-light text-4xl ${
-                      plan.highlight ? 'text-[#FAF8F5]' : 'text-[#1C1916]'
-                    }`}
-                    style={{ fontFamily: 'var(--font-display)' }}
-                  >
+                  <span className={`font-display font-light text-4xl ${plan.highlight ? 'text-primary-foreground' : 'text-foreground'}`} style={{ fontFamily: 'var(--font-display)' }}>
                     {plan.price}
                   </span>
                   {plan.period && (
-                    <span className={`text-sm ${plan.highlight ? 'text-[#9E9388]' : 'text-[#7D7468]'}`}>
-                      {plan.period}
-                    </span>
+                    <span className={`text-sm ${plan.highlight ? 'text-muted-foreground' : 'text-muted-foreground'}`}>{plan.period}</span>
                   )}
                 </div>
-                <p className={`text-sm mb-8 ${plan.highlight ? 'text-[#9E9388]' : 'text-[#7D7468]'}`}>
-                  {plan.description}
-                </p>
-
-                <div className="h-px mb-8" style={{ background: plan.highlight ? '#2E2B27' : '#E8E4DC' }} />
-
+                <p className="text-sm text-muted-foreground mb-8">{plan.description}</p>
+                <div className="h-px bg-border mb-8" />
                 <ul className="space-y-4 flex-1 mb-10">
                   {plan.features.map((f) => (
                     <li key={f.text} className="flex items-center gap-3">
                       {f.included ? (
-                        <Check className="w-4 h-4 text-[#B08D57] flex-shrink-0" />
+                        <Check className="w-4 h-4 text-primary flex-shrink-0" />
                       ) : (
                         <div className="w-4 h-4 flex-shrink-0 flex items-center justify-center">
-                          <div className="w-3 h-px bg-[#B0A898]" />
+                          <div className="w-3 h-px bg-border" />
                         </div>
                       )}
-                      <span
-                        className={`text-sm ${
-                          f.included
-                            ? plan.highlight ? 'text-[#FAF8F5]' : 'text-[#1C1916]'
-                            : plan.highlight ? 'text-[#6B6460]' : 'text-[#B0A898]'
-                        }`}
-                      >
+                      <span className={`text-sm ${f.included ? (plan.highlight ? 'text-primary-foreground' : 'text-foreground') : 'text-muted-foreground'}`}>
                         {f.text}
                       </span>
                     </li>
                   ))}
                 </ul>
-
-                <button
-                  className={plan.highlight ? 'btn-luxury' : 'btn-ghost-luxury'}
-                >
-                  {plan.cta}
-                </button>
+                <button className={plan.highlight ? 'btn-luxury' : 'btn-ghost-luxury'}>{plan.cta}</button>
               </div>
             ))}
           </div>
@@ -224,39 +154,17 @@ export default function MembersPage() {
       {/* FAQ */}
       <section className="max-w-4xl mx-auto px-6 md:px-8 py-20 md:py-28">
         <p className="overline mb-4">FAQ</p>
-        <h2
-          className="font-display font-light text-[#1C1916] mb-12"
-          style={{ fontFamily: 'var(--font-display)' }}
-        >
-          Questions fréquentes
-        </h2>
-        <div className="space-y-px bg-[#D6D0C6]">
+        <h2 className="font-display font-light text-foreground mb-12" style={{ fontFamily: 'var(--font-display)' }}>Questions fréquentes</h2>
+        <div className="space-y-px bg-border">
           {[
-            {
-              q: 'Comment annuler mon abonnement?',
-              a: 'Vous pouvez annuler à tout moment depuis votre profil, sans frais de résiliation.',
-            },
-            {
-              q: 'Les prix incluent-ils les taxes?',
-              a: 'Non — les taxes applicables seront calculées lors du paiement.',
-            },
-            {
-              q: 'Puis-je changer de forfait?',
-              a: 'Oui. Tout changement est effectif immédiatement, avec ajustement au prorata.',
-            },
-            {
-              q: 'Y a-t-il une période d\'essai?',
-              a: 'Le plan Explorateur est toujours gratuit. Pour les plans payants, contactez-nous.',
-            },
+            { q: "Comment annuler mon abonnement?", a: "Vous pouvez annuler à tout moment depuis votre profil, sans frais de résiliation." },
+            { q: "Les prix incluent-ils les taxes?", a: "Non — les taxes applicables seront calculées lors du paiement." },
+            { q: "Puis-je changer de forfait?", a: "Oui. Tout changement est effectif immédiatement, avec ajustement au prorata." },
+            { q: "Y a-t-il une période d'essai?", a: "Le plan Explorateur est toujours gratuit. Pour les plans payants, contactez-nous." },
           ].map((item) => (
-            <div key={item.q} className="bg-[#FAF8F5] hover:bg-white transition-colors p-8">
-              <h3
-                className="font-display font-light text-[#1C1916] text-xl mb-3"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                {item.q}
-              </h3>
-              <p className="text-[#7D7468] text-[15px] leading-relaxed">{item.a}</p>
+            <div key={item.q} className="bg-surface hover:bg-background transition-colors p-8">
+              <h3 className="font-display font-light text-foreground text-xl mb-3" style={{ fontFamily: 'var(--font-display)' }}>{item.q}</h3>
+              <p className="text-muted-foreground text-[15px] leading-relaxed">{item.a}</p>
             </div>
           ))}
         </div>

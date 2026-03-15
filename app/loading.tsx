@@ -1,6 +1,6 @@
 export default function Loading() {
     return (
-        <div className="flex h-screen w-full items-center justify-center bg-[#0d0c0b] z-50 fixed inset-0">
+        <div className="flex h-screen w-full items-center justify-center bg-background z-50 fixed inset-0">
             <div className="flex flex-col items-center space-y-6">
                 {/* Sleek, pulsing luxury crown/fleur-de-lis */}
                 <div className="relative h-16 w-16 animate-pulse">

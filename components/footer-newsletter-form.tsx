@@ -13,7 +13,7 @@ export function FooterNewsletterForm() {
 
   if (submitted) {
     return (
-      <p className="text-[#B08D57] text-[12px] tracking-[0.1em] uppercase font-sans">
+      <p className="text-primary text-[12px] tracking-[0.1em] uppercase font-sans">
         Merci — vous êtes inscrit.
       </p>
     )
@@ -26,7 +26,7 @@ export function FooterNewsletterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="votre@courriel.com"
-        className="input-luxury bg-[#2A2722] border-[#3A3630] text-[#FAF8F5] placeholder-[#6B6460] text-[13px]"
+        className="input-luxury text-[13px]"
         aria-label="Adresse courriel"
         required
       />
