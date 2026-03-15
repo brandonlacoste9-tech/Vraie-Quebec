@@ -32,7 +32,7 @@ const venues = [
     id: "s2", label: "Soccer", name: "Stade Saputo", location: "Parc Olympique, Montréal",
     description: "CF Montréal. Ambiance festive et passionnée dans un stade à l'architecture unique au cœur du Parc Olympique.",
     rating: 4.5, price: "$$",
-    image: "https://images.unsplash.com/photo-1522778119026-d647f0565c6a?w=1200&q=85&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&q=85&auto=format&fit=crop",
     events: ["CF Montréal vs Toronto FC"],
   },
   {
