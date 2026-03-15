@@ -78,13 +78,12 @@ export default function RootLayout({
       lang="fr"
       className={[cormorant.variable, dmSans.variable, dmMono.variable].join(" ")}
       suppressHydrationWarning
-      style={{ backgroundColor: "#F4F1EC" }}
     >
       <body
         className="font-sans antialiased min-h-screen bg-background text-foreground"
       >
         <ErrorBoundary>
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="vraiquebec-theme" disableTransitionOnChange={false}>
             <LanguageProvider>{children}</LanguageProvider>
           </ThemeProvider>
         </ErrorBoundary>

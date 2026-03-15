@@ -4,6 +4,7 @@ import type React from 'react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
+import { NightToggle } from '@/components/night-toggle'
 
 const navLinks = [
   { label: 'Restaurants', href: '/restaurants' },
@@ -28,18 +29,18 @@ export function MainNav() {
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-500 ${
         scrolled
-          ? 'bg-[#F4F1EC]/97 backdrop-blur-sm border-b border-[#D6D0C6] shadow-[0_1px_0_#D6D0C6]'
-          : 'bg-[#F4F1EC] border-b border-[#D6D0C6]'
+          ? 'bg-background/97 backdrop-blur-sm border-b border-border shadow-[0_1px_0_var(--border)]'
+          : 'bg-background border-b border-border'
       }`}
     >
       {/* Top micro-bar */}
-      <div className="hidden md:flex items-center justify-between px-8 py-2 border-b border-[#D6D0C6]">
-        <p className="text-[10px] tracking-[0.2em] uppercase text-[#7D7468] font-sans">
+      <div className="hidden md:flex items-center justify-between px-8 py-2 border-b border-border">
+        <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-sans">
           Art de vivre · Montréal · Québec
         </p>
         <Link
           href="/members"
-          className="text-[10px] tracking-[0.2em] uppercase text-[#B08D57] font-sans hover:text-[#8C6D3F] transition-colors"
+          className="text-[10px] tracking-[0.2em] uppercase text-primary font-sans hover:text-[var(--primary-dark)] transition-colors"
         >
           Accès Membre
         </Link>
@@ -50,13 +51,13 @@ export function MainNav() {
         {/* Logo */}
         <Link href="/" className="flex items-baseline gap-1.5" aria-label="Vrai Québec — Accueil">
           <span
-            className="font-display text-2xl font-light tracking-[0.06em] text-[#1C1916]"
+            className="font-display text-2xl font-light tracking-[0.06em] text-foreground"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             VRAI
           </span>
           <span
-            className="font-display text-2xl font-light italic tracking-[0.02em] text-[#B08D57]"
+            className="font-display text-2xl font-light italic tracking-[0.02em] text-primary"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Québec
@@ -72,32 +73,38 @@ export function MainNav() {
           ))}
         </nav>
 
-        {/* Desktop CTA */}
-        <Link href="/members" className="hidden md:inline-flex btn-luxury text-[11px]">
-          Réserver
-        </Link>
+        {/* Desktop right: toggle + CTA */}
+        <div className="hidden md:flex items-center gap-3">
+          <NightToggle />
+          <Link href="/members" className="btn-luxury text-[11px]">
+            Réserver
+          </Link>
+        </div>
 
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 text-[#1C1916]"
-          aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
-          aria-expanded={isOpen}
-        >
-          {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        {/* Mobile: toggle + hamburger */}
+        <div className="flex md:hidden items-center gap-2">
+          <NightToggle />
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-2 text-foreground"
+            aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            aria-expanded={isOpen}
+          >
+            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile drawer */}
       {isOpen && (
-        <div className="md:hidden border-t border-[#D6D0C6] bg-[#F4F1EC]">
+        <div className="md:hidden border-t border-border bg-background">
           <nav className="flex flex-col px-6 py-6 gap-1" aria-label="Navigation mobile">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="py-3 border-b border-[#E8E4DC] text-[11px] tracking-[0.2em] uppercase font-sans text-[#1C1916] hover:text-[#B08D57] transition-colors"
+                className="py-3 border-b border-border text-[11px] tracking-[0.2em] uppercase font-sans text-foreground hover:text-primary transition-colors"
               >
                 {link.label}
               </Link>
