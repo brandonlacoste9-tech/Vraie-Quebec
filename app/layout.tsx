@@ -6,35 +6,39 @@ import { ErrorBoundary } from "@/components/error-boundary"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/components/language-provider"
 import "./globals.css"
-import { Playfair_Display, DM_Sans, DM_Mono } from "next/font/google"
+import { Cormorant_Garamond, DM_Sans, DM_Mono } from "next/font/google"
 
-// Initialize fonts for editorial magazine
-const playfair = Playfair_Display({
+// Cormorant Garamond — high-fashion regal serif (Louis Vuitton × Hermès)
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
 })
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: ["400", "500", "700"],
+  weight: ["300", "400", "500", "700"],
+  display: "swap",
 })
 
 const dmMono = DM_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   weight: ["400", "500"],
+  display: "swap",
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vraiquebec.com"),
   title: {
-    default: "Vrai Québec | Votre Guide Éditorial",
+    default: "Vrai Québec | L'Art de Vivre",
     template: "%s | Vrai Québec"
   },
-  description: "Le guide éditorial ultime pour Montréal et le Québec. Découvrez les meilleures adresses.",
-  keywords: ["Montréal", "Québec", "Restaurants", "Bars", "Événements", "Sorties", "Tourisme Québec"],
+  description: "Le guide de référence pour les adresses d'exception à Montréal et au Québec. Restaurants, bars, événements et expériences exclusives.",
+  keywords: ["Montréal", "Québec", "Gastronomie", "Restaurants", "Bars", "Événements", "Art de vivre"],
   authors: [{ name: "Vrai Québec" }],
   creator: "Vrai Québec",
   generator: "Next.js",
@@ -57,7 +61,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport = {
-  themeColor: "#FAFAF8",
+  themeColor: "#F4F1EC",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -72,16 +76,12 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable}`}
+      className={[cormorant.variable, dmSans.variable, dmMono.variable].join(" ")}
       suppressHydrationWarning
-      style={{ backgroundColor: "#FAFAF8" }}
+      style={{ backgroundColor: "#F4F1EC" }}
     >
       <body
-        className="font-sans antialiased min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground"
-        style={{
-          fontFamily: 'var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-          fontFeatureSettings: '"kern" 1, "liga" 1',
-        }}
+        className="font-sans antialiased min-h-screen bg-background text-foreground"
       >
         <ErrorBoundary>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>

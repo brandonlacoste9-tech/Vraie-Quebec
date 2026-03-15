@@ -1,157 +1,336 @@
+import Link from "next/link"
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
-import { MagazineMasthead } from "@/components/magazine-masthead"
-import { BreakingTicker } from "@/components/breaking-ticker"
-import { EditorialGrid } from "@/components/editorial-grid"
-import { FeaturedEventSection } from "@/components/featured-event-section"
 
-export default function Home() {
-  // Sample data - in production this would come from a database
-  const featuredStories = [
-    {
-      id: "1",
-      title: "Le restaurant de l'année à Montréal",
-      description: "Découvrez l'adresse qui révolutionne la scène culinaire montréalaise avec une cuisine audacieuse et des saveurs authentiques.",
-      category: "Restaurants",
-      image: "/images/restaurant-featured.jpg",
-      href: "/venue/1",
-      size: "large" as const,
-    },
-    {
-      id: "2",
-      title: "Bars branchés du centre-ville",
-      description: "Les meilleures adresses pour des cocktails artisanaux et une ambiance unique en plein cœur de la ville.",
-      category: "Bars",
-      image: "/images/bar-1.jpg",
-      href: "/bars",
-    },
-    {
-      id: "3",
-      title: "Festival de musique d'été",
-      description: "Une célébration musicale à ne pas manquer avec les meilleurs artistes de la région.",
-      category: "Événements",
-      image: "/images/event-1.jpg",
-      href: "/agenda",
-    },
-    {
-      id: "4",
-      title: "Guide des terrasses",
-      description: "Explorez les plus belles terrasses pour profiter de l'été québécois en toute détente.",
-      category: "Sorties",
-      image: "/images/terrace.jpg",
-      href: "/restaurants",
-    },
-    {
-      id: "5",
-      title: "Voyage gourmand en Estrie",
-      description: "Une escapade délicieuse à travers les vignobles et auberges de la région.",
-      category: "Voyage",
-      image: "/images/voyage-1.jpg",
-      href: "/voyage",
-      size: "large" as const,
-    },
-  ]
+// ─── Curated data ─────────────────────────────────────────────────────────────
+const featured = [
+  {
+    id: "1",
+    label: "Gastronomie",
+    title: "Joe Beef",
+    subtitle: "L'institution culinaire montréalaise",
+    location: "Montréal, QC",
+    href: "/venue/1",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "2",
+    label: "Cocktails",
+    title: "Bar Le Lab",
+    subtitle: "L'art de la mixologie artisanale",
+    location: "Le Plateau, Montréal",
+    href: "/venue/2",
+    image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=900&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "3",
+    label: "Événement",
+    title: "Festival d'été de Québec",
+    subtitle: "Scènes légendaires sous les étoiles",
+    location: "Plaines d'Abraham, Québec",
+    href: "/agenda",
+    image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=900&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "4",
+    label: "Voyage",
+    title: "Auberges de l'Estrie",
+    subtitle: "Retraites gastronomiques au coeur des vignobles",
+    location: "Estrie, Québec",
+    href: "/voyage",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=85&auto=format&fit=crop",
+  },
+]
 
-  const breakingNews = [
-    "Accès exclusif: Les meilleures réservations de la semaine",
-    "Tendance: La scène des bars branchés du plateau",
-    "À découvrir: Nouvelle galerie et événement culturel",
-  ]
+const pillars = [
+  {
+    overline: "Table",
+    title: "Restaurants",
+    body: "Des tables d'exception sélectionnées par nos experts culinaires pour leur cuisine, leur service et leur atmosphère.",
+    href: "/restaurants",
+    cta: "Explorer les adresses",
+  },
+  {
+    overline: "Nuit",
+    title: "Bars & Clubs",
+    body: "Les meilleures adresses de la vie nocturne montréalaise — cocktails de précision, terrasses et ambiances soignées.",
+    href: "/bars",
+    cta: "Voir les bars",
+  },
+  {
+    overline: "Agenda",
+    title: "Événements",
+    body: "Festivals, galas, vernissages et soirées privées — votre agenda culturel curatif pour ne rien manquer.",
+    href: "/agenda",
+    cta: "Consulter l'agenda",
+  },
+]
 
+const editorials = [
+  {
+    label: "En ce moment",
+    title: "Le renouveau de la scène gastronomique à Montréal",
+    excerpt: "Comment une nouvelle génération de chefs québécois réinterprète le terroir avec une élégance contemporaine.",
+    href: "/restaurants",
+    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    label: "Bars",
+    title: "Whisky, ambre et ambiance feutrée",
+    excerpt: "Les bars à whisky et à spiritueux qui s'imposent comme les nouvelles références de la nuit montréalaise.",
+    href: "/bars",
+    image: "https://images.unsplash.com/photo-1527761939622-933c972d11e1?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    label: "Escapade",
+    title: "Québec en hiver — la beauté du froid",
+    excerpt: "Des auberges et refuges qui transforment la saison froide en expérience de luxe incomparable.",
+    href: "/voyage",
+    image: "https://images.unsplash.com/photo-1477346611705-65d1883cee1e?w=800&q=85&auto=format&fit=crop",
+  },
+]
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#F4F1EC]">
       <MainNav />
-      <MagazineMasthead />
-      <BreakingTicker items={breakingNews} />
 
-      {/* Editorial Hero Section */}
-      <section className="full-bleed bg-gradient-to-br from-primary/5 to-primary/10">
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-display font-bold text-balance mb-6">
-              Découvrez le Québec
+      {/* ── HERO: full-bleed split ────────────────────────────────────────── */}
+      <section className="full-bleed">
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[90vh]">
+          {/* Left: text */}
+          <div className="flex flex-col justify-center px-8 md:px-16 py-20 bg-[#F4F1EC]">
+            <p className="overline mb-6">Montréal · Québec · 2025</p>
+            <h1
+              className="font-display font-light text-[#1C1916] leading-[1.08] mb-8"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              L'art de vivre<br />
+              <em className="italic text-[#B08D57]">bien</em>, au Québec.
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Votre guide éditorial des meilleures adresses pour restaurants, bars, événements et sorties à Montréal et partout au Québec. Des recommandations curatoriales pour vivre authentiquement.
+            <p className="text-[#7D7468] text-lg leading-relaxed mb-12 max-w-md">
+              Restaurants d'exception, bars de caractère, événements exclusifs — le guide de référence pour ceux qui exigent le meilleur.
             </p>
-            <a href="/restaurants" className="inline-block bg-primary text-primary-foreground px-6 py-3 font-semibold hover:bg-primary/90 transition-colors">
-              Explorer →
-            </a>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/restaurants" className="btn-luxury">
+                Découvrir
+              </Link>
+              <Link href="/members" className="btn-ghost-luxury">
+                Accès Membre
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: hero image */}
+          <div className="relative min-h-[55vh] lg:min-h-0 img-zoom overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1400&q=90&auto=format&fit=crop"
+              alt="Table dressée avec élégance dans un restaurant montréalais"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-[#1C1916]/10" />
           </div>
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-12 md:py-20 space-y-20">
-        {/* Featured Editorial Grid */}
-        <EditorialGrid 
-          items={featuredStories}
-          title="En vedette"
-        />
+      {/* ── GOLD RULE ────────────────────────────────────────────────────────── */}
+      <div className="rule-accent" />
 
-        <div className="divider" />
-
-        {/* Featured Event */}
-        <FeaturedEventSection
-          title="Festival de Musique Montréal"
-          date="15-17 Août"
-          time="20h00"
-          location="Parc Jean-Drapeau"
-          description="Trois jours d'expérience musicale immersive avec les meilleurs artistes québécois et internationaux. Une célébration de la culture et de la musique en direct."
-          attendeeCount={5000}
-          href="/agenda"
-          image="/images/festival.jpg"
-        />
-
-        <div className="divider" />
-
-        {/* VIP Access Section */}
-        <section>
-          <h2 className="text-4xl font-display font-bold mb-12">Accès VIP</h2>
-          <div className="full-bleed bg-primary/10">
-            <div className="container mx-auto px-4 py-12">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="card-editorial p-8">
-                  <h3 className="text-2xl font-display font-bold mb-3">Réservations prioritaires</h3>
-                  <p className="text-muted-foreground mb-4">Accès en avant-première aux meilleures tables et événements exclusifs du Québec.</p>
-                  <a href="/members" className="text-primary font-semibold hover:underline">Devenir membre →</a>
-                </div>
-                <div className="card-editorial p-8">
-                  <h3 className="text-2xl font-display font-bold mb-3">Sélection curatoriale</h3>
-                  <p className="text-muted-foreground mb-4">Découvrez nos recommandations hebdomadaires sélectionnées par nos experts culinaires et culturels.</p>
-                  <a href="/restaurants" className="text-primary font-semibold hover:underline">Voir les sélections →</a>
-                </div>
-                <div className="card-editorial p-8">
-                  <h3 className="text-2xl font-display font-bold mb-3">Événements exclusifs</h3>
-                  <p className="text-muted-foreground mb-4">Participez à nos événements privés et rencontrez les propriétaires et chefs de Vrai Québec.</p>
-                  <a href="/agenda" className="text-primary font-semibold hover:underline">Consulter l'agenda →</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="divider" />
-
-        {/* Membership CTA */}
-        <section className="full-bleed bg-foreground text-background py-16 md:py-24">
-          <div className="container mx-auto px-4 text-center max-w-3xl">
-            <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-              Rejoignez notre communauté
+      {/* ── FEATURED FOUR: masonry-style grid ────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-28">
+        <div className="flex items-end justify-between mb-12">
+          <div>
+            <p className="overline mb-3">Sélection de la rédaction</p>
+            <h2 className="font-display font-light text-[#1C1916]" style={{ fontFamily: 'var(--font-display)' }}>
+              En vedette
             </h2>
-            <p className="text-xl text-background/80 mb-8 leading-relaxed">
-              Devenir membre de Vrai Québec vous donne accès à des réservations prioritaires, des événements exclusifs et une expérience culinaire incomparable.
-            </p>
-            <a 
-              href="/members"
-              className="inline-block bg-background text-foreground px-8 py-4 font-display font-bold uppercase text-sm tracking-wider hover:bg-background/90 transition-colors"
-            >
-              Explorer l'adhésion →
-            </a>
           </div>
-        </section>
+          <Link href="/restaurants" className="link-luxury hidden md:inline-block">
+            Tout voir
+          </Link>
+        </div>
+
+        {/* Asymmetric grid: large left + 3 right */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#D6D0C6]">
+          {/* Large feature */}
+          <Link
+            href={featured[0].href}
+            className="lg:col-span-2 lg:row-span-2 relative group block overflow-hidden aspect-[4/3] lg:aspect-auto lg:min-h-[520px] bg-[#F4F1EC]"
+          >
+            <img
+              src={featured[0].image}
+              alt={featured[0].title}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1C1916]/80 via-[#1C1916]/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-8">
+              <p className="overline text-[#B08D57] mb-2">{featured[0].label}</p>
+              <h3 className="font-display font-light text-[#FAF8F5] text-3xl md:text-4xl mb-2"
+                style={{ fontFamily: 'var(--font-display)' }}>
+                {featured[0].title}
+              </h3>
+              <p className="text-[#D6D0C6] text-sm">{featured[0].subtitle}</p>
+            </div>
+          </Link>
+
+          {/* 3 smaller cards */}
+          {featured.slice(1).map((item) => (
+            <Link
+              key={item.id}
+              href={item.href}
+              className="relative group block overflow-hidden aspect-square bg-[#F4F1EC]"
+            >
+              <img
+                src={item.image}
+                alt={item.title}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1C1916]/70 via-[#1C1916]/10 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-5">
+                <p className="text-[9px] tracking-[0.22em] uppercase text-[#B08D57] font-sans mb-1">{item.label}</p>
+                <h3 className="font-display font-light text-[#FAF8F5] text-xl leading-tight"
+                  style={{ fontFamily: 'var(--font-display)' }}>
+                  {item.title}
+                </h3>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ── RULE ─────────────────────────────────────────────────────────────── */}
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
+        <div className="rule" />
       </div>
 
+      {/* ── THREE PILLARS ────────────────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-28">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+          {pillars.map((p, i) => (
+            <div key={p.title} className="flex flex-col">
+              <p className="overline mb-4">{p.overline}</p>
+              <h3
+                className="font-display font-light text-[#1C1916] text-3xl md:text-4xl mb-5"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
+                {p.title}
+              </h3>
+              <div className="h-px bg-[#B08D57] w-10 mb-5" />
+              <p className="text-[#7D7468] text-[15px] leading-relaxed flex-1">{p.body}</p>
+              <Link href={p.href} className="link-luxury mt-8 inline-block">
+                {p.cta}
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── DARK INTERLUDE: maison banner ────────────────────────────────────── */}
+      <section className="full-bleed bg-[#1C1916] py-24 md:py-32">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <p className="text-[10px] tracking-[0.22em] uppercase text-[#B08D57] font-sans mb-6">
+              Membership
+            </p>
+            <h2
+              className="font-display font-light text-[#FAF8F5] leading-[1.1] mb-8"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              Le cercle des<br />
+              <em className="italic text-[#B08D57]">initiés</em>
+            </h2>
+            <p className="text-[#9E9388] text-lg leading-relaxed mb-10 max-w-md">
+              Réservations prioritaires, invitations privées, accès aux meilleures tables avant tout le monde — devenez membre et découvrez le Québec autrement.
+            </p>
+            <Link href="/members" className="btn-luxury">
+              Rejoindre la maison
+            </Link>
+          </div>
+          <div className="relative aspect-[4/3] overflow-hidden img-zoom">
+            <img
+              src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?w=1000&q=85&auto=format&fit=crop"
+              alt="Expérience exclusive Vrai Québec"
+              className="w-full h-full object-cover"
+            />
+            {/* Gold frame accent */}
+            <div className="absolute inset-4 border border-[#B08D57]/30 pointer-events-none" />
+          </div>
+        </div>
+      </section>
+
+      {/* ── EDITORIAL STORIES ────────────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-28">
+        <div className="flex items-end justify-between mb-12">
+          <div>
+            <p className="overline mb-3">Chroniques</p>
+            <h2 className="font-display font-light text-[#1C1916]" style={{ fontFamily: 'var(--font-display)' }}>
+              À lire
+            </h2>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#D6D0C6]">
+          {editorials.map((story) => (
+            <Link
+              key={story.title}
+              href={story.href}
+              className="group block bg-[#F4F1EC] hover:bg-[#FAF8F5] transition-colors duration-300"
+            >
+              <div className="aspect-[3/2] overflow-hidden img-zoom">
+                <img
+                  src={story.image}
+                  alt={story.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6 md:p-8">
+                <p className="overline mb-3">{story.label}</p>
+                <h3
+                  className="font-display font-light text-[#1C1916] text-xl md:text-2xl leading-snug mb-4 group-hover:text-[#B08D57] transition-colors duration-300"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  {story.title}
+                </h3>
+                <p className="text-[#7D7468] text-sm leading-relaxed line-clamp-3">{story.excerpt}</p>
+                <div className="mt-6 link-luxury inline-block">Lire</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ── FINAL CTA: newsletter ────────────────────────────────────────────── */}
+      <section className="full-bleed bg-[#FAF8F5] border-t border-b border-[#D6D0C6] py-20">
+        <div className="max-w-xl mx-auto px-6 text-center">
+          <p className="overline mb-4">La Lettre Hebdomadaire</p>
+          <h2
+            className="font-display font-light text-[#1C1916] text-3xl md:text-4xl mb-4"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
+            Ne manquez rien
+          </h2>
+          <p className="text-[#7D7468] mb-8">
+            Nos sélections exclusives, événements privés et recommandations de la semaine, directement dans votre boîte.
+          </p>
+          <form
+            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+            onSubmit={(e) => e.preventDefault()}
+          >
+            <input
+              type="email"
+              placeholder="Votre adresse courriel"
+              className="input-luxury flex-1"
+              aria-label="Adresse courriel"
+            />
+            <button type="submit" className="btn-luxury whitespace-nowrap">
+              S'inscrire
+            </button>
+          </form>
+        </div>
+      </section>
+
       <Footer />
-    </main>
+    </div>
   )
 }
