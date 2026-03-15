@@ -25,12 +25,12 @@ export default function RestaurantsPage() {
   const filtered = restaurants.filter((r) => {
     if (!selectedFilters.length) return true
     return selectedFilters.some((f) => {
-      if (f === "price-low") return r.priceTier === "$"
-      if (f === "price-mid") return r.priceTier === "$$"
-      if (f === "price-high") return r.priceTier === "$$$"
-      if (f === "rating-high") return r.rating >= 4.5
-      if (f === "trending") return r.is_hot
-      if (f === "vip") return r.priceTier === "VIP"
+      if (f === "price-low")   return r.price_tier === "$"
+      if (f === "price-mid")   return r.price_tier === "$$" || r.price_tier === "$$$"
+      if (f === "price-high")  return r.price_tier === "$$$$"
+      if (f === "rating-high") return r.rating >= 4.7
+      if (f === "trending")    return r.is_hot === true
+      if (f === "vip")         return r.has_vip === true
       return true
     })
   })
