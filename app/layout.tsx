@@ -5,81 +5,70 @@ import { Analytics } from "@vercel/analytics/react"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/components/language-provider"
-import { RGBBorder } from "@/components/rgb-border" // importing the new component
-import { RGBProvider } from "@/components/rgb-provider" // imported RGBProvider
-import { AmbientOrbs } from "@/components/ambient-orbs" // importing AmbientOrbs
 import "./globals.css"
-import { Inter, Playfair_Display, Cinzel } from "next/font/google"
+import { Cormorant_Garamond, DM_Sans, DM_Mono } from "next/font/google"
 
-// Initialize fonts
-const cinzel = Cinzel({ subsets: ["latin"], variable: "--font-cinzel" })
-
-const inter = Inter({
+// Cormorant Garamond — high-fashion regal serif (Louis Vuitton × Hermès)
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-display",
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
 })
 
-const playfair = Playfair_Display({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-sans",
+  weight: ["300", "400", "500", "700"],
+  display: "swap",
+})
+
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500"],
+  display: "swap",
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vraiquebec.com"),
   title: {
-    default: "Vrai Québec | La Référence Nightlife & Sorties",
+    default: "Vrai Québec | L'Art de Vivre",
     template: "%s | Vrai Québec"
   },
-  description: "Le guide ultime pour Montréal et le Québec. Restos, bars, clubs, sports. C'est malade.",
-  keywords: ["Montréal", "Québec", "Nightlife", "Restaurants", "Bars", "Clubs", "Sorties", "Events", "Tourisme Québec", "Sortir Montréal"],
+  description: "Le guide de référence pour les adresses d'exception à Montréal et au Québec. Restaurants, bars, événements et expériences exclusives.",
+  keywords: ["Montréal", "Québec", "Gastronomie", "Restaurants", "Bars", "Événements", "Art de vivre"],
   authors: [{ name: "Vrai Québec" }],
   creator: "Vrai Québec",
   generator: "Next.js",
-  alternates: {
-    canonical: '/',
-    languages: {
-      'fr-CA': '/fr',
-      'en-CA': '/en',
-    },
-  },
   openGraph: {
     type: "website",
     locale: "fr_CA",
-    alternateLocales: ["en_CA"],
     url: "https://vraiquebec.com",
-    title: "Vrai Québec | L'Éxpérience VIP",
-    description: "Le guide exclusif pour Montréal et le Québec. Découvrez les meilleurs restos, bars, clubs et événements sportifs.",
+    title: "Vrai Québec | Votre Guide Éditorial",
+    description: "Le guide éditorial ultime pour Montréal et le Québec.",
     siteName: "Vrai Québec",
-    images: [
-      {
-        url: "/og-image.png", // Image has been added!
-        width: 1200,
-        height: 630,
-        alt: "Vrai Québec - Nightlife & Sorties",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vrai Québec | L'Éxpérience VIP",
-    description: "Le guide exclusif pour Montréal et le Québec. Découvrez les meilleurs restos, bars, et clubs.",
-    images: ["/og-image.png"],
+    title: "Vrai Québec | Votre Guide Éditorial",
     creator: "@vraiquebec",
   },
   icons: {
     icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
   },
-  manifest: "/site.webmanifest",
 }
 
 export const viewport = {
-  themeColor: "#000000",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#F4F1EC" },
+    { media: "(prefers-color-scheme: dark)",  color: "#100E0B" },
+  ],
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  userScalable: true,
 }
 
 export default function RootLayout({
@@ -90,27 +79,19 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${inter.variable} ${cinzel.variable} ${playfair.variable}`}
+      className={[cormorant.variable, dmSans.variable, dmMono.variable].join(" ")}
       suppressHydrationWarning
-      style={{ backgroundColor: "#000000" }}
+      data-scroll-behavior="smooth"
     >
       <body
-        className="font-sans antialiased min-h-screen bg-black text-foreground selection:bg-primary selection:text-primary-foreground"
-        style={{
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", var(--font-sans), sans-serif',
-          fontFeatureSettings: '"kern" 1, "liga" 1',
-        }}
+        className="font-sans antialiased min-h-screen bg-background text-foreground"
       >
-        <RGBProvider>
-          <AmbientOrbs />
-          <RGBBorder />
-          <ErrorBoundary>
-            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-              <LanguageProvider>{children}</LanguageProvider>
-            </ThemeProvider>
-          </ErrorBoundary>
-          <Analytics />
-        </RGBProvider>
+        <ErrorBoundary>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="vraiquebec-theme" disableTransitionOnChange={false}>
+            <LanguageProvider>{children}</LanguageProvider>
+          </ThemeProvider>
+        </ErrorBoundary>
+        <Analytics />
       </body>
     </html>
   )

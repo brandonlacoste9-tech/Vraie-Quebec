@@ -13,9 +13,7 @@ export function createClient() {
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseKey) {
-    console.warn("[v0] Supabase client not available - missing environment variables")
-    console.warn("[v0] Checked: NEXT_PUBLIC_SUPABASE_URL, SUPABASE_URL, Project_URL")
-    console.warn("[v0] Checked: NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_ANON_KEY")
+    // Supabase not configured — app will use local fallback data
     return null
   }
 

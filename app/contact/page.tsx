@@ -1,160 +1,87 @@
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
-import { Mail, Phone, MapPin, Instagram, MessageCircle } from "lucide-react"
+import { ContactForm } from "@/components/contact-form"
+import { Mail, Instagram } from "lucide-react"
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-background">
       <MainNav />
-      
-      {/* Hero */}
-      <div className="relative overflow-hidden border-b border-primary/20">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10" />
-        <div className="container mx-auto px-4 py-16 relative z-10">
-          <h1 className="text-4xl md:text-7xl font-heading font-bold uppercase text-white mb-4">
-            CONTACTE-<span className="text-primary text-glow">NOUS</span>
-          </h1>
-          <p className="text-xl text-gray-300 max-w-2xl">
-            Une question? Un partenariat? Un événement à suggérer? 
-            On est là pour toi, tabarnak!
-          </p>
-        </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-12 max-w-6xl">
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Contact Methods */}
-          <div className="space-y-6">
-            {/* Advertising */}
-            <div className="leather-card p-6 stitched">
-              <h2 className="text-2xl font-heading font-bold text-primary mb-4">Publicité & Partenariats</h2>
-              <p className="text-gray-300 mb-4">
-                Vous représentez un établissement? Vous voulez rejoindre notre réseau VIP?
-              </p>
-              <a 
-                href="mailto:partners@vraie-quebec.ca" 
-                className="flex items-center gap-3 text-white hover:text-primary transition-colors"
-              >
-                <Mail className="h-5 w-5" />
-                <span>partners@vraie-quebec.ca</span>
-              </a>
-            </div>
+      {/* Page header */}
+      <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-border">
+        <p className="overline mb-4">Maison</p>
+        <h1 className="font-display font-light text-foreground mb-4" style={{ fontFamily: "var(--font-display)" }}>Nous contacter</h1>
+        <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
+          Une question, un partenariat, un événement à suggérer — nous sommes à votre écoute.
+        </p>
+      </header>
 
-            {/* Support */}
-            <div className="leather-card p-6 stitched">
-              <h2 className="text-2xl font-heading font-bold text-primary mb-4">Support Client</h2>
-              <p className="text-gray-300 mb-4">
-                Problème avec une réservation? Question sur votre compte?
-              </p>
-              <div className="space-y-3">
-                <a 
-                  href="mailto:support@vraie-quebec.ca" 
-                  className="flex items-center gap-3 text-white hover:text-primary transition-colors"
-                >
-                  <Mail className="h-5 w-5" />
-                  <span>support@vraie-quebec.ca</span>
-                </a>
-                <a 
-                  href="tel:+15145551234" 
-                  className="flex items-center gap-3 text-white hover:text-primary transition-colors"
-                >
-                  <Phone className="h-5 w-5" />
-                  <span>+1 (514) 555-1234</span>
-                </a>
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+
+          {/* Left: channels */}
+          <div className="space-y-16">
+            {[
+              {
+                overline: 'Partenariats & Publicité',
+                title: 'Vous êtes un établissement?',
+                body: "Rejoignez notre réseau d'adresses d'exception et atteignez une audience de connaisseurs.",
+                href: 'mailto:partners@vraiquebec.com',
+                linkLabel: 'partners@vraiquebec.com',
+              },
+              {
+                overline: 'Support',
+                title: 'Questions & Réservations',
+                body: "Besoin d'aide avec une réservation ou renseignement sur nos services?",
+                href: 'mailto:support@vraiquebec.com',
+                linkLabel: 'support@vraiquebec.com',
+              },
+              {
+                overline: 'Rédaction',
+                title: 'Suggestions & Presse',
+                body: "Suggérez un événement, partagez votre retour, ou prenez contact avec notre équipe éditoriale.",
+                href: 'mailto:hello@vraiquebec.com',
+                linkLabel: 'hello@vraiquebec.com',
+              },
+            ].map((channel) => (
+              <div key={channel.overline} className="flex gap-6">
+                <div className="w-px bg-primary self-stretch flex-shrink-0" />
+                <div>
+                  <p className="overline mb-2">{channel.overline}</p>
+                  <h3 className="font-display font-light text-foreground text-2xl mb-3" style={{ fontFamily: "var(--font-display)" }}>{channel.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">{channel.body}</p>
+                  <a href={channel.href} className="flex items-center gap-2 text-primary hover:text-primary-dark transition-colors">
+                    <Mail className="w-4 h-4 flex-shrink-0" />
+                    <span className="text-sm">{channel.linkLabel}</span>
+                  </a>
+                </div>
               </div>
-              <p className="text-sm text-gray-500 mt-4">
-                Disponible 7j/7, 10h à 22h
-              </p>
-            </div>
+            ))}
 
             {/* Social */}
-            <div className="leather-card p-6 stitched">
-              <h2 className="text-2xl font-heading font-bold text-primary mb-4">Réseaux Sociaux</h2>
-              <div className="grid grid-cols-2 gap-4">
-                <a 
-                  href="https://instagram.com/vraiequebec" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-white hover:text-primary transition-colors"
-                >
-                  <Instagram className="h-5 w-5" />
-                  <span>@vraiequebec</span>
-                </a>
-                <a 
-                  href="https://tiktok.com/@vraiequebec" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-white hover:text-primary transition-colors"
-                >
-                  <MessageCircle className="h-5 w-5" />
-                  <span>@vraiequebec</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="leather-card p-8 stitched">
-            <h2 className="text-2xl font-heading font-bold text-white mb-6">Envoyez-nous un message</h2>
-            <form className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Nom</label>
-                <input 
-                  type="text" 
-                  className="w-full bg-black/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary"
-                  placeholder="Votre nom"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
-                <input 
-                  type="email" 
-                  className="w-full bg-black/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary"
-                  placeholder="votre@email.com"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Sujet</label>
-                <select className="w-full bg-black/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary">
-                  <option>Question générale</option>
-                  <option>Partenariat</option>
-                  <option>Problème technique</option>
-                  <option>Suggestion d'événement</option>
-                  <option>Autre</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
-                <textarea 
-                  rows={5}
-                  className="w-full bg-black/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary"
-                  placeholder="Votre message..."
-                />
-              </div>
-              <button type="submit" className="btn-primary w-full py-3">
-                Envoyer
-              </button>
-            </form>
-          </div>
-        </div>
-
-        {/* Office Location */}
-        <div className="mt-12 leather-card p-6 stitched">
-          <div className="flex items-start gap-4">
-            <MapPin className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
             <div>
-              <h3 className="text-xl font-heading font-bold text-white mb-2">Notre Bureau</h3>
-              <p className="text-gray-300">
-                1230 Rue Sainte-Catherine Ouest, Suite 500<br />
-                Montréal, QC H3B 1K1<br />
-                <span className="text-sm text-gray-500">(Visites sur rendez-vous uniquement)</span>
-              </p>
+              <p className="overline mb-4">Nous suivre</p>
+              <div className="flex items-center gap-4">
+                <a
+                  href="https://instagram.com/vraiquebec"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Instagram className="w-4 h-4" />
+                  @vraiquebec
+                </a>
+              </div>
             </div>
           </div>
+
+          {/* Right: form */}
+          <ContactForm />
         </div>
-      </div>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   )
 }

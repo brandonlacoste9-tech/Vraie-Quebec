@@ -3,13 +3,11 @@
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { MainNav } from "@/components/main-nav"
+import { Footer } from "@/components/footer"
 import { RSVPModal } from "@/components/booking/RSVPModal"
-import { getPlaceById } from "@/lib/data/places"
 import type { Place } from "@/lib/types/database"
-import { MapPin, Star, Clock, Users, Music, Shirt, Calendar, ArrowLeft, ExternalLink } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { MapPin, Star, Clock, Users, Music, Shirt, Calendar, ArrowLeft } from "lucide-react"
 
 export default function VenuePage() {
   const params = useParams()
@@ -18,163 +16,147 @@ export default function VenuePage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchVenue = async () => {
-      const id = params.id as string
-      setLoading(true)
-      
-      try {
-        const place = await getPlaceById(id)
-        setVenue(place)
-      } catch (error) {
-        console.error('Error fetching venue:', error)
-        setVenue(null)
-      } finally {
-        setLoading(false)
-      }
-    }
-    
-    fetchVenue()
+    const id = params.id as string
+    fetch(`/api/places/${id}`)
+      .then(res => {
+        if (!res.ok) throw new Error('Not found')
+        return res.json()
+      })
+      .then(setVenue)
+      .catch(() => setVenue(null))
+      .finally(() => setLoading(false))
   }, [params.id])
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gold-500"></div>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-px h-12 bg-primary animate-pulse" />
+          <p className="text-[10px] tracking-[0.22em] uppercase text-muted-foreground font-sans">Chargement</p>
+        </div>
       </div>
     )
   }
 
   if (!venue) {
     return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
-        <h1 className="text-3xl font-heading font-bold text-white mb-4">Venue Not Found</h1>
-        <Button onClick={() => router.push("/")} className="bg-gold-500 text-black hover:bg-gold-400">
-          Return Home
-        </Button>
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-6 p-4">
+        <p className="font-display font-light text-foreground text-3xl" style={{ fontFamily: "var(--font-display)" }}>
+          Établissement introuvable
+        </p>
+        <button onClick={() => router.push("/")} className="btn-ghost-luxury">Retour à l'accueil</button>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-black">
-      {/* Hero Image */}
-      <div className="relative h-[60vh] w-full">
-        <Image
-          src={venue.image}
-          alt={venue.name}
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-        
-        {/* Back Button */}
+    <div className="min-h-screen bg-background">
+      <MainNav />
+
+      {/* Hero image */}
+      <div className="relative h-[60vh] w-full overflow-hidden bg-foreground">
+        <Image src={venue.image} alt={venue.name} fill className="object-cover opacity-90" priority />
+        <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/20 to-transparent" />
+
+        {/* Back */}
         <button
           onClick={() => router.back()}
-          className="absolute top-6 left-6 p-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-full hover:bg-black/70 transition-all"
+          className="absolute top-6 left-6 flex items-center gap-2 px-4 py-2 bg-foreground/50 backdrop-blur-sm border border-primary-foreground/20 text-primary-foreground text-xs tracking-[0.15em] uppercase font-sans hover:bg-foreground/70 transition-colors"
+          aria-label="Retour"
         >
-          <ArrowLeft className="w-5 h-5 text-white" />
+          <ArrowLeft className="w-3.5 h-3.5" />
+          Retour
         </button>
 
         {/* Badges */}
-        <div className="absolute top-6 right-6 flex flex-col gap-2">
-          {venue.priceTier === 'VIP' && (
-            <Badge className="bg-gold-500 text-black font-bold border-none font-heading uppercase rounded-none shadow-lg">
-              VIP Access
-            </Badge>
-          )}
-          {venue.isSponsored && (
-            <Badge className="bg-white/90 text-black font-bold border-none font-heading uppercase rounded-none flex items-center gap-1">
-              <Star className="w-3 h-3 fill-current" /> Sponsored
-            </Badge>
+        <div className="absolute top-6 right-6 flex flex-col items-end gap-2">
+          {venue.has_vip && (
+            <span className="px-3 py-1 bg-primary text-primary-foreground text-[9px] tracking-[0.2em] uppercase font-sans">
+              Accès VIP
+            </span>
           )}
           {venue.is_hot && (
-            <Badge className="bg-red-500 text-white font-bold border-none font-heading uppercase rounded-none">
-              🔥 Hot
-            </Badge>
+            <span className="px-3 py-1 bg-secondary text-secondary-foreground text-[9px] tracking-[0.2em] uppercase font-sans">
+              Tendance
+            </span>
           )}
         </div>
 
-        {/* Title Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-8">
+        {/* Title overlay */}
+        <div className="absolute bottom-0 left-0 right-0 px-6 md:px-12 pb-10">
           <div className="max-w-6xl mx-auto">
-            <div className="flex items-end justify-between gap-4">
-              <div>
-                <p className="text-gold-400 text-sm uppercase tracking-widest mb-2">{venue.type}</p>
-                <h1 className="text-5xl md:text-7xl font-heading font-bold text-white uppercase mb-4">
-                  {venue.name}
-                </h1>
-                <div className="flex items-center gap-4 text-white/80">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-gold-500" />
-                    <span>{venue.location}, {venue.city}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Star className="w-4 h-4 text-gold-500 fill-gold-500" />
-                    <span className="font-bold">{venue.rating}</span>
-                  </div>
-                  <div className="text-gold-400 font-bold text-xl">
-                    {venue.priceTier || venue.price}
-                  </div>
-                </div>
-              </div>
+            <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-3">{venue.type}</p>
+            <h1 className="font-display font-light text-primary-foreground leading-[1.1] mb-4" style={{ fontFamily: "var(--font-display)" }}>
+              {venue.name}
+            </h1>
+            <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
+              <span className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
+                {venue.location}, {venue.city}
+              </span>
+              <span className="flex items-center gap-2">
+                <Star className="w-4 h-4 fill-primary text-primary flex-shrink-0" />
+                <span className="text-primary-foreground font-medium">{venue.rating}</span>
+                <span>/ 5.0</span>
+              </span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Description */}
+      <div className="max-w-6xl mx-auto px-6 md:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+
+          {/* Main */}
+          <div className="lg:col-span-2 space-y-16">
             <section>
-              <h2 className="text-2xl font-heading font-bold text-white uppercase mb-4">About</h2>
-              <p className="text-white/80 text-lg leading-relaxed">{venue.description}</p>
+              <p className="overline mb-4">À propos</p>
+              <div className="h-px bg-border mb-8" />
+              <p className="text-muted-foreground text-lg leading-relaxed">{venue.description}</p>
             </section>
 
-            {/* Nightlife Specific Info */}
-            {(venue.vibe || venue.musicGenre || venue.dressCode || venue.eventLineup) && (
+            {(venue.vibe || venue.music_genre || venue.dress_code || (venue.event_lineup && venue.event_lineup.length > 0)) && (
               <section>
-                <h2 className="text-2xl font-heading font-bold text-white uppercase mb-4">Experience</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p className="overline mb-4">Expérience</p>
+                <div className="h-px bg-border mb-8" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
                   {venue.vibe && (
-                    <div className="bg-white/5 border border-white/10 rounded-lg p-4">
-                      <div className="flex items-center gap-3 mb-2">
-                        <Clock className="w-5 h-5 text-gold-500" />
-                        <h3 className="font-heading font-bold text-white uppercase">Vibe</h3>
+                    <div className="bg-surface p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Clock className="w-4 h-4 text-primary" />
+                        <p className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground font-sans">Ambiance</p>
                       </div>
-                      <p className="text-white/80">{venue.vibe}</p>
+                      <p className="text-foreground">{venue.vibe}</p>
                     </div>
                   )}
-                  {venue.musicGenre && (
-                    <div className="bg-white/5 border border-white/10 rounded-lg p-4">
-                      <div className="flex items-center gap-3 mb-2">
-                        <Music className="w-5 h-5 text-gold-500" />
-                        <h3 className="font-heading font-bold text-white uppercase">Music</h3>
+                  {venue.music_genre && (
+                    <div className="bg-surface p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Music className="w-4 h-4 text-primary" />
+                        <p className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground font-sans">Musique</p>
                       </div>
-                      <p className="text-white/80">{venue.musicGenre}</p>
+                      <p className="text-foreground">{venue.music_genre}</p>
                     </div>
                   )}
-                  {venue.dressCode && (
-                    <div className="bg-white/5 border border-white/10 rounded-lg p-4">
-                      <div className="flex items-center gap-3 mb-2">
-                        <Shirt className="w-5 h-5 text-gold-500" />
-                        <h3 className="font-heading font-bold text-white uppercase">Dress Code</h3>
+                  {venue.dress_code && (
+                    <div className="bg-surface p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Shirt className="w-4 h-4 text-primary" />
+                        <p className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground font-sans">Code vestimentaire</p>
                       </div>
-                      <p className="text-white/80">{venue.dressCode}</p>
+                      <p className="text-foreground">{venue.dress_code}</p>
                     </div>
                   )}
-                  {venue.eventLineup && venue.eventLineup.length > 0 && (
-                    <div className="bg-white/5 border border-white/10 rounded-lg p-4">
-                      <div className="flex items-center gap-3 mb-2">
-                        <Users className="w-5 h-5 text-gold-500" />
-                        <h3 className="font-heading font-bold text-white uppercase">Lineup</h3>
+                  {venue.event_lineup && venue.event_lineup.length > 0 && (
+                    <div className="bg-surface p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Users className="w-4 h-4 text-primary" />
+                        <p className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground font-sans">Artistes</p>
                       </div>
-                      <ul className="text-white/80 space-y-1">
-                        {venue.eventLineup.map((artist, idx) => (
-                          <li key={idx}>• {artist}</li>
+                      <ul className="space-y-1">
+                        {venue.event_lineup.map((artist, idx) => (
+                          <li key={idx} className="text-foreground text-sm">— {artist}</li>
                         ))}
                       </ul>
                     </div>
@@ -182,79 +164,54 @@ export default function VenuePage() {
                 </div>
               </section>
             )}
-
-            {/* Sponsored Link */}
-            {venue.isSponsored && venue.adUrl && (
-              <section className="bg-gradient-to-r from-gold-500/10 to-gold-600/10 border border-gold-500/30 rounded-lg p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gold-400 text-sm uppercase tracking-widest mb-1">Sponsored by</p>
-                    <h3 className="text-2xl font-heading font-bold text-white">{venue.sponsorName}</h3>
-                  </div>
-                  <Button
-                    onClick={() => window.open(venue.adUrl, '_blank')}
-                    variant="outline"
-                    className="border-gold-500 text-gold-400 hover:bg-gold-500 hover:text-black"
-                  >
-                    Learn More <ExternalLink className="w-4 h-4 ml-2" />
-                  </Button>
-                </div>
-              </section>
-            )}
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Booking Card */}
-            <div className="bg-white/5 border border-white/10 rounded-lg p-6 sticky top-6">
-              <h3 className="text-xl font-heading font-bold text-white uppercase mb-4">Reserve Your Spot</h3>
-              
-              <div className="space-y-4 mb-6">
-                <div className="flex items-center justify-between text-white/80">
-                  <span>Booking Type</span>
-                  <span className="font-bold text-gold-400 uppercase">{venue.bookingType || 'Reservation'}</span>
+            {/* Booking card */}
+            <div className="bg-foreground p-8 sticky top-24 relative">
+              <div className="absolute inset-3 border border-primary/20 pointer-events-none" />
+              <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-6">Réservation</p>
+              <div className="space-y-4 mb-6 pb-6 border-b border-border">
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground text-sm">Type</span>
+                  <span className="text-primary text-xs tracking-[0.15em] uppercase font-sans">{venue.booking_type || "Réservation"}</span>
                 </div>
-                <div className="flex items-center justify-between text-white/80">
-                  <span>Price Range</span>
-                  <span className="font-bold text-gold-400">{venue.priceTier || venue.price}</span>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground text-sm">Gamme</span>
+                  <span className="text-primary text-xs tracking-[0.15em] uppercase font-sans">{venue.price_tier || venue.price}</span>
                 </div>
               </div>
-
               <RSVPModal venueName={venue.name} placeId={venue.id} imageUrl={venue.image}>
-                <Button className="w-full bg-gold-500 text-black hover:bg-gold-400 font-heading uppercase font-bold h-12 shadow-[0_0_20px_rgba(234,179,8,0.4)]">
-                  Secure VIP Access
-                </Button>
+                <button className="btn-luxury w-full">Réserver</button>
               </RSVPModal>
-
-              <p className="text-white/60 text-xs text-center mt-4">
-                Instant confirmation • No booking fees
-              </p>
+              <p className="text-muted-foreground text-[11px] text-center mt-4">Confirmation instantanée · Sans frais</p>
             </div>
 
-            {/* Quick Info */}
-            <div className="bg-white/5 border border-white/10 rounded-lg p-6">
-              <h3 className="text-lg font-heading font-bold text-white uppercase mb-4">Quick Info</h3>
-              <div className="space-y-3 text-sm">
+            {/* Info */}
+            <div className="bg-surface border border-border p-6">
+              <p className="overline mb-5">Informations</p>
+              <div className="space-y-5 text-sm">
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-gold-500 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="text-white/60">Location</p>
-                    <p className="text-white font-semibold">{venue.location}, {venue.city}</p>
+                    <p className="text-muted-foreground text-xs mb-1">Localisation</p>
+                    <p className="text-foreground font-medium">{venue.location}, {venue.city}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Star className="w-4 h-4 text-gold-500 mt-0.5" />
+                  <Star className="w-4 h-4 text-primary mt-0.5 flex-shrink-0 fill-primary" />
                   <div>
-                    <p className="text-white/60">Rating</p>
-                    <p className="text-white font-semibold">{venue.rating} / 5.0</p>
+                    <p className="text-muted-foreground text-xs mb-1">Note</p>
+                    <p className="text-foreground font-medium">{venue.rating} / 5.0</p>
                   </div>
                 </div>
                 {venue.exclusive && (
                   <div className="flex items-start gap-3">
-                    <Calendar className="w-4 h-4 text-gold-500 mt-0.5" />
+                    <Calendar className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="text-white/60">Status</p>
-                      <p className="text-gold-400 font-semibold">Exclusive Access</p>
+                      <p className="text-muted-foreground text-xs mb-1">Statut</p>
+                      <p className="text-primary font-medium text-xs tracking-[0.12em] uppercase">Accès Exclusif</p>
                     </div>
                   </div>
                 )}
@@ -263,8 +220,8 @@ export default function VenuePage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }
-
-

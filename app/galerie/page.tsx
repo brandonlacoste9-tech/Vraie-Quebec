@@ -1,10 +1,9 @@
 "use client"
 
-import { MainNav } from "@/components/main-nav"
-import { useLanguage } from "@/components/language-provider"
 import { useState, useEffect } from "react"
-import { Heart, Share2, Download } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { MainNav } from "@/components/main-nav"
+import { Footer } from "@/components/footer"
+import { Heart, Share2, Download, X } from "lucide-react"
 import Link from "next/link"
 
 interface GalleryImage {
@@ -13,21 +12,63 @@ interface GalleryImage {
   prompt: string
   likes: number
   timestamp: number
-  user?: string
+  curated?: boolean
 }
 
-export default function GaleriePage() {
-  const { t } = useLanguage()
-  const [images, setImages] = useState<GalleryImage[]>([])
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
+const CURATED: GalleryImage[] = [
+  {
+    id: "c1", curated: true, likes: 48, timestamp: 0,
+    prompt: "Vieux-Québec sous la neige — ruelles pavées, lanternes dorées et façades en pierre au crépuscule",
+    url: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c2", curated: true, likes: 61, timestamp: 0,
+    prompt: "Table gastronomique montréalaise dressée avec élégance — chandelles, verrerie en cristal et terroir québécois",
+    url: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c3", curated: true, likes: 37, timestamp: 0,
+    prompt: "Bar à cocktails feutré à Montréal — cuir, bois sombre et lumières ambrées",
+    url: "https://images.unsplash.com/photo-1527761939622-933c972d11e1?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c4", curated: true, likes: 55, timestamp: 0,
+    prompt: "Charlevoix en automne — vignobles en feu de couleurs sur les rives du Saint-Laurent",
+    url: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c5", curated: true, likes: 29, timestamp: 0,
+    prompt: "Terrasse estivale du Plateau Mont-Royal — lumière dorée, bistrot et art de vivre québécois",
+    url: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c6", curated: true, likes: 43, timestamp: 0,
+    prompt: "Festival d'été de Québec — Plaines d'Abraham sous les étoiles, foule enivrée de musique",
+    url: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c7", curated: true, likes: 72, timestamp: 0,
+    prompt: "Chalet de luxe aux Laurentides — panorama enneigé, bois de cèdre et lumière tamisée",
+    url: "https://images.unsplash.com/photo-1477346611705-65d1883cee1e?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: "c8", curated: true, likes: 34, timestamp: 0,
+    prompt: "Île d'Orléans au printemps — vergers en fleurs, maisons ancestrales et ciel bleu du Québec",
+    url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=85&auto=format&fit=crop",
+  },
+]
 
-  // Load images from localStorage
+export default function GaleriePage() {
+  const [images, setImages] = useState<GalleryImage[]>([])
+  const [selected, setSelected] = useState<GalleryImage | null>(null)
+
   useEffect(() => {
     const stored = localStorage.getItem("generations")
+    let userImages: GalleryImage[] = []
     if (stored) {
       try {
         const parsed = JSON.parse(stored)
-        const galleryImages: GalleryImage[] = parsed
+        userImages = parsed
           .filter((g: any) => g.status === "complete" && g.imageUrl)
           .map((g: any) => ({
             id: g.id,
@@ -36,207 +77,162 @@ export default function GaleriePage() {
             likes: Math.floor(Math.random() * 50),
             timestamp: g.timestamp,
           }))
-        setImages(galleryImages)
-      } catch (e) {
-        console.error("Error loading gallery:", e)
-      }
+      } catch {}
     }
+    // Merge user-generated first, then curated as fallback/backdrop
+    setImages([...userImages, ...CURATED])
   }, [])
 
-  const handleLike = (id: string) => {
+  const handleLike = (id: string) =>
     setImages((prev) => prev.map((img) => (img.id === id ? { ...img, likes: img.likes + 1 } : img)))
-  }
 
   const handleShare = async (image: GalleryImage) => {
     if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Vrai Québec - AI Creation",
-          text: image.prompt,
-          url: window.location.href,
-        })
-      } catch (err) {
-        console.log("Share cancelled")
-      }
+      await navigator.share({ title: "Vrai Québec", text: image.prompt, url: window.location.href }).catch(() => {})
     } else {
-      navigator.clipboard.writeText(window.location.href)
-      alert("Link copied to clipboard!")
+      await navigator.clipboard.writeText(window.location.href)
     }
   }
 
   const handleDownload = async (image: GalleryImage) => {
     try {
-      const response = await fetch(image.url)
-      const blob = await response.blob()
-      const url = window.URL.createObjectURL(blob)
+      const res = await fetch(image.url)
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
       const a = document.createElement("a")
       a.href = url
       a.download = `vrai-quebec-${image.id}.png`
-      document.body.appendChild(a)
       a.click()
-      document.body.removeChild(a)
-      window.URL.revokeObjectURL(url)
-    } catch (err) {
-      console.error("Download error:", err)
-    }
+      URL.revokeObjectURL(url)
+    } catch {}
   }
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-background">
       <MainNav />
 
-      {/* Header */}
-      <div className="relative overflow-hidden border-b border-primary/20">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10" />
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-pulse-glow" />
-          <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-accent/20 rounded-full blur-3xl animate-pulse-glow delay-1000" />
-        </div>
+      <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-border">
+        <p className="overline mb-4">Créations visuelles</p>
+        <h1 className="font-display font-light text-foreground mb-4" style={{ fontFamily: "var(--font-display)" }}>
+          Galerie
+        </h1>
+        <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
+          Les créations générées par notre communauté — visions du Québec réinventé par l'intelligence artificielle.
+        </p>
+      </header>
 
-        <div className="container mx-auto px-4 py-12 relative z-10">
-          <h1 className="text-4xl md:text-6xl font-bold text-center bg-gradient-to-r from-primary via-white to-accent bg-clip-text text-transparent mb-2">
-            {t.galerie.title}
-          </h1>
-          <p className="text-center text-gray-400 text-sm md:text-base max-w-2xl mx-auto">{t.galerie.subtitle}</p>
-        </div>
-      </div>
-
-      {/* Gallery Grid */}
-      <div className="container mx-auto px-4 py-12">
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-16">
         {images.length === 0 ? (
-          <div className="text-center py-20">
-            <div className="w-24 h-24 mx-auto mb-6 border-2 border-primary/30 rounded-full flex items-center justify-center">
-              <svg className="w-12 h-12 text-primary/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+          <div className="py-24 text-center">
+            <div className="w-16 h-16 mx-auto mb-8 border border-border flex items-center justify-center">
+              <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="18" height="18" rx="1" />
                 <circle cx="8.5" cy="8.5" r="1.5" />
                 <polyline points="21,15 16,10 5,21" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold mb-2">{t.galerie.empty}</h2>
-            <p className="text-gray-400 mb-6">{t.galerie.emptyDesc}</p>
-            <Button asChild className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
-              <Link href="/creer">{t.galerie.createBtn}</Link>
-            </Button>
+            <p className="font-display font-light text-foreground text-3xl mb-4" style={{ fontFamily: "var(--font-display)" }}>
+              La galerie est vide
+            </p>
+            <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
+              Créez votre première vision du Québec avec notre outil de génération d'images.
+            </p>
+            <Link href="/creer" className="btn-luxury">
+              Créer une image
+            </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {images.map((image) => (
-              <div
-                key={image.id}
-                className="group relative bg-secondary/20 border border-primary/10 rounded-lg overflow-hidden hover:border-primary/50 transition-all hover:shadow-[0_0_30px_rgba(var(--primary),0.3)] cursor-pointer"
-                onClick={() => setSelectedImage(image)}
-              >
-                <div className="aspect-square relative overflow-hidden">
-                  <img
-                    src={image.url || "/placeholder.svg"}
-                    alt={image.prompt}
-                    className="w-full h-full object-cover transition-transform group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
-
-                <div className="p-4 space-y-3">
-                  <p className="text-sm text-gray-300 line-clamp-2">{image.prompt}</p>
-
-                  <div className="flex items-center justify-between pt-2 border-t border-primary/10">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        handleLike(image.id)
-                      }}
-                      className="flex items-center gap-2 text-sm text-gray-400 hover:text-primary transition-colors"
-                    >
-                      <Heart className="w-4 h-4" />
-                      <span>{image.likes}</span>
-                    </button>
-
-                    <div className="flex gap-2">
+          <>
+            <p className="overline mb-8">{images.length} création{images.length > 1 ? "s" : ""}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-border">
+              {images.map((image) => (
+                <article
+                  key={image.id}
+                  className="group bg-surface hover:bg-surface-raised transition-colors duration-300 cursor-pointer"
+                  onClick={() => setSelected(image)}
+                >
+                  <div className="aspect-square relative overflow-hidden bg-muted">
+                    <img
+                      src={image.url}
+                      alt={image.prompt}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <p className="text-muted-foreground text-sm line-clamp-2 mb-4 leading-relaxed">
+                      {image.prompt}
+                    </p>
+                    <div className="flex items-center justify-between pt-3 border-t border-border">
                       <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleShare(image)
-                        }}
-                        className="p-2 hover:bg-primary/10 rounded transition-colors"
-                        title={t.galerie.share}
+                        onClick={(e) => { e.stopPropagation(); handleLike(image.id) }}
+                        className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors"
                       >
-                        <Share2 className="w-4 h-4 text-gray-400 hover:text-primary" />
+                        <Heart className="w-3.5 h-3.5" />
+                        <span>{image.likes}</span>
                       </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleDownload(image)
-                        }}
-                        className="p-2 hover:bg-primary/10 rounded transition-colors"
-                        title={t.galerie.download}
-                      >
-                        <Download className="w-4 h-4 text-gray-400 hover:text-primary" />
-                      </button>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={(e) => { e.stopPropagation(); handleShare(image) }}
+                          className="p-1.5 text-muted-foreground hover:text-primary transition-colors"
+                          title="Partager"
+                        >
+                          <Share2 className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); handleDownload(image) }}
+                          className="p-1.5 text-muted-foreground hover:text-primary transition-colors"
+                          title="Télécharger"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
+                </article>
+              ))}
+            </div>
+          </>
         )}
-      </div>
+      </main>
 
-      {/* Fullscreen Modal */}
-      {selectedImage && (
+      {/* Lightbox */}
+      {selected && (
         <div
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
-          onClick={() => setSelectedImage(null)}
+          className="fixed inset-0 z-50 bg-foreground/95 flex items-center justify-center p-4 md:p-8"
+          onClick={() => setSelected(null)}
         >
-          <div className="relative max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
+          <div className="relative max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
             <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute -top-12 right-0 text-white hover:text-primary transition-colors"
+              onClick={() => setSelected(null)}
+              className="absolute -top-10 right-0 text-background hover:text-primary transition-colors"
             >
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
+              <X className="w-6 h-6" />
             </button>
-
-            <div className="bg-secondary/50 border border-primary/20 rounded-lg overflow-hidden backdrop-blur-xl">
+            <div className="bg-surface">
               <img
-                src={selectedImage.url || "/placeholder.svg"}
-                alt={selectedImage.prompt}
-                className="w-full h-auto max-h-[70vh] object-contain"
+                src={selected.url}
+                alt={selected.prompt}
+                className="w-full h-auto max-h-[65vh] object-contain"
               />
-
-              <div className="p-6 space-y-4">
-                <p className="text-lg text-white">{selectedImage.prompt}</p>
-
-                <div className="flex items-center justify-between pt-4 border-t border-primary/20">
-                  <div className="flex items-center gap-4">
-                    <button
-                      onClick={() => handleLike(selectedImage.id)}
-                      className="flex items-center gap-2 text-gray-300 hover:text-primary transition-colors"
-                    >
-                      <Heart className="w-5 h-5" />
-                      <span>{selectedImage.likes}</span>
+              <div className="p-6 md:p-8">
+                <p className="text-foreground leading-relaxed mb-6" style={{ fontFamily: "var(--font-display)" }}>
+                  {selected.prompt}
+                </p>
+                <div className="flex items-center justify-between pt-4 border-t border-border">
+                  <button
+                    onClick={() => handleLike(selected.id)}
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    <Heart className="w-4 h-4" />
+                    <span>{selected.likes}</span>
+                  </button>
+                  <div className="flex gap-3">
+                    <button onClick={() => handleShare(selected)} className="btn-ghost-luxury text-[10px]">
+                      Partager
                     </button>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <Button
-                      onClick={() => handleShare(selectedImage)}
-                      variant="outline"
-                      size="sm"
-                      className="border-primary/30 hover:bg-primary/10"
-                    >
-                      <Share2 className="w-4 h-4 mr-2" />
-                      {t.galerie.share}
-                    </Button>
-                    <Button
-                      onClick={() => handleDownload(selectedImage)}
-                      variant="outline"
-                      size="sm"
-                      className="border-primary/30 hover:bg-primary/10"
-                    >
-                      <Download className="w-4 h-4 mr-2" />
-                      {t.galerie.download}
-                    </Button>
+                    <button onClick={() => handleDownload(selected)} className="btn-luxury text-[10px]">
+                      Télécharger
+                    </button>
                   </div>
                 </div>
               </div>
@@ -244,6 +240,8 @@ export default function GaleriePage() {
           </div>
         </div>
       )}
-    </main>
+
+      <Footer />
+    </div>
   )
 }

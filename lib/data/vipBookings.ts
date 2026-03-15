@@ -11,7 +11,6 @@ export async function createVipBooking(input: CreateVipBookingInput): Promise<Vi
   const supabase = createClient()
   
   if (!supabase) {
-    console.warn('[VIP Bookings] Supabase client not available')
     throw new Error('Database connection not available')
   }
 

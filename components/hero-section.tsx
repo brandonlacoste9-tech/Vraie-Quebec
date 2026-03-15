@@ -1,140 +1,93 @@
 "use client"
-import { useLanguage } from "@/components/language-provider"
+
 import Image from "next/image"
+import Link from "next/link"
 
 export function HeroSection() {
-  const { t } = useLanguage()
-
-  const content = t.hero
-
   return (
-    <section className="relative overflow-hidden bg-background py-20 md:py-32 min-h-[85vh] flex flex-col justify-center">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0 select-none bg-black">
+    <section className="relative overflow-hidden bg-foreground min-h-[90vh] flex flex-col justify-end">
+      {/* Full-bleed image */}
+      <div className="absolute inset-0 z-0">
         <Image
           src="/images/pattern-v4.png"
-          alt="Vrai Quebec Background Pattern"
+          alt="Vrai Québec"
           fill
-          className="object-cover contrast-110 brightness-100"
-          quality={100}
+          className="object-cover"
+          quality={90}
           priority
         />
-        <div className="absolute inset-0 bg-black/50" />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80" />
+        <div className="absolute inset-0 bg-foreground/55" />
+        <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/20 to-transparent" />
       </div>
 
-      {/* Ambient field - Subtle colored glow on top of the image */}
-      {/* Reduced opacity to prevent washing out the image colors */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none z-0 mix-blend-overlay">
-        <div
-          className="absolute top-[-10%] left-[20%] w-[28rem] h-[28rem] rounded-full blur-[80px] transition-colors duration-1000"
-          style={{ backgroundColor: `hsl(var(--primary-hue), 91%, 60%)` }}
-        />
-        <div
-          className="absolute bottom-[-10%] right-[20%] w-[28rem] h-[28rem] rounded-full blur-[80px] transition-colors duration-1000"
-          style={{ backgroundColor: `hsl(var(--accent-hue), 76%, 36%)` }}
-        />
-      </div>
+      {/* Candlelight glow accent — top center */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[40rem] h-[20rem] pointer-events-none z-0"
+        style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(201,163,94,0.08) 0%, transparent 70%)" }}
+      />
 
       {/* Content */}
-      <div className="container relative mx-auto px-4 z-10">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 backdrop-blur-md animate-in fade-in zoom-in duration-500">
-            <span className="text-xs md:text-sm font-bold text-primary tracking-widest uppercase neon-text">
-              {content.badge}
-            </span>
-          </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 pb-20 md:pb-28 pt-40">
+        {/* Eyebrow */}
+        <p className="text-[10px] tracking-[0.3em] uppercase text-primary font-sans mb-6">
+          Art de vivre · Montréal · Québec
+        </p>
 
-          <h1
-            className="font-heading text-7xl md:text-9xl lg:text-[10rem] font-black leading-tight tracking-tighter mb-6 select-none py-4"
-            style={{
-              color: "transparent",
-              WebkitTextStroke: "2px hsl(var(--primary-hue), 91%, 60%)",
-              textShadow: `0 0 20px hsla(var(--primary-hue), 91%, 60%, 0.5)`,
-            }}
+        {/* Headline */}
+        <h1
+          className="font-display font-light text-background leading-[1.05] mb-8"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(3.5rem, 9vw, 8rem)",
+            letterSpacing: "-0.02em",
+          }}
+        >
+          Le meilleur
+          <br />
+          <em className="text-primary not-italic">du Québec</em>
+        </h1>
+
+        {/* Sub */}
+        <p className="text-background/70 text-lg md:text-xl max-w-2xl leading-relaxed mb-10 font-light">
+          Restaurants d'exception, bars de caractère, événements exclusifs. La sélection définitive pour vivre Montréal et Québec à leur meilleur.
+        </p>
+
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Link
+            href="/restaurants"
+            className="inline-flex items-center justify-center px-8 h-12 bg-primary text-primary-foreground text-[11px] tracking-[0.2em] uppercase font-sans hover:bg-[var(--primary-dark)] transition-colors"
           >
-            <span className="block drop-shadow-2xl filter text-[rgba(9,9,22,1)] text-9xl font-serif">
-              {content.headline_prefix}
-            </span>
-            <span
-              className="block bg-clip-text bg-gradient-to-b from-white to-white/50 text-9xl bg-[rgba(128,75,75,1)] text-shadow-color font-serif"
-              style={{
-                backgroundImage: `linear-gradient(180deg, #fff 0%, hsl(var(--primary-hue), 91%, 80%) 100%)`,
-              }}
-            >
-              {content.headline_highlight}
-            </span>
-          </h1>
-
-          <p className="mb-8 text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed font-medium text-balance drop-shadow-md">
-            {content.description}
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="#featured"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 rounded-md px-8 bg-primary text-primary-foreground text-lg font-bold hover:bg-primary/90 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all hover:-translate-y-0.5"
-            >
-              {content.cta_primary}
-            </a>
-            <a
-              href="https://buy.stripe.com/test_6oU4gAfx18Ye11Xapw1kA00"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 rounded-md px-8 bg-background/40 backdrop-blur-md border border-primary/20 text-foreground text-lg font-medium hover:bg-primary/10 hover:text-primary hover:border-primary/50 transition-all"
-            >
-              {content.cta_secondary}
-            </a>
-          </div>
+            Explorer les adresses
+          </Link>
+          <Link
+            href="/members"
+            className="inline-flex items-center justify-center px-8 h-12 border border-background/40 text-background text-[11px] tracking-[0.2em] uppercase font-sans hover:border-primary hover:text-primary transition-colors"
+          >
+            Accès Membre
+          </Link>
         </div>
       </div>
 
-      {/* Marquee */}
-      <div className="mt-20 md:mt-32 overflow-hidden border-y border-white/5 bg-black/20 backdrop-blur-sm">
-        <Marquee items={content.marquee} />
+      {/* Bottom marquee strip */}
+      <div className="relative z-10 border-t border-background/10 bg-foreground/40 backdrop-blur-sm overflow-hidden">
+        <div className="flex gap-0 whitespace-nowrap">
+          <div className="flex min-w-full animate-[scrollX_30s_linear_infinite]">
+            {["Gastronomie", "Cocktails", "Événements privés", "Hôtels de luxe", "Art & Culture", "Sports", "Voyage", "Vins naturels", "Terrasse", "Jazz"].map((item, i) => (
+              <span key={i} className="px-8 py-3 text-[10px] tracking-[0.25em] uppercase text-background/50 border-r border-background/10 font-sans">
+                {item}
+              </span>
+            ))}
+          </div>
+          <div className="flex min-w-full animate-[scrollX_30s_linear_infinite]" aria-hidden>
+            {["Gastronomie", "Cocktails", "Événements privés", "Hôtels de luxe", "Art & Culture", "Sports", "Voyage", "Vins naturels", "Terrasse", "Jazz"].map((item, i) => (
+              <span key={i} className="px-8 py-3 text-[10px] tracking-[0.25em] uppercase text-background/50 border-r border-background/10 font-sans">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
-  )
-}
-
-function Marquee({ items }: { items: string[] }) {
-  return (
-    <div className="relative py-4">
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{ boxShadow: `0 0 28px hsla(var(--primary-hue),91%,60%,0.25)` }}
-      />
-      <div className="flex gap-8 whitespace-nowrap overflow-hidden">
-        <div className="flex gap-8 min-w-full animate-[scrollX_20s_linear_infinite]">
-          {[...items, ...items, ...items].map((item, i) => (
-            <span
-              key={i}
-              className="px-6 py-2 rounded-full text-sm md:text-base font-bold tracking-widest border border-white/10 bg-white/5 backdrop-blur-md"
-              style={{
-                color: `hsl(var(--primary-hue), 91%, 80%)`,
-                borderColor: `hsla(var(--accent-hue), 76%, 36%, 0.35)`,
-              }}
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-        <div className="flex gap-8 min-w-full animate-[scrollX_20s_linear_infinite]" aria-hidden="true">
-          {[...items, ...items, ...items].map((item, i) => (
-            <span
-              key={i}
-              className="px-6 py-2 rounded-full text-sm md:text-base font-bold tracking-widest border border-white/10 bg-white/5 backdrop-blur-md"
-              style={{
-                color: `hsl(var(--primary-hue), 91%, 80%)`,
-                borderColor: `hsla(var(--accent-hue), 76%, 36%, 0.35)`,
-              }}
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
   )
 }

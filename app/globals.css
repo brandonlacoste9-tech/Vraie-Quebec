@@ -1,642 +1,542 @@
 @import "tailwindcss";
-
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Base Hue Defaults (Nightlife) */
-  --primary-hue: 268;
-  --accent-hue: 188;
+  /* ─── LOUIS VUITTON × HERMÈS ──────────────────────────────────────────────
+     Palette: Warm ivory + deep charcoal + burnished gold + cognac
+  ──────────────────────────────────────────────────────────────────────────── */
 
-  /* Base Nightlife Theme (Default) */
-  --background: #000000;
-  --foreground: #ffffff;
-  --card: #0a0a0a;
-  --card-foreground: #ffffff;
-  --popover: #0a0a0a;
-  --popover-foreground: #ffffff;
+  /* Surfaces */
+  --background:         #F4F1EC;   /* warm ivory parchment */
+  --surface:            #FAF8F5;   /* near-white for cards */
+  --surface-raised:     #FFFFFF;
+  --foreground:         #1C1916;   /* deep warm charcoal */
 
-  /* Dynamic Colors using Hue Variables */
-  --primary: hsl(var(--primary-hue), 91%, 60%);
-  --primary-foreground: #ffffff;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #ffffff;
-  --muted: #1a1a1a;
-  --muted-foreground: #a1a1aa;
-  --accent: hsl(var(--accent-hue), 76%, 36%);
-  --accent-foreground: #ffffff;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #1f1f1f;
-  --input: #1f1f1f;
-  --ring: #0044ff;
-  --radius: 0rem;
-  --font-inter: "Inter", sans-serif;
-  --font-cinzel: "Cinzel", serif;
-  --font-playfair: "Playfair Display", serif;
+  /* Brand — Gold */
+  --primary:            #B08D57;   /* burnished gold */
+  --primary-dark:       #8C6D3F;   /* deeper gold for hover */
+  --primary-foreground: #FAF8F5;
 
-  /* Custom Animation Vars */
-  --glow-color: hsla(var(--primary-hue), 91%, 60%, 0.5);
+  /* Secondary — Cognac */
+  --secondary:          #7A3B1E;   /* Hermès orange-cognac */
+  --secondary-foreground: #FAF8F5;
 
-  /* Added 8px grid spacing tokens */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 16px;
-  --space-4: 24px;
-  --space-5: 32px;
-  --space-6: 48px;
-  --space-7: 64px;
+  /* Neutrals */
+  --muted:              #E8E4DC;   /* warm light gray */
+  --muted-foreground:   #7D7468;   /* warm medium gray */
 
-  /* Added consistent component sizing tokens */
-  --button-height: 48px;
-  --input-height: 56px;
-  --card-padding: 16px;
+  /* Borders */
+  --border:             #D6D0C6;   /* warm parchment border */
+  --border-strong:      #B0A898;
 
-  /* Added animation timing tokens */
-  --duration-micro: 150ms;
-  --duration-standard: 300ms;
-  --duration-emphasis: 500ms;
-  --easing-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+  /* Shadcn compat */
+  --card:               var(--surface);
+  --card-foreground:    var(--foreground);
+  --popover:            var(--surface-raised);
+  --popover-foreground: var(--foreground);
+  --accent:             var(--primary);
+  --accent-foreground:  var(--primary-foreground);
+  --destructive:        #8C1A0F;
+  --destructive-foreground: #FAF8F5;
+  --input:              var(--surface);
+  --ring:               var(--primary);
+  --radius:             0rem;   /* sharp corners — maison de couture */
 
-  /* Added shadow tokens for consistent depth */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px -5px var(--glow-color);
+  /* ─── TYPOGRAPHY ──────────────────────────────────────────────────────────
+     Cormorant Garamond: regal, editorial, high-fashion serif
+     DM Sans:            clean, precise body text
+  ──────────────────────────────────────────────────────────────────────────── */
+  --font-display: "Cormorant Garamond", serif;
+  --font-sans:    "DM Sans", sans-serif;
+  --font-mono:    "DM Mono", monospace;
+
+  /* Tracking tokens */
+  --tracking-luxury:    0.18em;
+  --tracking-tight:     -0.01em;
+
+  /* ─── MOTION ──────────────────────────────────────────────────────────────*/
+  --duration-fast:      150ms;
+  --duration-standard:  400ms;
+  --duration-slow:      700ms;
+  --ease-luxury:        cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out:           cubic-bezier(0.0, 0.0, 0.2, 1);
+
+  /* ─── SHADOWS — whisper-light ──────────────────────────────────────────── */
+  --shadow-xs:  0 1px 2px rgba(28,25,22,0.04);
+  --shadow-sm:  0 2px 8px rgba(28,25,22,0.06);
+  --shadow-md:  0 4px 16px rgba(28,25,22,0.08);
+  --shadow-lg:  0 12px 32px rgba(28,25,22,0.10);
+  --shadow-xl:  0 24px 48px rgba(28,25,22,0.12);
 }
 
-/* Terrasse Theme (Greens/Yellows) */
-[data-theme="terrasse"] {
-  --primary-hue: 142;
-  --accent-hue: 45;
-  /* mapped to hues */
-  --primary: hsl(var(--primary-hue), 70%, 50%);
-  --primary-foreground: #ffffff;
-  --accent: hsl(var(--accent-hue), 90%, 50%);
-  --ring: hsl(var(--primary-hue), 70%, 50%);
-  --glow-color: hsla(var(--primary-hue), 70%, 50%, 0.5);
-}
-
-/* Festival Theme (Reds/Oranges) */
-[data-theme="festival"] {
-  --primary-hue: 345;
-  --accent-hue: 25;
-  /* mapped to hues */
-  --primary: hsl(var(--primary-hue), 80%, 60%);
-  --primary-foreground: #ffffff;
-  --accent: hsl(var(--accent-hue), 90%, 60%);
-  --ring: hsl(var(--primary-hue), 80%, 60%);
-  --glow-color: hsla(var(--primary-hue), 80%, 60%, 0.5);
-}
-
-.dark {
-  /* ensuring dark mode respects the hue variables if used, but mostly we are forcing dark mode look */
-  --background: hsl(222.2 84% 4.9%);
-  --foreground: hsl(210 40% 98%);
-  --card: hsl(222.2 84% 4.9%);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: hsl(222.2 84% 4.9%);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: hsl(45 93% 47%);
-  /* Elegant Amber/Gold */
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: hsl(45 10% 15%);
-  --secondary-foreground: hsl(45 93% 47%);
-  --muted: hsl(45 10% 15%);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: hsl(45 10% 15%);
-  --accent-foreground: hsl(45 93% 47%);
-  --destructive: hsl(0 62.8% 30.6%);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: hsl(45 10% 15%);
-  --input: hsl(217.2 32.6% 17.5%);
-  --ring: hsl(224.3 76.3% 94.1%);
-  --chart-1: hsl(217.2 91.2% 59.8%);
-  --chart-2: hsl(212 95% 68%);
-  --chart-3: hsl(216 92% 60%);
-  --chart-4: hsl(210 98% 78%);
-  --chart-5: hsl(212 97% 87%);
-  --sidebar: hsl(240 5.9% 10%);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
-}
-
+/* ─── Tailwind v4 theme bridge ─────────────────────────────────────────────── */
 @theme inline {
-  --font-heading: var(--font-cinzel);
-  --font-sans: var(--font-inter);
-  --font-logo: var(--font-playfair);
+  --font-sans:    var(--font-sans);
+  --font-mono:    var(--font-mono);
+  --font-display: var(--font-display);
 
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
+  --color-background:         var(--background);
+  --color-foreground:         var(--foreground);
+  --color-surface:            var(--surface);
+  --color-surface-raised:     var(--surface-raised);
+  --color-card:               var(--card);
+  --color-card-foreground:    var(--card-foreground);
+  --color-primary:            var(--primary);
+  --color-primary-dark:       var(--primary-dark);
   --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
+  --color-secondary:          var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+  --color-muted:              var(--muted);
+  --color-muted-foreground:   var(--muted-foreground);
+  --color-accent:             var(--accent);
+  --color-accent-foreground:  var(--accent-foreground);
+  --color-border:             var(--border);
+  --color-border-strong:      var(--border-strong);
+  --color-input:              var(--input);
+  --color-ring:               var(--ring);
+  --radius:                   var(--radius);
 }
 
+/* ─── BASE LAYER ────────────────────────────────────────────────────────────── */
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  *, *::before, *::after {
+    box-sizing: border-box;
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth !important;
+    text-size-adjust: 100%;
   }
 
   body {
-    @apply text-foreground overflow-x-hidden;
-    /* Base: Dark Pebbled Leather Texture */
-    background-color: #0d0c0b;
-    background-image:
-      /* Pebbled grain pattern */
-      radial-gradient(circle at 20% 30%, rgba(30, 25, 20, 0.4) 0%, transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(20, 15, 10, 0.4) 0%, transparent 50%),
-      radial-gradient(circle at 50% 50%, rgba(25, 20, 15, 0.3) 0%, transparent 60%),
-      /* Fine pebbled texture */
-      url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pebble'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.03 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pebble)' opacity='0.15'/%3E%3C/svg%3E"),
-      /* Subtle gold ambient glow */
-      radial-gradient(circle at 50% 50%, rgba(234, 180, 8, 0.02) 0%, transparent 50%);
-    /* Added font smoothing for crisp text */
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-cinzel), serif;
-    @apply uppercase tracking-tight;
-    /* Added optimal line-height for headings */
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+  /* Display headings: Cormorant Garamond — generous tracking, optical sizing */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--foreground);
+    letter-spacing: var(--tracking-tight);
   }
 
-  /* Added body text line-height */
-  p,
-  li,
-  span {
-    line-height: 1.5;
+  /* Scale */
+  h1 { font-size: clamp(2.75rem, 6vw, 5.5rem); font-weight: 300; }
+  h2 { font-size: clamp(2rem,   4vw, 3.75rem); }
+  h3 { font-size: clamp(1.5rem, 2.5vw, 2.25rem); }
+  h4 { font-size: 1.25rem; }
+
+  p, li {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--muted-foreground);
   }
 
-  /* Added performance optimizations for animations and images */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
   img {
-    @apply will-change-auto;
-    /* Added image rendering optimization */
-    image-rendering: -webkit-optimize-contrast;
+    display: block;
+    max-width: 100%;
   }
 
-  .animate-pulse-glow,
-  .animate-float-1,
-  .animate-float-2,
-  .animate-float-3 {
-    @apply will-change-transform;
-    /* Added GPU acceleration */
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-
-  /* Added consistent button base styles */
-  button,
-  [role="button"] {
-    min-height: var(--button-height);
-    transition: all var(--duration-standard) var(--easing-smooth);
-  }
-
-  /* Added consistent input base styles */
-  input,
-  textarea,
-  select {
-    min-height: var(--input-height);
-    transition: all var(--duration-standard) var(--easing-smooth);
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
   }
 }
 
-/* Added ambient glow utilities and animations */
-/* Enhanced glow utilities with layered shadows */
-.text-glow {
-  /* Subdued glow for a more elegant, less loud appearance */
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+/* ─── LAYOUT UTILITIES ──────────────────────────────────────────────────────── */
+
+/* Full-bleed — breaks out of centered container */
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
 }
 
-.card-glow {
-  box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+/* Thin horizontal rule */
+.rule {
+  height: 1px;
+  background: var(--border);
+  width: 100%;
+  margin: 0;
 }
 
-.border-glow {
-  box-shadow: 0 0 10px -2px var(--glow-color), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-}
-
-/* Added metallic gold effect utility */
-.metallic-gold {
-  background: linear-gradient(135deg, #ffd76c 0%, #f4c542 25%, #c49a2b 50%, #f4c542 75%, #ffd76c 100%);
-  box-shadow: 0 2px 8px rgba(255, 215, 108, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* Added glassmorphism utility */
-.glass {
-  background: rgba(10, 10, 10, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.neon-text {
-  color: var(--primary);
-  /* Significantly softened the loud neon to a refined, clean text with a backdrop drop-shadow */
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-}
-
-@keyframes pulse-glow {
-
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(1) translateZ(0);
-  }
-
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05) translateZ(0);
-  }
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 4s var(--easing-smooth) infinite;
-}
-
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.bg-gradient-animate {
-  background-size: 200% 200%;
-  animation: gradient-shift 15s ease infinite;
-}
-
-/* adding gradient animation for new hero */
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* adding float animation for bananas */
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-16px) rotate(2deg);
-  }
-
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-}
-
-/* adding scroll animation for marquee */
-@keyframes scrollX {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-/* Adding RGB edge lighting animations */
-@property --angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@keyframes spin-border {
-  to {
-    --angle: 360deg;
-  }
-}
-
-.rgb-border-container {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  padding: 3px;
-  /* Width of the border */
-  /* Uses a mask to show only the border area */
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-
-.rgb-border-container::before {
-  content: "";
-  position: absolute;
-  inset: -50%;
-  background: conic-gradient(from var(--angle), #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff, #ff0000);
-  animation: spin-border 4s linear infinite;
-}
-
-/* Added animations for different RGB modes */
-@keyframes hue-cycle {
-  0% {
-    filter: hue-rotate(0deg);
-  }
-
-  100% {
-    filter: hue-rotate(360deg);
-  }
-}
-
-@keyframes breathe {
-
-  0%,
-  100% {
-    opacity: 0.3;
-    box-shadow: 0 0 10px currentColor;
-  }
-
-  50% {
-    opacity: 1;
-    box-shadow: 0 0 30px currentColor;
-  }
-}
-
-.rgb-mode-cycle::before {
-  background: #ff0000;
-  /* Start Red */
-  animation: hue-cycle 10s linear infinite !important;
-  /* Override the conic gradient for cycle mode */
-}
-
-.rgb-mode-breathing::before {
-  background: var(--primary);
-  animation: breathe 4s ease-in-out infinite !important;
-}
-
-.rgb-mode-off::before {
-  display: none;
-}
-
-/* RGB Text Effects */
-
-/* Cycle Mode: Smoothly changes color of all headings */
-body.rgb-text-cycle :is(h1, h2, h3, h4, h5, h6, .font-heading) {
-  animation: hue-cycle 10s linear infinite;
-  color: #ff0000;
-  /* Start color */
-}
-
-/* Rainbow Mode: Static rainbow gradient on text */
-body.rgb-text-rainbow :is(h1, h2, h3, h4, h5, h6, .font-heading) {
-  background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: inline-block;
-  /* Helps with background-clip sometimes */
-}
-
-/* Ensure links inside headings inherit the effect */
-body.rgb-text-rainbow :is(h1, h2, h3, h4, h5, h6, .font-heading) a,
-body.rgb-text-cycle :is(h1, h2, h3, h4, h5, h6, .font-heading) a {
-  color: inherit;
-  background: inherit;
-  -webkit-background-clip: inherit;
-  background-clip: inherit;
-}
-
-/* Added ambient orb float animations */
-@keyframes float-1 {
-
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  33% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-}
-
-@keyframes float-2 {
-
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  33% {
-    transform: translate(-30px, 50px) scale(1.2);
-  }
-
-  66% {
-    transform: translate(20px, -20px) scale(0.8);
-  }
-}
-
-@keyframes float-3 {
-
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  33% {
-    transform: translate(50px, 50px) scale(0.9);
-  }
-
-  66% {
-    transform: translate(-30px, -30px) scale(1.1);
-  }
-}
-
-.animate-float-1 {
-  animation: float-1 20s ease-in-out infinite;
-}
-
-.animate-float-2 {
-  animation: float-2 25s ease-in-out infinite;
-}
-
-.animate-float-3 {
-  animation: float-3 22s ease-in-out infinite;
-}
-
-/* --- LAYERED LEATHER TEXTURE SYSTEM (Adapted for Green Theme) --- */
-
-/* Base: Dark Pebbled Leather (for main backgrounds) */
-.leather-overlay {
-  background-color: #0d0c0b;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(30, 25, 20, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(20, 15, 10, 0.3) 0%, transparent 50%),
-    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pebble-base'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.03 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pebble-base)' opacity='0.12'/%3E%3C/svg%3E");
-}
-
-/* Layer 1: Medium Brown Suede (for standard cards) */
-.leather-card {
-  background-color: #2a2523;
-  background-image:
-    radial-gradient(circle at 30% 40%, rgba(60, 50, 45, 0.3) 0%, transparent 40%),
-    radial-gradient(circle at 70% 60%, rgba(50, 40, 35, 0.3) 0%, transparent 40%),
-    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='suede'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0 0.05 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23suede)' opacity='0.2'/%3E%3C/svg%3E");
-  @apply border border-border relative overflow-hidden;
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
-}
-
-/* Layer 2: Reddish-Brown Suede (for elevated cards, VIP sections) */
-.leather-card-elevated {
-  background-color: #3d2e28;
-  background-image:
-    radial-gradient(circle at 25% 35%, rgba(80, 60, 50, 0.25) 0%, transparent 45%),
-    radial-gradient(circle at 75% 65%, rgba(70, 50, 40, 0.25) 0%, transparent 45%),
-    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='suede-red'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0 0.05 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23suede-red)' opacity='0.18'/%3E%3C/svg%3E");
-  @apply border border-border relative overflow-hidden;
-  box-shadow:
-    0 6px 25px rgba(0, 0, 0, 0.8),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(234, 180, 8, 0.1);
-}
-
-/* Enhanced Green-Gold Stitching - Stands out against all leather textures */
-.stitched {
+/* Thin rule with gold center accent */
+.rule-accent {
   position: relative;
-  /* Base dark thread with gold tint */
-  border: 2px dashed rgba(234, 180, 8, 0.3);
-  /* Shadow for depth */
-  box-shadow:
-    0 0 0 3px rgba(13, 12, 11, 0.9),
-    inset 0 0 15px rgba(0, 0, 0, 0.6),
-    0 2px 4px rgba(0, 0, 0, 0.4);
+  height: 1px;
+  background: var(--border);
+  width: 100%;
 }
-
-.stitched::before {
+.rule-accent::after {
   content: '';
   position: absolute;
-  inset: -4px;
-  /* Gold thread highlight */
-  border: 1px dashed rgba(234, 180, 8, 0.6);
-  pointer-events: none;
-  border-radius: inherit;
-  box-shadow: 0 0 8px rgba(234, 180, 8, 0.3);
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 1px;
+  background: var(--primary);
 }
 
-.stitched::after {
+/* Monogram divider */
+.divider {
+  @apply border-t border-border my-10 md:my-16;
+}
+
+/* ─── CARD VARIANTS ─────────────────────────────────────────────────────────── */
+
+/* Base luxury card — no radius, whisper shadow, ivory surface */
+.card-luxury {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-xs);
+  transition:
+    box-shadow var(--duration-standard) var(--ease-luxury),
+    border-color var(--duration-standard) var(--ease-luxury),
+    transform var(--duration-standard) var(--ease-luxury);
+}
+
+.card-luxury:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+/* Editorial (old alias kept for backward compat) */
+.card-editorial {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-xs);
+  transition:
+    box-shadow var(--duration-standard) var(--ease-luxury),
+    border-color var(--duration-standard) var(--ease-luxury);
+}
+.card-editorial:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+/* ─── BUTTON VARIANTS ───────────────────────────────────────────────────────── */
+
+/* Primary CTA — solid gold */
+.btn-luxury {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-luxury);
+  text-transform: uppercase;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition:
+    background var(--duration-standard) var(--ease-luxury),
+    color var(--duration-standard) var(--ease-luxury),
+    border-color var(--duration-standard) var(--ease-luxury);
+}
+.btn-luxury:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+/* Ghost — outline gold */
+.btn-ghost-luxury {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: transparent;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-luxury);
+  text-transform: uppercase;
+  border: 1px solid var(--foreground);
+  cursor: pointer;
+  transition:
+    background var(--duration-standard) var(--ease-luxury),
+    color var(--duration-standard) var(--ease-luxury),
+    border-color var(--duration-standard) var(--ease-luxury);
+}
+.btn-ghost-luxury:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+/* ─── TYPOGRAPHY UTILITIES ──────────────────────────────────────────────────── */
+
+/* Overline / eyebrow label */
+.overline {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-luxury);
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+/* Pull quote accent */
+.pull-quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--foreground);
+  border-left: 2px solid var(--primary);
+  padding-left: 1.5rem;
+}
+
+/* ─── IMAGE TREATMENTS ──────────────────────────────────────────────────────── */
+
+/* Luxury Ken Burns on hover */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img {
+  transition: transform var(--duration-slow) var(--ease-luxury);
+}
+.img-zoom:hover img {
+  transform: scale(1.04);
+}
+
+/* ─── ANIMATIONS ────────────────────────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes revealWidth {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+@keyframes scrollX {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-fade-up  { animation: fadeUp  var(--duration-slow) var(--ease-out) forwards; }
+.animate-fade-in  { animation: fadeIn  var(--duration-standard) var(--ease-luxury) forwards; }
+.animate-scroll-x { animation: scrollX 40s linear infinite; }
+
+/* Stagger delays */
+.delay-1 { animation-delay: 100ms; }
+.delay-2 { animation-delay: 200ms; }
+.delay-3 { animation-delay: 300ms; }
+.delay-4 { animation-delay: 400ms; }
+
+/* Gold underline hover link */
+.link-luxury {
+  position: relative;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-luxury);
+  text-transform: uppercase;
+  color: var(--foreground);
+  transition: color var(--duration-standard) var(--ease-luxury);
+}
+.link-luxury::after {
   content: '';
   position: absolute;
-  inset: -6px;
-  /* Outer glow */
-  border: 1px dashed rgba(234, 180, 8, 0.2);
-  pointer-events: none;
-  border-radius: inherit;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--primary);
+  transition: width var(--duration-standard) var(--ease-luxury);
+}
+.link-luxury:hover { color: var(--primary); }
+.link-luxury:hover::after { width: 100%; }
+
+/* ─── NIGHT AMBIENCE MODE ───────────────────────────────────────────────────────
+   Deep velvet darkness · Candlelight gold · Cognac embers · Paris at 2am
+   Inspired by: leather banquettes, flickering sconces, whisky glass, Michelin
+──────────────────────────────────────────────────────────────────────────────── */
+
+.dark {
+  /* Surfaces — deep warm blacks, NOT cold blue-black */
+  --background:         #100E0B;   /* near-black with a warm tint */
+  --surface:            #181410;   /* dark leather surface */
+  --surface-raised:     #211D18;   /* slightly lighter card */
+  --foreground:         #F0EBE3;   /* warm parchment white */
+
+  /* Brand — Candlelight gold (brighter in dark for contrast) */
+  --primary:            #C9A35E;   /* warm candlelight gold */
+  --primary-dark:       #E8C07A;   /* hover — brighter amber glow */
+  --primary-foreground: #100E0B;
+
+  /* Secondary — Cognac ember */
+  --secondary:          #A0471F;   /* cognac ember orange */
+  --secondary-foreground: #F0EBE3;
+
+  /* Neutrals */
+  --muted:              #2A2420;   /* deep warm muted surface */
+  --muted-foreground:   #9E9080;   /* warm taupe text */
+
+  /* Borders — barely visible in candlelight */
+  --border:             #2E2820;   /* very subtle warm border */
+  --border-strong:      #4A3E30;   /* cognac border for emphasis */
+
+  /* Shadcn compat */
+  --card:               var(--surface);
+  --card-foreground:    var(--foreground);
+  --popover:            var(--surface-raised);
+  --popover-foreground: var(--foreground);
+  --accent:             var(--primary);
+  --accent-foreground:  var(--primary-foreground);
+  --destructive:        #8C1A0F;
+  --destructive-foreground: #F0EBE3;
+  --input:              var(--surface-raised);
+  --ring:               var(--primary);
+
+  /* Night shadows — warmer, deeper, more dramatic */
+  --shadow-xs:  0 1px 2px rgba(0,0,0,0.40);
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.50);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.60);
+  --shadow-lg:  0 12px 40px rgba(0,0,0,0.70);
+  --shadow-xl:  0 24px 64px rgba(0,0,0,0.80);
+
+  /* Candlelight glow — used for special accents */
+  --glow-gold: 0 0 24px rgba(201,163,94,0.20), 0 0 48px rgba(201,163,94,0.08);
+  --glow-edge: 0 0 0 1px rgba(201,163,94,0.15);
 }
 
-.stitched-subtle {
-  border: 1px dashed rgba(234, 180, 8, 0.25);
-  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
+/* Night scrollbar */
+.dark ::-webkit-scrollbar-track  { background: var(--background); }
+.dark ::-webkit-scrollbar-thumb  { background: var(--primary); }
+
+/* Night body — subtle warm noise texture feel via gradient */
+.dark body {
+  background-image: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(201,163,94,0.03) 0%,
+    transparent 60%
+  );
 }
 
-/* Stitching for elevated cards - brighter gold */
-.leather-card-elevated.stitched {
-  border-color: rgba(234, 180, 8, 0.5);
+/* Night card — candlelight border glow on hover */
+.dark .card-luxury:hover,
+.dark .card-editorial:hover {
+  border-color: var(--primary);
+  box-shadow: var(--glow-gold);
 }
 
-.leather-card-elevated.stitched::before {
-  border-color: rgba(234, 180, 8, 0.8);
-  box-shadow: 0 0 12px rgba(234, 180, 8, 0.4);
+/* Night button */
+.dark .btn-luxury {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.dark .btn-luxury:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  box-shadow: var(--glow-gold);
 }
 
-/* Premium Buttons with Leather Texture */
-.btn-leather {
-  background-color: #2a2523;
-  background-image:
-    radial-gradient(circle at 50% 50%, rgba(60, 50, 45, 0.2) 0%, transparent 60%),
-    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='btn-leather'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.0' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.03 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23btn-leather)' opacity='0.15'/%3E%3C/svg%3E");
-  @apply text-primary border border-border transition-all duration-300;
-  box-shadow:
-    0 4px 6px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+/* Night ghost button */
+.dark .btn-ghost-luxury {
+  color: var(--foreground);
+  border-color: var(--border-strong);
+}
+.dark .btn-ghost-luxury:hover {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
 }
 
-.btn-leather:hover {
-  background-color: #3d2e28;
-  @apply border-primary/50 text-primary;
-  transform: translateY(-1px);
-  box-shadow:
-    0 6px 12px rgba(0, 0, 0, 0.5),
-    0 0 10px rgba(120, 245, 120, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+/* Night input */
+.dark .input-luxury {
+  background: var(--surface-raised);
+  border-color: var(--border);
+  color: var(--foreground);
+}
+.dark .input-luxury:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(201,163,94,0.15);
 }
 
-.btn-leather:active {
-  transform: translateY(0px);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+/* Night rule accent */
+.dark .rule-accent::after {
+  background: var(--primary);
+}
+
+/* Night overline */
+.dark .overline {
+  color: var(--primary);
+}
+
+/* Night pull-quote border */
+.dark .pull-quote {
+  border-left-color: var(--primary);
+}
+
+/* Transition for smooth day → night */
+body {
+  transition:
+    background-color 600ms cubic-bezier(0.25,0.1,0.25,1),
+    color 600ms cubic-bezier(0.25,0.1,0.25,1);
+}
+
+
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: var(--background); }
+::-webkit-scrollbar-thumb  { background: var(--primary); }
+
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ─── SCROLLBAR ─────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: var(--background); }
+::-webkit-scrollbar-thumb  { background: var(--primary); }
+
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ─── INPUT STYLING ─────────────────────────────────────────────────────────── */
+.input-luxury {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  outline: none;
+  transition:
+    border-color var(--duration-standard) var(--ease-luxury),
+    box-shadow var(--duration-standard) var(--ease-luxury);
+}
+.input-luxury::placeholder { color: var(--muted-foreground); }
+.input-luxury:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 15%, transparent);
 }

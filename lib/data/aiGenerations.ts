@@ -35,7 +35,6 @@ export async function saveGeneration(input: CreateAIGenerationInput): Promise<AI
   const supabase = createClient()
   
   if (!supabase) {
-    console.warn('[AI Generations] Supabase client not available')
     return null
   }
 
