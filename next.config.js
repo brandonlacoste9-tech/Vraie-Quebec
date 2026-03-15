@@ -2,7 +2,13 @@
 const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
-    qualities: [75, 100],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 'plus.unsplash.com' },
+      { protocol: 'https', hostname: 'source.unsplash.com' },
+      { protocol: 'https', hostname: '*.supabase.co' },
+      { protocol: 'https', hostname: 'i.imgur.com' },
+    ],
   },
   typescript: {
     ignoreBuildErrors: false,

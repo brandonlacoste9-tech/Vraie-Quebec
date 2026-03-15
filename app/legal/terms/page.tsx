@@ -1,123 +1,109 @@
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 
+const sections = [
+  {
+    number: "01",
+    title: "Acceptation des termes",
+    body: "En accédant à Vrai Québec, vous acceptez d'être lié par ces termes et conditions. Si vous n'acceptez pas ces termes, veuillez ne pas utiliser notre plateforme.",
+  },
+  {
+    number: "02",
+    title: "Description du service",
+    body: "Vrai Québec est une plateforme de découverte et de réservation pour restaurants, gastronomie, vie nocturne, événements, spectacles, activités sportives et hébergements au Québec.",
+  },
+  {
+    number: "03",
+    title: "Compte utilisateur",
+    body: "Pour accéder à certaines fonctionnalités, vous devez créer un compte. Vous êtes responsable de maintenir la confidentialité de vos identifiants, de toutes les activités sur votre compte, et de fournir des informations exactes.",
+  },
+  {
+    number: "04",
+    title: "Réservations et paiements",
+    items: [
+      "Les prix affichés sont en dollars canadiens (CAD)",
+      "Les taxes applicables (TPS/TVQ) sont incluses",
+      "Les politiques d'annulation varient selon l'établissement",
+      "Vrai Québec n'est pas responsable des modifications d'événements",
+    ],
+  },
+  {
+    number: "05",
+    title: "Code vestimentaire et comportement",
+    body: "Les établissements listés peuvent avoir des codes vestimentaires et des règles de comportement. Vrai Québec fournit ces informations à titre indicatif, mais l'admission finale est à la discrétion de l'établissement.",
+  },
+  {
+    number: "06",
+    title: "Propriété intellectuelle",
+    body: "Tout le contenu de Vrai Québec (logos, textes, images, design) est protégé par les lois sur la propriété intellectuelle. Vous ne pouvez pas reproduire, distribuer ou créer des œuvres dérivées sans autorisation écrite.",
+  },
+  {
+    number: "07",
+    title: "Limitation de responsabilité",
+    body: "Vrai Québec agit comme intermédiaire et ne peut être tenu responsable des services fournis par les établissements, des expériences utilisateur, des annulations d'événements, ou de tout dommage direct ou indirect.",
+  },
+  {
+    number: "08",
+    title: "Droit applicable",
+    body: "Ces termes sont régis par les lois de la province de Québec et du Canada. Tout litige sera soumis aux tribunaux compétents de Montréal, Québec.",
+  },
+  {
+    number: "09",
+    title: "Contact",
+    body: null,
+    contact: "legal@vraiquebec.ca",
+  },
+]
+
 export default function TermsPage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#F4F1EC]">
       <MainNav />
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <h1 className="text-4xl md:text-6xl font-heading font-bold uppercase text-white mb-8">
+
+      <header className="max-w-5xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-[#D6D0C6]">
+        <p className="overline mb-4">Légal</p>
+        <h1
+          className="font-display font-light text-[#1C1916]"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
           Termes et conditions
         </h1>
-        <div className="prose prose-invert max-w-none space-y-6">
-          <section className="leather-card p-6 stitched">
-            <h2 className="text-2xl font-heading font-bold text-primary mb-4">1. Acceptation des termes</h2>
-            <p className="text-gray-300">
-              En accédant à Vraie-Québec, vous acceptez d'être lié par ces termes et conditions. 
-              Si vous n'acceptez pas ces termes, veuillez ne pas utiliser notre plateforme.
-            </p>
-          </section>
+        <p className="text-[#7D7468] text-sm mt-4">Dernière mise à jour : 26 février 2026</p>
+      </header>
 
-          <section className="leather-card p-6 stitched">
-            <h2 className="text-2xl font-heading font-bold text-primary mb-4">2. Description du service</h2>
-            <p className="text-gray-300 mb-4">
-              Vraie-Québec est une plateforme de découverte et de réservation pour:
-            </p>
-            <ul className="list-disc list-inside text-gray-300 space-y-2">
-              <li>Restaurants et gastronomie</li>
-              <li>Vie nocturne et clubs</li>
-              <li>Événements et spectacles</li>
-              <li>Activités sportives</li>
-              <li>Hôtels et hébergements</li>
-            </ul>
-          </section>
+      <main className="max-w-5xl mx-auto px-6 md:px-8 py-16 space-y-px bg-[#D6D0C6]">
+        {sections.map((s) => (
+          <div key={s.number} className="bg-[#FAF8F5] p-8 md:p-12 grid grid-cols-1 md:grid-cols-[80px_1fr] gap-6 md:gap-12">
+            <span className="text-[11px] tracking-[0.18em] uppercase text-[#B08D57] font-sans pt-1">{s.number}</span>
+            <div>
+              <h2
+                className="font-display font-light text-[#1C1916] text-xl md:text-2xl mb-4"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                {s.title}
+              </h2>
+              {s.body && <p className="text-[#7D7468] leading-relaxed">{s.body}</p>}
+              {s.items && (
+                <ul className="space-y-2">
+                  {s.items.map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-[#7D7468]">
+                      <span className="mt-2 w-1 h-1 bg-[#B08D57] rounded-full flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {s.contact && (
+                <a href={`mailto:${s.contact}`} className="link-luxury">
+                  {s.contact}
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </main>
 
-          <section className="leather-card p-6 stitched">
-            <h2 className="text-2xl font-heading font-bold text-primary mb-4">3. Compte utilisateur</h2>
-            <p className="text-gray-300 mb-4">
-              Pour accéder à certaines fonctionnalités, vous devez créer un compte. Vous êtes responsable de:
-            </p>
-            <ul className="list-disc list-inside text-gray-300 space-y-2">
-              <li>Maintenir la confidentialité de vos identifiants</li>
-              <li>Toutes les activités sur votre compte</li>
-              <li>Fournir des informations exactes et à jour</li>
-              <li>Avoir 18 ans ou plus (ou consentement parental)</li>
-            </ul>
-          </section>
-
-          <section className="leather-card p-6 stitched">
-            <h2 className="text-2xl font-heading font-bold text-primary mb-4">4. Réservations et paiements</h2>
-            <p className="text-gray-300 mb-4">
-              Les réservations VIP et les billets sont soumis aux politiques des établissements:
-            </p>
-            <ul className="list-disc list-inside text-gray-300 space-y-2">
-              <li>Les prix affichés sont en dollars canadiens (CAD)</li>
-              <li>Les taxes applicables (TPS/TVQ) sont incluses</li>
-              <li>Les politiques d'annulation varient selon l'établissement</li>
-              <li>Vraie-Québec n'est pas responsable des modifications d'événements</li>
-            </ul>
-          </section>
-
-          <section className="leather-card p-6 stitched">
-            <h2 className="text-2xl font-heading font-bold text-primary mb-4">5. Code vestimentaire et comportement</h2>
-            <p className="text-gray-300">
-              Les établissements listés peuvent avoir des codes vestimentaires et des règles de comportement. 
-              Vraie-Québec fournit ces informations à titre indicatif, mais l'admission finale 
-              est à la discrétion de l'établissement.
-            </p>
-          </section>
-
-          <section className="leather-card p-6 stitched">
-            <h2 className="text-2xl font-heading font-bold text-primary mb-4">6. Propriété intellectuelle</h2>
-            <p className="text-gray-300">
-              Tout le contenu de Vraie-Québec (logos, textes, images, design) est protégé par 
-              les lois sur la propriété intellectuelle. Vous ne pouvez pas reproduire, distribuer 
-              ou créer des œuvres dérivées sans autorisation écrite.
-            </p>
-          </section>
-
-          <section className="leather-card p-6 stitched">
-            <h2 className="text-2xl font-heading font-bold text-primary mb-4">7. Limitation de responsabilité</h2>
-            <p className="text-gray-300">
-              Vraie-Québec agit comme intermédiaire et ne peut être tenu responsable des:
-              services fournis par les établissements, expériences utilisateur, annulations 
-              d'événements, ou tout dommage direct ou indirect.
-            </p>
-          </section>
-
-          <section className="leather-card p-6 stitched">
-            <h2 className="text-2xl font-heading font-bold text-primary mb-4">8. Modifications</h2>
-            <p className="text-gray-300">
-              Nous nous réservons le droit de modifier ces termes à tout moment. 
-              Les changements entrent en vigueur immédiatement après publication. 
-              Votre utilisation continue constitue acceptation des nouveaux termes.
-            </p>
-          </section>
-
-          <section className="leather-card p-6 stitched">
-            <h2 className="text-2xl font-heading font-bold text-primary mb-4">9. Droit applicable</h2>
-            <p className="text-gray-300">
-              Ces termes sont régis par les lois de la province de Québec et du Canada. 
-              Tout litige sera soumis aux tribunaux compétents de Montréal, Québec.
-            </p>
-          </section>
-
-          <section className="leather-card p-6 stitched">
-            <h2 className="text-2xl font-heading font-bold text-primary mb-4">10. Contact</h2>
-            <p className="text-gray-300">
-              Pour toute question concernant ces termes:
-              <a href="mailto:legal@vraie-quebec.ca" className="text-primary hover:underline ml-2">
-                legal@vraie-quebec.ca
-              </a>
-            </p>
-          </section>
-
-          <p className="text-sm text-gray-500 mt-8">
-            Dernière mise à jour: 26 février 2026
-          </p>
-        </div>
-      </div>
       <Footer />
-    </main>
+    </div>
   )
 }
