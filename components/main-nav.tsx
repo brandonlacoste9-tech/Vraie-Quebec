@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import { NightToggle } from '@/components/night-toggle'
+import { LanguageToggle } from '@/components/language-toggle'
 
 const navLinks = [
   { label: 'Restaurants', href: '/restaurants' },
@@ -75,6 +76,7 @@ export function MainNav() {
 
         {/* Desktop right: toggle + CTA */}
         <div className="hidden md:flex items-center gap-3">
+          <LanguageToggle />
           <NightToggle />
           <Link href="/members" className="btn-luxury text-[11px]">
             Réserver
@@ -83,6 +85,7 @@ export function MainNav() {
 
         {/* Mobile: toggle + hamburger */}
         <div className="flex md:hidden items-center gap-2">
+          <LanguageToggle />
           <NightToggle />
           <button
             onClick={() => setIsOpen(!isOpen)}
