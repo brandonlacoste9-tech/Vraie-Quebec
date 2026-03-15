@@ -1,132 +1,145 @@
-"use client"
-
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 import { Calendar, MapPin, Ticket } from "lucide-react"
 import Link from "next/link"
 
-// Mock data for events (concerts, festivals, tickets) with real places in Montreal & Quebec
 const EVENTS = [
   {
     id: 1,
+    label: "Nightlife",
     title: "Igloofest 2025",
-    description: "Le party le plus froid au monde. Musique électronique sous la neige.",
-    date: "16-17 Janvier",
+    description: "Le party le plus froid au monde. Musique électronique sous la neige avec les meilleurs DJs internationaux.",
+    date: "16 — 17 Janvier",
     location: "Vieux-Port, Montréal",
     price: "$45",
-    image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800",
-    category: "Nightlife",
+    image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&q=85&auto=format&fit=crop",
     featured: true,
   },
   {
     id: 2,
-    title: "Charlotte de Witte - Techno Night",
+    label: "Musique",
+    title: "Charlotte de Witte — Techno Night",
     description: "La reine de la techno de retour au Québec pour une nuit inoubliable.",
     date: "1 Mars",
     location: "Centre Vidéotron, Québec",
     price: "$85",
-    image: "https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=800",
-    category: "Music",
+    image: "https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=1200&q=85&auto=format&fit=crop",
     featured: true,
   },
   {
     id: 3,
-    title: "Poutine Week VIP Tasting",
-    description: "Dégustation des 10 meilleures poutines de l'année avec accord bières.",
-    date: "5 Février",
-    location: "La Banquise, Montréal",
-    price: "$35",
-    image: "https://images.unsplash.com/photo-1582169505937-b9992bd01ed9?w=800",
-    category: "Food",
-  },
-  {
-    id: 4,
-    title: "MURAL Festival",
-    description: "Festival d'art urbain avec DJ sets et live painting en direct sur la rue.",
-    date: "6 Juin",
-    location: "Boul. Saint-Laurent, Montréal",
-    price: "Gratuit",
-    image: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=800",
-    category: "Arts",
-  },
-  {
-    id: 5,
-    title: "Festival d'été de Québec (FEQ)",
-    description: "Le plus grand festival de musique en plein air au Canada. Des scènes incroyables.",
-    date: "3-13 Juillet",
+    label: "Musique",
+    title: "Festival d'été de Québec",
+    description: "Le plus grand festival de musique en plein air au Canada. Des scènes légendaires sous les étoiles des Plaines d'Abraham.",
+    date: "3 — 13 Juillet",
     location: "Plaines d'Abraham, Québec",
     price: "$150 (Passe)",
-    image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800",
-    category: "Music",
+    image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=1200&q=85&auto=format&fit=crop",
     featured: true,
   },
   {
+    id: 4,
+    label: "Gastronomie",
+    title: "Poutine Week VIP Tasting",
+    description: "Dégustation des dix meilleures poutines de l'année avec accord bières artisanales.",
+    date: "5 Février",
+    location: "La Banquise, Montréal",
+    price: "$35",
+    image: "https://images.unsplash.com/photo-1582169505937-b9992bd01ed9?w=800&q=85&auto=format&fit=crop",
+  },
+  {
+    id: 5,
+    label: "Arts",
+    title: "MURAL Festival",
+    description: "Festival d'art urbain avec DJ sets et live painting en direct sur la rue Saint-Laurent.",
+    date: "6 Juin",
+    location: "Boul. Saint-Laurent, Montréal",
+    price: "Entrée libre",
+    image: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=800&q=85&auto=format&fit=crop",
+  },
+  {
     id: 6,
+    label: "Arts",
     title: "Nuit Blanche à Montréal",
-    description: "Art, culture et fête toute la nuit à travers la ville.",
+    description: "Art, culture et fête toute la nuit à travers les quartiers de la ville.",
     date: "1 Mars",
     location: "Centre-ville, Montréal",
-    price: "Gratuit",
-    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800",
-    category: "Arts",
+    price: "Entrée libre",
+    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=85&auto=format&fit=crop",
   },
 ]
 
 export default function AgendaPage() {
+  const featured = EVENTS.filter((e) => e.featured)
+  const upcoming = EVENTS.filter((e) => !e.featured)
+
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-[#F4F1EC]">
       <MainNav />
 
-      {/* Hero Section */}
-      <section className="full-bleed bg-gradient-to-br from-primary/5 to-primary/10 border-b border-border">
-        <div className="container mx-auto px-4 py-16">
-          <h1 className="text-5xl md:text-6xl font-display font-bold text-balance mb-4">
-            Agenda & Événements
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
-            Découvrez les événements incontournables de Montréal et du Québec. Concerts, festivals, expositions et bien plus encore.
-          </p>
-        </div>
-      </section>
+      {/* Page header */}
+      <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-[#D6D0C6]">
+        <p className="overline mb-4">Événements</p>
+        <h1
+          className="font-display font-light text-[#1C1916] mb-4"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
+          Agenda
+        </h1>
+        <p className="text-[#7D7468] text-lg max-w-2xl leading-relaxed">
+          Festivals, concerts, galas et soirées culturelles — votre calendrier des événements d'exception à Montréal et au Québec.
+        </p>
+      </header>
 
-      <div className="container mx-auto px-4 py-20">
-        {/* Featured Events */}
-        <section className="mb-20">
-          <h2 className="text-4xl font-display font-bold mb-12">Coups de cœur</h2>
-          <div className="space-y-8">
-            {EVENTS.filter(e => e.featured).map(event => (
-              <article key={event.id} className="card-editorial overflow-hidden">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-                  <div className="md:col-span-1 aspect-square md:aspect-auto md:h-80 overflow-hidden bg-secondary">
-                    <img
-                      src={event.image}
-                      alt={event.title}
-                      className="h-full w-full object-cover hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="md:col-span-2 p-8 flex flex-col justify-center">
-                    <p className="text-primary text-sm uppercase tracking-widest mb-3">{event.category}</p>
-                    <h3 className="text-3xl md:text-4xl font-display font-bold mb-4">
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-16 space-y-20">
+
+        {/* ── Featured: full-width editorial stack ──────────────────────── */}
+        <section>
+          <p className="overline mb-8">Coups de cœur</p>
+          <div className="space-y-px bg-[#D6D0C6]">
+            {featured.map((event) => (
+              <article key={event.id} className="group grid grid-cols-1 md:grid-cols-5 bg-[#FAF8F5] hover:bg-white transition-colors duration-300">
+                {/* Image */}
+                <div className="md:col-span-2 relative aspect-[3/2] md:aspect-auto overflow-hidden bg-[#E8E4DC]">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  />
+                </div>
+                {/* Copy */}
+                <div className="md:col-span-3 p-8 md:p-12 flex flex-col justify-between">
+                  <div>
+                    <p className="overline mb-4">{event.label}</p>
+                    <h2
+                      className="font-display font-light text-[#1C1916] text-2xl md:text-3xl lg:text-4xl mb-5 leading-snug"
+                      style={{ fontFamily: "var(--font-display)" }}
+                    >
                       {event.title}
-                    </h3>
-                    <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                      {event.description}
-                    </p>
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-8 mb-6 pb-6 border-b border-border">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-5 h-5 text-primary flex-shrink-0" />
-                        <span className="font-semibold">{event.date}</span>
+                    </h2>
+                    <p className="text-[#7D7468] leading-relaxed mb-6">{event.description}</p>
+                  </div>
+                  <div>
+                    <div className="flex flex-col sm:flex-row gap-4 mb-6 py-5 border-t border-b border-[#E8E4DC]">
+                      <div className="flex items-center gap-2 text-sm text-[#1C1916]">
+                        <Calendar className="w-4 h-4 text-[#B08D57] flex-shrink-0" />
+                        <span className="font-medium">{event.date}</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
-                        <span className="font-semibold">{event.location}</span>
+                      <div className="flex items-center gap-2 text-sm text-[#1C1916]">
+                        <MapPin className="w-4 h-4 text-[#B08D57] flex-shrink-0" />
+                        <span className="font-medium">{event.location}</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold text-primary">{event.price}</span>
-                      <a href="#" className="text-primary font-semibold hover:underline flex items-center gap-2">
-                        <Ticket className="w-4 h-4" />
-                        Réserver →
+                      <span
+                        className="font-display font-light text-2xl text-[#1C1916]"
+                        style={{ fontFamily: "var(--font-display)" }}
+                      >
+                        {event.price}
+                      </span>
+                      <a href="#" className="btn-luxury text-[11px] flex items-center gap-2">
+                        <Ticket className="w-3.5 h-3.5" />
+                        Réserver
                       </a>
                     </div>
                   </div>
@@ -136,38 +149,48 @@ export default function AgendaPage() {
           </div>
         </section>
 
-        <div className="divider" />
+        <div className="rule" />
 
-        {/* All Events */}
+        {/* ── Upcoming: 3-column grid ──────────────────────────────────── */}
         <section>
-          <h2 className="text-4xl font-display font-bold mb-12">Tous les événements</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {EVENTS.filter(e => !e.featured).map(event => (
-              <article key={event.id} className="card-editorial group overflow-hidden">
-                <div className="aspect-video w-full overflow-hidden bg-secondary">
+          <p className="overline mb-8">À venir</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#D6D0C6]">
+            {upcoming.map((event) => (
+              <article key={event.id} className="group bg-[#FAF8F5] hover:bg-white transition-colors duration-300">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#E8E4DC]">
                   <img
                     src={event.image}
                     alt={event.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   />
                 </div>
-                <div className="p-6">
-                  <p className="text-primary text-xs uppercase tracking-widest mb-2">{event.category}</p>
-                  <h3 className="text-xl font-display font-bold mb-2 line-clamp-2">{event.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-6 line-clamp-2">{event.description}</p>
-                  <div className="space-y-3 mb-6 pb-6 border-b border-border">
-                    <div className="flex items-center gap-2 text-sm">
-                      <Calendar className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span className="text-muted-foreground">{event.date}</span>
+                <div className="p-6 md:p-8">
+                  <p className="overline mb-3">{event.label}</p>
+                  <h3
+                    className="font-display font-light text-[#1C1916] text-xl md:text-2xl mb-3 leading-snug group-hover:text-[#B08D57] transition-colors duration-300"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {event.title}
+                  </h3>
+                  <p className="text-[#7D7468] text-sm leading-relaxed line-clamp-2 mb-5">
+                    {event.description}
+                  </p>
+                  <div className="space-y-2 mb-5 pb-5 border-b border-[#E8E4DC] text-xs">
+                    <div className="flex items-center gap-2 text-[#7D7468]">
+                      <Calendar className="w-3.5 h-3.5 text-[#B08D57] flex-shrink-0" />
+                      <span>{event.date}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span className="text-muted-foreground line-clamp-1">{event.location}</span>
+                    <div className="flex items-center gap-2 text-[#7D7468]">
+                      <MapPin className="w-3.5 h-3.5 text-[#B08D57] flex-shrink-0" />
+                      <span className="line-clamp-1">{event.location}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-primary">{event.price}</span>
-                    <a href="#" className="text-primary font-semibold hover:underline text-sm">
+                    <span className="font-display font-light text-[#1C1916] text-lg"
+                      style={{ fontFamily: "var(--font-display)" }}>
+                      {event.price}
+                    </span>
+                    <a href="#" className="text-[10px] tracking-[0.18em] uppercase text-[#B08D57] font-sans hover:text-[#8C6D3F] transition-colors">
                       Réserver →
                     </a>
                   </div>
@@ -176,9 +199,9 @@ export default function AgendaPage() {
             ))}
           </div>
         </section>
-      </div>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   )
 }

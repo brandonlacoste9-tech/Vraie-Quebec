@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
+import { NewsletterForm } from "@/components/newsletter-form"
 
 // ─── Curated data ─────────────────────────────────────────────────────────────
 const featured = [
@@ -313,20 +314,7 @@ export default function HomePage() {
           <p className="text-[#7D7468] mb-8">
             Nos sélections exclusives, événements privés et recommandations de la semaine, directement dans votre boîte.
           </p>
-          <form
-            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <input
-              type="email"
-              placeholder="Votre adresse courriel"
-              className="input-luxury flex-1"
-              aria-label="Adresse courriel"
-            />
-            <button type="submit" className="btn-luxury whitespace-nowrap">
-              S'inscrire
-            </button>
-          </form>
+          <NewsletterForm />
         </div>
       </section>
 
