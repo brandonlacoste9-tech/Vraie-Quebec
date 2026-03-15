@@ -39,7 +39,6 @@ export async function getOrCreateSubscription(email: string): Promise<Subscripti
   const supabase = createClient()
 
   if (!supabase) {
-    console.log("[v0] Supabase not available, using mock subscription")
     return createMockSubscription(email)
   }
 
@@ -135,7 +134,6 @@ export async function incrementUsage(email: string, type: "message" | "image"): 
   const supabase = createClient()
 
   if (!supabase) {
-    console.log("[v0] Supabase not available, skipping usage increment")
     return true
   }
 
