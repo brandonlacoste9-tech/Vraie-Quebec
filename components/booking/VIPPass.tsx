@@ -36,7 +36,7 @@ export function VIPPass({
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
         className="relative overflow-hidden rounded-xl border border-gold-500/50 shadow-2xl bg-black"
         style={{
-          backgroundImage: `url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/leather-texture-black.jpg")`, // Fallback/Placeholder for texture
+          backgroundImage: `linear-gradient(135deg, rgba(20, 20, 20, 1) 0%, rgba(30, 30, 30, 1) 50%, rgba(20, 20, 20, 1) 100%)`,
           backgroundSize: "cover",
         }}
       >
