@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useChat } from "@ai-sdk/react"
+import { DefaultChatTransport } from "ai"
 import { Send, Sparkles, User, Bot, Crown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -13,15 +14,28 @@ import Link from "next/link"
 import { UsageIndicator } from "@/components/usage-indicator"
 import { useUserIdentity } from "@/hooks/use-user-identity"
 
+// Helper to extract text from UIMessage parts
+function getMessageText(message: { parts?: Array<{ type: string; text?: string }> }): string {
+  if (!message.parts || !Array.isArray(message.parts)) return ""
+  return message.parts
+    .filter((p): p is { type: "text"; text: string } => p.type === "text" && typeof p.text === "string")
+    .map((p) => p.text)
+    .join("")
+}
+
 export default function ChatPage() {
   const userId = useUserIdentity()
   const [limitReached, setLimitReached] = useState(false)
   const [limitMessage, setLimitMessage] = useState("")
+  const [input, setInput] = useState("")
 
-  const { messages, input, setInput, handleSubmit, status } = useChat({
-    headers: {
-      "x-user-email": userId || "guest@example.com",
-    },
+  const { messages, sendMessage, status } = useChat({
+    transport: new DefaultChatTransport({ 
+      api: "/api/chat",
+      headers: {
+        "x-user-email": userId || "guest@example.com",
+      },
+    }),
     onError: (err) => {
       try {
         const errorData = JSON.parse(err.message)
@@ -40,7 +54,8 @@ export default function ChatPage() {
   const handleCustomSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!input.trim() || isLoading || limitReached) return
-    handleSubmit(e)
+    sendMessage({ text: input })
+    setInput("")
   }
 
   useEffect(() => {
@@ -110,7 +125,7 @@ export default function ChatPage() {
                       : "bg-surface border border-border text-foreground"
                   }`}
                 >
-                  <p className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">{m.content}</p>
+                  <p className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">{getMessageText(m)}</p>
                 </div>
                 {m.role === "user" && (
                   <Avatar className="w-8 h-8 border border-border">
