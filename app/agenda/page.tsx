@@ -1,6 +1,9 @@
+"use client"
+
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 import { Calendar, MapPin, Ticket } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 const EVENTS = [
   {
@@ -45,6 +48,7 @@ const EVENTS = [
 ]
 
 export default function AgendaPage() {
+  const { t, language } = useLanguage()
   const featured = EVENTS.filter((e) => e.featured)
   const upcoming = EVENTS.filter((e) => !e.featured)
 
@@ -54,10 +58,10 @@ export default function AgendaPage() {
 
       {/* Page header */}
       <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-border">
-        <p className="overline mb-4">Événements</p>
-        <h1 className="font-display font-light text-foreground mb-4" style={{ fontFamily: "var(--font-display)" }}>Agenda</h1>
+        <p className="overline mb-4">{language === 'FR' ? 'Événements' : 'Events'}</p>
+        <h1 className="font-display font-light text-foreground mb-4" style={{ fontFamily: "var(--font-display)" }}>{language === 'FR' ? 'Agenda' : 'Agenda'}</h1>
         <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          Festivals, concerts, galas et soirées culturelles — votre calendrier des événements d'exception à Montréal et au Québec.
+          {t.agenda.subtitle}
         </p>
       </header>
 
@@ -65,7 +69,7 @@ export default function AgendaPage() {
 
         {/* Featured */}
         <section>
-          <p className="overline mb-8">Coups de cœur</p>
+          <p className="overline mb-8">{t.agenda.featured}</p>
           <div className="space-y-px bg-border">
             {featured.map((event) => (
               <article key={event.id} className="group grid grid-cols-1 md:grid-cols-5 bg-surface hover:bg-background transition-colors duration-300">
@@ -101,7 +105,7 @@ export default function AgendaPage() {
                       </span>
                       <a href="#" className="btn-luxury text-[11px] flex items-center gap-2">
                         <Ticket className="w-3.5 h-3.5" />
-                        Réserver
+                        {t.agenda.buyTickets}
                       </a>
                     </div>
                   </div>
@@ -115,7 +119,7 @@ export default function AgendaPage() {
 
         {/* Upcoming */}
         <section>
-          <p className="overline mb-8">À venir</p>
+          <p className="overline mb-8">{language === 'FR' ? 'À venir' : 'Upcoming'}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
             {upcoming.map((event) => (
               <article key={event.id} className="group bg-surface hover:bg-background transition-colors duration-300">
@@ -147,7 +151,7 @@ export default function AgendaPage() {
                       {event.price}
                     </span>
                     <a href="#" className="text-[10px] tracking-[0.18em] uppercase text-primary font-sans hover:text-primary-dark transition-colors">
-                      Réserver →
+                      {t.agenda.buyTickets} →
                     </a>
                   </div>
                 </div>

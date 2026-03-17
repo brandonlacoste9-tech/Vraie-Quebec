@@ -4,6 +4,7 @@ import Link from "next/link"
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 import { NewsletterForm } from "@/components/newsletter-form"
+import { useLanguage } from "@/components/language-provider"
 
 const featured = [
   {
@@ -28,46 +29,65 @@ const featured = [
   },
 ]
 
-const pillars = [
-  {
-    overline: "Table", title: "Restaurants",
-    body: "Des tables d'exception sélectionnées par nos experts culinaires pour leur cuisine, leur service et leur atmosphère.",
-    href: "/restaurants", cta: "Explorer les adresses",
-  },
-  {
-    overline: "Nuit", title: "Bars & Clubs",
-    body: "Les meilleures adresses de la vie nocturne montréalaise — cocktails de précision, terrasses et ambiances soignées.",
-    href: "/bars", cta: "Voir les bars",
-  },
-  {
-    overline: "Agenda", title: "Événements",
-    body: "Festivals, galas, vernissages et soirées privées — votre agenda culturel curatif pour ne rien manquer.",
-    href: "/agenda", cta: "Consulter l'agenda",
-  },
-]
 
-const editorials = [
-  {
-    label: "En ce moment", title: "Le renouveau de la scène gastronomique à Montréal",
-    excerpt: "Comment une nouvelle génération de chefs québécois réinterprète le terroir avec une élégance contemporaine.",
-    href: "/restaurants",
-    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=85&auto=format&fit=crop",
-  },
-  {
-    label: "Bars", title: "Whisky, ambre et ambiance feutrée",
-    excerpt: "Les bars à whisky et à spiritueux qui s'imposent comme les nouvelles références de la nuit montréalaise.",
-    href: "/bars",
-    image: "https://images.unsplash.com/photo-1527761939622-933c972d11e1?w=800&q=85&auto=format&fit=crop",
-  },
-  {
-    label: "Escapade", title: "Québec en hiver — la beauté du froid",
-    excerpt: "Des auberges et refuges qui transforment la saison froide en expérience de luxe incomparable.",
-    href: "/voyage",
-    image: "https://images.unsplash.com/photo-1477346611705-65d1883cee1e?w=800&q=85&auto=format&fit=crop",
-  },
-]
 
 export default function HomePage() {
+  const { t, language } = useLanguage()
+  
+  const pillars = [
+    {
+      overline: t.home.pillarsRestaurantsOverline,
+      title: t.home.pillarsRestaurantsTitle,
+      body: t.home.pillarsRestaurantsBody,
+      href: "/restaurants",
+      cta: t.home.pillarsRestaurantsCta,
+    },
+    {
+      overline: t.home.pillarsBarsOverline,
+      title: t.home.pillarsBarsTitle,
+      body: t.home.pillarsBarsBody,
+      href: "/bars",
+      cta: t.home.pillarsBarsCta,
+    },
+    {
+      overline: t.home.pillarsAgendaOverline,
+      title: t.home.pillarsAgendaTitle,
+      body: t.home.pillarsAgendaBody,
+      href: "/agenda",
+      cta: t.home.pillarsAgendaCta,
+    },
+  ]
+
+  const editorials = [
+    {
+      label: language === 'FR' ? "En ce moment" : "Right Now",
+      title: language === 'FR' ? "Le renouveau de la scène gastronomique à Montréal" : "The Revival of Montreal's Culinary Scene",
+      excerpt: language === 'FR' 
+        ? "Comment une nouvelle génération de chefs québécois réinterprète le terroir avec une élégance contemporaine."
+        : "How a new generation of Quebec chefs is reinterpreting local cuisine with contemporary elegance.",
+      href: "/restaurants",
+      image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=85&auto=format&fit=crop",
+    },
+    {
+      label: language === 'FR' ? "Bars" : "Bars",
+      title: language === 'FR' ? "Whisky, ambre et ambiance feutrée" : "Whisky, Amber, and Intimate Vibes",
+      excerpt: language === 'FR'
+        ? "Les bars à whisky et à spiritueux qui s'imposent comme les nouvelles références de la nuit montréalaise."
+        : "The whisky and spirits bars that are becoming the new benchmarks of Montreal nightlife.",
+      href: "/bars",
+      image: "https://images.unsplash.com/photo-1514432324607-2e467f4af445?w=800&q=85&auto=format&fit=crop",
+    },
+    {
+      label: language === 'FR' ? "Escapade" : "Getaway",
+      title: language === 'FR' ? "Québec en hiver — la beauté du froid" : "Quebec in Winter — The Beauty of the Cold",
+      excerpt: language === 'FR'
+        ? "Des auberges et refuges qui transforment la saison froide en expérience de luxe incomparable."
+        : "Inns and lodges that transform the cold season into an incomparable luxury experience.",
+      href: "/voyage",
+      image: "https://images.unsplash.com/photo-1477346611705-65d1883cee1e?w=800&q=85&auto=format&fit=crop",
+    },
+  ]
+
   return (
     <div className="min-h-screen bg-background">
       <MainNav />
@@ -76,23 +96,23 @@ export default function HomePage() {
       <section className="full-bleed">
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[90vh]">
           <div className="flex flex-col justify-center px-8 md:px-16 py-20 bg-background">
-            <p className="overline mb-6">Montréal · Québec · 2025</p>
+            <p className="overline mb-6">{t.home.tagline}</p>
             <h1 className="font-display font-light text-foreground leading-[1.08] mb-8" style={{ fontFamily: "var(--font-display)" }}>
-              L'art de vivre<br />
-              <em className="italic text-primary">bien</em>, au Québec.
+              {t.home.headline}<br />
+              <em className="italic text-primary">{t.home.headlineHighlight}</em>{language === 'FR' ? ', au Québec.' : ', in Quebec.'}
             </h1>
             <p className="text-muted-foreground text-lg leading-relaxed mb-12 max-w-md">
-              Restaurants d'exception, bars de caractère, événements exclusifs — le guide de référence pour ceux qui exigent le meilleur.
+              {t.home.description}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/restaurants" className="btn-luxury">Découvrir</Link>
-              <Link href="/members" className="btn-ghost-luxury">Accès Membre</Link>
+              <Link href="/restaurants" className="btn-luxury">{t.home.ctaPrimary}</Link>
+              <Link href="/members" className="btn-ghost-luxury">{t.home.ctaSecondary}</Link>
             </div>
           </div>
           <div className="relative min-h-[55vh] lg:min-h-0 img-zoom overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1400&q=90&auto=format&fit=crop"
-              alt="Table dressée avec élégance dans un restaurant montréalais"
+              alt={language === 'FR' ? "Table dressée avec élégance dans un restaurant montréalais" : "Elegantly set table in a Montreal restaurant"}
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-foreground/10" />
@@ -106,10 +126,10 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-28">
         <div className="flex items-end justify-between mb-12">
           <div>
-            <p className="overline mb-3">Sélection de la rédaction</p>
-            <h2 className="font-display font-light text-foreground" style={{ fontFamily: "var(--font-display)" }}>En vedette</h2>
+            <p className="overline mb-3">{t.home.featuredOverline}</p>
+            <h2 className="font-display font-light text-foreground" style={{ fontFamily: "var(--font-display)" }}>{t.home.featuredTitle}</h2>
           </div>
-          <Link href="/restaurants" className="link-luxury hidden md:inline-block">Tout voir</Link>
+          <Link href="/restaurants" className="link-luxury hidden md:inline-block">{t.home.viewAll}</Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
@@ -157,19 +177,19 @@ export default function HomePage() {
       <section className="full-bleed bg-foreground py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-6">Membership</p>
+            <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-6">{t.home.membershipOverline}</p>
             <h2 className="font-display font-light text-primary-foreground leading-[1.1] mb-8" style={{ fontFamily: "var(--font-display)" }}>
-              Le cercle des<br /><em className="italic text-primary">initiés</em>
+              {t.home.membershipTitle}<br /><em className="italic text-primary">{t.home.membershipHighlight}</em>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-md">
-              Réservations prioritaires, invitations privées, accès aux meilleures tables avant tout le monde — devenez membre et découvrez le Québec autrement.
+              {t.home.membershipDescription}
             </p>
-            <Link href="/members" className="btn-luxury">Rejoindre la maison</Link>
+            <Link href="/members" className="btn-luxury">{t.home.membershipCta}</Link>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden img-zoom">
             <img
               src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?w=1000&q=85&auto=format&fit=crop"
-              alt="Expérience exclusive Vrai Québec"
+              alt={language === 'FR' ? "Expérience exclusive Vrai Québec" : "Exclusive Vrai Quebec experience"}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-4 border border-primary/30 pointer-events-none" />
@@ -181,8 +201,8 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-28">
         <div className="flex items-end justify-between mb-12">
           <div>
-            <p className="overline mb-3">Chroniques</p>
-            <h2 className="font-display font-light text-foreground" style={{ fontFamily: "var(--font-display)" }}>À lire</h2>
+            <p className="overline mb-3">{t.home.editorialOverline}</p>
+            <h2 className="font-display font-light text-foreground" style={{ fontFamily: "var(--font-display)" }}>{t.home.editorialTitle}</h2>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
@@ -195,7 +215,7 @@ export default function HomePage() {
                 <p className="overline mb-3">{story.label}</p>
                 <h3 className="font-display font-light text-foreground text-xl md:text-2xl leading-snug mb-4 group-hover:text-primary transition-colors duration-300" style={{ fontFamily: "var(--font-display)" }}>{story.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">{story.excerpt}</p>
-                <div className="mt-6 link-luxury inline-block">Lire</div>
+                <div className="mt-6 link-luxury inline-block">{t.home.editorialRead}</div>
               </div>
             </Link>
           ))}
@@ -205,10 +225,10 @@ export default function HomePage() {
       {/* ── NEWSLETTER ─────────────────────────────────────────────────────── */}
       <section className="full-bleed bg-surface border-t border-b border-border py-20">
         <div className="max-w-xl mx-auto px-6 text-center">
-          <p className="overline mb-4">La Lettre Hebdomadaire</p>
-          <h2 className="font-display font-light text-foreground text-3xl md:text-4xl mb-4" style={{ fontFamily: "var(--font-display)" }}>Ne manquez rien</h2>
+          <p className="overline mb-4">{t.home.newsletterOverline}</p>
+          <h2 className="font-display font-light text-foreground text-3xl md:text-4xl mb-4" style={{ fontFamily: "var(--font-display)" }}>{t.home.newsletterTitle}</h2>
           <p className="text-muted-foreground mb-8">
-            Nos sélections exclusives, événements privés et recommandations de la semaine, directement dans votre boîte.
+            {t.home.newsletterDescription}
           </p>
           <NewsletterForm />
         </div>

@@ -8,8 +8,10 @@ import { FilterBar } from "@/components/filter-bar"
 import { getPlacesByCategory } from "@/lib/data/places"
 import type { Place } from "@/lib/types/database"
 import { MapPin, Star } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 export default function RestaurantsPage() {
+  const { t } = useLanguage()
   const router = useRouter()
   const [restaurants, setRestaurants] = useState<Place[]>([])
   const [loading, setLoading] = useState(true)
@@ -43,12 +45,12 @@ export default function RestaurantsPage() {
 
       {/* Page header */}
       <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-border">
-        <p className="overline mb-4">Gastronomie</p>
+        <p className="overline mb-4">{t.restaurants.overline}</p>
         <h1 className="font-display font-light text-foreground mb-4" style={{ fontFamily: "var(--font-display)" }}>
-          Restaurants
+          {t.restaurants.title}
         </h1>
         <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          Des tables d'exception sélectionnées pour leur cuisine, leur service et l'art de recevoir qui les distingue.
+          {t.restaurants.description}
         </p>
       </header>
 
@@ -85,7 +87,7 @@ export default function RestaurantsPage() {
                   />
                 </div>
                 <div className="bg-surface p-10 md:p-14 flex flex-col justify-center">
-                  <p className="overline mb-4">Sélection de la rédaction</p>
+                  <p className="overline mb-4">{t.restaurants.editorsPick}</p>
                   <h2 className="font-display font-light text-foreground text-3xl md:text-4xl lg:text-5xl mb-4 leading-tight" style={{ fontFamily: "var(--font-display)" }}>
                     {hero.name}
                   </h2>
@@ -102,7 +104,7 @@ export default function RestaurantsPage() {
                       <Star className="h-4 w-4 fill-primary text-primary" />
                       <span className="text-foreground font-medium text-sm">{hero.rating.toFixed(1)}</span>
                     </div>
-                    <span className="link-luxury group-hover:text-primary">Découvrir</span>
+                    <span className="link-luxury group-hover:text-primary">{t.restaurants.discover}</span>
                   </div>
                 </div>
               </article>
@@ -111,7 +113,7 @@ export default function RestaurantsPage() {
             {/* Grid */}
             {rest.length > 0 && (
               <div>
-                <p className="overline mb-8">Toutes les adresses</p>
+                <p className="overline mb-8">{t.restaurants.allVenues}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
                   {rest.map((place) => (
                     <article
@@ -146,7 +148,7 @@ export default function RestaurantsPage() {
                             <Star className="h-3.5 w-3.5 fill-primary text-primary" />
                             <span className="text-foreground text-xs font-medium">{place.rating.toFixed(1)}</span>
                           </div>
-                          <span className="text-[10px] tracking-[0.18em] uppercase text-primary font-sans">Voir →</span>
+                          <span className="text-[10px] tracking-[0.18em] uppercase text-primary font-sans">{t.restaurants.view} →</span>
                         </div>
                       </div>
                     </article>
@@ -157,8 +159,8 @@ export default function RestaurantsPage() {
           </div>
         ) : (
           <div className="text-center py-32">
-            <p className="font-display font-light text-foreground text-2xl mb-3" style={{ fontFamily: "var(--font-display)" }}>Aucun résultat</p>
-            <p className="text-muted-foreground text-sm">Essayez de modifier vos filtres.</p>
+            <p className="font-display font-light text-foreground text-2xl mb-3" style={{ fontFamily: "var(--font-display)" }}>{t.restaurants.noResults}</p>
+            <p className="text-muted-foreground text-sm">{t.restaurants.noResultsDesc}</p>
           </div>
         )}
       </main>

@@ -1,8 +1,10 @@
 "use client"
 
 import { useState } from "react"
+import { useLanguage } from "@/components/language-provider"
 
 export function NewsletterForm() {
+  const { t } = useLanguage()
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
 
@@ -14,7 +16,7 @@ export function NewsletterForm() {
   if (submitted) {
     return (
       <p className="text-primary text-sm tracking-[0.1em] uppercase font-sans">
-        Merci — vous êtes inscrit.
+        {t.newsletter.thanks}
       </p>
     )
   }
@@ -25,13 +27,13 @@ export function NewsletterForm() {
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="Votre adresse courriel"
+        placeholder={t.newsletter.placeholder}
         className="input-luxury flex-1"
-        aria-label="Adresse courriel"
+        aria-label={t.newsletter.placeholder}
         required
       />
       <button type="submit" className="btn-luxury whitespace-nowrap">
-        S'inscrire
+        {t.newsletter.subscribe}
       </button>
     </form>
   )

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { SlidersHorizontal, X } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
 export interface FilterOption {
   id: string
@@ -13,16 +14,17 @@ interface FilterBarProps {
   options?: FilterOption[]
 }
 
-const defaultOptions: FilterOption[] = [
-  { id: 'price-low', label: 'Budget' },
-  { id: 'price-mid', label: 'Modéré' },
-  { id: 'price-high', label: 'Haut de gamme' },
-  { id: 'rating-high', label: 'Très bien classé' },
-  { id: 'trending', label: 'Tendance' },
-  { id: 'vip', label: 'Accès VIP' },
-]
-
 export function FilterBar({ onFilterChange, options = [] }: FilterBarProps) {
+  const { t } = useLanguage()
+  
+  const defaultOptions: FilterOption[] = [
+    { id: 'price-low', label: t.filters.budget },
+    { id: 'price-mid', label: t.filters.moderate },
+    { id: 'price-high', label: t.filters.premium },
+    { id: 'rating-high', label: t.filters.topRated },
+    { id: 'trending', label: t.filters.trending },
+    { id: 'vip', label: t.filters.vipAccess },
+  ]
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState<string[]>([])
 
@@ -48,7 +50,7 @@ export function FilterBar({ onFilterChange, options = [] }: FilterBarProps) {
           className="md:hidden flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase font-sans text-muted-foreground hover:text-primary transition-colors"
         >
           <SlidersHorizontal className="w-3.5 h-3.5" />
-          Filtrer
+          {t.filters.filter}
         </button>
 
         {/* Desktop filters */}
@@ -75,7 +77,7 @@ export function FilterBar({ onFilterChange, options = [] }: FilterBarProps) {
             className="flex items-center gap-1.5 text-[10px] tracking-[0.15em] uppercase font-sans text-muted-foreground hover:text-primary transition-colors ml-auto"
           >
             <X className="w-3 h-3" />
-            Effacer
+            {t.filters.clear}
           </button>
         )}
       </div>

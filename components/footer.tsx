@@ -1,7 +1,12 @@
+"use client"
+
 import Link from "next/link"
 import { FooterNewsletterForm } from "@/components/footer-newsletter-form"
+import { useLanguage } from "@/components/language-provider"
 
 export function Footer() {
+  const { t } = useLanguage()
+  
   return (
     <footer className="bg-foreground text-primary-foreground mt-24">
       {/* Gold rule top */}
@@ -12,25 +17,25 @@ export function Footer() {
 
           {/* Brand */}
           <div className="md:col-span-1">
-            <Link href="/" className="inline-flex items-baseline gap-1.5 mb-6 group" aria-label="Accueil">
+            <Link href="/" className="inline-flex items-baseline gap-1.5 mb-6 group" aria-label="Home">
               <span className="font-display text-2xl font-light tracking-[0.06em] text-primary-foreground" style={{ fontFamily: 'var(--font-display)' }}>VRAI</span>
               <span className="font-display text-2xl font-light italic tracking-[0.02em] text-primary" style={{ fontFamily: 'var(--font-display)' }}>Québec</span>
             </Link>
             <p className="text-muted-foreground text-[13px] leading-relaxed font-sans">
-              Le guide de référence pour les adresses d'exception à Montréal et au Québec.
+              {t.footer.tagline}
             </p>
           </div>
 
-          {/* Découvrir */}
+          {/* Discover */}
           <div>
-            <h4 className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-5">Découvrir</h4>
+            <h4 className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-5">{t.footer.discover}</h4>
             <ul className="space-y-3">
               {[
-                { label: 'Restaurants', href: '/restaurants' },
-                { label: 'Bars', href: '/bars' },
-                { label: 'Agenda', href: '/agenda' },
-                { label: 'Sports', href: '/sports' },
-                { label: 'Voyage', href: '/voyage' },
+                { label: t.footer.restaurants, href: '/restaurants' },
+                { label: t.footer.bars, href: '/bars' },
+                { label: t.footer.agenda, href: '/agenda' },
+                { label: t.footer.sports, href: '/sports' },
+                { label: t.footer.travel, href: '/voyage' },
               ].map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="text-[13px] text-muted-foreground hover:text-primary-foreground transition-colors font-sans">
@@ -41,16 +46,16 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Maison */}
+          {/* House */}
           <div>
-            <h4 className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-5">Maison</h4>
+            <h4 className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-5">{t.footer.house}</h4>
             <ul className="space-y-3">
               {[
-                { label: 'Adhésion', href: '/members' },
-                { label: 'Publicité', href: '/advertise' },
-                { label: 'Contact', href: '/contact' },
-                { label: 'Conditions', href: '/legal/terms' },
-                { label: 'Confidentialité', href: '/legal/privacy' },
+                { label: t.footer.membership, href: '/members' },
+                { label: t.footer.advertise, href: '/advertise' },
+                { label: t.footer.contact, href: '/contact' },
+                { label: t.footer.terms, href: '/legal/terms' },
+                { label: t.footer.privacy, href: '/legal/privacy' },
               ].map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="text-[13px] text-muted-foreground hover:text-primary-foreground transition-colors font-sans">
@@ -63,9 +68,9 @@ export function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h4 className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-5">La Lettre</h4>
+            <h4 className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-5">{t.footer.newsletter}</h4>
             <p className="text-[13px] text-muted-foreground mb-4 leading-relaxed">
-              Recevez nos sélections exclusives chaque semaine.
+              {t.footer.newsletterDesc}
             </p>
             <FooterNewsletterForm />
           </div>
@@ -77,7 +82,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <p className="text-[11px] text-muted-foreground tracking-[0.1em] uppercase font-sans">
-            © 2025 Vrai Québec. Tous droits réservés.
+            {t.footer.copyright}
           </p>
           <a
             href="mailto:hello@vraiquebec.com"

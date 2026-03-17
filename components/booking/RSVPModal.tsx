@@ -81,7 +81,7 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
       </DialogTrigger>
       <DialogContent className="max-w-md border-gold-500/30 bg-black/90 backdrop-blur-xl p-0 overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" 
-             style={{ backgroundImage: `url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/leather-texture-black.jpg")`, backgroundSize: 'cover' }} />
+             style={{ backgroundImage: `linear-gradient(135deg, rgba(20, 20, 20, 1) 0%, rgba(30, 30, 30, 1) 50%, rgba(20, 20, 20, 1) 100%)`, backgroundSize: 'cover' }} />
         
         <DialogHeader className="p-6 pb-2 z-10 relative border-b border-gold-500/20">
           <DialogTitle className="text-gold-100 font-display uppercase tracking-widest text-center">
@@ -144,7 +144,7 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
               >
                  <div className="text-center mb-6">
                   <h3 className="text-xl font-bold text-white mb-1">Guest Details</h3>
-                  <p className="text-white/50 text-sm">For {bookingData.type} at {placeName}</p>
+                  <p className="text-white/50 text-sm">For {bookingData.type} at {venueName}</p>
                 </div>
 
                 <div className="space-y-4">
@@ -213,7 +213,7 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
                 <div className="mb-6 transform scale-90 origin-top">
                   <VIPPass 
                     eventName="Saturday Night" 
-                    venueName={placeName}
+                    venueName={venueName}
                     date={bookingData.date}
                     time="10:00 PM"
                     guestName={bookingData.name}

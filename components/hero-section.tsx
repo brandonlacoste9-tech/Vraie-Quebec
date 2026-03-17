@@ -9,7 +9,7 @@ export function HeroSection() {
       {/* Full-bleed image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/pattern-v4.png"
+          src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&q=90&auto=format&fit=crop"
           alt="Vrai Québec"
           fill
           className="object-cover"
