@@ -75,7 +75,7 @@ export default function HomePage() {
         ? "Les bars à whisky et à spiritueux qui s'imposent comme les nouvelles références de la nuit montréalaise."
         : "The whisky and spirits bars that are becoming the new benchmarks of Montreal nightlife.",
       href: "/bars",
-      image: "https://images.unsplash.com/photo-1527761939622-933c972d11e1?w=800&q=85&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1514432324607-2e467f4af445?w=800&q=85&auto=format&fit=crop",
     },
     {
       label: language === 'FR' ? "Escapade" : "Getaway",
