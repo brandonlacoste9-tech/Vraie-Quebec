@@ -10,8 +10,9 @@ export async function subscribeToNewsletter(email: string, preferences?: Record<
       return { success: false, message: "Service temporairement indisponible. Réessaye plus tard." }
     }
 
-    const { data, error } = await supabase
-      .from("email_subscribers")
+    // Use type assertion to work around missing table types
+    const { data, error } = await (supabase
+      .from("email_subscribers") as any)
       .insert({
         email,
         preferences: preferences || { events: true, venues: true, deals: true },
@@ -41,7 +42,8 @@ export async function updatePreferences(email: string, preferences: Record<strin
       return { success: false, message: "Service temporairement indisponible." }
     }
 
-    const { error } = await supabase.from("email_subscribers").update({ preferences }).eq("email", email)
+    // Use type assertion to work around missing table types
+    const { error } = await (supabase.from("email_subscribers") as any).update({ preferences }).eq("email", email)
 
     if (error) throw error
 
