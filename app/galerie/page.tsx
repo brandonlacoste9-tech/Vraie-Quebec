@@ -29,7 +29,7 @@ const CURATED: GalleryImage[] = [
   {
     id: "c3", curated: true, likes: 37, timestamp: 0,
     prompt: "Bar à cocktails feutré à Montréal — cuir, bois sombre et lumières ambrées",
-    url: "https://images.unsplash.com/photo-1527761939622-933c972d11e1?w=800&q=85&auto=format&fit=crop",
+    url: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=85&auto=format&fit=crop",
   },
   {
     id: "c4", curated: true, likes: 55, timestamp: 0,
