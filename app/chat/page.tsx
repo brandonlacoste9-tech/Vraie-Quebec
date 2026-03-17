@@ -17,9 +17,8 @@ export default function ChatPage() {
   const userId = useUserIdentity()
   const [limitReached, setLimitReached] = useState(false)
   const [limitMessage, setLimitMessage] = useState("")
-  const [inputValue, setInputValue] = useState("")
 
-  const { messages, append, isLoading } = useChat({
+  const { messages, input, setInput, handleSubmit, status } = useChat({
     headers: {
       "x-user-email": userId || "guest@example.com",
     },
@@ -36,16 +35,12 @@ export default function ChatPage() {
     },
   })
   const scrollRef = useRef<HTMLDivElement>(null)
+  const isLoading = status === "streaming" || status === "submitted"
 
   const handleCustomSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!inputValue.trim() || isLoading || limitReached) return
-    try {
-      await append({ role: "user", content: inputValue })
-      setInputValue("")
-    } catch (error) {
-      console.error("Failed to send message:", error)
-    }
+    if (!input.trim() || isLoading || limitReached) return
+    handleSubmit(e)
   }
 
   useEffect(() => {
@@ -149,8 +144,8 @@ export default function ChatPage() {
         <div className="max-w-3xl mx-auto">
           <form onSubmit={handleCustomSubmit} className="relative flex gap-2">
             <Input
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
               placeholder="Restaurants, hôtels, événements..."
               className="input-luxury pr-12 py-6"
               disabled={limitReached}
@@ -158,7 +153,7 @@ export default function ChatPage() {
             <Button
               type="submit"
               size="icon"
-              disabled={isLoading || !inputValue.trim() || limitReached}
+              disabled={isLoading || !input.trim() || limitReached}
               className="absolute right-1.5 top-1.5 h-9 w-9 bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               <Send className="w-4 h-4" />
