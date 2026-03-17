@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useChat } from "@ai-sdk/react"
+import { DefaultChatTransport } from "ai"
 import { Send, Sparkles, User, Bot, Crown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -13,16 +14,28 @@ import Link from "next/link"
 import { UsageIndicator } from "@/components/usage-indicator"
 import { useUserIdentity } from "@/hooks/use-user-identity"
 
+// Helper to extract text from UIMessage parts
+function getMessageText(message: { parts?: Array<{ type: string; text?: string }> }): string {
+  if (!message.parts || !Array.isArray(message.parts)) return ""
+  return message.parts
+    .filter((p): p is { type: "text"; text: string } => p.type === "text" && typeof p.text === "string")
+    .map((p) => p.text)
+    .join("")
+}
+
 export default function ChatPage() {
   const userId = useUserIdentity()
   const [limitReached, setLimitReached] = useState(false)
   const [limitMessage, setLimitMessage] = useState("")
-  const [inputValue, setInputValue] = useState("")
+  const [input, setInput] = useState("")
 
-  const { messages, append, isLoading } = useChat({
-    headers: {
-      "x-user-email": userId || "guest@example.com",
-    },
+  const { messages, sendMessage, status } = useChat({
+    transport: new DefaultChatTransport({ 
+      api: "/api/chat",
+      headers: {
+        "x-user-email": userId || "guest@example.com",
+      },
+    }),
     onError: (err) => {
       try {
         const errorData = JSON.parse(err.message)
@@ -36,16 +49,13 @@ export default function ChatPage() {
     },
   })
   const scrollRef = useRef<HTMLDivElement>(null)
+  const isLoading = status === "streaming" || status === "submitted"
 
   const handleCustomSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!inputValue.trim() || isLoading || limitReached) return
-    try {
-      await append({ role: "user", content: inputValue })
-      setInputValue("")
-    } catch (error) {
-      console.error("Failed to send message:", error)
-    }
+    if (!input.trim() || isLoading || limitReached) return
+    sendMessage({ text: input })
+    setInput("")
   }
 
   useEffect(() => {
@@ -115,7 +125,7 @@ export default function ChatPage() {
                       : "bg-surface border border-border text-foreground"
                   }`}
                 >
-                  <p className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">{m.content}</p>
+                  <p className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">{getMessageText(m)}</p>
                 </div>
                 {m.role === "user" && (
                   <Avatar className="w-8 h-8 border border-border">
@@ -149,8 +159,8 @@ export default function ChatPage() {
         <div className="max-w-3xl mx-auto">
           <form onSubmit={handleCustomSubmit} className="relative flex gap-2">
             <Input
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
               placeholder="Restaurants, hôtels, événements..."
               className="input-luxury pr-12 py-6"
               disabled={limitReached}
@@ -158,7 +168,7 @@ export default function ChatPage() {
             <Button
               type="submit"
               size="icon"
-              disabled={isLoading || !inputValue.trim() || limitReached}
+              disabled={isLoading || !input.trim() || limitReached}
               className="absolute right-1.5 top-1.5 h-9 w-9 bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               <Send className="w-4 h-4" />
