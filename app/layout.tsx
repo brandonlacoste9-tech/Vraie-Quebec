@@ -1,13 +1,12 @@
 import type React from "react"
 import type { Metadata } from "next"
-
 import { Analytics } from "@vercel/analytics/react"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/components/language-provider"
+import Script from "next/script"
 import "./globals.css"
 import { Cormorant_Garamond, DM_Sans, DM_Mono } from "next/font/google"
-
 // Cormorant Garamond — high-fashion regal serif (Louis Vuitton × Hermès)
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -16,21 +15,18 @@ const cormorant = Cormorant_Garamond({
   style: ["normal", "italic"],
   display: "swap",
 })
-
 const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
   weight: ["300", "400", "500", "700"],
   display: "swap",
 })
-
 const dmMono = DM_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   weight: ["400", "500"],
   display: "swap",
 })
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://vraiquebec.com"),
   title: {
@@ -59,18 +55,16 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
   },
 }
-
 export const viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#F4F1EC" },
-    { media: "(prefers-color-scheme: dark)",  color: "#100E0B" },
+    { media: "(prefers-color-scheme: dark)", color: "#100E0B" },
   ],
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
 }
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -92,6 +86,12 @@ export default function RootLayout({
           </ThemeProvider>
         </ErrorBoundary>
         <Analytics />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4276130467303652"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   )
