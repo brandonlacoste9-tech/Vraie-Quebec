@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase'
 import type { Place, PlaceFilters, CreatePlaceInput } from '@/lib/types/database'
 
 // Hardcoded fallback data to populate placeholders based on user request
-const FALLBACK_PLACES: Place[] = [
+export const FALLBACK_PLACES: Place[] = [
   // ─── RESTAURANTS ──────────────────────────────────────────────────────────────
 
   // Haut de gamme + Très bien classé + VIP
