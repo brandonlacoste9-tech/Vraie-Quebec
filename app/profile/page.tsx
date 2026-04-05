@@ -76,12 +76,12 @@ export default function ProfilePage() {
                 {myPasses.map((pass) => (
                   <VIPPass
                     key={pass.id}
-                    userName="Julien Tremblay"
+                    guestName="Julien Tremblay"
                     venueName={pass.venue}
                     eventName={pass.event}
                     date={pass.date}
-                    guests={pass.guests}
-                    tier={pass.tier}
+                    time="20:00"
+                    ticketType={pass.tier}
                     sponsorName={pass.sponsor}
                   />
                 ))}
