@@ -113,7 +113,7 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
                     <button
                       key={type.id}
                       onClick={() => {
-                        setBookingData({ ...bookingData, type: type.id })
+                        setBookingData({ ...bookingData, type: type.id as "guestlist" | "vip" | "event" })
                         setStep("details")
                       }}
                       className="flex items-center justify-between p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-gold-900/20 hover:border-gold-500/50 transition-all group text-left"
