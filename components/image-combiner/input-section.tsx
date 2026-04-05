@@ -40,11 +40,6 @@ interface InputSectionProps {
   onPromptPaste: (e: React.ClipboardEvent<HTMLTextAreaElement>) => void
   onImageFullscreen: (url: string) => void
   promptTextareaRef: React.RefObject<HTMLTextAreaElement>
-  isAuthenticated: boolean
-  remaining: number
-  decrementOptimistic: () => void
-  usageLoading: boolean
-  onShowAuthModal: () => void
   generations: any[]
   selectedGenerationId: string | null
   onSelectGeneration: (id: string) => void
