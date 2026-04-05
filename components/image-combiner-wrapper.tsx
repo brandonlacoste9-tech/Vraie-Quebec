@@ -1,7 +1,6 @@
 "use client"
 
 import dynamic from "next/dynamic"
-import { useLanguage } from "./language-provider"
 
 const ImageCombiner = dynamic(() => import("./image-combiner").then((mod) => ({ default: mod.ImageCombiner })), {
   ssr: false,
@@ -16,7 +15,5 @@ const ImageCombiner = dynamic(() => import("./image-combiner").then((mod) => ({ 
 })
 
 export function ImageCombinerWrapper() {
-  const { lang } = useLanguage()
-
   return <ImageCombiner />
 }
