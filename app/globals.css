@@ -4,32 +4,32 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* ─── LOUIS VUITTON × HERMÈS ──────────────────────────────────────────────
-     Palette: Warm ivory + deep charcoal + burnished gold + cognac
+  /* ─── MAISON DE LUXE ──────────────────────────────────────────────────────
+     Palette: Vieux papier · Or champagne · Charbon chaud · Cognac
   ──────────────────────────────────────────────────────────────────────────── */
 
   /* Surfaces */
-  --background:         #F4F1EC;   /* warm ivory parchment */
-  --surface:            #FAF8F5;   /* near-white for cards */
+  --background:         #F2EFE8;   /* vieux papier — warmer, richer ivory */
+  --surface:            #F8F6F1;   /* crème for cards */
   --surface-raised:     #FFFFFF;
-  --foreground:         #1C1916;   /* deep warm charcoal */
+  --foreground:         #18150F;   /* deep warm charcoal — almost black */
 
-  /* Brand — Gold */
-  --primary:            #B08D57;   /* burnished gold */
-  --primary-dark:       #8C6D3F;   /* deeper gold for hover */
-  --primary-foreground: #FAF8F5;
+  /* Brand — Champagne Gold */
+  --primary:            #A8864A;   /* champagne gold — quieter, more refined */
+  --primary-dark:       #856933;   /* depth for hover */
+  --primary-foreground: #F8F6F1;
 
   /* Secondary — Cognac */
-  --secondary:          #7A3B1E;   /* Hermès orange-cognac */
-  --secondary-foreground: #FAF8F5;
+  --secondary:          #6E3218;   /* deep cognac */
+  --secondary-foreground: #F8F6F1;
 
   /* Neutrals */
-  --muted:              #E8E4DC;   /* warm light gray */
-  --muted-foreground:   #7D7468;   /* warm medium gray */
+  --muted:              #E2DDD4;   /* warm parchment gray */
+  --muted-foreground:   #6B6459;   /* warm medium — slightly darker for legibility */
 
   /* Borders */
-  --border:             #D6D0C6;   /* warm parchment border */
-  --border-strong:      #B0A898;
+  --border:             #CCC7BB;   /* warm parchment border */
+  --border-strong:      #A8A093;
 
   /* Shadcn compat */
   --card:               var(--surface);
@@ -39,22 +39,20 @@
   --accent:             var(--primary);
   --accent-foreground:  var(--primary-foreground);
   --destructive:        #8C1A0F;
-  --destructive-foreground: #FAF8F5;
+  --destructive-foreground: #F8F6F1;
   --input:              var(--surface);
   --ring:               var(--primary);
-  --radius:             0rem;   /* sharp corners — maison de couture */
+  --radius:             0rem;   /* sharp — maison de couture */
 
-  /* ─── TYPOGRAPHY ──────────────────────────────────────────────────────────
-     Cormorant Garamond: regal, editorial, high-fashion serif
-     DM Sans:            clean, precise body text
-  ──────────────────────────────────────────────────────────────────────────── */
+  /* ─── TYPOGRAPHY ──────────────────────────────────────────────────────────*/
   --font-display: "Cormorant Garamond", serif;
   --font-sans:    "DM Sans", sans-serif;
   --font-mono:    "DM Mono", monospace;
 
   /* Tracking tokens */
-  --tracking-luxury:    0.18em;
-  --tracking-tight:     -0.01em;
+  --tracking-luxury:    0.20em;
+  --tracking-display:   0.04em;
+  --tracking-tight:     -0.02em;
 
   /* ─── MOTION ──────────────────────────────────────────────────────────────*/
   --duration-fast:      150ms;
@@ -63,12 +61,12 @@
   --ease-luxury:        cubic-bezier(0.25, 0.1, 0.25, 1);
   --ease-out:           cubic-bezier(0.0, 0.0, 0.2, 1);
 
-  /* ─── SHADOWS — whisper-light ──────────────────────────────────────────── */
-  --shadow-xs:  0 1px 2px rgba(28,25,22,0.04);
-  --shadow-sm:  0 2px 8px rgba(28,25,22,0.06);
-  --shadow-md:  0 4px 16px rgba(28,25,22,0.08);
-  --shadow-lg:  0 12px 32px rgba(28,25,22,0.10);
-  --shadow-xl:  0 24px 48px rgba(28,25,22,0.12);
+  /* ─── SHADOWS — atmospheric depth ─────────────────────────────────────── */
+  --shadow-xs:  0 1px 3px rgba(24,21,15,0.05);
+  --shadow-sm:  0 2px 10px rgba(24,21,15,0.07);
+  --shadow-md:  0 6px 24px rgba(24,21,15,0.09);
+  --shadow-lg:  0 16px 48px rgba(24,21,15,0.11);
+  --shadow-xl:  0 32px 80px rgba(24,21,15,0.14);
 }
 
 /* ─── Tailwind v4 theme bridge ─────────────────────────────────────────────── */
@@ -119,27 +117,27 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
-    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "onum" 1;
   }
 
-  /* Display headings: Cormorant Garamond — generous tracking, optical sizing */
+  /* Display headings: Cormorant Garamond — generous, editorial */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    font-weight: 400;
-    line-height: 1.15;
+    font-weight: 300;
+    line-height: 1.1;
     color: var(--foreground);
     letter-spacing: var(--tracking-tight);
   }
 
-  /* Scale */
-  h1 { font-size: clamp(2.75rem, 6vw, 5.5rem); font-weight: 300; }
-  h2 { font-size: clamp(2rem,   4vw, 3.75rem); }
-  h3 { font-size: clamp(1.5rem, 2.5vw, 2.25rem); }
-  h4 { font-size: 1.25rem; }
+  /* Scale — more dramatic contrast */
+  h1 { font-size: clamp(3.5rem, 7vw, 7rem);   font-weight: 300; letter-spacing: -0.03em; }
+  h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; }
+  h3 { font-size: clamp(1.75rem, 3vw, 2.75rem); }
+  h4 { font-size: 1.375rem; font-weight: 400; }
 
   p, li {
     font-size: 1rem;
-    line-height: 1.75;
+    line-height: 1.8;
     color: var(--muted-foreground);
   }
 
@@ -161,13 +159,11 @@
 
 /* ─── LAYOUT UTILITIES ──────────────────────────────────────────────────────── */
 
-/* Full-bleed — breaks out of centered container */
 .full-bleed {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
 }
 
-/* Thin horizontal rule */
 .rule {
   height: 1px;
   background: var(--border);
@@ -188,19 +184,17 @@
   left: 50%;
   top: 0;
   transform: translateX(-50%);
-  width: 48px;
+  width: 64px;
   height: 1px;
   background: var(--primary);
 }
 
-/* Monogram divider */
 .divider {
-  @apply border-t border-border my-10 md:my-16;
+  @apply border-t border-border my-12 md:my-20;
 }
 
 /* ─── CARD VARIANTS ─────────────────────────────────────────────────────────── */
 
-/* Base luxury card — no radius, whisper shadow, ivory surface */
 .card-luxury {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -210,13 +204,11 @@
     border-color var(--duration-standard) var(--ease-luxury),
     transform var(--duration-standard) var(--ease-luxury);
 }
-
 .card-luxury:hover {
   box-shadow: var(--shadow-md);
   border-color: var(--primary);
 }
 
-/* Editorial (old alias kept for backward compat) */
 .card-editorial {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -232,17 +224,16 @@
 
 /* ─── BUTTON VARIANTS ───────────────────────────────────────────────────────── */
 
-/* Primary CTA — solid gold */
 .btn-luxury {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 2rem;
+  padding: 1rem 2.5rem;
   background: var(--primary);
   color: var(--primary-foreground);
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   font-weight: 500;
   letter-spacing: var(--tracking-luxury);
   text-transform: uppercase;
@@ -251,24 +242,25 @@
   transition:
     background var(--duration-standard) var(--ease-luxury),
     color var(--duration-standard) var(--ease-luxury),
-    border-color var(--duration-standard) var(--ease-luxury);
+    border-color var(--duration-standard) var(--ease-luxury),
+    box-shadow var(--duration-standard) var(--ease-luxury);
 }
 .btn-luxury:hover {
   background: var(--primary-dark);
   border-color: var(--primary-dark);
+  box-shadow: var(--shadow-sm);
 }
 
-/* Ghost — outline gold */
 .btn-ghost-luxury {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 2rem;
+  padding: 1rem 2.5rem;
   background: transparent;
   color: var(--foreground);
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   font-weight: 500;
   letter-spacing: var(--tracking-luxury);
   text-transform: uppercase;
@@ -284,33 +276,68 @@
   color: var(--background);
 }
 
+/* Ghost on dark backgrounds */
+.btn-ghost-light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  color: var(--primary-foreground);
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-luxury);
+  text-transform: uppercase;
+  border: 1px solid rgba(248,246,241,0.40);
+  cursor: pointer;
+  transition:
+    background var(--duration-standard) var(--ease-luxury),
+    border-color var(--duration-standard) var(--ease-luxury);
+}
+.btn-ghost-light:hover {
+  background: rgba(248,246,241,0.10);
+  border-color: rgba(248,246,241,0.70);
+}
+
 /* ─── TYPOGRAPHY UTILITIES ──────────────────────────────────────────────────── */
 
 /* Overline / eyebrow label */
 .overline {
   font-family: var(--font-sans);
-  font-size: 0.625rem;
+  font-size: 0.5625rem;
   font-weight: 500;
   letter-spacing: var(--tracking-luxury);
   text-transform: uppercase;
   color: var(--primary);
 }
 
+/* Section numbering for editorial pillars */
+.pillar-number {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--border);
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+
 /* Pull quote accent */
 .pull-quote {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: clamp(1.75rem, 3vw, 3rem);
   font-style: italic;
   font-weight: 300;
   line-height: 1.4;
   color: var(--foreground);
-  border-left: 2px solid var(--primary);
-  padding-left: 1.5rem;
+  border-left: 1px solid var(--primary);
+  padding-left: 2rem;
 }
 
 /* ─── IMAGE TREATMENTS ──────────────────────────────────────────────────────── */
 
-/* Luxury Ken Burns on hover */
 .img-zoom {
   overflow: hidden;
 }
@@ -318,13 +345,13 @@
   transition: transform var(--duration-slow) var(--ease-luxury);
 }
 .img-zoom:hover img {
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 /* ─── ANIMATIONS ────────────────────────────────────────────────────────────── */
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(32px); }
   to   { opacity: 1; transform: translateY(0);    }
 }
 
@@ -352,11 +379,12 @@
 .delay-2 { animation-delay: 200ms; }
 .delay-3 { animation-delay: 300ms; }
 .delay-4 { animation-delay: 400ms; }
+.delay-5 { animation-delay: 500ms; }
 
 /* Gold underline hover link */
 .link-luxury {
   position: relative;
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   font-weight: 500;
   letter-spacing: var(--tracking-luxury);
   text-transform: uppercase;
@@ -366,7 +394,7 @@
 .link-luxury::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: -3px;
   left: 0;
   width: 0;
   height: 1px;
@@ -378,34 +406,27 @@
 
 /* ─── NIGHT AMBIENCE MODE ───────────────────────────────────────────────────────
    Deep velvet darkness · Candlelight gold · Cognac embers · Paris at 2am
-   Inspired by: leather banquettes, flickering sconces, whisky glass, Michelin
 ──────────────────────────────────────────────────────────────────────────────── */
 
 .dark {
-  /* Surfaces — deep warm blacks, NOT cold blue-black */
-  --background:         #100E0B;   /* near-black with a warm tint */
-  --surface:            #181410;   /* dark leather surface */
-  --surface-raised:     #211D18;   /* slightly lighter card */
-  --foreground:         #F0EBE3;   /* warm parchment white */
+  --background:         #0E0C09;   /* near-black, warm — velvet dark */
+  --surface:            #161210;   /* dark leather */
+  --surface-raised:     #1E1A15;   /* slightly lighter */
+  --foreground:         #EDE8DF;   /* warm parchment white */
 
-  /* Brand — Candlelight gold (brighter in dark for contrast) */
-  --primary:            #C9A35E;   /* warm candlelight gold */
-  --primary-dark:       #E8C07A;   /* hover — brighter amber glow */
-  --primary-foreground: #100E0B;
+  --primary:            #C4995A;   /* candlelight gold */
+  --primary-dark:       #DDB870;   /* brighter amber hover */
+  --primary-foreground: #0E0C09;
 
-  /* Secondary — Cognac ember */
-  --secondary:          #A0471F;   /* cognac ember orange */
-  --secondary-foreground: #F0EBE3;
+  --secondary:          #9B4220;   /* cognac ember */
+  --secondary-foreground: #EDE8DF;
 
-  /* Neutrals */
-  --muted:              #2A2420;   /* deep warm muted surface */
-  --muted-foreground:   #9E9080;   /* warm taupe text */
+  --muted:              #26211C;   /* deep warm surface */
+  --muted-foreground:   #968778;   /* warm taupe */
 
-  /* Borders — barely visible in candlelight */
-  --border:             #2E2820;   /* very subtle warm border */
-  --border-strong:      #4A3E30;   /* cognac border for emphasis */
+  --border:             #2A2419;   /* barely visible warm border */
+  --border-strong:      #463826;   /* cognac border emphasis */
 
-  /* Shadcn compat */
   --card:               var(--surface);
   --card-foreground:    var(--foreground);
   --popover:            var(--surface-raised);
@@ -413,43 +434,37 @@
   --accent:             var(--primary);
   --accent-foreground:  var(--primary-foreground);
   --destructive:        #8C1A0F;
-  --destructive-foreground: #F0EBE3;
+  --destructive-foreground: #EDE8DF;
   --input:              var(--surface-raised);
   --ring:               var(--primary);
 
-  /* Night shadows — warmer, deeper, more dramatic */
-  --shadow-xs:  0 1px 2px rgba(0,0,0,0.40);
-  --shadow-sm:  0 2px 8px rgba(0,0,0,0.50);
-  --shadow-md:  0 4px 16px rgba(0,0,0,0.60);
-  --shadow-lg:  0 12px 40px rgba(0,0,0,0.70);
-  --shadow-xl:  0 24px 64px rgba(0,0,0,0.80);
+  --shadow-xs:  0 1px 3px rgba(0,0,0,0.50);
+  --shadow-sm:  0 2px 12px rgba(0,0,0,0.60);
+  --shadow-md:  0 6px 24px rgba(0,0,0,0.70);
+  --shadow-lg:  0 16px 56px rgba(0,0,0,0.80);
+  --shadow-xl:  0 32px 80px rgba(0,0,0,0.90);
 
-  /* Candlelight glow — used for special accents */
-  --glow-gold: 0 0 24px rgba(201,163,94,0.20), 0 0 48px rgba(201,163,94,0.08);
-  --glow-edge: 0 0 0 1px rgba(201,163,94,0.15);
+  --glow-gold: 0 0 32px rgba(196,153,90,0.22), 0 0 64px rgba(196,153,90,0.08);
+  --glow-edge: 0 0 0 1px rgba(196,153,90,0.18);
 }
 
-/* Night scrollbar */
-.dark ::-webkit-scrollbar-track  { background: var(--background); }
-.dark ::-webkit-scrollbar-thumb  { background: var(--primary); }
-
-/* Night body — subtle warm noise texture feel via gradient */
+/* Night body */
 .dark body {
   background-image: radial-gradient(
     ellipse at 50% 0%,
-    rgba(201,163,94,0.03) 0%,
-    transparent 60%
+    rgba(196,153,90,0.04) 0%,
+    transparent 55%
   );
 }
 
-/* Night card — candlelight border glow on hover */
+/* Night card hover */
 .dark .card-luxury:hover,
 .dark .card-editorial:hover {
   border-color: var(--primary);
   box-shadow: var(--glow-gold);
 }
 
-/* Night button */
+/* Night buttons */
 .dark .btn-luxury {
   background: var(--primary);
   color: var(--primary-foreground);
@@ -460,8 +475,6 @@
   border-color: var(--primary-dark);
   box-shadow: var(--glow-gold);
 }
-
-/* Night ghost button */
 .dark .btn-ghost-luxury {
   color: var(--foreground);
   border-color: var(--border-strong);
@@ -480,43 +493,29 @@
 }
 .dark .input-luxury:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(201,163,94,0.15);
+  box-shadow: 0 0 0 2px rgba(196,153,90,0.15);
 }
 
-/* Night rule accent */
-.dark .rule-accent::after {
-  background: var(--primary);
-}
+/* Night accents */
+.dark .rule-accent::after { background: var(--primary); }
+.dark .overline          { color: var(--primary); }
+.dark .pull-quote        { border-left-color: var(--primary); }
+.dark .pillar-number     { color: var(--border-strong); }
 
-/* Night overline */
-.dark .overline {
-  color: var(--primary);
-}
-
-/* Night pull-quote border */
-.dark .pull-quote {
-  border-left-color: var(--primary);
-}
-
-/* Transition for smooth day → night */
+/* Smooth day → night transition */
 body {
   transition:
     background-color 600ms cubic-bezier(0.25,0.1,0.25,1),
     color 600ms cubic-bezier(0.25,0.1,0.25,1);
 }
 
-
-::-webkit-scrollbar        { width: 6px; height: 6px; }
-::-webkit-scrollbar-track  { background: var(--background); }
-::-webkit-scrollbar-thumb  { background: var(--primary); }
-
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-.no-scrollbar::-webkit-scrollbar { display: none; }
-
 /* ─── SCROLLBAR ─────────────────────────────────────────────────────────────── */
-::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar        { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track  { background: var(--background); }
-::-webkit-scrollbar-thumb  { background: var(--primary); }
+::-webkit-scrollbar-thumb  { background: var(--border-strong); }
+
+.dark ::-webkit-scrollbar-track { background: var(--background); }
+.dark ::-webkit-scrollbar-thumb { background: var(--primary); }
 
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -524,7 +523,7 @@ body {
 /* ─── INPUT STYLING ─────────────────────────────────────────────────────────── */
 .input-luxury {
   width: 100%;
-  padding: 0.875rem 1rem;
+  padding: 1rem 1.25rem;
   background: var(--surface-raised);
   border: 1px solid var(--border);
   color: var(--foreground);
