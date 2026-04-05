@@ -3,7 +3,6 @@
 import { motion } from "framer-motion"
 import { QRCodeSVG } from "qrcode.react"
 import { cn } from "@/lib/utils"
-import { Logo } from "@/components/ui/logo"
 
 interface VIPPassProps {
   eventName: string
