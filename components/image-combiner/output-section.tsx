@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ProgressBar } from "./progress-bar"
 import { useMobile } from "@/hooks/use-mobile"
-import type { Generation } from "./hooks/use-image-generation"
+import type { Generation } from "./types"
 import { useEffect, useState } from "react"
 import { SocialShareModal } from "@/components/social-share-modal"
 
