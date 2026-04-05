@@ -3,7 +3,11 @@
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 
-export function NightToggle() {
+type NightToggleProps = {
+  onDarkOverlay?: boolean
+}
+
+export function NightToggle({ onDarkOverlay }: NightToggleProps) {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -18,7 +22,9 @@ export function NightToggle() {
       onClick={() => setTheme(isNight ? 'light' : 'dark')}
       aria-label={isNight ? 'Passer en mode jour' : 'Passer en mode nuit'}
       title={isNight ? 'Mode jour' : 'Mode nuit'}
-      className="relative flex items-center justify-center w-8 h-8 transition-colors duration-300 text-muted-foreground hover:text-primary"
+      className={`relative flex items-center justify-center w-8 h-8 transition-colors duration-300 hover:text-primary ${
+        onDarkOverlay ? 'text-white/70' : 'text-muted-foreground'
+      }`}
     >
       {/* Sun — visible in day mode */}
       <svg

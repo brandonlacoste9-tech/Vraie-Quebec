@@ -6,8 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/components/language-provider"
 import Script from "next/script"
 import "./globals.css"
-import { Cormorant_Garamond, DM_Sans, DM_Mono } from "next/font/google"
-// Cormorant Garamond — high-fashion regal serif (Louis Vuitton × Hermès)
+import { Cormorant_Garamond, Plus_Jakarta_Sans, DM_Mono } from "next/font/google"
+// Cormorant Garamond — editorial display
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-display",
@@ -15,10 +15,10 @@ const cormorant = Cormorant_Garamond({
   style: ["normal", "italic"],
   display: "swap",
 })
-const dmSans = DM_Sans({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: ["300", "400", "500", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 })
 const dmMono = DM_Mono({
@@ -57,8 +57,8 @@ export const metadata: Metadata = {
 }
 export const viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F4F1EC" },
-    { media: "(prefers-color-scheme: dark)", color: "#100E0B" },
+    { media: "(prefers-color-scheme: light)", color: "#F3F1EC" },
+    { media: "(prefers-color-scheme: dark)", color: "#0E0C0A" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -73,7 +73,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={[cormorant.variable, dmSans.variable, dmMono.variable].join(" ")}
+      className={[cormorant.variable, plusJakarta.variable, dmMono.variable].join(" ")}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >
