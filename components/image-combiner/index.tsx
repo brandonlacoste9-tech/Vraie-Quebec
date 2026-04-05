@@ -101,7 +101,6 @@ export function ImageCombiner() {
     addGeneration,
     onToast: showToast,
     onImageUpload: handleImageUpload,
-    onOutOfCredits: () => {},
     onApiKeyMissing: () => setApiKeyMissing(true),
     userId, // Pass userId to hook
   })
