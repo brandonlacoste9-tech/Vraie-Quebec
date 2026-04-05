@@ -112,9 +112,11 @@ export function ImageCombiner() {
       ? { url: selectedGeneration.imageUrl, prompt: selectedGeneration.prompt }
       : null
 
-  const hasImages = useUrls ? image1Url || image2Url : image1 || image2
+  const hasImages = Boolean(useUrls ? image1Url || image2Url : image1 || image2)
   const currentMode = hasImages ? "image-editing" : "text-to-image"
-  const canGenerate = prompt.trim().length > 0 && (currentMode === "text-to-image" || (useUrls ? image1Url : image1))
+  const canGenerate =
+    prompt.trim().length > 0 &&
+    (currentMode === "text-to-image" || Boolean(useUrls ? image1Url : image1))
 
   useEffect(() => {
     if (selectedGeneration?.status === "complete" && selectedGeneration?.imageUrl) {
