@@ -10,7 +10,7 @@ import Image from "next/image"
 
 interface GenerationHistoryProps {
   generations: Generation[]
-  selectedId?: string
+  selectedId?: string | null
   onSelect: (id: string) => void
   onCancel: (id: string) => void
   onDelete?: (id: string) => Promise<void>
