@@ -8,8 +8,8 @@ import { Ticket, Clock, Settings } from "lucide-react"
 import Link from "next/link"
 
 const myPasses = [
-  { id: 1, venue: "La Voûte", event: "Soirée Dégustation", date: "2026-03-29", guests: 2, tier: "VIP" as const, sponsor: "Maison Perrier-Jouët" },
-  { id: 2, venue: "Le Mousso", event: "Menu Prestige", date: "2026-04-12", guests: 4, tier: "Guestlist" as const, sponsor: "Champagne Taittinger" },
+  { id: 1, venue: "La Voûte", event: "Soirée Dégustation", date: "2026-03-29", time: "20 h 00", guests: 2, tier: "VIP" as const, sponsor: "Maison Perrier-Jouët" },
+  { id: 2, venue: "Le Mousso", event: "Menu Prestige", date: "2026-04-12", time: "19 h 30", guests: 4, tier: "Guestlist" as const, sponsor: "Champagne Taittinger" },
 ]
 
 const history = [
@@ -76,12 +76,12 @@ export default function ProfilePage() {
                 {myPasses.map((pass) => (
                   <VIPPass
                     key={pass.id}
-                    userName="Julien Tremblay"
+                    guestName="Julien Tremblay"
                     venueName={pass.venue}
                     eventName={pass.event}
                     date={pass.date}
-                    guests={pass.guests}
-                    tier={pass.tier}
+                    time={pass.time}
+                    ticketType={pass.tier}
                     sponsorName={pass.sponsor}
                   />
                 ))}
