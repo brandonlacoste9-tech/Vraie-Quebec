@@ -10,6 +10,7 @@ import { VIPPass } from "./VIPPass"
 import { createVipBooking } from "@/lib/data/vipBookings"
 import { cn } from "@/lib/utils"
 import { Loader2, Check, CreditCard, Users, Calendar } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
 
 interface RSVPModalProps {
   venueName: string
@@ -20,18 +21,38 @@ interface RSVPModalProps {
 
 type Step = "select" | "details" | "confirm" | "success"
 
+type BookingType = "guestlist" | "vip" | "event"
+
+const EXPERIENCE_OPTIONS: readonly {
+  id: BookingType
+  label: string
+  price: string
+  icon: LucideIcon
+  desc: string
+}[] = [
+  { id: "guestlist", label: "Guestlist", price: "Free", icon: Users, desc: "Skip the line before 11pm" },
+  { id: "vip", label: "VIP Table", price: "$$$", icon: CreditCard, desc: "Private booth + bottle service" },
+  { id: "event", label: "Event Ticket", price: "$25+", icon: Calendar, desc: "Guaranteed entry all night" },
+]
+
 export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [step, setStep] = useState<Step>("select")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [confirmationCode, setConfirmationCode] = useState<string | null>(null)
-  const [bookingData, setBookingData] = useState({
-    type: "guestlist" as "guestlist" | "vip" | "event",
+  const [bookingData, setBookingData] = useState<{
+    type: BookingType
+    date: string
+    guests: string
+    name: string
+    email: string
+  }>({
+    type: "guestlist",
     date: new Date().toISOString().split("T")[0],
     guests: "2",
     name: "",
-    email: ""
+    email: "",
   })
 
   const handleBook = async () => {
@@ -105,15 +126,11 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
                 </div>
 
                 <div className="grid gap-4">
-                  {[
-                    { id: "guestlist", label: "Guestlist", price: "Free", icon: Users, desc: "Skip the line before 11pm" },
-                    { id: "vip", label: "VIP Table", price: "$$$", icon: CreditCard, desc: "Private booth + bottle service" },
-                    { id: "event", label: "Event Ticket", price: "$25+", icon: Calendar, desc: "Guaranteed entry all night" },
-                  ].map((type) => (
+                  {EXPERIENCE_OPTIONS.map((type) => (
                     <button
                       key={type.id}
                       onClick={() => {
-                        setBookingData({ ...bookingData, type: type.id })
+                        setBookingData((prev) => ({ ...prev, type: type.id }))
                         setStep("details")
                       }}
                       className="flex items-center justify-between p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-gold-900/20 hover:border-gold-500/50 transition-all group text-left"
