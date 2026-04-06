@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { useEffect, useRef, useState } from "react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import Link from "next/link"
+import { MainNav } from "@/components/main-nav"
 import { UsageIndicator } from "@/components/usage-indicator"
 import { useUserIdentity } from "@/hooks/use-user-identity"
 
@@ -65,13 +66,16 @@ export default function ChatPage() {
   }, [messages])
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)] bg-background text-foreground relative">
-      <div className="absolute top-4 right-4 z-50 hidden md:block">
-        <UsageIndicator type="message" />
-      </div>
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <MainNav />
 
-      <div className="flex-1 overflow-hidden relative">
-        <ScrollArea className="h-full p-4 md:p-8" ref={scrollRef}>
+      <div className="relative flex flex-1 flex-col min-h-0">
+        <div className="absolute top-4 right-4 md:right-8 z-40 hidden md:block">
+          <UsageIndicator type="message" />
+        </div>
+
+        <div className="flex-1 overflow-hidden relative min-h-0">
+          <ScrollArea className="h-full min-h-0 p-4 md:p-8" ref={scrollRef}>
           <div className="max-w-3xl mx-auto space-y-6">
             <Alert className="bg-primary/10 border-primary/20">
               <Crown className="h-4 w-4 text-primary" />
@@ -152,29 +156,30 @@ export default function ChatPage() {
               </div>
             )}
           </div>
-        </ScrollArea>
-      </div>
+          </ScrollArea>
+        </div>
 
-      <div className="border-t border-border bg-surface/80 backdrop-blur-lg p-4">
-        <div className="max-w-3xl mx-auto">
-          <form onSubmit={handleCustomSubmit} className="relative flex gap-2">
-            <Input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Restaurants, hôtels, événements..."
-              className="input-luxury pr-12 py-6"
-              disabled={limitReached}
-            />
-            <Button
-              type="submit"
-              size="icon"
-              disabled={isLoading || !input.trim() || limitReached}
-              className="absolute right-1.5 top-1.5 h-9 w-9 bg-primary hover:bg-primary/90 text-primary-foreground"
-            >
-              <Send className="w-4 h-4" />
-              <span className="sr-only">Envoyer</span>
-            </Button>
-          </form>
+        <div className="flex-shrink-0 border-t border-border bg-surface/80 backdrop-blur-lg p-4">
+          <div className="max-w-3xl mx-auto">
+            <form onSubmit={handleCustomSubmit} className="relative flex gap-2">
+              <Input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Restaurants, hôtels, événements..."
+                className="input-luxury pr-12 py-6"
+                disabled={limitReached}
+              />
+              <Button
+                type="submit"
+                size="icon"
+                disabled={isLoading || !input.trim() || limitReached}
+                className="absolute right-1.5 top-1.5 h-9 w-9 bg-primary hover:bg-primary/90 text-primary-foreground"
+              >
+                <Send className="w-4 h-4" />
+                <span className="sr-only">Envoyer</span>
+              </Button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
