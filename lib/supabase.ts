@@ -1,6 +1,7 @@
-import { createClient as createSupabaseClient } from "@supabase/supabase-js"
+import { createClient as createSupabaseClient, type SupabaseClient } from "@supabase/supabase-js"
 
-let supabaseInstance: ReturnType<typeof createSupabaseClient> | null = null
+/** Schema not fully generated — permissive typing so `.from()` / `.insert()` accept app tables */
+let supabaseInstance: SupabaseClient<any> | null = null
 
 export function createClient() {
   // Return existing instance if available (singleton pattern)
@@ -18,7 +19,7 @@ export function createClient() {
   }
 
   try {
-    supabaseInstance = createSupabaseClient(supabaseUrl, supabaseKey, {
+    supabaseInstance = createSupabaseClient<any>(supabaseUrl, supabaseKey, {
       auth: {
         persistSession: false,
       },
