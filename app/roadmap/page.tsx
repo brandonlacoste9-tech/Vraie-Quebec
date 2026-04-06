@@ -1,5 +1,6 @@
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
+import { EditorialPageHeader } from "@/components/editorial-page-header"
 
 const features = {
   nowBuilding: [
@@ -109,21 +110,13 @@ export default function RoadmapPage() {
     <div className="min-h-screen bg-background">
       <MainNav />
 
-      <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-border">
-        <p className="overline mb-4">Transparent par nature</p>
-        <h1
-          className="font-display font-light text-foreground mb-4"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
-          Feuille de route
-        </h1>
-        <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          Notre vision pour devenir la référence absolue de la découverte au Québec — construite en
-          transparence avec notre communauté.
-        </p>
-      </header>
+      <EditorialPageHeader
+        overline="Transparent par nature"
+        title="Feuille de route"
+        description="Notre vision pour devenir la référence absolue de la découverte au Québec — construite en transparence avec notre communauté."
+      />
 
-      <main className="max-w-7xl mx-auto px-6 md:px-8 py-16 space-y-20">
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-14 md:py-16 space-y-16 md:space-y-20">
 
         {phases.map((phase) => (
           <section key={phase.status}>
@@ -131,11 +124,11 @@ export default function RoadmapPage() {
               <span className={`h-2.5 w-2.5 rounded-full flex-shrink-0 ${phase.dot}`} />
               <p className="overline">{phase.label}</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
               {phase.items.map((feature) => (
                 <div
                   key={feature.name}
-                  className="bg-surface hover:bg-background transition-colors duration-300 p-8 flex flex-col"
+                  className="rounded-sm ring-1 ring-border bg-surface p-8 flex flex-col shadow-sm hover:ring-primary/40 transition-[box-shadow,ring-color] duration-300"
                 >
                   <div className="w-px h-6 bg-primary mb-5" />
                   <h3
@@ -173,9 +166,12 @@ export default function RoadmapPage() {
             >
               Métriques clés
             </h2>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
               {metrics.map((m) => (
-                <div key={m.value} className="bg-foreground p-8 md:p-10 text-center">
+                <div
+                  key={m.value}
+                  className="bg-foreground p-8 md:p-10 text-center rounded-sm ring-1 ring-primary/20"
+                >
                   <p
                     className="font-display font-light text-primary text-4xl md:text-5xl mb-3"
                     style={{ fontFamily: "var(--font-display)" }}

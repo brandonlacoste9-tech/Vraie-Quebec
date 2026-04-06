@@ -1,8 +1,8 @@
 "use client"
 
-import Link from "next/link"
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
+import { EditorialPageHeader } from "@/components/editorial-page-header"
 import { RSVPModal } from "@/components/booking/RSVPModal"
 import { MapPin, Star, Calendar } from "lucide-react"
 
@@ -63,29 +63,30 @@ export default function SportsPage() {
     <div className="min-h-screen bg-background">
       <MainNav />
 
-      <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-border">
-        <p className="overline mb-4">Sport & Prestige</p>
-        <h1 className="font-display font-light text-foreground mb-4" style={{ fontFamily: "var(--font-display)" }}>Sports</h1>
-        <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          Des arénas mythiques aux circuits de prestige — vivez les émotions du sport québécois dans les meilleures conditions.
-        </p>
-      </header>
+      <EditorialPageHeader
+        overline="Sport & Prestige"
+        title="Sports"
+        description="Des arénas mythiques aux circuits de prestige — vivez les émotions du sport québécois dans les meilleures conditions."
+      />
 
-      <main className="max-w-7xl mx-auto px-6 md:px-8 py-16 space-y-20">
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-14 md:py-16 space-y-16 md:space-y-20">
 
         {/* Featured */}
         <section>
           <p className="overline mb-8">En vedette</p>
-          <div className="space-y-px bg-border">
+          <div className="space-y-4 md:space-y-5">
             {venues.filter((v) => v.featured).map((venue) => (
-              <article key={venue.id} className="group grid grid-cols-1 md:grid-cols-5 bg-surface hover:bg-background transition-colors duration-300">
+              <article
+                key={venue.id}
+                className="group grid grid-cols-1 md:grid-cols-5 rounded-sm overflow-hidden ring-1 ring-border bg-surface shadow-sm hover:ring-primary/40 transition-[box-shadow,ring-color] duration-300"
+              >
                 <div className="md:col-span-2 relative aspect-[3/2] md:aspect-auto overflow-hidden bg-muted">
                   <img src={venue.image} alt={venue.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
                   {venue.exclusive && (
                     <div className="absolute top-4 left-4 px-3 py-1 bg-primary text-primary-foreground text-[9px] tracking-[0.2em] uppercase font-sans">Exclusif</div>
                   )}
                 </div>
-                <div className="md:col-span-3 p-8 md:p-12 flex flex-col justify-between">
+                <div className="md:col-span-3 p-8 md:p-12 flex flex-col justify-between border-t border-border md:border-t-0 md:border-l border-border">
                   <div>
                     <p className="overline mb-4">{venue.label}</p>
                     <h2 className="font-display font-light text-foreground text-2xl md:text-3xl lg:text-4xl mb-4 leading-snug" style={{ fontFamily: "var(--font-display)" }}>{venue.name}</h2>
@@ -118,14 +119,19 @@ export default function SportsPage() {
           </div>
         </section>
 
-        <div className="rule" />
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="rule" />
+        </div>
 
         {/* Grid */}
         <section>
           <p className="overline mb-8">Toutes les adresses</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
             {venues.filter((v) => !v.featured).map((venue) => (
-              <article key={venue.id} className="group bg-surface hover:bg-background transition-colors duration-300">
+              <article
+                key={venue.id}
+                className="group rounded-sm ring-1 ring-border bg-surface overflow-hidden shadow-sm hover:ring-primary/40 transition-[box-shadow,ring-color] duration-300"
+              >
                 <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                   <img src={venue.image} alt={venue.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
                 </div>
@@ -152,14 +158,19 @@ export default function SportsPage() {
           </div>
         </section>
 
-        <div className="rule" />
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="rule" />
+        </div>
 
         {/* Upcoming events */}
         <section>
           <p className="overline mb-8">Événements à venir</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
             {upcoming.map((ev) => (
-              <div key={ev.title} className="bg-surface p-6 hover:bg-background transition-colors duration-300">
+              <div
+                key={ev.title}
+                className="rounded-sm ring-1 ring-border bg-surface p-6 shadow-sm hover:ring-primary/40 transition-[box-shadow,ring-color] duration-300"
+              >
                 <div className="relative aspect-[3/2] overflow-hidden bg-muted mb-5">
                   <img src={ev.image} alt={ev.title} className="absolute inset-0 w-full h-full object-cover" />
                 </div>

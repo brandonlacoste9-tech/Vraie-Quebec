@@ -106,8 +106,12 @@ export default function VenuePage() {
         </div>
       </div>
 
+      <div className="h-px w-full bg-border relative" aria-hidden>
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 w-24 h-px bg-secondary" />
+      </div>
+
       {/* Content */}
-      <div className="max-w-6xl mx-auto px-6 md:px-8 py-16">
+      <div className="max-w-6xl mx-auto px-6 md:px-8 py-14 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
 
           {/* Main */}
@@ -122,9 +126,9 @@ export default function VenuePage() {
               <section>
                 <p className="overline mb-4">{t.venue.experience}</p>
                 <div className="h-px bg-border mb-8" />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                   {venue.vibe && (
-                    <div className="bg-surface p-6">
+                    <div className="bg-surface p-6 rounded-sm ring-1 ring-border shadow-sm">
                       <div className="flex items-center gap-3 mb-3">
                         <Clock className="w-4 h-4 text-primary" />
                         <p className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground font-sans">{t.venue.ambiance}</p>
@@ -133,7 +137,7 @@ export default function VenuePage() {
                     </div>
                   )}
                   {venue.music_genre && (
-                    <div className="bg-surface p-6">
+                    <div className="bg-surface p-6 rounded-sm ring-1 ring-border shadow-sm">
                       <div className="flex items-center gap-3 mb-3">
                         <Music className="w-4 h-4 text-primary" />
                         <p className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground font-sans">{t.venue.music}</p>
@@ -142,7 +146,7 @@ export default function VenuePage() {
                     </div>
                   )}
                   {venue.dress_code && (
-                    <div className="bg-surface p-6">
+                    <div className="bg-surface p-6 rounded-sm ring-1 ring-border shadow-sm">
                       <div className="flex items-center gap-3 mb-3">
                         <Shirt className="w-4 h-4 text-primary" />
                         <p className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground font-sans">{t.venue.dressCode}</p>
@@ -151,7 +155,7 @@ export default function VenuePage() {
                     </div>
                   )}
                   {venue.event_lineup && venue.event_lineup.length > 0 && (
-                    <div className="bg-surface p-6">
+                    <div className="bg-surface p-6 rounded-sm ring-1 ring-border shadow-sm">
                       <div className="flex items-center gap-3 mb-3">
                         <Users className="w-4 h-4 text-primary" />
                         <p className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground font-sans">{t.venue.artists}</p>
@@ -171,8 +175,8 @@ export default function VenuePage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Booking card */}
-            <div className="bg-foreground p-8 sticky top-24 relative">
-              <div className="absolute inset-3 border border-primary/20 pointer-events-none" />
+            <div className="bg-foreground p-8 sticky top-24 relative rounded-sm ring-1 ring-border shadow-lg">
+              <div className="absolute inset-3 border border-primary/20 pointer-events-none rounded-sm" />
               <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-6">{t.venue.booking}</p>
               <div className="space-y-4 mb-6 pb-6 border-b border-border">
                 <div className="flex items-center justify-between">
@@ -191,7 +195,7 @@ export default function VenuePage() {
             </div>
 
             {/* Info */}
-            <div className="bg-surface border border-border p-6">
+            <div className="bg-surface rounded-sm ring-1 ring-border p-6 shadow-sm">
               <p className="overline mb-5">{t.venue.info}</p>
               <div className="space-y-5 text-sm">
                 <div className="flex items-start gap-3">

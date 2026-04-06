@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { MainNav } from '@/components/main-nav'
 import { Footer } from '@/components/footer'
+import { EditorialPageHeader } from '@/components/editorial-page-header'
 import { Mail, TrendingUp, Users, Zap } from 'lucide-react'
 
 const packages = [
@@ -57,27 +58,22 @@ export default function AdvertisePage() {
     <div className="min-h-screen bg-background">
       <MainNav />
 
-      {/* Page header */}
-      <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-border">
-        <p className="overline mb-4">Partenaires</p>
-        <h1 className="font-display font-light text-foreground mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-          Annoncez avec nous
-        </h1>
-        <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          Rejoignez le réseau des établissements d'exception pour atteindre une audience de connaisseurs engagés et exigeants.
-        </p>
-      </header>
+      <EditorialPageHeader
+        overline="Partenaires"
+        title="Annoncez avec nous"
+        description="Rejoignez le réseau des établissements d'exception pour atteindre une audience de connaisseurs engagés et exigeants."
+      />
 
-      <main className="max-w-7xl mx-auto px-6 md:px-8 py-16 space-y-20">
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-14 md:py-16 space-y-16 md:space-y-20">
 
         {/* Stats */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
           {[
             { stat: '50 K+', label: 'Visiteurs mensuels', icon: Users },
             { stat: '200+', label: 'Partenaires actifs', icon: TrendingUp },
             { stat: '10 K+', label: 'Réservations / mois', icon: Zap },
           ].map(({ stat, label, icon: Icon }) => (
-            <div key={label} className="bg-surface p-10 flex flex-col gap-4">
+            <div key={label} className="rounded-sm ring-1 ring-border bg-surface p-10 flex flex-col gap-4 shadow-sm">
               <Icon className="w-5 h-5 text-primary" />
               <p className="font-display font-light text-foreground text-4xl" style={{ fontFamily: 'var(--font-display)' }}>{stat}</p>
               <p className="text-muted-foreground text-sm">{label}</p>
@@ -89,9 +85,12 @@ export default function AdvertisePage() {
         <section>
           <p className="overline mb-4">Forfaits</p>
           <h2 className="font-display font-light text-foreground mb-12" style={{ fontFamily: 'var(--font-display)' }}>Solutions publicitaires</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
             {packages.map((pkg) => (
-              <div key={pkg.name} className={`flex flex-col p-10 ${pkg.highlight ? 'bg-foreground' : 'bg-surface'}`}>
+              <div
+                key={pkg.name}
+                className={`flex flex-col p-10 rounded-sm ring-1 ring-border shadow-sm ${pkg.highlight ? 'bg-foreground ring-primary/30' : 'bg-surface hover:ring-primary/40 transition-[box-shadow,ring-color] duration-300'}`}
+              >
                 {pkg.highlight && (
                   <p className="text-[9px] tracking-[0.25em] uppercase text-primary font-sans mb-4">Le plus populaire</p>
                 )}
@@ -130,7 +129,7 @@ export default function AdvertisePage() {
               </a>
             </div>
 
-            <div className="bg-surface border border-border p-8 md:p-10">
+            <div className="bg-surface rounded-sm ring-1 ring-border shadow-sm p-8 md:p-10">
               {submitted ? (
                 <div className="flex flex-col items-center justify-center h-full text-center py-12">
                   <div className="h-px w-12 bg-primary mb-6" />

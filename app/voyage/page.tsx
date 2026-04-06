@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
+import { EditorialPageHeader } from "@/components/editorial-page-header"
 import { MapPin, Clock, Train, Car, Bus } from "lucide-react"
 
 const destinations = [
@@ -57,26 +58,27 @@ export default function VoyagePage() {
     <div className="min-h-screen bg-background">
       <MainNav />
 
-      <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-border">
-        <p className="overline mb-4">Art de voyager</p>
-        <h1 className="font-display font-light text-foreground mb-4" style={{ fontFamily: "var(--font-display)" }}>Voyage</h1>
-        <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          Destinations d'exception, auberges de caractère et itinéraires gastronomiques — le meilleur du Québec, à portée de route.
-        </p>
-      </header>
+      <EditorialPageHeader
+        overline="Art de voyager"
+        title="Voyage"
+        description="Destinations d'exception, auberges de caractère et itinéraires gastronomiques — le meilleur du Québec, à portée de route."
+      />
 
-      <main className="max-w-7xl mx-auto px-6 md:px-8 py-16 space-y-20">
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-14 md:py-16 space-y-16 md:space-y-20">
 
         {/* Featured destinations */}
         <section>
           <p className="overline mb-8">Destinations coups de cœur</p>
-          <div className="space-y-px bg-border">
+          <div className="space-y-4 md:space-y-5">
             {destinations.filter((d) => d.featured).map((dest, i) => (
-              <article key={dest.id} className={`group grid grid-cols-1 md:grid-cols-2 gap-px bg-border ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
+              <article
+                key={dest.id}
+                className={`group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-sm overflow-hidden ring-1 ring-border shadow-sm bg-background ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}
+              >
                 <div className="relative aspect-[3/2] md:aspect-auto md:min-h-[400px] overflow-hidden bg-muted">
                   <img src={dest.image} alt={dest.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
                 </div>
-                <div className="bg-surface p-10 md:p-14 flex flex-col justify-center">
+                <div className="bg-surface p-10 md:p-14 flex flex-col justify-center border-t border-border md:border-t-0 md:border-l border-border">
                   <p className="overline mb-4">{dest.label}</p>
                   <h2 className="font-display font-light text-foreground text-3xl md:text-4xl mb-2 leading-snug" style={{ fontFamily: "var(--font-display)" }}>{dest.name}</h2>
                   <p className="text-primary text-sm mb-4 italic" style={{ fontFamily: "var(--font-display)" }}>{dest.subtitle}</p>
@@ -95,14 +97,19 @@ export default function VoyagePage() {
           </div>
         </section>
 
-        <div className="rule" />
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="rule" />
+        </div>
 
         {/* Destinations grid */}
         <section>
           <p className="overline mb-8">À explorer</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
             {destinations.filter((d) => !d.featured).map((dest) => (
-              <article key={dest.id} className="group bg-surface hover:bg-background transition-colors duration-300">
+              <article
+                key={dest.id}
+                className="group rounded-sm ring-1 ring-border bg-surface overflow-hidden shadow-sm hover:ring-primary/40 transition-[box-shadow,ring-color] duration-300"
+              >
                 <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                   <img src={dest.image} alt={dest.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
                 </div>
@@ -124,17 +131,25 @@ export default function VoyagePage() {
           </div>
         </section>
 
-        <div className="rule" />
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="rule" />
+        </div>
 
         {/* Transport */}
         <section>
           <p className="overline mb-4">Montréal → Québec</p>
           <h2 className="font-display font-light text-foreground mb-10" style={{ fontFamily: "var(--font-display)" }}>Comment s'y rendre</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
             {transport.map((t) => {
               const Icon = t.icon
               return (
-                <a key={t.name} href={t.href} target="_blank" rel="noopener noreferrer" className="group bg-surface hover:bg-background transition-colors duration-300 p-8 flex flex-col">
+                <a
+                  key={t.name}
+                  href={t.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group rounded-sm ring-1 ring-border bg-surface hover:ring-primary/40 transition-[box-shadow,ring-color] duration-300 p-8 flex flex-col shadow-sm"
+                >
                   <Icon className="w-5 h-5 text-primary mb-5" />
                   <p className="overline mb-2">{t.name}</p>
                   <h3 className="font-display font-light text-foreground text-xl mb-4" style={{ fontFamily: "var(--font-display)" }}>{t.route}</h3>
