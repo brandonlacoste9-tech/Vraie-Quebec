@@ -2,17 +2,23 @@
 
 import { MainNav } from '@/components/main-nav'
 import { Footer } from '@/components/footer'
+import { SubscribeCheckoutButton } from '@/components/subscribe-checkout-button'
 import { Check } from 'lucide-react'
 import { useLanguage } from '@/components/language-provider'
+import { useUserIdentity } from '@/hooks/use-user-identity'
+
+const membershipLinkElite = process.env.NEXT_PUBLIC_STRIPE_MEMBERSHIP_PAYMENT_LINK_ELITE?.trim()
 
 export default function MembersPage() {
   const { t } = useLanguage()
+  const userId = useUserIdentity()
 
   const plans = [
     {
       name: t.members.explorer,
       price: t.members.explorerPrice,
       description: t.members.explorerDesc,
+      subscribe: false,
       features: [
         { text: t.members.featureAccess, included: true },
         { text: t.members.featureSearch, included: true },
@@ -28,6 +34,9 @@ export default function MembersPage() {
       price: t.members.insidersPrice,
       period: t.members.insidersPeriod,
       description: t.members.insidersDesc,
+      subscribe: true,
+      /** Uses NEXT_PUBLIC_STRIPE_PAYMENT_LINK_URL — both $9.99 and $24.99 on Stripe */
+      membershipTier: 'insiders' as const,
       features: [
         { text: t.members.featureAccess, included: true },
         { text: t.members.featureSearch, included: true },
@@ -43,6 +52,8 @@ export default function MembersPage() {
       price: t.members.elitePrice,
       period: t.members.elitePeriod,
       description: t.members.eliteDesc,
+      subscribe: true,
+      membershipTier: 'elite' as const,
       features: [
         { text: t.members.featureAccess, included: true },
         { text: t.members.featureSearch, included: true },
@@ -117,7 +128,7 @@ export default function MembersPage() {
       </section>
 
       {/* Pricing */}
-      <section className="full-bleed bg-surface border-t border-b border-border py-20 md:py-28">
+      <section id="pricing" className="full-bleed bg-surface border-t border-b border-border py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-8">
           <p className="overline mb-4 text-center">{t.members.pricing}</p>
           <h2 className="font-display font-light text-foreground text-center mb-16" style={{ fontFamily: 'var(--font-display)' }}>{t.members.pricingTitle}</h2>
@@ -154,7 +165,21 @@ export default function MembersPage() {
                     </li>
                   ))}
                 </ul>
-                <button className={plan.highlight ? 'btn-luxury' : 'btn-ghost-luxury'}>{plan.cta}</button>
+                {plan.subscribe ? (
+                  <SubscribeCheckoutButton
+                    userKey={userId || "guest@example.com"}
+                    paymentUrl={
+                      "membershipTier" in plan && plan.membershipTier === "elite" && membershipLinkElite
+                        ? membershipLinkElite
+                        : undefined
+                    }
+                    className={plan.highlight ? "btn-luxury w-full text-center" : "btn-ghost-luxury w-full text-center"}
+                  >
+                    {plan.cta}
+                  </SubscribeCheckoutButton>
+                ) : (
+                  <button type="button" className={plan.highlight ? "btn-luxury" : "btn-ghost-luxury"}>{plan.cta}</button>
+                )}
               </div>
             ))}
           </div>

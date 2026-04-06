@@ -6,12 +6,19 @@ import { Footer } from '@/components/footer'
 import { EditorialPageHeader } from '@/components/editorial-page-header'
 import { Mail, TrendingUp, Users, Zap } from 'lucide-react'
 
+const adsLinkCombined = process.env.NEXT_PUBLIC_STRIPE_ADS_PAYMENT_LINK?.trim()
+const adsLinkVedette = process.env.NEXT_PUBLIC_STRIPE_ADS_PAYMENT_LINK_VEDETTE?.trim()
+
 const packages = [
   {
     name: 'Présence',
     price: '199 $',
     period: 'fiche permanente',
     features: ['Fiche établissement complète', 'Description & photos', 'Lien de réservation direct'],
+    /** Paiement: lien combiné 199 $ / 499 $ sur Stripe */
+    payment: 'combined' as const,
+    ctaPay: 'Payer en ligne',
+    ctaFallback: 'Nous contacter',
   },
   {
     name: 'Vedette',
@@ -19,12 +26,18 @@ const packages = [
     period: '/ mois',
     features: ["Tout inclus — Présence", "Mise en avant sur la page d'accueil", 'Galerie photos & événements', 'Tableau de bord analytique'],
     highlight: true,
+    payment: 'vedette' as const,
+    ctaPay: 'Payer — Vedette 499 $',
+    ctaFallback: 'Nous contacter',
   },
   {
     name: 'Partenariat',
     price: 'Sur devis',
     period: 'solutions sur mesure',
     features: ['Campagnes éditoriales', 'Événements co-brandés', 'Support concierge dédié', 'Intégration newsletter'],
+    payment: null,
+    ctaPay: '',
+    ctaFallback: 'Nous contacter',
   },
 ]
 
@@ -108,7 +121,32 @@ export default function AdvertisePage() {
                     </li>
                   ))}
                 </ul>
-                <button className={pkg.highlight ? 'btn-luxury' : 'btn-ghost-luxury'}>Nous contacter</button>
+                {pkg.payment === 'combined' && adsLinkCombined && (adsLinkCombined.startsWith('https://') || adsLinkCombined.startsWith('http://')) ? (
+                  <a
+                    href={adsLinkCombined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={pkg.highlight ? 'btn-luxury text-center' : 'btn-ghost-luxury text-center'}
+                  >
+                    {pkg.ctaPay}
+                  </a>
+                ) : pkg.payment === 'vedette' && adsLinkVedette && (adsLinkVedette.startsWith('https://') || adsLinkVedette.startsWith('http://')) ? (
+                  <a
+                    href={adsLinkVedette}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={pkg.highlight ? 'btn-luxury text-center' : 'btn-ghost-luxury text-center'}
+                  >
+                    {pkg.ctaPay}
+                  </a>
+                ) : (
+                  <a
+                    href="mailto:advertise@vraiquebec.com?subject=Forfait%20publicitaire%20%E2%80%94%20Vrai%20Qu%C3%A9bec"
+                    className={pkg.highlight ? 'btn-luxury text-center' : 'btn-ghost-luxury text-center'}
+                  >
+                    {pkg.ctaFallback}
+                  </a>
+                )}
               </div>
             ))}
           </div>

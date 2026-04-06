@@ -5,6 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import type { Generation } from "../types"
 import { saveGeneration } from "@/lib/data/aiGenerations"
+import { readUiLocaleFromBrowserStorage } from "@/lib/ui-locale"
 
 interface UseImageGenerationProps {
   prompt: string
@@ -197,7 +198,8 @@ export function useImageGeneration({
           const response = await fetch("/api/generate-image", {
             method: "POST",
             headers: {
-              "x-user-email": effectiveUserId || "guest@example.com", // Pass userId in headers
+              "x-user-email": effectiveUserId || "guest@example.com",
+              "x-ui-locale": readUiLocaleFromBrowserStorage(),
             },
             body: formData,
             signal: controller.signal,

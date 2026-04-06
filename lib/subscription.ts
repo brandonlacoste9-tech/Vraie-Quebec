@@ -6,6 +6,7 @@ export interface Subscription {
   id: string
   user_email: string
   stripe_customer_id?: string
+  stripe_subscription_id?: string
   subscription_status: SubscriptionStatus
   trial_start_date: string
   trial_end_date: string
@@ -76,10 +77,41 @@ export async function getOrCreateSubscription(email: string): Promise<Subscripti
   return newSub as Subscription
 }
 
+const usageMessages = {
+  trialExpired: {
+    FR: "Période d'essai terminée. Abonnez-vous dès 9,99 $ / mois pour continuer.",
+    EN: "Free trial expired. Subscribe starting at $9.99/mo to continue.",
+  },
+  inactive: {
+    FR: "Abonnement inactif. Abonnez-vous dès 9,99 $ / mois pour continuer.",
+    EN: "Subscription inactive. Subscribe starting at $9.99/mo to continue.",
+  },
+  trialLimitMessages: {
+    FR: "Limite d'essai atteinte ({limit} messages). Passez à l'abonnement pour un accès illimité.",
+    EN: "Trial limit reached ({limit} messages). Subscribe for unlimited access.",
+  },
+  trialLimitImages: {
+    FR: "Limite d'essai atteinte ({limit} images). Passez à l'abonnement pour un accès illimité.",
+    EN: "Trial limit reached ({limit} images). Subscribe for unlimited access.",
+  },
+} as const
+
+function usageReason(
+  key: keyof typeof usageMessages,
+  lang: "FR" | "EN",
+  vars?: { limit: number },
+): string {
+  const row = usageMessages[key]
+  const raw = row[lang]
+  return vars ? raw.replace("{limit}", String(vars.limit)) : raw
+}
+
 export async function checkUsageLimit(
   email: string,
   type: "message" | "image",
+  language: "FR" | "EN" = "FR",
 ): Promise<{ allowed: boolean; subscription: Subscription | null; reason?: string }> {
+  const lang = language === "EN" ? "EN" : "FR"
   const subscription = await getOrCreateSubscription(email)
 
   if (!subscription) {
@@ -95,7 +127,7 @@ export async function checkUsageLimit(
     return {
       allowed: false,
       subscription,
-      reason: "Free trial expired. Subscribe for $6/month to continue.",
+      reason: usageReason("trialExpired", lang),
     }
   }
 
@@ -104,7 +136,7 @@ export async function checkUsageLimit(
     return {
       allowed: false,
       subscription,
-      reason: "Subscription inactive. Subscribe for $6/month to continue.",
+      reason: usageReason("inactive", lang),
     }
   }
 
@@ -114,7 +146,7 @@ export async function checkUsageLimit(
       return {
         allowed: false,
         subscription,
-        reason: `Trial limit reached (${subscription.message_limit} messages). Subscribe for unlimited access.`,
+        reason: usageReason("trialLimitMessages", lang, { limit: subscription.message_limit }),
       }
     }
 
@@ -122,7 +154,7 @@ export async function checkUsageLimit(
       return {
         allowed: false,
         subscription,
-        reason: `Trial limit reached (${subscription.image_limit} images). Subscribe for unlimited access.`,
+        reason: usageReason("trialLimitImages", lang, { limit: subscription.image_limit }),
       }
     }
   }

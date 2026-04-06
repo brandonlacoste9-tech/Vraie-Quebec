@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { generateText } from "ai"
 import { createGoogleGenerativeAI } from "@ai-sdk/google"
+import { getUpgradeUrlForResponse } from "@/lib/billing"
 import { checkUsageLimit, incrementUsage } from "@/lib/subscription"
 
 export const dynamic = "force-dynamic"
@@ -41,13 +42,14 @@ export async function POST(request: NextRequest) {
     }
 
     const userEmail = request.headers.get("x-user-email") || "guest@example.com"
-    const { allowed, reason, subscription } = await checkUsageLimit(userEmail, "image")
+    const uiLocale = request.headers.get("x-ui-locale")?.toUpperCase() === "EN" ? "EN" : "FR"
+    const { allowed, reason, subscription } = await checkUsageLimit(userEmail, "image", uiLocale)
 
     if (!allowed) {
       return NextResponse.json(
         {
           error: reason,
-          upgradeUrl: "https://buy.stripe.com/test_6oU4gAfx18Ye11Xapw1kA00",
+          upgradeUrl: getUpgradeUrlForResponse(),
           subscription,
         },
         { status: 403 },

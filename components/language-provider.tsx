@@ -1,9 +1,34 @@
 "use client"
 
 import type React from "react"
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState, useEffect, useLayoutEffect, useCallback } from "react"
 
-type Language = "FR" | "EN"
+export type Language = "FR" | "EN"
+
+/** Prefer namespaced key so generic `language` in localStorage cannot stomp locale. */
+const LANGUAGE_STORAGE_KEY = "vraiquebec-language"
+const LANGUAGE_LEGACY_KEY = "language"
+
+function parseStoredLanguage(raw: string | null): Language | null {
+  if (raw == null || raw === "") return null
+  const v = raw.trim().toUpperCase()
+  if (v === "FR" || v === "EN") return v
+  if (v === "FRENCH" || v.startsWith("FR-") || v === "FR_CA" || v === "FR-CA") return "FR"
+  if (v === "ENGLISH" || v.startsWith("EN-") || v === "EN_CA" || v === "EN-CA") return "EN"
+  return null
+}
+
+function readLanguageFromStorage(): Language | null {
+  if (typeof window === "undefined") return null
+  const primary = localStorage.getItem(LANGUAGE_STORAGE_KEY)
+  const legacy = localStorage.getItem(LANGUAGE_LEGACY_KEY)
+  return parseStoredLanguage(primary) ?? parseStoredLanguage(legacy)
+}
+
+function writeLanguageToStorage(lang: Language) {
+  localStorage.setItem(LANGUAGE_STORAGE_KEY, lang)
+  localStorage.setItem(LANGUAGE_LEGACY_KEY, lang)
+}
 
 type Translations = {
   [key in Language]: {
@@ -184,6 +209,47 @@ type Translations = {
       rating: string
       status: string
       exclusive: string
+      bookingKindReservation: string
+      bookingKindNone: string
+      bookingKindGuestlist: string
+      bookingKindTicket: string
+    }
+    rsvp: {
+      dialogTitle: string
+      dialogTitleSuccess: string
+      defaultTrigger: string
+      selectExperience: string
+      guestDetails: string
+      fullName: string
+      date: string
+      guests: string
+      guestCount: string
+      back: string
+      confirmBooking: string
+      successTitle: string
+      successSubtitle: string
+      done: string
+      placeIdRequired: string
+      bookingError: string
+      expGuestlistLabel: string
+      expGuestlistDesc: string
+      expGuestlistPrice: string
+      expVipLabel: string
+      expVipDesc: string
+      expVipPrice: string
+      expEventLabel: string
+      expEventDesc: string
+      expEventPrice: string
+      passHeader: string
+      passEvent: string
+      passVenue: string
+      passDate: string
+      passTime: string
+      passGuest: string
+      passPresentedBy: string
+      passTicketVip: string
+      passTicketGuestlist: string
+      passTicketReservation: string
     }
     filters: {
       filter: string
@@ -255,6 +321,10 @@ type Translations = {
       error: string
       free: string
       perMonth: string
+      usageMessages: string
+      usageImages: string
+      usageUpgrade: string
+      ariaHome: string
     }
     newsletter: {
       placeholder: string
@@ -445,6 +515,47 @@ const translations: Translations = {
       rating: "Note",
       status: "Statut",
       exclusive: "Accès Exclusif",
+      bookingKindReservation: "Réservation",
+      bookingKindNone: "Sur place",
+      bookingKindGuestlist: "Liste d'invités",
+      bookingKindTicket: "Billet",
+    },
+    rsvp: {
+      dialogTitle: "Réserver votre place",
+      dialogTitleSuccess: "Accès confirmé",
+      defaultTrigger: "Réserver · VIP",
+      selectExperience: "Choisissez votre expérience",
+      guestDetails: "Coordonnées",
+      fullName: "Nom complet",
+      date: "Date",
+      guests: "Convives",
+      guestCount: "{n} personnes",
+      back: "Retour",
+      confirmBooking: "Confirmer",
+      successTitle: "C'est noté !",
+      successSubtitle: "Présentez ce laissez-passer à l'entrée.",
+      done: "Fermer",
+      placeIdRequired: "Identifiant de l'établissement requis",
+      bookingError: "Impossible de terminer la réservation. Réessayez.",
+      expGuestlistLabel: "Liste d'invités",
+      expGuestlistDesc: "Accès prioritaire avant 23 h",
+      expGuestlistPrice: "Gratuit",
+      expVipLabel: "Table VIP",
+      expVipDesc: "Espace privé · service bouteilles",
+      expVipPrice: "$$$",
+      expEventLabel: "Billet événement",
+      expEventDesc: "Entrée garantie pour la soirée",
+      expEventPrice: "25 $+",
+      passHeader: "Accès Vrai Québec",
+      passEvent: "Événement",
+      passVenue: "Lieu",
+      passDate: "Date",
+      passTime: "Heure",
+      passGuest: "Invité",
+      passPresentedBy: "Présenté par",
+      passTicketVip: "VIP",
+      passTicketGuestlist: "Liste d'invités",
+      passTicketReservation: "Réservation",
     },
     filters: {
       filter: "Filtrer",
@@ -516,6 +627,10 @@ const translations: Translations = {
       error: "Erreur",
       free: "Gratuit",
       perMonth: "/ mois",
+      usageMessages: "Messages",
+      usageImages: "Images",
+      usageUpgrade: "Passer Pro — dès 9,99 $ / mois (illimité)",
+      ariaHome: "Vrai Québec — Accueil",
     },
     newsletter: {
       placeholder: "Votre adresse courriel",
@@ -701,6 +816,47 @@ const translations: Translations = {
       rating: "Rating",
       status: "Status",
       exclusive: "Exclusive Access",
+      bookingKindReservation: "Reservation",
+      bookingKindNone: "Walk-in",
+      bookingKindGuestlist: "Guest list",
+      bookingKindTicket: "Ticket",
+    },
+    rsvp: {
+      dialogTitle: "Secure your spot",
+      dialogTitleSuccess: "Access secured",
+      defaultTrigger: "Reserve VIP access",
+      selectExperience: "Select your experience",
+      guestDetails: "Guest details",
+      fullName: "Full name",
+      date: "Date",
+      guests: "Guests",
+      guestCount: "{n} guests",
+      back: "Back",
+      confirmBooking: "Confirm booking",
+      successTitle: "You're on the list!",
+      successSubtitle: "Present this pass at the door.",
+      done: "Done",
+      placeIdRequired: "Place ID is required",
+      bookingError: "Unable to complete booking. Please try again.",
+      expGuestlistLabel: "Guest list",
+      expGuestlistDesc: "Skip the line before 11pm",
+      expGuestlistPrice: "Free",
+      expVipLabel: "VIP table",
+      expVipDesc: "Private booth + bottle service",
+      expVipPrice: "$$$",
+      expEventLabel: "Event ticket",
+      expEventDesc: "Guaranteed late-night entry",
+      expEventPrice: "$25+",
+      passHeader: "Vrai Québec access",
+      passEvent: "Event",
+      passVenue: "Venue",
+      passDate: "Date",
+      passTime: "Time",
+      passGuest: "Guest",
+      passPresentedBy: "Presented by",
+      passTicketVip: "VIP",
+      passTicketGuestlist: "Guest list",
+      passTicketReservation: "Reservation",
     },
     filters: {
       filter: "Filter",
@@ -772,6 +928,10 @@ const translations: Translations = {
       error: "Error",
       free: "Free",
       perMonth: "/ month",
+      usageMessages: "Messages",
+      usageImages: "Images",
+      usageUpgrade: "Upgrade from $9.99/mo (Unlimited)",
+      ariaHome: "Vrai Québec — Home",
     },
     newsletter: {
       placeholder: "Your email address",
@@ -790,35 +950,55 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>("FR")
+  const [language, setLanguageState] = useState<Language>("FR")
   const [mounted, setMounted] = useState(false)
 
-  useEffect(() => {
-    // Load language from localStorage on mount
-    const savedLanguage = localStorage.getItem("language") as Language | null
-    if (savedLanguage && (savedLanguage === "FR" || savedLanguage === "EN")) {
-      setLanguage(savedLanguage)
+  const setLanguage = useCallback((lang: Language) => {
+    setLanguageState(lang)
+    if (typeof window === "undefined") return
+    writeLanguageToStorage(lang)
+    document.documentElement.lang = lang === "FR" ? "fr" : "en"
+  }, [])
+
+  useLayoutEffect(() => {
+    const saved = readLanguageFromStorage()
+    if (saved) {
+      setLanguageState(saved)
+      document.documentElement.lang = saved === "FR" ? "fr" : "en"
+    } else {
+      document.documentElement.lang = "fr"
     }
     setMounted(true)
   }, [])
 
   useEffect(() => {
-    // Save language to localStorage whenever it changes
-    if (mounted) {
-      localStorage.setItem("language", language)
-    }
+    if (!mounted) return
+    writeLanguageToStorage(language)
+    document.documentElement.lang = language === "FR" ? "fr" : "en"
   }, [language, mounted])
 
-  // Don't render children until mounted to avoid hydration mismatch
+  useEffect(() => {
+    if (!mounted || typeof window === "undefined") return
+    const onStorage = (e: StorageEvent) => {
+      if (e.key !== LANGUAGE_STORAGE_KEY && e.key !== LANGUAGE_LEGACY_KEY) return
+      const next = parseStoredLanguage(e.newValue)
+      if (next) setLanguage(next)
+    }
+    window.addEventListener("storage", onStorage)
+    return () => window.removeEventListener("storage", onStorage)
+  }, [mounted])
+
+  const t = translations[language] ?? translations.FR
+
   if (!mounted) {
-    return <LanguageContext.Provider value={{ language: "FR", setLanguage, t: translations["FR"] }}>{children}</LanguageContext.Provider>
+    return (
+      <LanguageContext.Provider value={{ language, setLanguage, t }}>
+        {children}
+      </LanguageContext.Provider>
+    )
   }
 
-  return (
-    <LanguageContext.Provider value={{ language, setLanguage, t: translations[language] }}>
-      {children}
-    </LanguageContext.Provider>
-  )
+  return <LanguageContext.Provider value={{ language, setLanguage, t }}>{children}</LanguageContext.Provider>
 }
 
 export function useLanguage() {

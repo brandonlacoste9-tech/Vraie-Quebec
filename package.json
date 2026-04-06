@@ -51,6 +51,7 @@
     "qrcode.react": "^4.2.0",
     "react": "^19",
     "react-dom": "^19",
+    "stripe": "^17.7.0",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "zod": "latest"
@@ -68,9 +69,9 @@
     "typescript": "^5"
   },
   "optionalDependencies": {
-    "@tailwindcss/oxide-win32-x64-msvc": "^4.2.1",
-    "lightningcss-win32-x64-msvc": "^1.31.1",
     "@tailwindcss/oxide-linux-x64-gnu": "^4.2.1",
-    "lightningcss-linux-x64-gnu": "^1.31.1"
+    "@tailwindcss/oxide-win32-x64-msvc": "^4.2.1",
+    "lightningcss-linux-x64-gnu": "^1.31.1",
+    "lightningcss-win32-x64-msvc": "^1.31.1"
   }
 }

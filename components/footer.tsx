@@ -15,7 +15,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-14">
 
           <div className="md:col-span-1">
-            <Link href="/" className="inline-flex items-baseline gap-1.5 mb-5" aria-label="Home">
+            <Link href="/" className="inline-flex items-baseline gap-1.5 mb-5" aria-label={t.common.ariaHome}>
               <span className="font-display text-2xl font-light tracking-[0.06em] text-foreground" style={{ fontFamily: "var(--font-display)" }}>VRAI</span>
               <span className="font-display text-2xl font-light italic tracking-[0.02em] text-primary" style={{ fontFamily: "var(--font-display)" }}>Québec</span>
             </Link>

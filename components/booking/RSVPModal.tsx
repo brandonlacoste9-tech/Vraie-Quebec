@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -8,13 +8,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { motion, AnimatePresence } from "framer-motion"
 import { VIPPass } from "./VIPPass"
 import { createVipBooking } from "@/lib/data/vipBookings"
-import { cn } from "@/lib/utils"
+import { useLanguage } from "@/components/language-provider"
 import { Loader2, Check, CreditCard, Users, Calendar } from "lucide-react"
-import type { LucideIcon } from "lucide-react"
 
 interface RSVPModalProps {
   venueName: string
   placeId?: string
+  /** Reserved for future hero image in dialog; optional for API compatibility */
   imageUrl?: string
   children?: React.ReactNode
 }
@@ -23,24 +23,12 @@ type Step = "select" | "details" | "confirm" | "success"
 
 type BookingType = "guestlist" | "vip" | "event"
 
-const EXPERIENCE_OPTIONS: readonly {
-  id: BookingType
-  label: string
-  price: string
-  icon: LucideIcon
-  desc: string
-}[] = [
-  { id: "guestlist", label: "Guestlist", price: "Free", icon: Users, desc: "Skip the line before 11pm" },
-  { id: "vip", label: "VIP Table", price: "$$$", icon: CreditCard, desc: "Private booth + bottle service" },
-  { id: "event", label: "Event Ticket", price: "$25+", icon: Calendar, desc: "Guaranteed entry all night" },
-]
-
-export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalProps) {
+export function RSVPModal({ venueName, placeId, children }: RSVPModalProps) {
+  const { t, language } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
   const [step, setStep] = useState<Step>("select")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [confirmationCode, setConfirmationCode] = useState<string | null>(null)
   const [bookingData, setBookingData] = useState<{
     type: BookingType
     date: string
@@ -55,15 +43,54 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
     email: "",
   })
 
+  const experienceOptions = useMemo(
+    () =>
+      [
+        {
+          id: "guestlist" as const,
+          label: t.rsvp.expGuestlistLabel,
+          price: t.rsvp.expGuestlistPrice,
+          icon: Users,
+          desc: t.rsvp.expGuestlistDesc,
+        },
+        {
+          id: "vip" as const,
+          label: t.rsvp.expVipLabel,
+          price: t.rsvp.expVipPrice,
+          icon: CreditCard,
+          desc: t.rsvp.expVipDesc,
+        },
+        {
+          id: "event" as const,
+          label: t.rsvp.expEventLabel,
+          price: t.rsvp.expEventPrice,
+          icon: Calendar,
+          desc: t.rsvp.expEventDesc,
+        },
+      ],
+    [language, t]
+  )
+
+  const passTicketType = useMemo(() => {
+    if (bookingData.type === "guestlist") return "Guestlist" as const
+    if (bookingData.type === "vip") return "VIP" as const
+    return "Reservation" as const
+  }, [bookingData.type])
+
+  const selectedExperienceLabel = useMemo(
+    () => experienceOptions.find((o) => o.id === bookingData.type)?.label ?? "",
+    [experienceOptions, bookingData.type]
+  )
+
   const handleBook = async () => {
     if (!placeId) {
-      setError("Place ID is required")
+      setError(t.rsvp.placeIdRequired)
       return
     }
 
     setLoading(true)
     setError(null)
-    
+
     try {
       const booking = await createVipBooking({
         place_id: placeId,
@@ -71,16 +98,15 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
         user_email: bookingData.email,
         booking_type: bookingData.type,
         booking_date: bookingData.date,
-        party_size: parseInt(bookingData.guests),
+        party_size: parseInt(bookingData.guests, 10),
       })
 
       if (booking) {
-        setConfirmationCode(booking.confirmation_code || null)
         setStep("success")
       }
     } catch (err) {
-      console.error('Booking error:', err)
-      setError('Unable to complete booking. Please try again.')
+      console.error("Booking error:", err)
+      setError(t.rsvp.bookingError)
     } finally {
       setLoading(false)
     }
@@ -96,17 +122,22 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
       <DialogTrigger asChild>
         {children || (
           <Button className="bg-gradient-to-r from-gold-600 to-gold-400 text-black font-bold hover:scale-105 transition-transform">
-            Reserve VIP Access
+            {t.rsvp.defaultTrigger}
           </Button>
         )}
       </DialogTrigger>
       <DialogContent className="max-w-md border-gold-500/30 bg-black/90 backdrop-blur-xl p-0 overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" 
-             style={{ backgroundImage: `linear-gradient(135deg, rgba(20, 20, 20, 1) 0%, rgba(30, 30, 30, 1) 50%, rgba(20, 20, 20, 1) 100%)`, backgroundSize: 'cover' }} />
-        
+        <div
+          className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+          style={{
+            backgroundImage: `linear-gradient(135deg, rgba(20, 20, 20, 1) 0%, rgba(30, 30, 30, 1) 50%, rgba(20, 20, 20, 1) 100%)`,
+            backgroundSize: "cover",
+          }}
+        />
+
         <DialogHeader className="p-6 pb-2 z-10 relative border-b border-gold-500/20">
           <DialogTitle className="text-gold-100 font-display uppercase tracking-widest text-center">
-            {step === "success" ? "Access Secured" : "Secure Your Spot"}
+            {step === "success" ? t.rsvp.dialogTitleSuccess : t.rsvp.dialogTitle}
           </DialogTitle>
         </DialogHeader>
 
@@ -122,13 +153,14 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
               >
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold text-white mb-2">{venueName}</h3>
-                  <p className="text-gold-400 text-sm">Select your experience</p>
+                  <p className="text-gold-400 text-sm">{t.rsvp.selectExperience}</p>
                 </div>
 
                 <div className="grid gap-4">
-                  {EXPERIENCE_OPTIONS.map((type) => (
+                  {experienceOptions.map((type) => (
                     <button
                       key={type.id}
+                      type="button"
                       onClick={() => {
                         setBookingData((prev) => ({ ...prev, type: type.id }))
                         setStep("details")
@@ -159,55 +191,60 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
                 exit={{ opacity: 0, x: 20 }}
                 className="space-y-6"
               >
-                 <div className="text-center mb-6">
-                  <h3 className="text-xl font-bold text-white mb-1">Guest Details</h3>
-                  <p className="text-white/50 text-sm">For {bookingData.type} at {venueName}</p>
+                <div className="text-center mb-6">
+                  <h3 className="text-xl font-bold text-white mb-1">{t.rsvp.guestDetails}</h3>
+                  <p className="text-white/50 text-sm">
+                    {selectedExperienceLabel} · {venueName}
+                  </p>
                 </div>
+
+                {error && <p className="text-red-400 text-sm text-center">{error}</p>}
 
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label className="text-xs text-gold-500 uppercase tracking-wider">Full Name</label>
-                    <Input 
-                      value={bookingData.name} 
-                      onChange={(e) => setBookingData({...bookingData, name: e.target.value})}
-                      className="bg-white/5 border-white/10 text-white focus:border-gold-500/50" 
+                    <label className="text-xs text-gold-500 uppercase tracking-wider">{t.rsvp.fullName}</label>
+                    <Input
+                      value={bookingData.name}
+                      onChange={(e) => setBookingData({ ...bookingData, name: e.target.value })}
+                      className="bg-white/5 border-white/10 text-white focus:border-gold-500/50"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                     <div className="space-y-2">
-                        <label className="text-xs text-gold-500 uppercase tracking-wider">Date</label>
-                        <Input 
-                          type="date"
-                          value={bookingData.date} 
-                          onChange={(e) => setBookingData({...bookingData, date: e.target.value})}
-                          className="bg-white/5 border-white/10 text-white focus:border-gold-500/50" 
-                        />
-                     </div>
-                     <div className="space-y-2">
-                        <label className="text-xs text-gold-500 uppercase tracking-wider">Guests</label>
-                        <Select 
-                          value={bookingData.guests} 
-                          onValueChange={(v) => setBookingData({...bookingData, guests: v})}
-                        >
-                          <SelectTrigger className="bg-white/5 border-white/10 text-white focus:border-gold-500/50">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {[1,2,3,4,5,6,8,10].map(n => (
-                              <SelectItem key={n} value={n.toString()}>{n} Guests</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                     </div>
+                    <div className="space-y-2">
+                      <label className="text-xs text-gold-500 uppercase tracking-wider">{t.rsvp.date}</label>
+                      <Input
+                        type="date"
+                        value={bookingData.date}
+                        onChange={(e) => setBookingData({ ...bookingData, date: e.target.value })}
+                        className="bg-white/5 border-white/10 text-white focus:border-gold-500/50"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs text-gold-500 uppercase tracking-wider">{t.rsvp.guests}</label>
+                      <Select value={bookingData.guests} onValueChange={(v) => setBookingData({ ...bookingData, guests: v })}>
+                        <SelectTrigger className="bg-white/5 border-white/10 text-white focus:border-gold-500/50">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {[1, 2, 3, 4, 5, 6, 8, 10].map((n) => (
+                            <SelectItem key={n} value={n.toString()}>
+                              {t.rsvp.guestCount.replace("{n}", String(n))}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
                 </div>
 
                 <div className="pt-4 flex gap-3">
-                   <Button variant="ghost" onClick={() => setStep("select")} className="flex-1 text-white/50 hover:text-white">Back</Button>
-                   <Button onClick={handleBook} className="flex-[2] bg-gold-500 text-black hover:bg-gold-400 font-bold" disabled={loading}>
-                      {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                      Confirm Booking
-                   </Button>
+                  <Button variant="ghost" onClick={() => setStep("select")} className="flex-1 text-white/50 hover:text-white">
+                    {t.rsvp.back}
+                  </Button>
+                  <Button onClick={handleBook} className="flex-[2] bg-gold-500 text-black hover:bg-gold-400 font-bold" disabled={loading}>
+                    {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                    {t.rsvp.confirmBooking}
+                  </Button>
                 </div>
               </motion.div>
             )}
@@ -223,24 +260,24 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
                   <div className="mx-auto w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center mb-4">
                     <Check className="w-6 h-6 text-green-400" />
                   </div>
-                  <h3 className="text-xl font-bold text-white">You're on the list!</h3>
-                  <p className="text-white/50 text-sm mt-1">Present this pass at the door.</p>
+                  <h3 className="text-xl font-bold text-white">{t.rsvp.successTitle}</h3>
+                  <p className="text-white/50 text-sm mt-1">{t.rsvp.successSubtitle}</p>
                 </div>
 
                 <div className="mb-6 transform scale-90 origin-top">
-                  <VIPPass 
-                    eventName="Saturday Night" 
+                  <VIPPass
+                    eventName={venueName}
                     venueName={venueName}
                     date={bookingData.date}
-                    time="10:00 PM"
+                    time="22:00"
                     guestName={bookingData.name}
-                    ticketType="VIP"
-                    sponsorName="Moët & Chandon" // Example sponsor
+                    ticketType={passTicketType}
+                    sponsorName="Moët & Chandon"
                   />
                 </div>
 
                 <Button onClick={reset} className="w-full bg-white/10 hover:bg-white/20 text-white">
-                  Done
+                  {t.rsvp.done}
                 </Button>
               </motion.div>
             )}
@@ -250,4 +287,3 @@ export function RSVPModal({ venueName, placeId, imageUrl, children }: RSVPModalP
     </Dialog>
   )
 }
-

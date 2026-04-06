@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { QRCodeSVG } from "qrcode.react"
 import { cn } from "@/lib/utils"
+import { useLanguage } from "@/components/language-provider"
 
 interface VIPPassProps {
   eventName: string
@@ -27,6 +28,11 @@ export function VIPPass({
   sponsorLogo,
   className,
 }: VIPPassProps) {
+  const { t } = useLanguage()
+
+  const ticketLabel =
+    ticketType === "VIP" ? t.rsvp.passTicketVip : ticketType === "Guestlist" ? t.rsvp.passTicketGuestlist : t.rsvp.passTicketReservation
+
   return (
     <div className={cn("perspective-1000 relative w-full max-w-md mx-auto", className)}>
       <motion.div
@@ -50,10 +56,10 @@ export function VIPPass({
           <div className="flex justify-between items-start mb-6">
             <div>
               <h3 className="text-xs font-bold tracking-[0.2em] text-gold-400 uppercase mb-1">
-                Vrai Québec Access
+                {t.rsvp.passHeader}
               </h3>
               <div className="text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-gold-200 to-gold-600 font-display uppercase">
-                {ticketType}
+                {ticketLabel}
               </div>
             </div>
             {/* VQ Logo Placeholder */}
@@ -65,20 +71,20 @@ export function VIPPass({
           {/* Event Details */}
           <div className="space-y-4 mb-8">
             <div>
-              <p className="text-xs text-gold-500 uppercase tracking-widest mb-1">Event</p>
+              <p className="text-xs text-gold-500 uppercase tracking-widest mb-1">{t.rsvp.passEvent}</p>
               <h2 className="text-xl font-bold text-white leading-tight">{eventName}</h2>
             </div>
             <div>
-              <p className="text-xs text-gold-500 uppercase tracking-widest mb-1">Venue</p>
+              <p className="text-xs text-gold-500 uppercase tracking-widest mb-1">{t.rsvp.passVenue}</p>
               <p className="text-lg text-gold-100">{venueName}</p>
             </div>
             <div className="flex gap-8">
               <div>
-                <p className="text-xs text-gold-500 uppercase tracking-widest mb-1">Date</p>
+                <p className="text-xs text-gold-500 uppercase tracking-widest mb-1">{t.rsvp.passDate}</p>
                 <p className="font-medium">{date}</p>
               </div>
               <div>
-                <p className="text-xs text-gold-500 uppercase tracking-widest mb-1">Time</p>
+                <p className="text-xs text-gold-500 uppercase tracking-widest mb-1">{t.rsvp.passTime}</p>
                 <p className="font-medium">{time}</p>
               </div>
             </div>
@@ -87,13 +93,13 @@ export function VIPPass({
           {/* Footer / QR */}
           <div className="flex items-end justify-between pt-6 border-t border-gold-500/20">
             <div>
-               <p className="text-[10px] text-gold-500 uppercase tracking-widest mb-2">Guest</p>
+               <p className="text-[10px] text-gold-500 uppercase tracking-widest mb-2">{t.rsvp.passGuest}</p>
                <p className="font-bold text-gold-200">{guestName}</p>
                
                {/* Sponsor Slot */}
                {sponsorName && (
                  <div className="mt-4 flex items-center gap-2 opacity-80">
-                    <p className="text-[8px] text-gold-600 uppercase">Presented by</p>
+                    <p className="text-[8px] text-gold-600 uppercase">{t.rsvp.passPresentedBy}</p>
                     {sponsorLogo ? (
                       <img src={sponsorLogo} alt={sponsorName} className="h-4 w-auto invert opacity-70" />
                     ) : (

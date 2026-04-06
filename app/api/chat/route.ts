@@ -1,3 +1,4 @@
+import { getUpgradeUrlForResponse } from "@/lib/billing"
 import { checkUsageLimit, incrementUsage } from "@/lib/subscription"
 import { Ollama } from "ollama"
 
@@ -12,7 +13,7 @@ const ollama = new Ollama({
 // Default model - can be changed via environment variable
 const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "llama3.2"
 
-const SYSTEM_PROMPT = `
+const BASE_SYSTEM_PROMPT = `
 Tu es Julien, "Le Concierge de la Nuit" et l'expert local ultime de Vrai Québec.
 
 PERSONNALITÉ:
@@ -39,19 +40,49 @@ EXEMPLE DE RÉPONSE:
 "Salut mon chum! T'es à Montréal ce soir? Écoute, faut absolument que tu ailles au New City Gas. Martin Garrix est aux platines, ça va être complètement fou. J'ai vu que t'aimes le House. Clique sur 'Reserve VIP Access' pour éviter le lineup, je t'ai mis sur la liste du gérant. On se voit là-bas?"
 `
 
+function uiLocaleFromRequest(req: Request): "FR" | "EN" {
+  const h = req.headers.get("x-ui-locale")
+  return h?.toUpperCase() === "EN" ? "EN" : "FR"
+}
+
+function localeInstruction(locale: "FR" | "EN"): string {
+  if (locale === "EN") {
+    return `
+
+LOCALE (UI): The visitor is using the English interface. Reply in clear, friendly English. You may still mention Quebec names and culture naturally. Do not switch to French unless the user writes mainly in French.`
+  }
+  return `
+
+LOCALE (UI): L'interface du visiteur est en français. Réponds **toujours** en français québécois naturel (tu/vous selon le ton). Ne réponds pas en anglais sauf si l'utilisateur écrit clairement et entièrement en anglais.`
+}
+
+function extractMessageContent(msg: { content?: unknown; parts?: unknown }): string {
+  if (typeof msg.content === "string" && msg.content.length > 0) return msg.content
+  if (Array.isArray(msg.parts)) {
+    return msg.parts
+      .filter((p): p is { type: string; text?: string } => typeof p === "object" && p !== null && "type" in p)
+      .filter((p) => p.type === "text" && typeof p.text === "string")
+      .map((p) => p.text)
+      .join("")
+  }
+  return ""
+}
+
 export async function POST(req: Request) {
   try {
     const { messages } = await req.json()
 
     const userEmail = req.headers.get("x-user-email") || "guest@example.com"
+    const uiLocale = uiLocaleFromRequest(req)
+    const systemPrompt = `${BASE_SYSTEM_PROMPT.trim()}${localeInstruction(uiLocale)}`
 
-    const { allowed, reason, subscription } = await checkUsageLimit(userEmail, "message")
+    const { allowed, reason, subscription } = await checkUsageLimit(userEmail, "message", uiLocale)
 
     if (!allowed) {
       return new Response(
         JSON.stringify({
           error: reason,
-          upgradeUrl: "https://buy.stripe.com/test_6oU4gAfx18Ye11Xapw1kA00",
+          upgradeUrl: getUpgradeUrlForResponse(),
           subscription,
         }),
         {
@@ -63,10 +94,10 @@ export async function POST(req: Request) {
 
     // Convert messages to Ollama format
     const ollamaMessages = [
-      { role: "system", content: SYSTEM_PROMPT },
-      ...messages.map((msg: any) => ({
+      { role: "system", content: systemPrompt },
+      ...messages.map((msg: { role?: string; content?: unknown; parts?: unknown }) => ({
         role: msg.role === "user" ? "user" : "assistant",
-        content: msg.content,
+        content: extractMessageContent(msg),
       })),
     ]
 

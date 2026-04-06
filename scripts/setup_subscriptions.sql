@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS public.subscriptions (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_email TEXT NOT NULL UNIQUE,
   stripe_customer_id TEXT,
+  stripe_subscription_id TEXT,
   subscription_status TEXT DEFAULT 'trial', -- trial, active, inactive, expired
   trial_start_date TIMESTAMPTZ DEFAULT NOW(),
   trial_end_date TIMESTAMPTZ DEFAULT (NOW() + INTERVAL '7 days'),

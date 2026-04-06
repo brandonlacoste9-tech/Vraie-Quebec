@@ -73,6 +73,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
+      translate="no"
       className={[cormorant.variable, plusJakarta.variable, dmMono.variable].join(" ")}
       suppressHydrationWarning
       data-scroll-behavior="smooth"

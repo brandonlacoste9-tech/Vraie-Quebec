@@ -51,6 +51,18 @@ export default function VenuePage() {
     )
   }
 
+  const bookingKindLabel = (() => {
+    const k = venue.booking_type
+    if (!k) return t.venue.reserve
+    const map: Record<string, string> = {
+      reservation: t.venue.bookingKindReservation,
+      none: t.venue.bookingKindNone,
+      guestlist: t.venue.bookingKindGuestlist,
+      ticket: t.venue.bookingKindTicket,
+    }
+    return map[k] ?? k
+  })()
+
   return (
     <div className="min-h-screen bg-background">
       <MainNav />
@@ -181,7 +193,7 @@ export default function VenuePage() {
               <div className="space-y-4 mb-6 pb-6 border-b border-border">
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground text-sm">{t.venue.bookingType}</span>
-                  <span className="text-primary text-xs tracking-[0.15em] uppercase font-sans">{venue.booking_type || t.venue.reserve}</span>
+                  <span className="text-primary text-xs tracking-[0.15em] uppercase font-sans">{bookingKindLabel}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground text-sm">{t.venue.priceRange}</span>

@@ -8,11 +8,13 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import Link from "next/link"
+import { SubscribeCheckoutButton } from "@/components/subscribe-checkout-button"
 import { MainNav } from "@/components/main-nav"
 import { UsageIndicator } from "@/components/usage-indicator"
+import { useLanguage } from "@/components/language-provider"
 import { useUserIdentity } from "@/hooks/use-user-identity"
 
 // Helper to extract text from UIMessage parts
@@ -26,17 +28,25 @@ function getMessageText(message: { parts?: Array<{ type: string; text?: string }
 
 export default function ChatPage() {
   const userId = useUserIdentity()
+  const { language } = useLanguage()
   const [limitReached, setLimitReached] = useState(false)
   const [limitMessage, setLimitMessage] = useState("")
   const [input, setInput] = useState("")
 
+  const transport = useMemo(
+    () =>
+      new DefaultChatTransport({
+        api: "/api/chat",
+        headers: {
+          "x-user-email": userId || "guest@example.com",
+          "x-ui-locale": language,
+        },
+      }),
+    [userId, language],
+  )
+
   const { messages, sendMessage, status } = useChat({
-    transport: new DefaultChatTransport({ 
-      api: "/api/chat",
-      headers: {
-        "x-user-email": userId || "guest@example.com",
-      },
-    }),
+    transport,
     onError: (err) => {
       try {
         const errorData = JSON.parse(err.message)
@@ -80,7 +90,7 @@ export default function ChatPage() {
             <Alert className="bg-primary/10 border-primary/20">
               <Crown className="h-4 w-4 text-primary" />
               <AlertDescription className="text-sm text-foreground/80">
-                Essai gratuit : 100 messages et 10 images pour 7 jours. Abonnez-vous pour un accès illimité à 6$/mois.
+                Essai gratuit : 100 messages et 10 images pour 7 jours. Abonnez-vous pour un accès illimité (forfaits dès 9,99 $ / mois).
               </AlertDescription>
             </Alert>
 
@@ -92,9 +102,12 @@ export default function ChatPage() {
               <Alert className="bg-destructive/10 border-destructive/20">
                 <AlertDescription className="text-sm text-foreground">
                   {limitMessage}{" "}
-                  <Link href="https://buy.stripe.com/test_6oU4gAfx18Ye11Xapw1kA00" className="underline text-primary font-semibold">
-                    S'abonner
-                  </Link>
+                  <SubscribeCheckoutButton
+                    userKey={userId || "guest@example.com"}
+                    className="underline text-primary font-semibold bg-transparent border-0 p-0 cursor-pointer font-inherit inline"
+                  >
+                    S&apos;abonner
+                  </SubscribeCheckoutButton>
                 </AlertDescription>
               </Alert>
             )}

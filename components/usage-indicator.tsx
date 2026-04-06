@@ -6,11 +6,13 @@ import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Loader2, Clock, MessageSquare, ImageIcon } from "lucide-react"
-import Link from "next/link"
-import { useUserIdentity } from "@/hooks/use-user-identity" // Import hook
+import { SubscribeCheckoutButton } from "@/components/subscribe-checkout-button"
+import { useUserIdentity } from "@/hooks/use-user-identity"
+import { useLanguage } from "@/components/language-provider"
 
 export function UsageIndicator({ type = "all" }: { type?: "message" | "image" | "all" }) {
-  const userId = useUserIdentity() // Use hook
+  const { t } = useLanguage()
+  const userId = useUserIdentity()
   const [subscription, setSubscription] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
@@ -44,7 +46,7 @@ export function UsageIndicator({ type = "all" }: { type?: "message" | "image" | 
     <div className="space-y-2">
       <div className="flex justify-between text-xs uppercase tracking-wider text-muted-foreground">
         <span className="flex items-center gap-1">
-          <MessageSquare className="h-3 w-3" /> Messages
+          <MessageSquare className="h-3 w-3" /> {t.common.usageMessages}
         </span>
         <span>
           {subscription.messages_used} / {subscription.message_limit}
@@ -58,7 +60,7 @@ export function UsageIndicator({ type = "all" }: { type?: "message" | "image" | 
     <div className="space-y-2">
       <div className="flex justify-between text-xs uppercase tracking-wider text-muted-foreground">
         <span className="flex items-center gap-1">
-          <ImageIcon className="h-3 w-3" /> Images
+          <ImageIcon className="h-3 w-3" /> {t.common.usageImages}
         </span>
         <span>
           {subscription.images_used} / {subscription.image_limit}
@@ -85,13 +87,12 @@ export function UsageIndicator({ type = "all" }: { type?: "message" | "image" | 
         {(type === "all" || type === "image") && <ImageStats />}
 
         <div className="pt-2 text-[10px] text-center text-muted-foreground">
-          <Link
-            href="https://buy.stripe.com/test_6oU4gAfx18Ye11Xapw1kA00"
-            target="_blank"
-            className="hover:text-primary underline"
+          <SubscribeCheckoutButton
+            userKey={userId || "guest@example.com"}
+            className="hover:text-primary underline bg-transparent border-0 p-0 cursor-pointer font-inherit text-inherit"
           >
-            Upgrade for $6/month (Unlimited)
-          </Link>
+            {t.common.usageUpgrade}
+          </SubscribeCheckoutButton>
         </div>
       </CardContent>
     </Card>
