@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
+import { EditorialPageHeader } from "@/components/editorial-page-header"
 import { FilterBar } from "@/components/filter-bar"
 import { getPlacesByCategory } from "@/lib/data/places"
 import type { Place } from "@/lib/types/database"
@@ -43,28 +44,19 @@ export default function BarsPage() {
     <div className="min-h-screen bg-background">
       <MainNav />
 
-      {/* Page header */}
-      <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-border">
-        <p className="overline mb-4">{t.bars.overline}</p>
-        <h1 className="font-display font-light text-foreground mb-4" style={{ fontFamily: "var(--font-display)" }}>
-          {t.bars.title}
-        </h1>
-        <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          {t.bars.description}
-        </p>
-      </header>
+      <EditorialPageHeader overline={t.bars.overline} title={t.bars.title} description={t.bars.description} />
 
       {/* Filters */}
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 pt-10 pb-2">
         <FilterBar onFilterChange={setSelectedFilters} />
       </div>
 
       {/* Content */}
-      <main className="max-w-7xl mx-auto px-6 md:px-8 py-16">
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-14 md:py-16">
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="aspect-[3/4] bg-muted animate-pulse" />
+              <div key={i} className="aspect-[4/3] rounded-sm bg-muted animate-pulse ring-1 ring-border" />
             ))}
           </div>
         ) : filtered.length > 0 ? (
@@ -72,7 +64,7 @@ export default function BarsPage() {
             {/* Hero featured: uses foreground bg for nightlife drama */}
             {hero && (
               <article
-                className="group grid grid-cols-1 md:grid-cols-2 gap-px bg-foreground cursor-pointer"
+                className="group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-sm overflow-hidden ring-1 ring-border shadow-sm bg-foreground cursor-pointer"
                 onClick={() => router.push(`/venue/${hero.id}`)}
                 role="button"
                 tabIndex={0}
@@ -86,7 +78,7 @@ export default function BarsPage() {
                     className="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-[1.04]"
                   />
                 </div>
-                <div className="bg-foreground p-10 md:p-14 flex flex-col justify-center">
+                <div className="bg-foreground p-10 md:p-14 flex flex-col justify-center border-t border-border-strong/40 md:border-t-0 md:border-l border-border-strong/40">
                   <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-sans mb-4">{t.bars.featured}</p>
                   <h2 className="font-display font-light text-primary-foreground text-3xl md:text-4xl lg:text-5xl mb-4 leading-tight" style={{ fontFamily: "var(--font-display)" }}>
                     {hero.name}
@@ -122,11 +114,11 @@ export default function BarsPage() {
             {rest.length > 0 && (
               <div>
                 <p className="overline mb-8">{t.bars.allVenues}</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
                   {rest.map((bar) => (
                     <article
                       key={bar.id}
-                      className="group bg-surface hover:bg-background transition-colors duration-300 cursor-pointer"
+                      className="group rounded-sm ring-1 ring-border bg-surface overflow-hidden shadow-sm hover:ring-primary/40 transition-[box-shadow,ring-color] duration-300 cursor-pointer"
                       onClick={() => router.push(`/venue/${bar.id}`)}
                       role="button"
                       tabIndex={0}

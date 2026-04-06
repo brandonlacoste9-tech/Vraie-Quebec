@@ -2,6 +2,7 @@
 
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
+import { EditorialPageHeader } from "@/components/editorial-page-header"
 import { Calendar, MapPin, Ticket } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
 
@@ -56,23 +57,23 @@ export default function AgendaPage() {
     <div className="min-h-screen bg-background">
       <MainNav />
 
-      {/* Page header */}
-      <header className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 border-b border-border">
-        <p className="overline mb-4">{language === 'FR' ? 'Événements' : 'Events'}</p>
-        <h1 className="font-display font-light text-foreground mb-4" style={{ fontFamily: "var(--font-display)" }}>{language === 'FR' ? 'Agenda' : 'Agenda'}</h1>
-        <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          {t.agenda.subtitle}
-        </p>
-      </header>
+      <EditorialPageHeader
+        overline={language === "FR" ? "Événements" : "Events"}
+        title={language === "FR" ? "Agenda" : "Agenda"}
+        description={t.agenda.subtitle}
+      />
 
-      <main className="max-w-7xl mx-auto px-6 md:px-8 py-16 space-y-20">
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-14 md:py-16 space-y-16 md:space-y-20">
 
         {/* Featured */}
         <section>
           <p className="overline mb-8">{t.agenda.featured}</p>
-          <div className="space-y-px bg-border">
+          <div className="space-y-4 md:space-y-5">
             {featured.map((event) => (
-              <article key={event.id} className="group grid grid-cols-1 md:grid-cols-5 bg-surface hover:bg-background transition-colors duration-300">
+              <article
+                key={event.id}
+                className="group grid grid-cols-1 md:grid-cols-5 rounded-sm overflow-hidden ring-1 ring-border bg-surface shadow-sm hover:ring-primary/40 transition-[box-shadow,ring-color] duration-300"
+              >
                 <div className="md:col-span-2 relative aspect-[3/2] md:aspect-auto overflow-hidden bg-muted">
                   <img
                     src={event.image}
@@ -80,7 +81,7 @@ export default function AgendaPage() {
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   />
                 </div>
-                <div className="md:col-span-3 p-8 md:p-12 flex flex-col justify-between">
+                <div className="md:col-span-3 p-8 md:p-12 flex flex-col justify-between border-t border-border md:border-t-0 md:border-l border-border">
                   <div>
                     <p className="overline mb-4">{event.label}</p>
                     <h2 className="font-display font-light text-foreground text-2xl md:text-3xl lg:text-4xl mb-5 leading-snug" style={{ fontFamily: "var(--font-display)" }}>
@@ -115,14 +116,19 @@ export default function AgendaPage() {
           </div>
         </section>
 
-        <div className="rule" />
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="rule" />
+        </div>
 
         {/* Upcoming */}
         <section>
-          <p className="overline mb-8">{language === 'FR' ? 'À venir' : 'Upcoming'}</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          <p className="overline mb-8">{language === "FR" ? "À venir" : "Upcoming"}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
             {upcoming.map((event) => (
-              <article key={event.id} className="group bg-surface hover:bg-background transition-colors duration-300">
+              <article
+                key={event.id}
+                className="group rounded-sm ring-1 ring-border bg-surface overflow-hidden shadow-sm hover:ring-primary/40 transition-[box-shadow,ring-color] duration-300"
+              >
                 <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                   <img
                     src={event.image}
