@@ -6,6 +6,7 @@ import Image from "next/image"
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 import { RSVPModal } from "@/components/booking/RSVPModal"
+import { AdInArticle, AdSidebar } from "@/components/ad-unit"
 import type { Place } from "@/lib/types/database"
 import { MapPin, Star, Clock, Users, Music, Shirt, Calendar, ArrowLeft } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
@@ -134,6 +135,8 @@ export default function VenuePage() {
               <p className="text-muted-foreground text-lg leading-relaxed">{venue.description}</p>
             </section>
 
+            <AdInArticle />
+
             {(venue.vibe || venue.music_genre || venue.dress_code || (venue.event_lineup && venue.event_lineup.length > 0)) && (
               <section>
                 <p className="overline mb-4">{t.venue.experience}</p>
@@ -205,6 +208,8 @@ export default function VenuePage() {
               </RSVPModal>
               <p className="text-muted-foreground text-[11px] text-center mt-4">{t.venue.instantConfirm}</p>
             </div>
+
+            <AdSidebar />
 
             {/* Info */}
             <div className="bg-surface rounded-sm ring-1 ring-border p-6 shadow-sm">

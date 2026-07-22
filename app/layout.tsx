@@ -4,7 +4,8 @@ import { Analytics } from "@vercel/analytics/react"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/components/language-provider"
-import Script from "next/script"
+import { AdSenseScript } from "@/components/adsense-script"
+import { ADSENSE_ENABLED, ADSENSE_PUBLISHER_ID } from "@/lib/adsense"
 import "./globals.css"
 import { Cormorant_Garamond, Plus_Jakarta_Sans, DM_Mono } from "next/font/google"
 // Cormorant Garamond — editorial display
@@ -54,6 +55,14 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  // Helps AdSense associate the site with your publisher account during review
+  ...(ADSENSE_ENABLED
+    ? {
+        other: {
+          "google-adsense-account": ADSENSE_PUBLISHER_ID,
+        },
+      }
+    : {}),
 }
 export const viewport = {
   themeColor: [
@@ -87,12 +96,7 @@ export default function RootLayout({
           </ThemeProvider>
         </ErrorBoundary>
         <Analytics />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4276130467303652"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+        <AdSenseScript />
       </body>
     </html>
   )

@@ -3,6 +3,7 @@
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 import { EditorialPageHeader } from "@/components/editorial-page-header"
+import { AdBanner } from "@/components/ad-unit"
 import { Calendar, MapPin, Ticket } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
 
@@ -116,9 +117,8 @@ export default function AgendaPage() {
           </div>
         </section>
 
-        <div className="max-w-7xl mx-auto px-6 md:px-8">
-          <div className="rule" />
-        </div>
+        <div className="rule" />
+        <AdBanner />
 
         {/* Upcoming */}
         <section>

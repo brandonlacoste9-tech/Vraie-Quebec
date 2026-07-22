@@ -35,11 +35,23 @@ const sections = [
   },
   {
     number: "05",
+    title: "Publicité et cookies tiers (Google AdSense)",
+    body: "Vrai Québec utilise Google AdSense pour diffuser des publicités. Google et ses partenaires peuvent utiliser des cookies ou identifiants similaires pour afficher des annonces basées sur vos visites antérieures sur ce site et d'autres sites. Ces technologies permettent de mesurer l'efficacité des publicités et de personnaliser le contenu publicitaire.",
+    items: [
+      "Fournisseur publicitaire : Google Ireland Limited / Google LLC (AdSense)",
+      "Cookies et identifiants publicitaires pour le ciblage et la mesure",
+      "Vous pouvez gérer les annonces personnalisées via les paramètres Google (adssettings.google.com)",
+      "Vous pouvez aussi refuser certains cookies via les paramètres de votre navigateur ou un outil de consentement",
+      "Pour en savoir plus : politiques.google.com/technologies/ads",
+    ],
+  },
+  {
+    number: "06",
     title: "Conservation des données",
     body: "Nous conservons vos données pendant 3 ans après votre dernière activité, ou jusqu'à ce que vous demandiez leur suppression. Les données sont stockées au Canada et chiffrées en transit et au repos.",
   },
   {
-    number: "06",
+    number: "07",
     title: "Contact",
     body: null,
     contact: "privacy@vraiquebec.ca",

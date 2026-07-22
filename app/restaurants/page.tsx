@@ -6,6 +6,7 @@ import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 import { EditorialPageHeader } from "@/components/editorial-page-header"
 import { FilterBar } from "@/components/filter-bar"
+import { AdBanner } from "@/components/ad-unit"
 import { getPlacesByCategory } from "@/lib/data/places"
 import type { Place } from "@/lib/types/database"
 import { MapPin, Star } from "lucide-react"
@@ -105,6 +106,8 @@ export default function RestaurantsPage() {
                 </div>
               </article>
             )}
+
+            <AdBanner />
 
             {/* Grid */}
             {rest.length > 0 && (

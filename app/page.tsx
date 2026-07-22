@@ -6,6 +6,7 @@ import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 import { NewsletterForm } from "@/components/newsletter-form"
 import { useLanguage } from "@/components/language-provider"
+import { AdBanner } from "@/components/ad-unit"
 
 const featured = [
   {
@@ -265,6 +266,7 @@ export default function HomePage() {
 
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         <div className="rule" />
+        <AdBanner />
       </div>
 
       {/* Pillars */}
